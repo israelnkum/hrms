@@ -1,0 +1,51 @@
+<?php
+
+use App\Models\Department;
+use App\Models\Rank;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('employees', function (Blueprint $table) {
+            $table->id();
+            $table->string('title')->nullable();
+            $table->string('first_name');
+            $table->string('middle_name')->nullable();
+            $table->string('last_name');
+            $table->string('staff_id')->nullable();
+            $table->date('dob')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('marital_status')->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('work_telephone')->nullable();
+            $table->string('work_email')->nullable();
+            $table->string('other_email')->nullable();
+            $table->string('ssnit_number')->nullable();
+            $table->string('gtech_placement')->nullable();
+            $table->string('nationality')->nullable();
+            $table->foreignIdFor(Department::class)->nullable()->constrained();
+            $table->foreignIdFor(Rank::class)->nullable()->constrained();
+            $table->softDeletes();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('employees');
+    }
+};
