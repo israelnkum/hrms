@@ -18,14 +18,19 @@ const PageCrumbs = () => {
                         const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
                         return (
                             <Breadcrumb.Item key={url} style={{ fontSize: index === 0 && 16}}>
-                                <Link to={index === 0 ? '/admin/dashboard' : url} style={{
-                                    color: index === pathSnippets.length -1 && 'var(--Primary-700)',
-                                    fontSize: 14
-                                }}>
-                                    {
-                                        index === 0 ? <FiHome style={{ color: 'var(--Gray-500)', fontSize: 16}}/> : capitalize(decodeURIComponent(pathSnippets[index]).replace('-',' '))
-                                    }
-                                </Link>
+                                {
+                                    isNaN(parseInt(pathSnippets[index])) &&
+                                        <Link to={index === 0 ? '/admin/dashboard' : url} style={{
+                                            color: index === pathSnippets.length -1 && 'var(--Primary-700)',
+                                            fontSize: 14
+                                        }}>
+                                            {
+                                                index === 0 ? <FiHome style={{ color: 'var(--Gray-500)', fontSize: 16}}/> :
+                                                    capitalize(decodeURIComponent(pathSnippets[index]).replace('-',' '))
+                                            }
+                                        </Link>
+                                }
+
                             </Breadcrumb.Item>
                         );
                     })
