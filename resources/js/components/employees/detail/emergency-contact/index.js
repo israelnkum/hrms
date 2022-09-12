@@ -86,7 +86,7 @@ function EmergencyContacts () {
                    </Space>
                )}/>
                <Column title="Email" dataIndex={'phone'}/>
-               <Column title="Action" render={() => (
+               <Column  title="Action" render={() => (
                    <Space size={0}>
                        <TlaEdit icon data={{}} link={'#'} type={'text'}/>
                        <TlaConfirm title={'Dependant'} callBack={()=>{}}/>
