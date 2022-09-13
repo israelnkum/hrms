@@ -1,12 +1,14 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import {Button, Checkbox, Col, Form, Input, notification, Row} from 'antd'
+import {Button, Checkbox, Col, Form, Input, notification, Row, Select} from 'antd'
 import {connect} from 'react-redux'
 import {TlaModal} from "../../commons/tla-modal";
 import {useLocation, useNavigate} from "react-router-dom";
 import CloseModal from "../../commons/close-modal";
 import ChangePicture from "../commons/change-picture";
 import {handleAddEmployee, handleUpdateEmployee} from "../../actions/employee/EmployeeAction";
+import {nationalities} from "../../utils/nationalities";
+
 
 function EmployeeForm (props) {
     const navigate = useNavigate()
@@ -55,6 +57,9 @@ function EmployeeForm (props) {
         method: 'get'
     }
 
+    const Render = ({ children, editing = true }) => (
+        (editing === false ? formValues.id !== 0 : formValues === 0) && children
+    )
     return (
         <TlaModal title={(formValues.id === 0 ? 'New' : 'Edit') + ' Employee'}>
             <Form
@@ -64,9 +69,12 @@ function EmployeeForm (props) {
                 name="createEmployeeForm"
                 initialValues={formValues}>
                 <Row gutter={10}>
-                    <Col span={24}>
-                        <ChangePicture uploadProps={uploadProps} selectedFile={selectedFile}/>
-                    </Col>
+                    <Render>
+                        <Col span={24}>
+                            <ChangePicture uploadProps={uploadProps} selectedFile={selectedFile}/>
+                        </Col>
+                    </Render>
+
                     <Col span={12}>
                         <Form.Item name="first_name" label="First Name"
                                    rules={[
@@ -99,11 +107,35 @@ function EmployeeForm (props) {
                             <Input size={'large'}/>
                         </Form.Item>
                     </Col>
-                    <Col span={12}>
-                        <Form.Item name="create_account" valuePropName="checked">
-                            <Checkbox>Create user account</Checkbox>
-                        </Form.Item>
-                    </Col>
+                    <Render editing>
+                        <Col span={12}>
+                            <Form.Item name="nationality" label="Nationality">
+                                <Select showSearch>
+                                    {
+                                        nationalities.map((nationality, index) => (
+                                            Object.keys(nationality).map((group) => (
+                                                <Select.OptGroup key={index} label={group}>
+                                                    {
+                                                        nationality[group].map((nation) => (
+                                                            <Select.Option key={nation}>{nation}</Select.Option>
+                                                        ))
+                                                    }
+                                                </Select.OptGroup>
+                                            ))
+                                        ))
+                                    }
+
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Render>
+                    <Render editing={false}>
+                        <Col span={12}>
+                            <Form.Item name="create_account" valuePropName="checked">
+                                <Checkbox>Create user account</Checkbox>
+                            </Form.Item>
+                        </Col>
+                    </Render>
                     <Col>
                         <Form.Item hidden name="id" label="ID"
                                    rules={[

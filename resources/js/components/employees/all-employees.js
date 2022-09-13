@@ -27,7 +27,7 @@ function AllEmployees (props) {
         <ViewAllWrapper loading={loading} noData={data.length === 0}>
             <TlaTableWrapper callbackFunction={getEmployees} data={data} meta={meta}>
                 <Column title="Name" render={(_, {id, name, staff_id}) => (
-                    <Link to={name} state={{ staffId: id }}>
+                    <Link to={`${id}/${name}`} state={{ staffId: id }}>
                         <Space>
                             <TlaImage size={40} src={'Avatar'} name={name}/>
                             <Space direction={'vertical'} size={1}>

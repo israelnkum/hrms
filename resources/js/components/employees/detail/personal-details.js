@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import {connect} from "react-redux";
 import {Col, List, Row} from "antd";
 import TlaEdit from "../../../commons/tla-edit";
-import {useLocation} from "react-router-dom";
 import {handleGetSingleEmployee} from "../../../actions/employee/EmployeeAction";
 import ViewAllWrapper from "../../../commons/view-all-wrapper";
+import {useParams} from "react-router";
 
 const Item = ({ title, value }) => (
     <List.Item>
@@ -22,17 +22,17 @@ Item.propTypes = {
 }
 function PersonalDetails (props) {
     const { getEmployee, employee } = props
-    const location = useLocation()
+    const {id} = useParams()
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        getEmployee(location?.state.staffId).then(() => setLoading(false))
+        getEmployee(id).then(() => setLoading(false))
     }, [])
     return (
         <ViewAllWrapper loading={loading} noData={false}>
             <Row gutter={10} justify={'space-between'}>
                 <Col span={24}>
                     <div align={'right'}>
-                        <TlaEdit icon link={'#'} text={'Edit'} />
+                        <TlaEdit data={employee} icon link={`/pim/employees/${employee.name}/personal-details/edit`} text={'Edit'} />
                     </div>
                 </Col>
                 <Col span={11}>

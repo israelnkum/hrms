@@ -33,7 +33,7 @@ const ProtectedRoutes = (props) => {
                 <Route exact element={<Dashboard/>} path='/js/*'/> 
                 <Route path='pim' element={<PageWrapper/>}>
                     <Route path='employees' element={<AllEmployees/>}/>
-                    <Route path='employees/:name' element={<EmployeeDetail/>}>
+                    <Route path='employees/:id/:name' element={<EmployeeDetail/>}>
                         <Route path='' element={<PersonalDetail/>}/>
                         <Route path='personal-details' element={<PersonalDetail/>}/>
                         <Route path='contact-details' element={<ContactDetails/>}/>
