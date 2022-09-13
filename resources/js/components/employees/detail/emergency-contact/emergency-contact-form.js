@@ -17,8 +17,8 @@ function EmergencyContactForm (props) {
     const { state } = useLocation()
     const formValues = {
         id: 0, create_account: false, staff_id: null, ...state.data
-    }
-
+    } 
+ 
     const submit = (values) => {
 
         const formData = new FormData()

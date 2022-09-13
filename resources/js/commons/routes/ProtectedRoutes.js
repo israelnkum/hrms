@@ -30,7 +30,7 @@ const ProtectedRoutes = (props) => {
         <>
             <Routes location={background || location}>
                 <Route exact element={<Dashboard/>} path='/'/>
-                <Route exact element={<Dashboard/>} path='/js/*'/>
+                <Route exact element={<Dashboard/>} path='/js/*'/> 
                 <Route path='pim' element={<PageWrapper/>}>
                     <Route path='employees' element={<AllEmployees/>}/>
                     <Route path='employees/:name' element={<EmployeeDetail/>}>
