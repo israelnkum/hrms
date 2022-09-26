@@ -8,6 +8,7 @@ export const ModalRoutes = () => {
         <Routes>
             <Route exact path="pim">
                 <Route exact path="add" element={<EmployeeForm/>}/>
+                <Route exact path="edit" element={<EmployeeForm/>}/>
                 <Route exact path="employees/:id/:name">
                     <Route exact path="personal-details/edit" element={<EmployeeForm/>}/>
                     <Route exact path="qualifications">
