@@ -29,7 +29,7 @@ class TerminationReasonSeeder extends Seeder
         ];
 
         foreach ($reasons as $reason){
-            TerminationReason::firstOrCreate(['name' => $reason]);
+            TerminationReason::firstOrCreate(['reason' => $reason]);
         }
     }
 }

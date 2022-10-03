@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\TerminationReason;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +18,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             DepartmentSeeder::class,
             RankSeeder::class,
-            TerminationReason::class
+            TerminationReasonSeeder::class
         ]);
     }
 }
