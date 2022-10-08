@@ -18,7 +18,7 @@ class Education extends Model
         'major',
         'start_date',
         'end_date',
-    ];
+    ]; 
 
     public function employee(): BelongsTo
     {
