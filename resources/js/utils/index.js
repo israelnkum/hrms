@@ -133,3 +133,31 @@ export const getInitials = (name) => {
     const initials = [...name.matchAll(rgx)] || []
     return ((initials.shift()?.[1] || '') + (initials.pop()?.[1] || '')).toUpperCase()
 }
+
+export const completeExport = (data, filename = 'report') => {
+
+    const extension = data.type.split('/')[1] === 'pdf' ? 'pdf' : 'xlsx';
+
+    if (extension === 'pdf'){
+        const blobURL = URL.createObjectURL(new Blob([data], {type: 'application/pdf'}));
+        const iframe =  document.createElement('iframe');
+        document.body.appendChild(iframe);
+
+        iframe.style.display = 'none';
+        iframe.src = blobURL;
+        iframe.onload = function() {
+            setTimeout(function() {
+                iframe.focus();
+                iframe.contentWindow.print();
+            }, 1);
+        };
+    }else{
+        const link = document.createElement('a')
+        link.href = window.URL.createObjectURL(new Blob([data]))
+        link.setAttribute('download', `${filename + '.' + extension}`)
+        document.body.appendChild(link)
+        link.click()
+    }
+
+
+}

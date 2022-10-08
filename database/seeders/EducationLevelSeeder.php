@@ -13,7 +13,7 @@ class EducationLevelSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $levels = [
             ['name' => 'Junior High/Secondary School'],
