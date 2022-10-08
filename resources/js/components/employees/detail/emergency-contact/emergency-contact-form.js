@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import {Button, Checkbox, Col, Form, Input, notification, Row} from 'antd'
+import {Button, Select, Col, Form, Input, notification, Row} from 'antd'
 import {connect} from 'react-redux'
 import {useLocation, useNavigate} from "react-router-dom";
 import {
@@ -51,41 +51,58 @@ function EmergencyContactForm (props) {
                 name="createEmergencyContactForm"
                 initialValues={formValues}>
                 <Row gutter={10}>
-                    <Col span={12}>
-                        <Form.Item name="first_name" label="First Name"
+                    <Col span={12}> 
+                        <Form.Item name="name" label="Name"
                                    rules={[
                                        {
                                            required: true,
-                                           message: 'First Name is Required'
+                                           message: 'Name is Required'
                                        }
                                    ]}>
                             <Input size={'large'}/>
                         </Form.Item>
                     </Col>
                     <Col span={12}>
-                        <Form.Item name="middle_name" label="Middle Name">
-                            <Input  size={'large'} />
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                        <Form.Item name="last_name" label="Last Name"
+                        <Form.Item name="relationship" label="Relationship"
                                    rules={[
                                        {
                                            required: true,
-                                           message: 'Last Name is Required'
+                                           message: 'Relationship is Required'
+                                       }
+                                   ]}>
+                            <Select size={'large'}>
+                                <Select.Option value='parent'>Parent</Select.Option>
+                                <Select.Option value='sibling'>Sibling</Select.Option>
+                                <Select.Option value='partner'>Partner</Select.Option>
+                                <Select.Option value='friend'>Friend</Select.Option>
+                            </Select>
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}> 
+                        <Form.Item name="phone" label="Phone"
+                                   rules={[
+                                       {
+                                           required: true,
+                                           message: 'Phone is Required'
                                        }
                                    ]}>
                             <Input size={'large'}/>
                         </Form.Item>
                     </Col>
-                    <Col span={12}>
-                        <Form.Item name="staff_id" label="Staff ID">
+                    <Col span={12}> 
+                        <Form.Item name="alt_phone" label="Alt Phone">
                             <Input size={'large'}/>
                         </Form.Item>
                     </Col>
-                    <Col span={12}>
-                        <Form.Item name="create_account" valuePropName="checked">
-                            <Checkbox>Create user account</Checkbox>
+                    <Col span={12}> 
+                        <Form.Item name="email" label="Email"
+                                   rules={[
+                                       {
+                                           required: true,
+                                           message: 'Email is Required'
+                                       }
+                                   ]}>
+                            <Input htmlType={'email'} size={'large'}/>
                         </Form.Item>
                     </Col>
                     <Col>

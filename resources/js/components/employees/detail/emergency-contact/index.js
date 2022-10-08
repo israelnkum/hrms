@@ -69,11 +69,11 @@ function EmergencyContacts () {
     return (
        <>
            <TlaTableWrapper extra={
-               <TlaAddNew link={'#'}>
+               <TlaAddNew link={'add'}>
                    <Button>Add Contact</Button>
                </TlaAddNew>
            } callbackFunction={() => {}} data={test}>
-               <Column title="Phone" render={({name, relationship}) => (
+               <Column title="Name" render={({name, relationship}) => (
                    <Space size={0} direction={'vertical'}>
                        {name}
                        <Tag>{relationship}</Tag>
