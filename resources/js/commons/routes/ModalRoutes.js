@@ -20,7 +20,6 @@ export const ModalRoutes = () => {
                     </Route>
                 </Route>
             </Route>
-
         </Routes>
   )
 }

@@ -1,43 +1,49 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
-import { Button, Checkbox, Col, Form, Input, notification, Row } from "antd";
-import { connect } from "react-redux";
-import { TlaModal } from "../../../../commons/tla-modal";
-import { useLocation, useNavigate } from "react-router-dom";
+import {Button, Col, DatePicker, Form, Input, notification, Row} from "antd";
+import {connect} from "react-redux";
+import {TlaModal} from "../../../../commons/tla-modal";
+import {useLocation, useNavigate} from "react-router-dom";
 import CloseModal from "../../../../commons/close-modal";
-import ChangePicture from "../../../commons/change-picture";
 import {
-    handleAddEmployee,
-    handleUpdateEmployee,
-} from "../../../../actions/employee/EmployeeAction";
+    handleAddQualification,
+    handleUpdateQualification,
+} from "../../../../actions/qualification/QualificationAction";
+import TlaSelect from "../../../../commons/tla/TlaSelect";
+import ChangePicture from "../../../commons/change-picture";
+import {useParams} from "react-router";
+import moment from "moment";
 
 function QualificationsForm(props) {
     const navigate = useNavigate();
-    const [selectedFile, setSelectedFile] = useState(null);
-    const { addEmployee, updateEmployee } = props;
+    const [selectedFile, setSelectedFile] = useState(null)
+    const {id} = useParams()
+    const { addQualification, updateQualification, educationalLevels } = props;
     const [form] = Form.useForm();
     const { state } = useLocation();
     const formValues = {
         id: 0,
-        create_account: false,
-        staff_id: null,
         ...state.data,
     };
 
     const submit = (values) => {
         const formData = new FormData();
         values.id !== 0 && formData.append("_method", "PUT");
+        formData.append('employee_id', id)
+        formData.append('start_date', moment(values.date[0]).format('YYYY-MM-DD'))
+        formData.append('end_date', moment(values.date[1]).format('YYYY-MM-DD'))
+        formData.append('file', selectedFile)
         for (const key in values) {
             if (Object.prototype.hasOwnProperty.call(values, key)) {
                 formData.append(key, values[key]);
             }
         }
-        (values.id === 0 ? addEmployee(formData) : updateEmployee(formData))
+        (values.id === 0 ? addQualification(formData) : updateQualification(formData))
             .then(() => {
                 notification.success({
                     message: "Success",
                     description:
-                        "Employee " + (values.id === 0 ? "Created" : "Updated"),
+                        "Qualification " + (values.id === 0 ? "Created" : "Updated"),
                 });
                 form.resetFields();
                 navigate(-1);
@@ -49,80 +55,67 @@ function QualificationsForm(props) {
                 });
             });
     };
-    const uploadProps = {
-        beforeUpload: (file) => {
-            setSelectedFile(file);
-            return true;
-        },
-        listType: "picture-card",
-        maxCount: 1,
-        onRemove: () => {
-            setSelectedFile(null);
-        },
-        accept: "image/*",
-        method: "get",
-    };
-
     return (
-        <TlaModal title={(formValues.id === 0 ? "New" : "Edit") + " Employee"}>
+        <TlaModal title={(formValues.id === 0 ? "New" : "Edit") + " Qualification"}>
             <Form
                 form={form}
                 onFinish={submit}
                 layout="vertical"
-                name="createEmployeeForm"
+                name="createQualificationForm"
                 initialValues={formValues}
             >
                 <Row gutter={10}>
-                    <Col span={24}>
+
+                    <Col span={12} style={{ marginBottom: 15 }}>
+                        <p>Certificate</p>
                         <ChangePicture
-                            uploadProps={uploadProps}
-                            selectedFile={selectedFile}
-                        />
+                            isDocument={true}
+                            hasFile={selectedFile === null}
+                            setFile={setSelectedFile}/>
                     </Col>
-                    <Col span={12}>
+                    <Col span={24}>
+                        <TlaSelect label={'Education Level'} name={'education_level_id'} optionKey={'name'} options={educationalLevels}/>
+                    </Col>
+                    <Col span={24}>
                         <Form.Item
-                            name="first_name"
-                            label="First Name"
+                            name="institute"
+                            label="Institute"
                             rules={[
                                 {
                                     required: true,
-                                    message: "First Name is Required",
+                                    message: "Institute is Required",
                                 },
                             ]}
                         >
                             <Input size={"large"} />
                         </Form.Item>
                     </Col>
-                    <Col span={12}>
-                        <Form.Item name="middle_name" label="Middle Name">
-                            <Input size={"large"} />
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}>
+                    <Col span={24}>
                         <Form.Item
-                            name="last_name"
-                            label="Last Name"
+                            name="major"
+                            label="Major"
                             rules={[
                                 {
                                     required: true,
-                                    message: "Last Name is Required",
+                                    message: "Major is Required",
                                 },
                             ]}
                         >
                             <Input size={"large"} />
                         </Form.Item>
                     </Col>
-                    <Col span={12}>
-                        <Form.Item name="staff_id" label="Staff ID">
-                            <Input size={"large"} />
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}>
+                    <Col span={24}>
                         <Form.Item
-                            name="create_account"
-                            valuePropName="checked"
+                            name="date"
+                            label="Duration"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: "Date is Required",
+                                },
+                            ]}
                         >
-                            <Checkbox>Create user account</Checkbox>
+                            <DatePicker.RangePicker size={"large"} />
                         </Form.Item>
                     </Col>
                     <Col>
@@ -155,13 +148,17 @@ function QualificationsForm(props) {
     );
 }
 QualificationsForm.propTypes = {
-    addEmployee: PropTypes.func.isRequired,
-    updateEmployee: PropTypes.func.isRequired,
+    addQualification: PropTypes.func.isRequired,
+    updateQualification: PropTypes.func.isRequired,
+    educationalLevels: PropTypes.array.isRequired,
 };
 
+const mapStateToProps = (state) => ({
+    educationalLevels: state.commonReducer.commons.educationalLevels
+});
 const mapDispatchToProps = (dispatch) => ({
-    addEmployee: (payload) => dispatch(handleAddEmployee(payload)),
-    updateEmployee: (payload) => dispatch(handleUpdateEmployee(payload)),
+    addQualification: (payload) => dispatch(handleAddQualification(payload)),
+    updateQualification: (payload) => dispatch(handleUpdateQualification(payload)),
 });
 
-export default connect(null, mapDispatchToProps)(QualificationsForm);
+export default connect(mapStateToProps, mapDispatchToProps)(QualificationsForm);
