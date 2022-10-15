@@ -5,7 +5,7 @@ import FilterWrapper from "../../../../commons/filter/filter-wrapper";
 import {
     handleExportQualifications,
     handleGetAllQualifications
-} from "../../../../actions/qualification/QualificationAction";
+} from "../../../../actions/employee/qualification/QualificationAction";
 
 function FilterQualification (props) {
     const { submitFilter, filter, exportFilter } = props

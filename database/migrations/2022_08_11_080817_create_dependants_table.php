@@ -13,9 +13,9 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('dependants', function (Blueprint $table) {
+        Schema::create('dependants', static function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employee::class);
             $table->string('name');

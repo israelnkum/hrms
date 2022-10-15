@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom'
 import EmployeeForm from "../../components/employees/employee-form";
 import QualificationsForm from "../../components/employees/detail/qualifications/qualifications-form";
 import EmergencyContactForm from "../../components/employees/detail/emergency-contact/emergency-contact-form";
+import ContactDetailsForm from "../../components/employees/detail/contact-details/contact-details-form";
+import DependantsForm from "../../components/employees/detail/dependants/dependants-form";
 
 export const ModalRoutes = () => {
   return (
@@ -13,10 +15,16 @@ export const ModalRoutes = () => {
                 <Route exact path="employees/:id/:name">
                     <Route exact path="personal-details/edit" element={<EmployeeForm/>}/>
                     <Route exact path="qualifications">
-                        <Route exact path="add" element={<QualificationsForm />} />
+                        <Route exact path="form" element={<QualificationsForm />} />
                     </Route>
                     <Route exact path="emergency-contacts">
-                        <Route exact path="add" element={<EmergencyContactForm />} />
+                        <Route exact path="form" element={<EmergencyContactForm />} />
+                    </Route>
+                    <Route exact path="contact-details">
+                        <Route exact path="form" element={<ContactDetailsForm />} />
+                    </Route>
+                    <Route exact path="dependents">
+                        <Route exact path="form" element={<DependantsForm />} />
                     </Route>
                 </Route>
             </Route>

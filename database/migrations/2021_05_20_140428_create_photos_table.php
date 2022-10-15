@@ -17,8 +17,7 @@ class CreatePhotosTable extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->uuidMorphs('photoable');
-            $table->string('photoUrl')->nullable();
-            $table->string('qrCodeUrl')->nullable();
+            $table->string('file_name');
             $table->softDeletes();
             $table->timestamps();
         });

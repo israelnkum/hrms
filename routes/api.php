@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\ContactDetailController;
+use App\Http\Controllers\DependantController;
 use App\Http\Controllers\EducationController;
+use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
@@ -31,7 +34,10 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::resource('/users', UserController::class);
 
     Route::resource('/employees', EmployeeController::class);
+    Route::resource('/contact-details', ContactDetailController::class);
     Route::resource('/qualifications', EducationController::class);
+    Route::resource('/emergency-contacts', EmergencyContactController::class);
+    Route::resource('/dependants', DependantController::class);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

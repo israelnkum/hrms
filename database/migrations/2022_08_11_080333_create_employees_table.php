@@ -15,7 +15,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('employees', static function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->string('first_name');
@@ -25,13 +25,8 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->string('gender')->nullable();
             $table->string('marital_status')->nullable();
-            $table->string('telephone')->nullable();
-            $table->string('work_telephone')->nullable();
-            $table->string('work_email')->nullable();
-            $table->string('other_email')->nullable();
             $table->string('ssnit_number')->nullable();
             $table->string('gtech_placement')->nullable();
-            $table->string('nationality')->nullable();
             $table->foreignIdFor(Department::class)->nullable()->constrained();
             $table->foreignIdFor(Rank::class)->nullable()->constrained();
             $table->softDeletes();

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ContactDetail extends Model 
+class ContactDetail extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -17,5 +17,11 @@ class ContactDetail extends Model
         'region',
         'zip_code',
         'country',
+        'telephone',
+        'work_telephone',
+        'work_email',
+        'other_email',
+        'nationality',
+        'user_id',
     ];
 }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {Table} from 'antd'
 import { connect } from 'react-redux'
 import TlaPagination from "./TlaPagination";
+import ViewAllWrapper from "../view-all-wrapper";
 
 function TlaTableWrapper ({ meta, data, callbackFunction, children, numberColumn, numberColumnTitle, hasSelection, filterObj, extra }) {
     const [loading, setLoading] = useState(false)
@@ -25,21 +26,19 @@ function TlaTableWrapper ({ meta, data, callbackFunction, children, numberColumn
                     setLoading(false)
                 }
             )}}>
-            {
-                data.length > 0 ?
-                    <Table rowSelection={hasSelection ? rowSelection : null} pagination={false} loading={loading} dataSource={data} scroll={{ x: 50 }} rowKey={'id'}>
-                        {
-                            numberColumn &&
-                            <Table.Column width={50} title={numberColumnTitle} render={(text, record, index) => {
-                                let number = index + meta.from
-                                return <>{`${number++}.`}</>
-                            }}/>
-                        }
 
-                        {children}
-                    </Table> :
-                    <div align={'center'} style={{ padding: 150 }}>Oops! No data found</div>
-            }
+            <Table rowSelection={hasSelection ? rowSelection : null} pagination={false} loading={loading} dataSource={data} scroll={{ x: 50 }} rowKey={'id'}>
+                {
+                    numberColumn &&
+                    <Table.Column width={50} title={numberColumnTitle} render={(text, record, index) => {
+                        let number = index + meta.from
+                        return <>{`${number++}.`}</>
+                    }}/>
+                }
+                <ViewAllWrapper loading={false} noData={data.length === 0}>
+                    {children}
+                </ViewAllWrapper>
+            </Table>
         </TlaPagination>
     )
 }

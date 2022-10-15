@@ -11,6 +11,7 @@ class Dependant extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
+        'name',
         'employee_id',
         'relationship',
         'phone_number',

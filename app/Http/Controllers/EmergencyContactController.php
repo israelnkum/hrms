@@ -4,83 +4,93 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEmergencyContactRequest;
 use App\Http\Requests\UpdateEmergencyContactRequest;
+use App\Http\Resources\EmergencyContactResource;
 use App\Models\EmergencyContact;
+use Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EmergencyContactController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
-        //
-    }
+        $emergencyContacts = EmergencyContact::paginate(10);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return EmergencyContactResource::collection($emergencyContacts);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreEmergencyContactRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreEmergencyContactRequest $request
+     * @return EmergencyContactResource|JsonResponse
      */
-    public function store(StoreEmergencyContactRequest $request)
+    public function store(StoreEmergencyContactRequest $request): EmergencyContactResource|JsonResponse
     {
-        //
+        DB::beginTransaction();
+        try {
+            $request['user_id'] = Auth::user()->id;
+            $emergencyContact = EmergencyContact::create($request->all());
+            DB::commit();
+
+            return new EmergencyContactResource($emergencyContact);
+        }catch (Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\EmergencyContact  $emergencyContact
-     * @return \Illuminate\Http\Response
+     * @param UpdateEmergencyContactRequest $request
+     * @param $id
+     * @return EmergencyContactResource|JsonResponse
      */
-    public function show(EmergencyContact $emergencyContact)
+    public function update(UpdateEmergencyContactRequest $request, $id)
     {
-        //
-    }
+        DB::beginTransaction();
+        try {
+            $emergencyContact = EmergencyContact::findOrFail($id);
+            $emergencyContact->update($request->all());
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\EmergencyContact  $emergencyContact
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(EmergencyContact $emergencyContact)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateEmergencyContactRequest  $request
-     * @param  \App\Models\EmergencyContact  $emergencyContact
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateEmergencyContactRequest $request, EmergencyContact $emergencyContact)
-    {
-        //
+            DB::commit();
+            return new EmergencyContactResource($emergencyContact);
+        }catch (Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\EmergencyContact  $emergencyContact
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return JsonResponse|null
      */
-    public function destroy(EmergencyContact $emergencyContact)
+    public function destroy($id): ?JsonResponse
     {
-        //
+        DB::beginTransaction();
+        try {
+            $emergencyContact = EmergencyContact::findOrFail($id);
+            $emergencyContact->delete();
+            DB::commit();
+            return response()->json([
+                'message' =>'Emergency Contact Deleted'
+            ]);
+        }catch (Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 }

@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEmployeeRequest;
-use App\Http\Requests\UpdateEmployeeRequest;
 use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
@@ -19,21 +17,11 @@ class EmployeeController extends Controller
      *
      * @return AnonymousResourceCollection
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
         $employees = Employee::paginate(10);
 
         return EmployeeResource::collection($employees);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -48,6 +36,7 @@ class EmployeeController extends Controller
         try {
             DB::commit();
             $employee = Employee::create($request->all());
+            $employee->contactDetail()->create();
             return new EmployeeResource($employee);
         }catch (Exception $exception){
             return response()->json([
@@ -68,36 +57,25 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Employee $employee
-     * @return Response
-     */
-    public function edit(Employee $employee)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateEmployeeRequest $request
-     * @param Employee $employee
-     * @return Response
-     */
-    public function update(UpdateEmployeeRequest $request, Employee $employee)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      *
-     * @param Employee $employee
-     * @return Response
+     * @param $id
+     * @return JsonResponse|null
      */
-    public function destroy(Employee $employee)
+    public function destroy($id): ?JsonResponse
     {
-        //
+        DB::beginTransaction();
+        try {
+            $employee = Employee::findOrFail($id);
+            $employee->delete();
+            DB::commit();
+            return response()->json([
+                'message' =>'Employee Deleted'
+            ]);
+        }catch (Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 }

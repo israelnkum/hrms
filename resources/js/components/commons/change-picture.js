@@ -24,7 +24,6 @@ export default function ChangePicture (props) {
         onRemove: () => {
             setFile(null)
         },
-        accept: 'image/*',
         method: 'get'
     }
 

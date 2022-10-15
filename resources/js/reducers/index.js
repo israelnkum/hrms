@@ -5,15 +5,21 @@ import employeeReducer from './employee-reducer'
 import userReducer from './UserReducer'
 import commonReducer from "./common-reducer";
 import qualificationReducer from "./qualification-reducer";
+import contactDetailsReducer from "./contact-details-reducer";
+import emergencyContactReducer from "./emergency-contact-reducer";
+import dependantReducer from "./dependants-reducer";
 
 const persistConfig = {
     key: 'root',
     storage: sessionStorage,
     whitelist: [
-        employeeReducer,
-        userReducer,
-        commonReducer,
-        qualificationReducer,
+        'employeeReducer',
+        'userReducer',
+        'commonReducer',
+        'qualificationReducer',
+        'contactDetailsReducer',
+        'emergencyContactReducer',
+        'dependantReducer',
     ]
 }
 
@@ -22,6 +28,9 @@ const rootReducer = combineReducers({
     userReducer,
     commonReducer,
     qualificationReducer,
+    contactDetailsReducer,
+    emergencyContactReducer,
+    dependantReducer,
 })
 
 export default persistReducer(persistConfig, rootReducer)

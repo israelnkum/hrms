@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contact_details', function (Blueprint $table) {
+        Schema::create('contact_details', static function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employee::class)->constrained();
             $table->longText('address')->nullable();
@@ -22,6 +23,13 @@ return new class extends Migration
             $table->string('region')->nullable();
             $table->string('zip_code')->nullable();
             $table->string('country')->nullable();
+            $table->string('nationality')->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('work_telephone')->nullable();
+            $table->string('work_email')->nullable();
+            $table->string('other_email')->nullable();
+            $table->softDeletes();
+            $table->foreignIdFor(User::class);
             $table->timestamps();
         });
     }
