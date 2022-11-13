@@ -5,6 +5,15 @@ import { IoIosArrowForward } from 'react-icons/io'
 import { useLocation } from 'react-router'
 import { Link } from 'react-router-dom'
 import {capitalize} from "../../utils";
+import {createGlobalStyle} from "styled-components";
+
+const GlobalStyles = createGlobalStyle`
+       .ant-breadcrumb ol li{
+            display: flex;
+            height: 15px;
+            align-items: center;
+       }
+    `
 
 const PageCrumbs = () => {
     const location = useLocation();
@@ -12,7 +21,8 @@ const PageCrumbs = () => {
 
     return (
         <>
-            <Breadcrumb separator={<IoIosArrowForward/>}>
+            <GlobalStyles/>
+            <Breadcrumb className={'flex'} separator={<IoIosArrowForward/>}>
                 {
                     pathSnippets.map((_, index) => {
                         const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
