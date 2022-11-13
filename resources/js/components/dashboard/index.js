@@ -25,7 +25,7 @@ function Dashboard (props) {
             <Col span={6} xs={24} sm={24} md={6} lg={6}>
                 <MaleAndFemale/>
             </Col>
-            <Col span={24} xs={24} sm={24} md={24} lg={24}>
+            <Col className={'hidden md:block'} span={24} xs={24} sm={24} md={24} lg={24}>
                 <EmployeeChart/>
             </Col>
         </Row>
