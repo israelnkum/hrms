@@ -7,7 +7,6 @@ import {createGlobalStyle} from "styled-components";
 const GlobalStyles = createGlobalStyle`
   .col-item {
       padding: 20px;
-      min-width: 190px;
        // border: solid #59595963 1px;
   }
 
@@ -33,16 +32,14 @@ const GlobalStyles = createGlobalStyle`
   }
   .number-wrapper {
     padding: 0;
-    display: flex;
-    justify-content: space-between;
   }
 `
 
 const Item = ({ title, value, otherClass}) => (
-    <div className={`col-item ${otherClass}`}>
+    <div className={`col-item w-[150px] md:w-[190px] ${otherClass}`}>
         <div>
-            <h5 className={'item-title'}>{title}</h5>
-            <h2 className={'item-value'}>{value}</h2>
+            <h5 className={'text-sm'}>{title}</h5>
+            <h2 className={'text-2xl font-bold'}>{value}</h2>
         </div>
     </div>
 )
@@ -59,12 +56,12 @@ function Numbers ({ data }) {
     return (
         <Card size={'small'}>
             <GlobalStyles/>
-            <Space size={0} wrap className={'number-wrapper'}>
+            <div className={'number-wrapper flex flex-wrap justify-between flex-row'}>
                 <Item title={'Total Employees'} value={data.employees.total} otherClass={'firstItem'}/>
                 <Item title={'Total Departments'} value={data.departments.length} otherClass={'secondItem'}/>
                 <Item title={'Total Ranks'} value={data.ranks.length} otherClass={'thirdItem'}/>
                 <Item title={'Total Job Categories'} value={data.jobCategories.length}/>
-            </Space>
+            </div>
         </Card>
     )
 }

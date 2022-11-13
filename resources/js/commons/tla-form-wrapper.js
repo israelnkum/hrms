@@ -41,10 +41,10 @@ function TlaFormWrapper(props) {
             >
                 {children}
                 <Form.Item>
-                    <div align={"right"}>
+                    <div align={"right"} className={'flex justify-end'}>
                         <CloseModal />
                         &nbsp;
-                        <Button size={"large"} type="primary" htmlType="submit">
+                        <Button size={"large"} type="primary" className={'bg-blue-400'} htmlType="submit">
                             Submit
                         </Button>
                     </div>

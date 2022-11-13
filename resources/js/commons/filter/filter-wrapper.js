@@ -20,22 +20,25 @@ function FilterWrapper (props) {
         exportFilter(new URLSearchParams(values)).then(() =>  setLoading(false))
     }
 
+    const FilterTitle = () => (
+        <div className={'flex gap-x-2 justify-start'}>
+            <Button style={{ background: "darkgreen", color: "white", borderColor: "darkgreen" }} loading={loading} onClick={() => {
+                form.setFieldsValue({export: true, print: false })
+                completeExport(form.getFieldsValue())
+            }}>
+                Export
+            </Button>
+            <Button icon={<FiPrinter/>} danger loading={loading} onClick={() => {
+                form.setFieldsValue({print: true, export: false})
+                completeExport(form.getFieldsValue())
+            }}>
+                &nbsp;Print
+            </Button>
+        </div>
+    )
     return (
         <Form form={form} onFinish={onFinish} layout={'vertical'} initialValues={{ ...initialValue, export: false}}>
-            <Card title={[
-                <Button style={{ background: "darkgreen", color: "white", borderColor: "darkgreen" }} key={'export'} loading={loading} onClick={() => {
-                    form.setFieldsValue({export: true, print: false })
-                    completeExport(form.getFieldsValue())
-                }}>
-                    Export
-                </Button>,
-                <Button style={{ marginLeft: 5 }} icon={<FiPrinter/>} key={'print'} danger loading={loading} onClick={() => {
-                    form.setFieldsValue({print: true, export: false})
-                    completeExport(form.getFieldsValue())
-                }}>
-                    &nbsp;Print
-                </Button>
-            ]} size={'small'} extra={[
+            <Card title={<FilterTitle/>} size={'small'} extra={[
                 <Button key={'filter'} icon={<FiFilter/>} loading={loading} htmlType={'submit'} type={'primary'}>
                     &nbsp;Filter
                 </Button>

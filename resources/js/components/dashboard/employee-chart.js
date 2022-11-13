@@ -86,9 +86,10 @@ function EmployeeChart ({ departments }) {
                 breakpoint: 480,
                 options: {
                     chart: {
-                        width: 200
+                        width: '90%'
                     },
                     legend: {
+                        show: false,
                         position: 'right'
                     }
                 }

@@ -12,7 +12,7 @@ function AppSidebar (props) {
     const {name, collapsed, setCollapsed} = props
 
     return (
-        <Affix offsetTop={2}>
+        <Affix offsetTop={2} className={'hidden md:block'}>
             <div>
                 <Layout.Sider theme={'light'}
                               collapsible

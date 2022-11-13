@@ -37,14 +37,14 @@ function MenuHelper ({ activeRoles, menus, direction, icons, linkStyles }) {
             nav.children.length > 0 && nav.children.map((child) => (
                     (child.permission === '' ?
                             getItem(
-                                <Link className={'nav-item'} style={linkStyles} state={{ background: child.modal && location }} to={child.link}>
+                                <Link className={'nav-item'} style={linkStyles}
+                                      state={{ background: child.modal && location }} to={child.link}>
                                     {child.title}
                                 </Link>, icons[child.icon] ?? '', child.title
-                            ) :
-
-                            permissions.includes(child.permission) &&
+                            ) : permissions.includes(child.permission) &&
                             getItem(
-                                <Link className={'nav-item'} style={linkStyles} state={{ background: child.modal && location }} to={child.link}>
+                                <Link className={'nav-item'} style={linkStyles}
+                                      state={{ background: child.modal && location }} to={child.link}>
                                     {child.title}
                                 </Link>, icons[child.icon] ?? '', child.title
                             )
@@ -66,7 +66,7 @@ function MenuHelper ({ activeRoles, menus, direction, icons, linkStyles }) {
     )
 }
 MenuHelper.defaultProps = {
-    direction: 'horizontal',
+    direction: 'inline',
     icons: {},
 }
 MenuHelper.propTypes = {
