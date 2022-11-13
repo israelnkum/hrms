@@ -4,83 +4,97 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDependantRequest;
 use App\Http\Requests\UpdateDependantRequest;
+use App\Http\Resources\DependantResource;
 use App\Models\Dependant;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DependantController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return AnonymousResourceCollection
      */
-    public function index()
+    public function index(): AnonymousResourceCollection
     {
-        //
-    }
+        $dependants = Dependant::paginate(10);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return DependantResource::collection($dependants);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreDependantRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreDependantRequest $request
+     * @return DependantResource|JsonResponse
      */
-    public function store(StoreDependantRequest $request)
+    public function store(StoreDependantRequest $request): DependantResource|JsonResponse
     {
-        //
+        DB::beginTransaction();
+        try {
+            $request['user_id'] = Auth::user()->id;
+            $request['dob'] = $request->dob !=  null ? Carbon::parse($request->dob)->format('Y-m-d') : null;
+            $dependant = Dependant::create($request->all());
+            DB::commit();
+
+            return new DependantResource($dependant);
+        }catch (Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dependant  $dependant
-     * @return \Illuminate\Http\Response
+     * @param UpdateDependantRequest $request
+     * @param $id
+     * @return DependantResource|JsonResponse
      */
-    public function show(Dependant $dependant)
+    public function update(UpdateDependantRequest $request, $id)
     {
-        //
-    }
+        DB::beginTransaction();
+        try {
+            $request['dob'] = $request->dob !== 'null' ? Carbon::parse($request->dob)->format('Y-m-d') : null;
+            $dependant = Dependant::findOrFail($id);
+            $dependant->update($request->all());
+            DB::commit();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Dependant  $dependant
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Dependant $dependant)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateDependantRequest  $request
-     * @param  \App\Models\Dependant  $dependant
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateDependantRequest $request, Dependant $dependant)
-    {
-        //
+            return new DependantResource($dependant);
+        }catch (Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dependant  $dependant
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return JsonResponse|null
      */
-    public function destroy(Dependant $dependant)
+    public function destroy($id): ?JsonResponse
     {
-        //
+        DB::beginTransaction();
+        try {
+            $dependant = Dependant::findOrFail($id);
+            $dependant->delete();
+
+            DB::commit();
+            return response()->json([
+                'message' =>'Emergency Contact Deleted'
+            ]);
+        }catch (Exception $exception){
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 }

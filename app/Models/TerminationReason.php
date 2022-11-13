@@ -10,6 +10,6 @@ class TerminationReason extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'user_id'
+        'reason', 'user_id'
     ];
 }

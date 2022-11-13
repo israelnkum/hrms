@@ -35,13 +35,20 @@ class UserController extends Controller
         })->get());
     }
 
-    public function getActiveRoles($id): array
+    public function getActiveRoles()
     {
         $loggedInUser = Auth::user();
         $activeRoles = [];
 
-        return [$loggedInUser->only(['id', 'name', 'username']), $activeRoles];
-
+        if (!$loggedInUser) {
+            return response()->json([
+               'message' => 'Unauthenticated'
+            ], 422);
+        }
+        return [
+            $loggedInUser->only(['id', 'name', 'username']),
+            $activeRoles
+        ];
     }
 
     /**

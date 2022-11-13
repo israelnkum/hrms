@@ -16,7 +16,7 @@ import PersonalDetail from "../../components/employees/detail/personal-details";
 import ContactDetails from "../../components/employees/detail/contact-details";
 import EmergencyContact from "../../components/employees/detail/emergency-contact";
 import Dependants from "../../components/employees/detail/dependants";
-import Job from "../../components/employees/detail/job";
+import Job from "../../components/employees/detail/job-detail";
 import Salary from "../../components/employees/detail/salary";
 import ReportsTo from "../../components/employees/detail/reports-to";
 import Qualifications from "../../components/employees/detail/qualifications";
@@ -29,11 +29,12 @@ const ProtectedRoutes = (props) => {
     return (
         <>
             <Routes location={background || location}>
+                <Route exact element={<Dashboard/>} path='home'/>
                 <Route exact element={<Dashboard/>} path='/'/>
                 <Route exact element={<Dashboard/>} path='/js/*'/>
                 <Route path='pim' element={<PageWrapper/>}>
                     <Route path='employees' element={<AllEmployees/>}/>
-                    <Route path='employees/:name' element={<EmployeeDetail/>}>
+                    <Route path='employees/:id/:name' element={<EmployeeDetail/>}>
                         <Route path='' element={<PersonalDetail/>}/>
                         <Route path='personal-details' element={<PersonalDetail/>}/>
                         <Route path='contact-details' element={<ContactDetails/>}/>
@@ -46,7 +47,7 @@ const ProtectedRoutes = (props) => {
                     </Route>
                 </Route>
                 <Route path='app/configs' element={<Configs/>}>
-                    <Route path='f' element={<PageWrapper/>}>
+                    <Route element={<PageWrapper/>}>
                         <Route path='departments' element={<Departments/>}/>
                         <Route path='users' element={<Users/>}/>
                         <Route path='termination-reasons' element={<TerminationReasons/>}/>

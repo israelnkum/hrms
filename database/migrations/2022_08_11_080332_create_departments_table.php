@@ -15,16 +15,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('departments', static function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->nullable()->constrained();
             $table->softDeletes();
             $table->timestamps();
         });
 
         if (Schema::hasTable('app_departments')){
-            Schema::table('departments', function (Blueprint $table) {
+            Schema::table('departments', static function (Blueprint $table) {
                 $table->foreignIdFor(Employee::class, 'hod')->nullable()->constrained();
             });
         }

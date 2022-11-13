@@ -1,36 +1,56 @@
 @extends('layouts.login')
 @section('content')
-    <div class="container" >
+    <div class="container-fluid" style="background-image: url({{asset('/images/login.jpg')}}); background-size: cover; background-position: center center">
         <div class="row justify-content-center align-items-center " style="height: 100vh">
+            <div class="text-center position-absolute" style="top: 20px;">
+                @if(count($errors) > 0)
+                    @foreach( $errors->all() as $message )
+                        <div class="alert bg-danger text-white alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <span>{{ $message }}</span>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
             <div class="col-md-4 text-center">
-                <div class="card login-body shadow-sm border-0 d-flex justify-content-center">
+                <div class="card login-body p-4 shadow-sm border-0">
+                    <div align="center">
+                        <img height="auto" align="center" width="100" alt="logo" src="{{asset('images/ttuLogo.png')}}"/>
+                    </div>
                     <div>
                         <div class="">
-                            <h3 class="title">SMART HR</h3>
+                            <h4 class="title">SMART HR</h4>
                         </div>
                         <div class="card-body">
-                            @if(session()->has('registerError'))
-                                <div class="align-content-center border-danger border text-danger bg-white mb-2 text-center" >
-                                    {{session()->get('registerError')}}
-                                </div>
-                                @php(session()->flush())
-                            @endif
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="form-group row">
                                     <div class="col-md-12 mb-2">
                                         <div class="input-group">
-                                            <label for="username" class="sr-only">Username</label>
-                                            <input id="username" placeholder="Username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+                                            <label for="username" class="sr-only">Email</label>
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text addon" id="basic-addon1">
+                                                    <i class="fa fa-envelope"></i>
+                                                </span>
+                                            </div>
+                                            <input id="username" placeholder="Enter your email" type="text" class="form-control form-control-lg" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
                                             <div class="invalid-feedback text-right mb-0">
                                                 Required
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-md-12">
                                         <div class="input-group mb-2">
                                             <label for="password" class="sr-only">password</label>
-                                            <input id="password"  placeholder="Password" type="password" class="form-control " name="password" required autocomplete="current-password">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text addon" id="basic-addon1">
+                                                    <i class="fa fa-lock" style="font-size: 22px"></i>
+                                                </span>
+                                            </div>
+                                            <input id="password"  placeholder="Enter your password" type="password" class="form-control form-control-lg" name="password" required autocomplete="current-password">
                                             <div class="invalid-feedback text-right mb-0">
                                                 Required
                                             </div>
@@ -56,7 +76,7 @@
 
                                 <div class="form-group row mb-0">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary btn-block">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">
                                             {{ __('Login') }}
                                         </button>
                                     </div>

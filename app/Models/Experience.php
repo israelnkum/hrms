@@ -9,4 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Experience extends Model
 {
     use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'employee_id',
+        'company',
+        'job_title',
+        'from',
+        'to',
+        'comment',
+    ];
 }

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import {Table} from 'antd'
 import { connect } from 'react-redux'
 import TlaPagination from "./TlaPagination";
+import ViewAllWrapper from "../view-all-wrapper";
 
-function TlaTableWrapper ({ meta, data, callbackFunction, children, numberColumn, numberColumnTitle, hasSelection, fetchId, extra }) {
+function TlaTableWrapper ({ meta, data, callbackFunction, children, numberColumn, numberColumnTitle, hasSelection, filterObj, extra }) {
     const [loading, setLoading] = useState(false)
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
     const onSelectChange = (newSelectedRowKeys) => {
-        console.log('selectedRowKeys changed: ', selectedRowKeys);
         setSelectedRowKeys(newSelectedRowKeys);
     };
 
@@ -19,28 +19,26 @@ function TlaTableWrapper ({ meta, data, callbackFunction, children, numberColumn
     return (
 
         <TlaPagination extra={extra} meta={meta} loadData={(pageNumber) => {
-            const params = fetchId ? ([fetchId, pageNumber]) : [pageNumber]
+            const urlParams = new URLSearchParams(filterObj)
+            urlParams.append('page', pageNumber);
             setLoading(true);
-
-            (callbackFunction(...params)).then(() => {
+            (callbackFunction(urlParams)).then(() => {
                     setLoading(false)
                 }
             )}}>
-            {
-                data.length > 0 ?
-                    <Table rowSelection={hasSelection ? rowSelection : null} pagination={false} loading={loading} dataSource={data} scroll={{ x: 50 }} rowKey={'id'}>
-                        {
-                            numberColumn &&
-                            <Table.Column width={50} title={numberColumnTitle} render={(text, record, index) => {
-                                let number = index + meta.from
-                                return <>{`${number++}.`}</>
-                            }}/>
-                        }
 
-                        {children}
-                    </Table> :
-                    <div align={'center'} style={{ padding: 150 }}>Oops! No data found</div>
-            }
+            <Table rowSelection={hasSelection ? rowSelection : null} pagination={false} loading={loading} dataSource={data} scroll={{ x: 50 }} rowKey={'id'}>
+                {
+                    numberColumn &&
+                    <Table.Column width={50} title={numberColumnTitle} render={(text, record, index) => {
+                        let number = index + meta.from
+                        return <>{`${number++}.`}</>
+                    }}/>
+                }
+                <ViewAllWrapper loading={false} noData={data.length === 0}>
+                    {children}
+                </ViewAllWrapper>
+            </Table>
         </TlaPagination>
     )
 }
@@ -56,7 +54,7 @@ TlaTableWrapper.defaultProps = {
     numberColumnTitle: '#',
     numberColumn: true,
     hasSelection: false,
-    fetchId: null
+    filterObj: null,
 }
 
 TlaTableWrapper.propTypes = {
@@ -65,10 +63,7 @@ TlaTableWrapper.propTypes = {
     callbackFunction: PropTypes.func,
     children: PropTypes.any,
     hasSelection: PropTypes.bool,
-    fetchId: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number
-    ]),
+    filterObj: PropTypes.object,
     numberColumnTitle: PropTypes.string,
     numberColumn: PropTypes.bool,
     extra: PropTypes.any,

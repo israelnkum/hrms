@@ -35,3 +35,10 @@ export const updateEmployee = (payload) => {
       payload: payload
   }
 }
+
+export const addFilter = (payload) => {
+    return {
+        type: Types.ADD_EMPLOYEE_FILTER,
+        payload: payload
+    }
+}

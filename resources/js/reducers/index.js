@@ -1,36 +1,39 @@
-import { combineReducers } from 'redux'
-import { persistReducer } from 'redux-persist'
+import {combineReducers} from 'redux'
+import {persistReducer} from 'redux-persist'
 import sessionStorage from 'redux-persist/lib/storage/session'
-import groupReducer from './GroupReducer'
 import employeeReducer from './employee-reducer'
-import accessTokenReducer from './AccessTokenReducer'
-import candidateReducer from './CandidateReducer'
 import userReducer from './UserReducer'
-import nominationReducer from './NominationReducer'
-import voterReducer from './VoterReducer'
+import commonReducer from "./common-reducer";
+import qualificationReducer from "./qualification-reducer";
+import contactDetailsReducer from "./contact-details-reducer";
+import emergencyContactReducer from "./emergency-contact-reducer";
+import dependantReducer from "./dependants-reducer";
+import jobDetailsReducer from "./job-details-reducer";
 
 const persistConfig = {
     key: 'root',
     storage: sessionStorage,
     whitelist: [
-        'groupReducer',
         'employeeReducer',
-        'accessTokenReducer',
-        'candidateReducer',
         'userReducer',
-        'voterReducer',
-        'nominationReducer',
+        'commonReducer',
+        'qualificationReducer',
+        'contactDetailsReducer',
+        'emergencyContactReducer',
+        'dependantReducer',
+        'jobDetailsReducer',
     ]
 }
 
 const rootReducer = combineReducers({
-    groupReducer,
     employeeReducer,
-    accessTokenReducer,
-    candidateReducer,
-    nominationReducer,
-    voterReducer,
-    userReducer
+    userReducer,
+    commonReducer,
+    qualificationReducer,
+    contactDetailsReducer,
+    jobDetailsReducer,
+    emergencyContactReducer,
+    dependantReducer,
 })
 
 export default persistReducer(persistConfig, rootReducer)

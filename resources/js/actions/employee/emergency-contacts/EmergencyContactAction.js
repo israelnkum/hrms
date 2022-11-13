@@ -8,7 +8,7 @@ import {addEmergencyContact, getEmergencyContact, getEmergencyContacts, removeEm
  */
 export const handleAddEmergencyContact = (driver) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        api().post('/employees', driver).then((res) => {
+        api().post('/emergency-contacts', driver).then((res) => {
             dispatch(addEmergencyContact(res.data))
             resolve(res)
         }).catch((err) => {
@@ -21,9 +21,9 @@ export const handleAddEmergencyContact = (driver) => (dispatch) => {
  * Display a listing of the resource.
  * @returns {function(*): Promise<unknown>}
  */
-export const handleGetAllEmergencyContacts = (pageNumber = 1) => (dispatch) => {
+export const handleGetAllEmergencyContacts = (params) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        api().get(`/employees?page=${pageNumber}`).then((res) => {
+        api().get(`/emergency-contacts?${params}`).then((res) => {
             dispatch(getEmergencyContacts(res.data))
             resolve(res)
         }).catch((err) => {
@@ -34,7 +34,7 @@ export const handleGetAllEmergencyContacts = (pageNumber = 1) => (dispatch) => {
 
 export const handleGetSingleEmergencyContact = (id) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        api().get(`/employees/${id}`).then((res) => {
+        api().get(`/emergency-contacts/${id}`).then((res) => {
             dispatch(getEmergencyContact(res.data))
             resolve(res)
         }).catch((err) => {
@@ -49,7 +49,7 @@ export const handleGetSingleEmergencyContact = (id) => (dispatch) => {
  */
 export const handleUpdateEmergencyContact = (data) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        api().put(`/employees/${data.id}`, data, {
+        api().post(`/emergency-contacts/${data.get('id')}`, data, {
             // headers: { 'Content-type': 'multipart/employee-data' }
         }).then((res) => {
             dispatch(updateEmergencyContact(res.data))
@@ -67,7 +67,7 @@ export const handleUpdateEmergencyContact = (data) => (dispatch) => {
  */
 export const handleDeleteEmergencyContact = (id) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        api().delete(`/employees/${id}`).then((res) => {
+        api().delete(`/emergency-contacts/${id}`).then((res) => {
             dispatch(removeEmergencyContact(id))
             resolve(res)
         }).catch((err) => {

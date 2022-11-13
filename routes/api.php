@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\ContactDetailController;
+use App\Http\Controllers\DependantController;
+use App\Http\Controllers\EducationController;
+use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobDetailController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('dashboard', [HomeController::class, 'getDashboardData']);
+Route::group(['middleware' => ['auth:sanctum']], static function () {
+    Route::get('commons', [HomeController::class, 'getCommonData']);
     Route::prefix('user')->group(function () {
         Route::get('/{id}/roles/active', [UserController::class, 'getActiveRoles']);
         Route::get('/{id}/roles', [UserController::class, 'getUserRoles']);
@@ -27,27 +32,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/roles/actions', [UserController::class, 'enableOrDisableRole']);
     });
 
-    Route::prefix('voters')->group(function (){
-        Route::get('/', [UserController::class, 'getAllVoters']);
-        Route::post('/add', [UserController::class, 'addNewVoter']);
-        Route::post('/upload', [UserController::class, 'importVoters']);
-        Route::get('/download-format', [UserController::class, 'downloadUploadFormat']);
-    });
-
-
-    Route::prefix('voter')->group(function (){
-        Route::post('/{id}/employees/add', [UserController::class, 'addVoterElection']);
-        Route::get('/{id}/employees', [UserController::class, 'getVoterElections']);
-        Route::post('/{id}/election/remove', [UserController::class, 'removeVoterFromElections']);
-        Route::post('/{id}/election/{electionId}/detail', [UserController::class, 'getElectionDetail']);
-        Route::get('/{voterId}/election/{electionId}/results', [UserController::class, 'getVoterElectionResults']);
-    });
-
     Route::resource('/users', UserController::class);
 
     Route::resource('/employees', EmployeeController::class);
+    Route::resource('/contact-details', ContactDetailController::class);
+    Route::resource('/job-details', JobDetailController::class);
+    Route::resource('/qualifications', EducationController::class);
+    Route::resource('/emergency-contacts', EmergencyContactController::class);
+    Route::resource('/dependants', DependantController::class);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('commons', [HomeController::class, 'getCommonData']);

@@ -11,9 +11,9 @@ class StoreEducationRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,12 @@ class StoreEducationRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            //
+            'education_level_id' => 'required|integer',
+            'institute' => 'required',
+            'major' => 'required',
         ];
     }
 }
