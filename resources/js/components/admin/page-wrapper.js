@@ -2,12 +2,11 @@ import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import {Outlet} from 'react-router'
 import {Button, Card, Col, Row, Space} from 'antd'
-import {FiArrowLeft, FiPlus} from 'react-icons/fi'
+import {FiPlus} from 'react-icons/fi'
 import {createGlobalStyle} from 'styled-components'
 import TlaAddNew from '../../commons/tla-add-new'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import TlaImage from "../../commons/tla-image";
 import PageCrumbs from "./page-crumbs";
 
 const GlobalStyles = createGlobalStyle`
@@ -50,9 +49,6 @@ function PageWrapper () {
                         }
 
                     </div>
-                }
-                {
-                    pageInfo.image && <div align={'right'}> <TlaImage size={40} src={'Avatar'}/></div>
                 }
             </Col>
         </Row>

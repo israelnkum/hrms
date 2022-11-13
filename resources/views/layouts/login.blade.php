@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'E-Voting App') }}</title>
+    <title>{{ config('app.name', 'Human Resource Management System') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -19,27 +19,40 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
         button{
-            background: linear-gradient(to right, rgba(44, 143, 255, 0.52), rgba(0, 74, 148, 0.5));
             border-radius: 10px !important;
             border: none !important;
         }
 
         input{
-            border-radius: 10px !important;
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
             background: none !important;
-            border: solid 1px rgba(0, 74, 148, 0.5) !important;
+            font-size: 15px !important;
         }
+
         input:hover,
         input:active,
         input:focus
         {
-            outline: 0px !important;
-            border-radius: 10px !important;
+            box-shadow: none !important;
+            outline: 0 !important;
             background: none !important;
-            border: solid 1px rgba(0, 74, 148, 0.5) !important;
         }
         ::placeholder {
             font-family: Montserrat, sans-serif !important;
+        }
+        .login-body {
+            border-radius: 10px;
+        }
+        .addon {
+            color: #3490dc !important;
+            background: transparent;
+            font-size: 15px !important;
+            text-align: center !important;
+            width: 45px !important;
+            border-top-left-radius: 10px !important;
+            border-bottom-left-radius: 10px !important;
+
         }
     </style>
     <link href="{{ asset('css/fontawesome.min.css') }}" rel="stylesheet">

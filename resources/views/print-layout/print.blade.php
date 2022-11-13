@@ -39,7 +39,7 @@
 </head>
 <body>
 <div>
-    <x-print-header :employee-id="$data[0]->employee_id"/>
+{{--    <x-print-header :employee-id="$data[0]->employee_id"/>--}}
 </div>
 <table border="0">
     <thead align="left">

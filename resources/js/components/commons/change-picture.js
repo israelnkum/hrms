@@ -24,7 +24,6 @@ export default function ChangePicture (props) {
         onRemove: () => {
             setFile(null)
         },
-        accept: 'image/*',
         method: 'get'
     }
 
@@ -49,16 +48,16 @@ export default function ChangePicture (props) {
     useEffect(() => {
     }, [])
     return (
-        <div align={'center'}>
+        <div>
             {
                 isDocument ?
                     <Upload {...uploadProps} onPreview={onPreview}>
-                        <Button icon={<UploadOutlined />}>{!hasFile  ? 'Change' : 'Select File'}</Button>
+                        <Button type={'primary'} icon={<UploadOutlined />}>{!hasFile  ? 'Change' : 'Select File'}</Button>
                     </Upload> :
                     <>
                         <ImgCrop rotate>
                             <Upload {...uploadProps} onPreview={onPreview}>
-                                {hasFile  ? 'Change' : 'Select'}
+                                {!hasFile  ? 'Change' : 'Select'}
                             </Upload>
                         </ImgCrop>
                         <Modal

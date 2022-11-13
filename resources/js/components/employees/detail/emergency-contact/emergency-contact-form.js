@@ -1,142 +1,107 @@
-import React, {useState} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import {Button, Select, Col, Form, Input, notification, Row} from 'antd'
+import {Col, Form, Input, Row} from 'antd'
 import {connect} from 'react-redux'
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import {
     handleAddEmergencyContact,
     handleUpdateEmergencyContact
 } from "../../../../actions/employee/emergency-contacts/EmergencyContactAction";
-import CloseModal from "../../../../commons/close-modal";
-import {TlaModal} from "../../../../commons/tla-modal";
+import TlaFormWrapper from "../../../../commons/tla-form-wrapper";
+import TlaSelect from "../../../../commons/tla/TlaSelect";
+import {relationships} from "../../../../utils/nationalities";
 
 function EmergencyContactForm (props) {
-    const navigate = useNavigate()
-    const { addEmergencyContact, updateEmergencyContact } = props
-    const [form] = Form.useForm()
+    const { addEmergencyContact, updateEmergencyContact, employeeId } = props
     const { state } = useLocation()
     const formValues = {
-        id: 0, create_account: false, staff_id: null, ...state.data
-    } 
- 
-    const submit = (values) => {
-
-        const formData = new FormData()
-        values.id !== 0 && formData.append('_method', 'PUT')
-        for (const key in values) {
-            if (Object.prototype.hasOwnProperty.call(values, key)) {
-                formData.append(key, values[key])
-            }
-        }
-        (values.id === 0 ? addEmergencyContact(formData) : updateEmergencyContact(formData)).then(() => {
-            notification.success({
-                message: 'Success',
-                description: 'EmergencyContact ' + (values.id === 0 ? 'Created' : 'Updated')
-            })
-            form.resetFields()
-            navigate(-1)
-        }).catch((error) => {
-            notification.warning({
-                message: 'Warning',
-                description: error.response.data.message
-            })
-        })
+        id: 0, employee_id: employeeId, ...state.data
     }
+
     return (
-        <TlaModal title={(formValues.id === 0 ? 'New' : 'Edit') + ' Emergency Contact'}>
-            <Form
-                form={form}
-                onFinish={submit}
-                layout="vertical"
-                name="createEmergencyContactForm"
-                initialValues={formValues}>
-                <Row gutter={10}>
-                    <Col span={12}> 
-                        <Form.Item name="name" label="Name"
-                                   rules={[
-                                       {
-                                           required: true,
-                                           message: 'Name is Required'
-                                       }
-                                   ]}>
-                            <Input size={'large'}/>
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                        <Form.Item name="relationship" label="Relationship"
-                                   rules={[
-                                       {
-                                           required: true,
-                                           message: 'Relationship is Required'
-                                       }
-                                   ]}>
-                            <Select size={'large'}>
-                                <Select.Option value='parent'>Parent</Select.Option>
-                                <Select.Option value='sibling'>Sibling</Select.Option>
-                                <Select.Option value='partner'>Partner</Select.Option>
-                                <Select.Option value='friend'>Friend</Select.Option>
-                            </Select>
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}> 
-                        <Form.Item name="phone" label="Phone"
-                                   rules={[
-                                       {
-                                           required: true,
-                                           message: 'Phone is Required'
-                                       }
-                                   ]}>
-                            <Input size={'large'}/>
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}> 
-                        <Form.Item name="alt_phone" label="Alt Phone">
-                            <Input size={'large'}/>
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}> 
-                        <Form.Item name="email" label="Email"
-                                   rules={[
-                                       {
-                                           required: true,
-                                           message: 'Email is Required'
-                                       }
-                                   ]}>
-                            <Input htmlType={'email'} size={'large'}/>
-                        </Form.Item>
-                    </Col>
-                    <Col>
-                        <Form.Item hidden name="id" label="ID"
-                                   rules={[
-                                       {
-                                           required: true,
-                                           message: 'Required'
-                                       }
-                                   ]}>
-                            <Input size={'large'}/>
-                        </Form.Item>
-                    </Col>
-                </Row>
-                <Form.Item>
-                    <div align={'right'}>
-                        <CloseModal/>&nbsp;
-                        <Button size={'large'} type="primary" htmlType="submit">
-                            Submit
-                        </Button>
-                    </div>
-                </Form.Item>
-            </Form>
-        </TlaModal>
+        <TlaFormWrapper
+            initialValues={formValues}
+            onSubmit={formValues.id === 0 ? addEmergencyContact : updateEmergencyContact}
+            formTitle={(formValues.id === 0 ? 'New' : 'Edit') + ' Emergency Contact'}>
+            <Row gutter={10}>
+                <Col span={12}>
+                    <Form.Item name="name" label="Name"
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: 'Name is Required'
+                                   }
+                               ]}>
+                        <Input size={'large'}/>
+                    </Form.Item>
+                </Col>
+                <Col span={12}>
+                    <TlaSelect name={'relationship'} label={'Relationship'} options={relationships} optionKey={'name'} required/>
+                </Col>
+                <Col span={12}>
+                    <Form.Item name="phone_number" label="Phone"
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: 'Phone is Required'
+                                   }
+                               ]}>
+                        <Input size={'large'}/>
+                    </Form.Item>
+                </Col>
+                <Col span={12}>
+                    <Form.Item name="alt_phone_number" label="Alt Phone">
+                        <Input size={'large'}/>
+                    </Form.Item>
+                </Col>
+                <Col span={12}>
+                    <Form.Item name="email" label="Email"
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: 'Email is Required'
+                                   }
+                               ]}>
+                        <Input htmlType={'email'} size={'large'}/>
+                    </Form.Item>
+                </Col>
+                <Col>
+                    <Form.Item hidden name="id" label="ID"
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: 'Required'
+                                   }
+                               ]}>
+                        <Input size={'large'}/>
+                    </Form.Item>
+                    <Form.Item hidden name="employee_id" label="employee_id"
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: 'Required'
+                                   }
+                               ]}>
+                        <Input size={'large'}/>
+                    </Form.Item>
+                </Col>
+            </Row>
+        </TlaFormWrapper>
     )
 }
 EmergencyContactForm.propTypes = {
     addEmergencyContact: PropTypes.func.isRequired,
     updateEmergencyContact: PropTypes.func.isRequired,
+    employeeId: PropTypes.number.isRequired,
 }
+
+const mapStateToProps = (state) => ({
+    employeeId: state.employeeReducer.employee.id,
+})
 
 const mapDispatchToProps = (dispatch) => ({
     addEmergencyContact: (payload) => dispatch(handleAddEmergencyContact(payload)),
     updateEmergencyContact: (payload) => dispatch(handleUpdateEmergencyContact(payload))
 })
 
-export default connect(null, mapDispatchToProps)(EmergencyContactForm)
+export default connect(mapStateToProps, mapDispatchToProps)(EmergencyContactForm)

@@ -1,4 +1,4 @@
-import { Types } from '../actions/qualification/Types'
+import { Types } from '../actions/employee/qualification/Types'
 const initialState = {
     qualifications: {
         data: [],
@@ -19,7 +19,10 @@ export default function qualificationReducer (state = initialState, action) {
         case Types.ADD_QUALIFICATION:
             return {
                 ...state,
-                qualifications: { ...state.qualifications, data: state.qualifications.data.concat(action.payload) }
+                qualifications: {
+                    ...state.qualifications,
+                    data: state.qualifications.data.concat(action.payload)
+                }
             }
 
         case Types.UPDATE_QUALIFICATION:

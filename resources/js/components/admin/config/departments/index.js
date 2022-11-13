@@ -1,10 +1,11 @@
 import React, {useEffect} from 'react'
-import {Button, Table, Space} from 'antd'
+import {Space, Table} from 'antd'
 import PropTypes from 'prop-types'
 import {connect} from "react-redux";
-import { useOutletContext } from 'react-router'
+import {useOutletContext} from 'react-router'
 import TlaImage from "../../../../commons/tla-image";
 import TlaTableWrapper from "../../../../commons/table/tla-table-wrapper";
+
 const { Column } = Table
 const test = [
     {
@@ -64,7 +65,7 @@ const test = [
         key: 'name',
     },
 ];
-function Departments (props) {
+function Departments () {
     const { setPageInfo, setExtra } = useOutletContext();
     useEffect(() => {
         setPageInfo({ title: 'Departments', addLink: '/pim/add', buttonText: 'Departments' })

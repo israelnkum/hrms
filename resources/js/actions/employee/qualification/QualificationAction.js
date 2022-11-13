@@ -1,6 +1,6 @@
-import api from '../../utils/api'
+import api from '../../../utils/api'
 import {addQualification, getQualification, getQualifications, removeQualification, updateQualification,} from './ActionCreators'
-import {completeExport} from "../../utils";
+import {completeExport} from "../../../utils";
 
 /**
  * Store a newly created resource in storage.
@@ -61,8 +61,8 @@ export const handleGetSingleQualification = (id) => (dispatch) => {
  */
 export const handleUpdateQualification = (data) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        api().put(`/qualifications/${data.id}`, data, {
-            // headers: { 'Content-type': 'multipart/qualification-data' }
+        api().post(`/qualifications/${data.get('id')}`, data, {
+            headers: { 'Content-type': 'multipart/form-data' }
         }).then((res) => {
             dispatch(updateQualification(res.data))
             resolve(res)

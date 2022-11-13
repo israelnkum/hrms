@@ -11,9 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-/**
- * @method static updateOrcreate(array $array, array $array1)
- */
+
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes;

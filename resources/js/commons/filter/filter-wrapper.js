@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import {Button, Card, Form, Input, Space} from "antd";
-import {FiPrinter} from "react-icons/fi";
+import {Button, Card, Form, Input} from "antd";
+import {FiFilter, FiPrinter} from "react-icons/fi";
 
 function FilterWrapper (props) {
     const { submitFilter, exportFilter, children, initialValue } = props
@@ -21,8 +21,8 @@ function FilterWrapper (props) {
     }
 
     return (
-        <Card
-            extra={[
+        <Form form={form} onFinish={onFinish} layout={'vertical'} initialValues={{ ...initialValue, export: false}}>
+            <Card title={[
                 <Button style={{ background: "darkgreen", color: "white", borderColor: "darkgreen" }} key={'export'} loading={loading} onClick={() => {
                     form.setFieldsValue({export: true, print: false })
                     completeExport(form.getFieldsValue())
@@ -35,11 +35,11 @@ function FilterWrapper (props) {
                 }}>
                     &nbsp;Print
                 </Button>
-            ]}
-            size={'small'}
-        >
-
-            <Form form={form} onFinish={onFinish} layout={'vertical'} initialValues={{ ...initialValue, export: false}}>
+            ]} size={'small'} extra={[
+                <Button key={'filter'} icon={<FiFilter/>} loading={loading} htmlType={'submit'} type={'primary'}>
+                    &nbsp;Filter
+                </Button>
+            ]}>
                 <Form.Item hidden name="export" label="export">
                     <Input/>
                 </Form.Item>
@@ -48,16 +48,12 @@ function FilterWrapper (props) {
                 </Form.Item>
                 {
                     children &&
-                    <Space align={'center'} wrap>
+                    <>
                         {children}
-                        <div>
-                            <Button loading={loading} htmlType={'submit'} type={'primary'}>Filter</Button>
-                        </div>
-                    </Space>
+                    </>
                 }
-
-            </Form>
-        </Card>
+            </Card>
+        </Form>
     )
 }
 

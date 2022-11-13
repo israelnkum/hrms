@@ -1,10 +1,8 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import ReactDom from 'react-dom'
+import {useNavigate} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { createGlobalStyle } from 'styled-components'
-import { Button, Col, Row } from 'antd'
-import CloseModal from "./close-modal";
+import {createGlobalStyle} from 'styled-components'
+import PopUps from "./index";
 
 
 const GlobalStyles = createGlobalStyle`
@@ -38,17 +36,19 @@ const GlobalStyles = createGlobalStyle`
 
 export const TlaModal = ({ title, children, width, modalAction }) => {
     const navigate = useNavigate()
-    return ReactDom.createPortal(
-        <div className="ant-modal-root tla-modal">
-            <GlobalStyles/>
-            <div className="ant-modal-mask"></div>
-            <div tabIndex="-1" className="ant-modal-wrap" aria-labelledby="rc_unique_0">
-                <div role="dialog" aria-modal="true" className="ant-modal" style={{ width: width, transformOrigin: '29px 262px', borderRadius: 'px' }}>
-                    <div className="ant-modal-content tla-modal-content">
-                        {
-                            title !== '' &&
-                            <>
-                                <button type="button" onClick={() => { navigate(-1) }} aria-label="Close" className="ant-modal-close">
+
+    return (
+        <PopUps>
+            <div className="ant-modal-root tla-modal">
+                <GlobalStyles/>
+                <div className="ant-modal-mask"></div>
+                <div tabIndex="-1" className="ant-modal-wrap" aria-labelledby="rc_unique_0">
+                    <div role="dialog" aria-modal="true" className="ant-modal" style={{ width: width, transformOrigin: '29px 262px', borderRadius: 'px' }}>
+                        <div className="ant-modal-content tla-modal-content">
+                            {
+                                title !== '' &&
+                                <>
+                                    <button type="button" onClick={() => { navigate(-1) }} aria-label="Close" className="ant-modal-close">
                           <span className="ant-modal-close-x">
                           <span role="img" aria-label="close" className="anticon anticon-close ant-modal-close-icon">
                               <svg viewBox="64 64 896 896" focusable="false" data-icon="close" width="1em" height="1em" fill="currentColor" aria-hidden="true">
@@ -56,25 +56,25 @@ export const TlaModal = ({ title, children, width, modalAction }) => {
                               </svg>
                           </span>
                           </span>
-                                </button>
-                                <div className="ant-modal-header tla-modal-header">
-                                    <div className="ant-modal-title" id="rc_unique_0">{title}</div>
-                                </div>
-                            </>
-                        }
+                                    </button>
+                                    <div className="ant-modal-header tla-modal-header">
+                                        <div className="ant-modal-title" id="rc_unique_0">{title}</div>
+                                    </div>
+                                </>
+                            }
 
-                        <div className="ant-modal-body">
-                            {children}
-                            {/*<div>*/}
-                            {/*    <CloseModal/>*/}
-                            {/*    {modalAction}*/}
-                            {/*</div>*/}
+                            <div className="ant-modal-body">
+                                {children}
+                                {/*<div>*/}
+                                {/*    <CloseModal/>*/}
+                                {/*    {modalAction}*/}
+                                {/*</div>*/}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>,
-        document.getElementById('portal')
+        </PopUps>
     )
 }
 TlaModal.defaultProps = {
@@ -87,5 +87,6 @@ TlaModal.propTypes = {
     width: PropTypes.any,
     type: PropTypes.string,
     children: PropTypes.any,
+    title: PropTypes.string,
     modalAction: PropTypes.any,
 }

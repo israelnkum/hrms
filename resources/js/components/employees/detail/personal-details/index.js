@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from "react-redux";
 import {Col, List, Row} from "antd";
-import TlaEdit from "../../../commons/tla-edit";
-import {handleGetSingleEmployee} from "../../../actions/employee/EmployeeAction";
-import ViewAllWrapper from "../../../commons/view-all-wrapper";
 import {useParams} from "react-router";
+import ViewAllWrapper from "../../../../commons/view-all-wrapper";
+import TlaEdit from "../../../../commons/tla-edit";
+import {handleGetSingleEmployee} from "../../../../actions/employee/EmployeeAction";
 
 const Item = ({ title, value }) => (
     <List.Item>
@@ -32,15 +32,14 @@ function PersonalDetails (props) {
             <Row gutter={10} justify={'space-between'}>
                 <Col span={24}>
                     <div align={'right'}>
-                        <TlaEdit data={employee} icon link={`/pim/employees/${employee.name}/personal-details/edit`} text={'Edit'} />
+                        <TlaEdit data={employee} icon link={`/pim/employees/${id}/${employee.name}/edit`} text={'Edit'} />
                     </div>
                 </Col>
                 <Col span={11}>
                     <List size="small" itemLayout="horizontal">
                         <Item title={'Employee ID'} value={employee.staff_id}/>
                         <Item title={'Name'} value={employee.name}/>
-                        <Item title={'Gender'} value={employee.name}/>
-                        <Item title={'Nationality'} value={employee.nationality}/>
+                        <Item title={'Gender'} value={employee.gender}/>
                         <Item title={'Marital Status'} value={employee.marital_status}/>
                         <Item title={'Date of Birth'} value={employee.dob}/>
                     </List>
@@ -48,11 +47,10 @@ function PersonalDetails (props) {
                 <Col span={11}>
                     <List size="small" itemLayout="horizontal">
                         <Item title={'Department'} value={employee.department}/>
-                        <Item title={'GTEC Placement'} value={employee.gtech_placement}/>
+                        <Item title={'GTEC Placement'} value={employee.gtec_placement_name}/>
                         <Item title={'Qualification'} value={'Male'}/>
                         <Item title={'Rank'} value={employee.rank}/>
                         <Item title={'SSNIT No'} value={employee.ssnit_number}/>
-                        <Item title={'Status'} value={''}/>
                     </List>
                 </Col>
             </Row>

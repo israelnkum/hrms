@@ -4,7 +4,7 @@ import {Form, Select} from 'antd'
 
 
 const TlaSelect = (props) => {
-    const {options, optionKey, label, name} = props
+    const {options, optionKey, label, name, required, hasAll} = props
 
     return (
         <Form.Item
@@ -12,17 +12,18 @@ const TlaSelect = (props) => {
             name={name}
             rules={[
                 {
-                    required: true,
+                    required: required,
                     message: 'Required'
                 }
             ]}>
             <Select size={'large'}
                     placeholder="Select"
                     filterOption={(input, option) => option.children.toLowerCase().includes(input.toLowerCase())}
-                    allowClear showSearch>
+                    showSearch>
+                { hasAll && <Select.Option value={'all'}>All</Select.Option>}
                 {
                     options.map((option) => (
-                        <Select.Option key={option.id}
+                        <Select.Option key={option.id || option.name}
                                        value={option.id}>{option[optionKey]}</Select.Option>
                     ))
                 }
@@ -31,8 +32,15 @@ const TlaSelect = (props) => {
     )
 }
 TlaSelect.propTypes = {
+    required: false,
+    hasAll: false,
+}
+
+TlaSelect.propTypes = {
     label: PropTypes.string,
+    hasAll: PropTypes.bool,
     optionKey: PropTypes.node,
+    required: PropTypes.bool,
     name: PropTypes.string,
     options: PropTypes.array
 }

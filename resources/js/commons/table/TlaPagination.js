@@ -22,7 +22,7 @@ function TlaPagination (props) {
                 <Pagination
                     activePage={meta.current_page}
                     itemsCountPerPage={meta.per_page}
-                    totalItemsCount={meta.total}
+                    totalItemsCount={meta.total || 0}
                     onChange={loadData}
                     pageRangeDisplayed={8}
                     itemClass="page-item"
