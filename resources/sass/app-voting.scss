@@ -245,3 +245,19 @@ tr td{
     page-break-inside: avoid;
     white-space: nowrap;
 }
+
+.ant-form-item-label {
+    text-transform: capitalize !important;
+}
+
+.react-pdf__Page {
+    -webkit-box-shadow: 0 25px 50px 0 rgb(62 62 62 / 15%) !important;
+    box-shadow: 0 25px 50px 0 rgb(62 62 62 / 15%) !important;
+    min-width: 100% !important;
+    min-height: 100% !important;
+}
+
+.react-pdf__Page__canvas {
+    min-width: 100% !important;
+    min-height: 100% !important;
+}

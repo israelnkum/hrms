@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Layout, Spin} from 'antd'
-import {isMobile} from 'react-device-detect'
+import {Col, Layout, Row, Spin} from 'antd'
 import PropTypes from 'prop-types'
 import AppHeader from "./app-header";
 import AppSidebar from "./app-sidebar";
@@ -15,7 +14,9 @@ const AppLayout = (props) => {
     const toggle = () => {
         setOpen(!open)
     }
+
     const { children, getRoles, getCommonData } = props
+
     useEffect(() => {
         getRoles().then(() => {
             setLoading(false)
@@ -24,23 +25,29 @@ const AppLayout = (props) => {
             getCommonData().then(() => setLoading(false))
         })
     }, [])
+
     return (
         <Spin spinning={loading}>
-            {
-                !loading &&
-                <Layout>
-                    <AppSidebar setCollapsed={toggle} collapsed={open}/>
-                    <Layout style={{ marginLeft: isMobile ? 0 : (open ? 80 : 200) }}>
-                        <Layout.Content style={{ margin: '0 15px 50px' }}>
-                            <AppHeader/>
-                            {/*<PageCrumbs/>*/}
-                            <div style={{ minHeight: '100vh', marginTop: 10 }}>
-                                {children}
-                            </div>
-                        </Layout.Content>
-                    </Layout>
-                </Layout>
-            }
+           <Row justify={'center'}>
+               <Col span={24}>
+                   {
+                       !loading &&
+                       <Layout>
+                           <AppSidebar setCollapsed={toggle} collapsed={open}/>
+                           {/*style={{ marginLeft: isMobile ? 0 : (open ? 80 : 200) }}*/}
+                           <Layout>
+                               <Layout.Content style={{ margin: '0 5px 50px' }}>
+                                   <AppHeader/>
+                                   {/*<PageCrumbs/>*/}
+                                   <div style={{ minHeight: '100vh', marginTop: 10 }}>
+                                       {children}
+                                   </div>
+                               </Layout.Content>
+                           </Layout>
+                       </Layout>
+                   }
+               </Col>
+           </Row>
         </Spin>
     )
 }

@@ -21,6 +21,11 @@ class Education extends Model
         'end_date',
     ];
 
+    protected $casts = [
+        'employee_id' => 'integer',
+        'education_level_id' => 'integer',
+    ];
+
     public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class);

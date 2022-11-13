@@ -35,7 +35,7 @@ class UserController extends Controller
         })->get());
     }
 
-    public function getActiveRoles($id)
+    public function getActiveRoles()
     {
         $loggedInUser = Auth::user();
         $activeRoles = [];

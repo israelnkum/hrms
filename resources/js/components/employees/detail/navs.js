@@ -1,11 +1,14 @@
 import React from 'react'
 import {Card, Image, List} from 'antd'
-import {FiUser, FiPhoneCall, FiUsers} from "react-icons/fi";
+import {FiPhoneCall, FiUser, FiUsers} from "react-icons/fi";
 import {BsBriefcase} from "react-icons/bs";
 import {TbCertificate, TbReportAnalytics} from "react-icons/tb";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useMatch} from "react-router-dom";
 import styled, {createGlobalStyle} from "styled-components";
 import Avatar from "../../../assets/img/profile/avata.svg";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
+import TlaImage from "../../../commons/tla-image";
 
 const GlobalStyles = createGlobalStyle`
       .active-nav {
@@ -30,7 +33,7 @@ const AvatarContainer = styled.div`
   align-content: center;
   margin-bottom: 35px;
 `
-function Navs () {
+function Navs ({ employee }) {
 
     // const url = data.title.toLowerCase().replace(' ','-')
     const location = useLocation()
@@ -60,10 +63,10 @@ function Navs () {
         //     title: 'Salary',
         //     icon: <BiCoinStack/>,
         // },
-        {
-            title: 'Reports-to',
-            icon: <TbReportAnalytics/>,
-        },
+        // {
+        //     title: 'Reports-to',
+        //     icon: <TbReportAnalytics/>,
+        // },
         {
             title: 'Qualifications',
             icon: <TbCertificate/>,
@@ -75,10 +78,11 @@ function Navs () {
     return (
         <Card>
             <GlobalStyles/>
+
             <AvatarContainer>
-                <Image src={Avatar} preview={false} className={'emp-profile-image'}/>
-                <h3 className={'text-md-medium profile-name'}>{'Amos Appiah Nkum'}</h3> <br/>
-                <h4 className={'text-sm-normal profile-job-title'}>Product Designer</h4>
+                <TlaImage size={70} src={employee.photo} name={employee.name}/>
+                <h3 className={'text-md-medium profile-name'}>{employee.name}</h3> <br/>
+                <h4 className={'text-sm-normal profile-job-title'}>{employee.rank}</h4>
             </AvatarContainer>
             <List
                 size="small"
@@ -86,7 +90,7 @@ function Navs () {
                 dataSource={modules}
                 renderItem={(item) => {
                     const to = formatUrl(item.title)
-                    const match = location.pathname === `/pim/employees/single/${to}`
+                    const match = location.pathname === useMatch(`/pim/employees/:id/:name/${to}`)
                     return <List.Item className={match ? 'active-nav' : ''}>
                         <List.Item.Meta
                             avatar={item.icon}
@@ -100,6 +104,15 @@ function Navs () {
 }
 
 Navs.propTypes = {
+    employee: PropTypes.object.isRequired
 }
 
-export default Navs
+const mapStateToProps = (state) => ({
+    employee: state.employeeReducer.employee,
+})
+
+const mapDispatchToProps = () => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navs);

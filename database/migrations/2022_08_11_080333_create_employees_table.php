@@ -2,6 +2,7 @@
 
 use App\Models\Department;
 use App\Models\Rank;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,11 +25,13 @@ return new class extends Migration
             $table->string('staff_id')->nullable();
             $table->date('dob')->nullable();
             $table->string('gender')->nullable();
+            $table->text('qualification')->nullable();
             $table->string('marital_status')->nullable();
             $table->string('ssnit_number')->nullable();
-            $table->string('gtech_placement')->nullable();
+            $table->foreignIdFor(Rank::class, 'gtec_placement')->nullable();
             $table->foreignIdFor(Department::class)->nullable()->constrained();
             $table->foreignIdFor(Rank::class)->nullable()->constrained();
+            $table->foreignIdFor(User::class)->nullable()->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

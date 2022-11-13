@@ -15,12 +15,12 @@ mix.js('resources/js/app.js', 'public/js')
   .react()
   .sass('resources/sass/app.scss', 'public/css')
 // mix.browserSync('127.0.0.1:8000')
-// mix.webpackConfig({
-//   resolve: {
-//     fallback: {
-//       zlib: require.resolve('browserify-zlib'),
-//       stream: require.resolve('stream-browserify'),
-//       crypto: require.resolve('crypto-browserify')
-//     }
-//   }
-// })
+mix.webpackConfig({
+  resolve: {
+    fallback: {
+      zlib: require.resolve('browserify-zlib'),
+      stream: require.resolve('stream-browserify'),
+      crypto: require.resolve('crypto-browserify')
+    }
+  }
+})

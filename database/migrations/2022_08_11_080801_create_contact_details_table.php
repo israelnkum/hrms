@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('work_email')->nullable();
             $table->string('other_email')->nullable();
             $table->softDeletes();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->nullable()->constrained();
             $table->timestamps();
         });
     }

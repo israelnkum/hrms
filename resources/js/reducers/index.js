@@ -8,6 +8,7 @@ import qualificationReducer from "./qualification-reducer";
 import contactDetailsReducer from "./contact-details-reducer";
 import emergencyContactReducer from "./emergency-contact-reducer";
 import dependantReducer from "./dependants-reducer";
+import jobDetailsReducer from "./job-details-reducer";
 
 const persistConfig = {
     key: 'root',
@@ -20,6 +21,7 @@ const persistConfig = {
         'contactDetailsReducer',
         'emergencyContactReducer',
         'dependantReducer',
+        'jobDetailsReducer',
     ]
 }
 
@@ -29,6 +31,7 @@ const rootReducer = combineReducers({
     commonReducer,
     qualificationReducer,
     contactDetailsReducer,
+    jobDetailsReducer,
     emergencyContactReducer,
     dependantReducer,
 })

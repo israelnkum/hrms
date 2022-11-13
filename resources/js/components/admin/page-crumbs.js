@@ -20,7 +20,7 @@ const PageCrumbs = () => {
                             <Breadcrumb.Item key={url} style={{ fontSize: index === 0 && 16}}>
                                 {
                                     isNaN(parseInt(pathSnippets[index])) &&
-                                        <Link to={index === 0 ? '/admin/dashboard' : url} style={{
+                                        <Link to={index === 0 ? '/' : url} style={{
                                             color: index === pathSnippets.length -1 && 'var(--Primary-700)',
                                             fontSize: 14
                                         }}>

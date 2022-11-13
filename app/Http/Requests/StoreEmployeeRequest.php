@@ -27,6 +27,7 @@ class StoreEmployeeRequest extends FormRequest
         return [
             'first_name' => 'required',
             'last_name' => 'required',
+            'staff_id' => 'unique:employees|nullable',
         ];
     }
 }

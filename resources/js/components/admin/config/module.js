@@ -14,9 +14,9 @@ const GlobalStyles = createGlobalStyle`
 function Module ({data}) {
     const url = data.title.toLowerCase().replace(' ','-')
     const location = useLocation()
-    const match = location.pathname === `/app/configs/f/${url}`
+    const match = location.pathname === `/app/configs/${url}`
      return (
-        <Link style={{ textDecoration: 'none'}} to={`f/${url}`}>
+        <Link style={{ textDecoration: 'none'}} to={`/app/configs/${url}`}>
             <GlobalStyles/>
             <Card className={match ? 'active-module' : ''} hoverable size={'small'}>
                 <Space direction={'vertical'} style={{ textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>

@@ -15,10 +15,13 @@
                 @endif
             </div>
             <div class="col-md-4 text-center">
-                <div class="card login-body p-5 shadow-sm border-0 d-flex justify-content-center">
+                <div class="card login-body p-4 shadow-sm border-0">
+                    <div align="center">
+                        <img height="auto" align="center" width="100" alt="logo" src="{{asset('images/ttuLogo.png')}}"/>
+                    </div>
                     <div>
                         <div class="">
-                            <h3 class="title">SMART HR</h3>
+                            <h4 class="title">SMART HR</h4>
                         </div>
                         <div class="card-body">
                             <form method="POST" action="{{ route('login') }}">
