@@ -42,7 +42,11 @@ class Employee extends ApplicationModel
         'qualification',
         'rank_id',
         'department_id',
-        'user_id'
+        'user_id',
+        'senior_staff',
+        'senior_member',
+        'junior_staff',
+        'secondment_staff'
     ];
 
     protected $casts = [

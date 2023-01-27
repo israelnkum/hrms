@@ -5,9 +5,7 @@ namespace Database\Seeders;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -18,13 +16,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-       $user = User::updateOrcreate([ 'username' => 'israelnkum'],[
-            'firstName' => 'Israel',
-            'lastName' => 'Nkum',
+       $user = User::updateOrcreate(['username' => 'israelnkum'],[
+            'name' => 'Israel Nkum',
             'username' => 'israelnkum',
             'email' => 'israelnkum@gmail.com',
             'password' => Hash::make(1),
-            'phoneNumber' => '0249051415',
+            'phone_number' => '0249051415'
         ]);
 
 

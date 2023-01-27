@@ -41,9 +41,9 @@
                     <label class="custom-control-label" for="remember">{{ __('Remember Me') }}</label>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-6 col-12 text-left">
+            <div class="col-md-6 col-lg-6 col-12 text-right">
                 @if (Route::has('password.request'))
-                    <a class="" href="{{ route('password.request') }}">
+                    <a class="text-primary" href="{{ route('password.request') }}">
                         {{ __('Forgot Password?') }}
                     </a>
                 @endif
@@ -51,10 +51,19 @@
         </div>
 
         <div class="form-group row mb-0">
-            <div class="col-md-12">
+            <div class="col-md-12 mb-3">
                 <button type="submit" class="btn btn-primary btn-lg btn-block">
                     {{ __('Login') }}
                 </button>
+            </div>
+
+            <div class="col-md-12">
+                <a href="{{ url('auth/google/redirect') }}" class="text-decoration-none">
+                    <button type="button" class="btn btn-light btn-lg btn-block border">
+                        <img width="20" src="{{asset('assets/img/google.svg')}}" class="mr-2" alt="icon">
+                        {{ __('Continue with Google') }}
+                    </button>
+                </a>
             </div>
         </div>
     </form>

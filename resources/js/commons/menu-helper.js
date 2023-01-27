@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import { Menu } from 'antd'
+import React, {useState} from 'react'
+import {Menu} from 'antd'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { useLocation } from 'react-router'
+import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {useLocation} from 'react-router'
 
 const rootSubmenuKeys = []
 
-function MenuHelper ({ activeRoles, menus, direction, icons, linkStyles }) {
+function MenuHelper({activeRoles, menus, direction, icons, linkStyles}) {
     const location = useLocation()
     const [openKeys, setOpenKeys] = useState([])
 
@@ -19,7 +19,8 @@ function MenuHelper ({ activeRoles, menus, direction, icons, linkStyles }) {
             setOpenKeys(latestOpenKey ? [latestOpenKey] : [])
         }
     }
-    function getItem (label, icon, key, children ) {
+
+    function getItem(label, icon, key, children) {
         return {
             key,
             icon,
@@ -38,13 +39,13 @@ function MenuHelper ({ activeRoles, menus, direction, icons, linkStyles }) {
                     (child.permission === '' ?
                             getItem(
                                 <Link className={'nav-item'} style={linkStyles}
-                                      state={{ background: child.modal && location }} to={child.link}>
+                                      state={{background: child.modal && location}} to={child.link}>
                                     {child.title}
                                 </Link>, icons[child.icon] ?? '', child.title
                             ) : permissions.includes(child.permission) &&
                             getItem(
                                 <Link className={'nav-item'} style={linkStyles}
-                                      state={{ background: child.modal && location }} to={child.link}>
+                                      state={{background: child.modal && location}} to={child.link}>
                                     {child.title}
                                 </Link>, icons[child.icon] ?? '', child.title
                             )
@@ -53,7 +54,6 @@ function MenuHelper ({ activeRoles, menus, direction, icons, linkStyles }) {
             )
         )
     })
-
 
     return (
         <Menu
@@ -65,10 +65,12 @@ function MenuHelper ({ activeRoles, menus, direction, icons, linkStyles }) {
         />
     )
 }
+
 MenuHelper.defaultProps = {
     direction: 'inline',
     icons: {},
 }
+
 MenuHelper.propTypes = {
     menus: PropTypes.array.isRequired,
     direction: PropTypes.string,
@@ -78,7 +80,7 @@ MenuHelper.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        activeRoles : ['Admin']
+        activeRoles: ['Admin']
     }
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SocialAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/{path?}', function () {
+Route::prefix('auth/google')->group(static function () {
+    Route::get('redirect', [SocialAuthController::class, 'redirectToGoogle']);
+    Route::get('callback', [SocialAuthController::class, 'handleGoogleCallback']);
+});
+
+Route::middleware(['auth'])->get('/{path?}', function () {
     return view('home');
-})->where('path','.*')->middleware('auth');*/
-Route::get('/js/react-router.js.map', [App\Http\Controllers\HomeController::class, 'index']);
-
-Route::get('/{path?}', [App\Http\Controllers\HomeController::class, 'index'])
-    ->where('path','.*');
-
+})->where('path', '.*')->name('home');

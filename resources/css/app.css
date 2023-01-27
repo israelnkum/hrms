@@ -3,15 +3,22 @@
 @tailwind utilities;
 
 @layer components {
-    button, .btn {
-       @apply !flex !items-center !justify-center
+    button,
+    .btn {
+        @apply !flex !items-center !justify-center text-sm;
     }
 
-    .ant-btn-primary, .tla-btn-primary {
+    .ant-btn-primary,
+    .btn-primary,
+    .tla-btn-primary {
         @apply bg-primary-700 text-white;
+    }
+
+    .nav-item {
+        @apply uppercase;
     }
 }
 
 .ant-dropdown-menu-dark, .ant-dropdown-menu-dark .ant-dropdown-menu {
-   background: white !important;
+    background: white !important;
 }

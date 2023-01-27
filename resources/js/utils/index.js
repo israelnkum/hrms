@@ -16,49 +16,6 @@ export const activeRoles = () => {
   return state.userReducer.activeRoles
 }
 
-export const SidebarMenus = [
-    {
-        title: 'HOME',
-        link: '/',
-        children: [],
-        permissions: ['Admin'],
-        icon: 'home'
-    },
-    {
-        title: 'PIM',
-        link: '#',
-        children: [
-            {
-                permission: '',
-                modal: true,
-                title: 'Add Employee',
-                link: '/pim/employees/form',
-            },
-            // {
-            //     permission: '',
-            //     modal: true,
-            //     title: 'Upload Employees',
-            //     link: '/pim/employees/upload',
-            // },
-            {
-                permission: '',
-                modal: false,
-                title: 'All Employees',
-                link: '/pim/employees',
-            }
-        ],
-        permissions: ['Admin'],
-        icon: 'pim'
-    },
-    // {
-    //     title: 'Config',
-    //     link: '/app/configs/departments',
-    //     children: [],
-    //     permissions: ['Admin'],
-    //     icon: 'config'
-    // },
-]
-
 export const capitalize = (word) => {
     return word.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())
 }

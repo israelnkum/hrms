@@ -36422,16 +36422,24 @@ video {
     max-width: 1536px;
   }
 }
-button, .btn {
+button,
+    .btn {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
-.ant-btn-primary, .tla-btn-primary {
+.ant-btn-primary,
+    .btn-primary,
+    .tla-btn-primary {
   --tw-bg-opacity: 1;
   background-color: rgb(23 92 211 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.nav-item {
+  text-transform: uppercase;
 }
 .sr-only {
   position: absolute;
@@ -36839,7 +36847,7 @@ button, .btn {
 }
 
 .ant-dropdown-menu-dark, .ant-dropdown-menu-dark .ant-dropdown-menu {
-   background: white !important;
+    background: white !important;
 }
 
 @media (prefers-color-scheme: dark) {
