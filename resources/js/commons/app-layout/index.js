@@ -34,11 +34,9 @@ const AppLayout = (props) => {
                        !loading &&
                        <Layout>
                            <AppSidebar setCollapsed={toggle} collapsed={open}/>
-                           {/*style={{ marginLeft: isMobile ? 0 : (open ? 80 : 200) }}*/}
                            <Layout>
                                <Layout.Content style={{ margin: '0 5px 50px' }}>
                                    <AppHeader/>
-                                   {/*<PageCrumbs/>*/}
                                    <div style={{ minHeight: '100vh', marginTop: 10 }}>
                                        {children}
                                    </div>

@@ -7,20 +7,8 @@ import {IoIosFemale, IoIosMale} from "react-icons/io";
 
 const GlobalStyles = createGlobalStyle`
     .m-col-item {
-        padding: 20px;
+        padding: 18px;
         min-width: 200px;
-    }
-
-    .m-first-item {
-
-    }
-
-    .thirdItem {
-
-    }
-
-    .secondItem {
-
     }
 
     .m-item-title {
@@ -31,6 +19,7 @@ const GlobalStyles = createGlobalStyle`
     .m-item-value {
         font-weight: 900;
         color: #fff;
+        font-size: 20px;
     }
 
     .male-and-female {
@@ -43,8 +32,8 @@ const GlobalStyles = createGlobalStyle`
     }
 `
 
-const Item = ({ title, value, icon, otherClass}) => (
-    <div className={`m-col-item ${otherClass}`}>
+const Item = ({ title, value, icon}) => (
+    <div className={`m-col-item`}>
         <Space align={'center'} style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
                 <h5 className={'m-item-title'}>{title}</h5>
@@ -64,13 +53,14 @@ Item.propTypes = {
     ]),
     icon: PropTypes.any
 }
+
 function MaleAndFemale ({ data }) {
     return (
-        <Card title={<span style={{ color: 'white' }}>EMPLOYEE BY GENDER</span>} className={'male-and-female'}>
+        <Card title={<span style={{ color: 'white' }}>EMPLOYEES BY GENDER</span>} className={'male-and-female'}>
             <GlobalStyles/>
-            <Space direction={'vertical'} size={0} wrap className={'number-wrapper'}>
-                <Item title={'Males'} value={data.employees.male} otherClass={'m-first-item'} icon={<IoIosMale className={'m-item-user'}/>}/>
-                <Item title={'Females'} value={data.employees.female} icon={<IoIosFemale className={'m-item-user'}/>}/>
+            <Space direction={'vertical'} size={0} wrap>
+                <Item title={'Male'} value={data.employees.male} icon={<IoIosMale className={'m-item-user'}/>}/>
+                <Item title={'Female'} value={data.employees.female} icon={<IoIosFemale className={'m-item-user'}/>}/>
             </Space>
         </Card>
     )

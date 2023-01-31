@@ -18,6 +18,7 @@ export default function AppHeader() {
             setLoading(false)
         })
     }
+
     const menu = (
         <div style={{width: 150}}>
             <MenuHelper icons={{
@@ -27,6 +28,7 @@ export default function AppHeader() {
             }} menus={SidebarMenus} direction={'inline'}/>
         </div>
     )
+
     return (
         <Affix offsetTop={2}>
             <Layout.Header style={{
@@ -35,9 +37,6 @@ export default function AppHeader() {
                 marginTop: 5,
                 borderBottom: 'solid #d9d9d9 1px'
             }}>
-                {/*<div className="logo" align={'center'}>*/}
-                {/*    <Logo/>*/}
-                {/*</div>*/}
                 <Row justify="space-between" align="middle">
                     <Col span={17} xs={10} sm={18}>
                         <Dropdown trigger={['click']} overlay={menu}>

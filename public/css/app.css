@@ -36557,6 +36557,12 @@ button,
 .h-1 {
   height: 0.25rem;
 }
+.h-\[150px\] {
+  height: 150px;
+}
+.h-full {
+  height: 100%;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -36593,9 +36599,6 @@ button,
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
-.flex-row {
-  flex-direction: row;
-}
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -36614,6 +36617,9 @@ button,
 .justify-between {
   justify-content: space-between;
 }
+.gap-3 {
+  gap: 0.75rem;
+}
 .gap-x-2 {
   -moz-column-gap: 0.5rem;
        column-gap: 0.5rem;
@@ -36626,6 +36632,9 @@ button,
 }
 .rounded-lg {
   border-radius: 0.5rem;
+}
+.rounded {
+  border-radius: 0.25rem;
 }
 .border {
   border-width: 1px;
@@ -36689,6 +36698,9 @@ button,
 .p-0 {
   padding: 0px;
 }
+.p-3 {
+  padding: 0.75rem;
+}
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -36696,6 +36708,10 @@ button,
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+.py-5 {
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 .py-3 {
   padding-top: 0.75rem;
@@ -36752,11 +36768,11 @@ button,
 .font-semibold {
   font-weight: 600;
 }
-.font-light {
-  font-weight: 300;
-}
 .font-bold {
   font-weight: 700;
+}
+.font-light {
+  font-weight: 300;
 }
 .font-black {
   font-weight: 900;
@@ -36941,6 +36957,10 @@ button,
     display: flex;
   }
 
+  .md\:h-\[125px\] {
+    height: 125px;
+  }
+
   .md\:min-h-screen {
     min-height: 100vh;
   }
@@ -36949,8 +36969,8 @@ button,
     width: 50%;
   }
 
-  .md\:w-\[190px\] {
-    width: 190px;
+  .md\:w-\[200px\] {
+    width: 200px;
   }
 
   .md\:grid-cols-2 {

@@ -16,7 +16,7 @@ return new class extends Migration {
         Schema::create('leave_types', static function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->enum('entitlement_type', ['fixed', 'custom']);
             $table->integer('number_of_days')->default(0);
             $table->date('start_of_annual_cycle');

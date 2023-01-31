@@ -25,7 +25,7 @@ class SocialAuthController
     /**
      * @return Exception|RedirectResponse
      */
-    public function handleGoogleCallback(): Exception|RedirectResponse
+    public function handleGoogleCallback()
     {
         try {
             $socialUser = Socialite::driver('google')->user();
@@ -37,17 +37,7 @@ class SocialAuthController
             $checkUser = User::where('email', $socialUser->email)->first();
 
             if (!$checkUser) {
-                $user = User::create([
-                    'name' => $socialUser->getName(),
-                    'username' => $socialUser->getEmail(),
-                    'email' => $socialUser->getEmail(),
-                    'email_verified_at' => Carbon::now(),
-                    'provider' => 'google',
-                    'provider_id' => $socialUser->id,
-                    'password' => Hash::make(Str::random(8))
-                ]);
-
-                $checkUser = $user;
+                return redirect()->route('account-not-found');
             }
 
             Auth::login($checkUser);
