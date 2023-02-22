@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ContactDetail extends ApplicationModel
@@ -23,4 +24,12 @@ class ContactDetail extends ApplicationModel
         'nationality',
         'user_id',
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }

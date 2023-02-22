@@ -125,4 +125,11 @@ class Employee extends ApplicationModel
         return $this->hasMany(Education::class);
     }
 
+    /**
+     * @return HasOne
+     */
+    public function userAccount(): HasOne
+    {
+        return $this->hasOne(User::class);
+    }
 }

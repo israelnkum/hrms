@@ -16,6 +16,11 @@ return new class extends Migration
         Schema::create('ranks', static function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('teaching')->default(false);
+            $table->boolean('non-teaching')->default(false);
+            $table->boolean('senior_members')->default(false);
+            $table->boolean('senior_staff')->default(false);
+            $table->boolean('junior_staff')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

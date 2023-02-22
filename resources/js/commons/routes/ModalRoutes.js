@@ -1,11 +1,12 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import EmployeeForm from "../../components/employees/employee-form";
-import QualificationsForm from "../../components/employees/detail/qualifications/qualifications-form";
-import EmergencyContactForm from "../../components/employees/detail/emergency-contact/emergency-contact-form";
 import ContactDetailsForm from "../../components/employees/detail/contact-details/contact-details-form";
 import DependantsForm from "../../components/employees/detail/dependants/dependants-form";
+import EmergencyContactForm from "../../components/employees/detail/emergency-contact/emergency-contact-form";
 import JobDetailsForm from "../../components/employees/detail/job-detail/job-details-form";
+import QualificationsForm from "../../components/employees/detail/qualifications/qualifications-form";
+import EmployeeForm from "../../components/employees/employee-form";
+import TimeOffForm from "../../components/time-off/time-off-form";
 import PreviewFile from "../preview-file";
 
 export const ModalRoutes = () => {
@@ -33,6 +34,9 @@ export const ModalRoutes = () => {
                         </Route>
                     </Route>
                 </Route>
+            </Route>
+            <Route exact path="time-off">
+                <Route exact path="form" element={<TimeOffForm/>}/>
             </Route>
             <Route exact path="preview/:fileName" element={<PreviewFile/>}/>
         </Routes>

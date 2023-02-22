@@ -7,6 +7,7 @@ use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobDetailController;
+use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,12 +35,18 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
 
     Route::resource('/users', UserController::class);
 
+    Route::prefix('employees')->group(function () {
+        Route::get('/search/{query}', [EmployeeController::class, 'searchEmployees']);
+    });
+
     Route::resource('/employees', EmployeeController::class);
+
     Route::resource('/contact-details', ContactDetailController::class);
     Route::resource('/job-details', JobDetailController::class);
     Route::resource('/qualifications', EducationController::class);
     Route::resource('/emergency-contacts', EmergencyContactController::class);
     Route::resource('/dependants', DependantController::class);
+    Route::resource('/leave-request', LeaveRequestController::class);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

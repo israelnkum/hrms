@@ -22,3 +22,8 @@
 .ant-dropdown-menu-dark, .ant-dropdown-menu-dark .ant-dropdown-menu {
     background: white !important;
 }
+
+.ant-picker-header-view {
+    display: flex !important;
+    justify-content: center !important;
+}

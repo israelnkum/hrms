@@ -1,5 +1,13 @@
 import api from '../../utils/api'
-import {addEmployee, addFilter, getEmployee, getEmployees, removeEmployee, updateEmployee,} from './ActionCreators'
+import {
+    addEmployee,
+    addFilter,
+    applySearch,
+    getEmployee,
+    getEmployees,
+    removeEmployee,
+    updateEmployee,
+} from './ActionCreators'
 import {completeExport} from "../../utils";
 
 /**
@@ -28,6 +36,20 @@ export const handleGetAllEmployees = (params) => (dispatch) => {
             dispatch(getEmployees(res.data))
             params?.delete('page')
             params && dispatch(addFilter(Object.fromEntries(params)))
+            resolve(res)
+        }).catch((err) => {
+            reject(err)
+        })
+    })
+}
+/**
+ * Display a listing of the resource.
+ * @returns {function(*): Promise<unknown>}
+ */
+export const handleSearchEmployees = (query) => (dispatch) => {
+    return new Promise((resolve, reject) => {
+        api().get(`/employees/search/${query}`).then((res) => {
+            dispatch(applySearch(res.data))
             resolve(res)
         }).catch((err) => {
             reject(err)

@@ -18,14 +18,15 @@ class EmployeeImport implements ToModel, WithHeadingRow, WithProgressBar
 
     /**
      * @param array $row
+     *
      * @return Employee
      */
     public function model(array $row): Employee
     {
         $rank = null;
 
-        if ($row['rank'] !== '') {
-            $rank = Rank::firstOrCreate([
+        if ($row['rank'] && $row['rank'] !== '') {
+            $rank = (new Rank)->firstOrCreate([
                 'name' => $row['rank']
             ]);
         }

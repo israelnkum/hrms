@@ -133,7 +133,7 @@ const mapStateToProps = (state) => ({
     educationalLevels: state.commonReducer.commons.educationalLevels
 });
 const mapDispatchToProps = (dispatch) => ({
-    addQualification: (payload) => dispatch(handleAddQualification(payload)),
+    addQualification: (data) => dispatch(handleAddQualification(data)),
     updateQualification: (payload) => dispatch(handleUpdateQualification(payload)),
 });
 

@@ -1,20 +1,20 @@
 import React from "react";
-import {Button, Form} from "antd";
-import {useNavigate} from "react-router-dom";
-import {TlaModal} from "./pop-ups/tla-modal";
+import { Button, Form } from "antd";
+import { useNavigate } from "react-router-dom";
+import { TlaModal } from "./pop-ups/tla-modal";
 import PropTypes from "prop-types";
 import CloseModal from "./close-modal";
-import {TlaError, TlaSuccess} from "../utils/messages";
+import { TlaError, TlaSuccess } from "../utils/messages";
 
 function TlaFormWrapper(props) {
     const navigate = useNavigate();
     const [form] = Form.useForm();
-    const { onSubmit, initialValues, formTitle, children, file, width } = props;
+    const {onSubmit, initialValues, formTitle, children, file, width, customForm} = props;
 
     const submit = (values) => {
         const formData = new FormData();
         values.id !== 0 && formData.append("_method", "PUT");
-        file !== null ? formData.append('file', file): ''
+        file !== null ? formData.append('file', file) : ''
 
         for (const key in values) {
             if (Object.prototype.hasOwnProperty.call(values, key)) {
@@ -24,27 +24,29 @@ function TlaFormWrapper(props) {
 
         onSubmit(formData).then(() => {
             TlaSuccess();
-            form.resetFields();
+            customForm ? customForm.resetFields() : form.resetFields();
             navigate(-1);
         }).catch((error) => {
             TlaError(error.response.data.message)
         });
     };
+
     return (
-        <TlaModal title={formTitle} width={width}>
+        <TlaModal title={ formTitle } width={ width }>
             <Form
-                form={form}
-                onFinish={(values) => {submit(values)}}
+                form={ customForm ? customForm : form }
+                onFinish={ (values) => {
+                    submit(values)
+                } }
                 layout="vertical"
                 name="createQualificationForm"
-                initialValues={initialValues}
-            >
-                {children}
+                initialValues={ initialValues }>
+                { children }
                 <Form.Item>
-                    <div align={"right"} className={'flex justify-end'}>
-                        <CloseModal />
+                    <div align={ "right" } className={ 'flex justify-end' }>
+                        <CloseModal/>
                         &nbsp;
-                        <Button size={"large"} type="primary" className={'bg-blue-400'} htmlType="submit">
+                        <Button size={ "large" } type="primary" className={ 'bg-blue-400' } htmlType="submit">
                             Submit
                         </Button>
                     </div>
@@ -56,6 +58,7 @@ function TlaFormWrapper(props) {
 
 TlaFormWrapper.defaultProps = {
     file: null,
+    customForm: null,
     width: 520
 }
 
@@ -66,7 +69,8 @@ TlaFormWrapper.propTypes = {
     onSubmit: PropTypes.func,
     file: PropTypes.any,
     width: PropTypes.any,
-    children: PropTypes.any
+    children: PropTypes.any,
+    customForm:PropTypes.any
 };
 
 export default TlaFormWrapper

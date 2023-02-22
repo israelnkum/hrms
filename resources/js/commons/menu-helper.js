@@ -7,7 +7,7 @@ import {useLocation} from 'react-router'
 
 const rootSubmenuKeys = []
 
-function MenuHelper({activeRoles, menus, direction, icons, linkStyles}) {
+function MenuHelper({activeRoles, permissions, menus, direction, icons, linkStyles}) {
     const location = useLocation()
     const [openKeys, setOpenKeys] = useState([])
 
@@ -38,8 +38,10 @@ function MenuHelper({activeRoles, menus, direction, icons, linkStyles}) {
             nav.children.length > 0 && nav.children.map((child) => (
                     (child.permission === '' ?
                             getItem(
-                                <Link className={'nav-item'} style={linkStyles}
-                                      state={{background: child.modal && location}} to={child.link}>
+                                <Link className={'nav-item'}
+                                      style={linkStyles}
+                                      state={{background: child.modal && location}}
+                                      to={child.link}>
                                     {child.title}
                                 </Link>, icons[child.icon] ?? '', child.title
                             ) : permissions.includes(child.permission) &&
@@ -75,12 +77,15 @@ MenuHelper.propTypes = {
     menus: PropTypes.array.isRequired,
     direction: PropTypes.string,
     activeRoles: PropTypes.array.isRequired,
+    permissions: PropTypes.array.isRequired,
     icons: PropTypes.object,
+    linkStyles: PropTypes.object
 }
 
 const mapStateToProps = (state) => {
     return {
-        activeRoles: ['Admin']
+        activeRoles: state.userReducer.activeRoles,
+        permissions: state.userReducer.permissions,
     }
 }
 

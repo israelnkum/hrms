@@ -39,16 +39,17 @@ class UserController extends Controller
     public function getActiveRoles()
     {
         $loggedInUser = Auth::user();
-        $activeRoles = [];
 
         if (!$loggedInUser) {
             return response()->json([
                 'message' => 'Unauthenticated'
             ], 422);
         }
+
         return [
-            $loggedInUser->only(['id', 'name', 'username']),
-            $activeRoles
+            'user' => $loggedInUser->only(['id', 'name', 'username']),
+            'roles' => $loggedInUser->getRoleNames(),
+            'permissions' => $loggedInUser->getPermissionsViaRoles()->pluck('name')
         ];
     }
 
@@ -56,6 +57,7 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     *
      * @return Response
      * @throws Exception
      */
@@ -74,29 +76,22 @@ class UserController extends Controller
             $user = User::create($request->all());
             $role = Role::where('name', 'Admin')->first();
             DB::commit();
+
             return \response(new UserResource($user));
         } catch (Exception $exception) {
             DB::rollBack();
+
             return \response('Something went wrong', 422);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
      * @param  $id
+     *
      * @return JsonResponse|Response
      */
     public function update(Request $request, $id)
@@ -107,10 +102,11 @@ class UserController extends Controller
             DB::commit();
 
             $user = User::find($id);
-            return \response($request->has('voter') ? new VoterResource($user) : new UserResource($user));
 
+            return \response($request->has('voter') ? new VoterResource($user) : new UserResource($user));
         } catch (Exception $exception) {
             DB::rollBack();
+
             return response('Something went wrong', 422);
         }
     }
@@ -139,7 +135,6 @@ class UserController extends Controller
                 $voters = $voterList[0];
                 DB::beginTransaction();
                 try {
-
                     $uploaded = [];
                     for ($i = 0; $i < count($voters); $i++) {
                         $user = User::updateOrcreate([
@@ -157,12 +152,14 @@ class UserController extends Controller
                         $uploaded[] = $user->id;
                     }
                     DB::commit();
+
                     return response()->json([
                         'message' => count($uploaded) . '  Voters uploaded successful'
                     ]);
 //                    return \response(VoterResource::collection($allVoters->get()));
                 } catch (Exception $exception) {
                     DB::rollBack();
+
                     return response($exception->getMessage(), 422);
                 }
             } else {
@@ -176,6 +173,7 @@ class UserController extends Controller
     public function downloadUploadFormat(): BinaryFileResponse
     {
         $pathToFile = public_path('assets/voterUploadFormat.xlsx');
+
         return response()->download($pathToFile);
     }
 }

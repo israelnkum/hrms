@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react'
-import {Col, Layout, Row, Spin} from 'antd'
+import { Layout, Spin } from 'antd'
 import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
+import { connect } from "react-redux";
+import { handleGetCommonData } from "../../actions/commons/CommonAction";
+import { getActiveRoles } from "../../actions/users/UserAction";
 import AppHeader from "./app-header";
 import AppSidebar from "./app-sidebar";
-import {connect} from "react-redux";
-import {getActiveRoles} from "../../actions/users/UserAction";
-import {handleGetCommonData} from "../../actions/commons/CommonAction";
 
 const AppLayout = (props) => {
     const [loading, setLoading] = useState(true)
@@ -15,7 +15,7 @@ const AppLayout = (props) => {
         setOpen(!open)
     }
 
-    const { children, getRoles, getCommonData } = props
+    const {children, getRoles, getCommonData} = props
 
     useEffect(() => {
         getRoles().then(() => {
@@ -27,25 +27,23 @@ const AppLayout = (props) => {
     }, [])
 
     return (
-        <Spin spinning={loading}>
-           <Row justify={'center'}>
-               <Col span={24}>
-                   {
-                       !loading &&
-                       <Layout>
-                           <AppSidebar setCollapsed={toggle} collapsed={open}/>
-                           <Layout>
-                               <Layout.Content style={{ margin: '0 5px 50px' }}>
-                                   <AppHeader/>
-                                   <div style={{ minHeight: '100vh', marginTop: 10 }}>
-                                       {children}
-                                   </div>
-                               </Layout.Content>
-                           </Layout>
-                       </Layout>
-                   }
-               </Col>
-           </Row>
+        <Spin spinning={ loading }>
+            <div className={ 'max-w-screen-2xl mx-auto' }>
+                {
+                    !loading &&
+                    <Layout>
+                        <AppSidebar setCollapsed={ toggle } collapsed={ open }/>
+                        <Layout>
+                            <Layout.Content style={ {margin: '0 5px 50px'} }>
+                                <AppHeader/>
+                                <div style={ {minHeight: '100vh', marginTop: 10} }>
+                                    { children }
+                                </div>
+                            </Layout.Content>
+                        </Layout>
+                    </Layout>
+                }
+            </div>
         </Spin>
     )
 }

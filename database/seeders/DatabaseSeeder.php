@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             JobCategorySeeder::class,
             SubUnitSeeder::class,
-            RoleSeeder::class,
+            RolesAndPermissionsSeeder::class,
             TerminationReasonSeeder::class,
             EducationLevelSeeder::class,
             LeaveTypeSeeder::class

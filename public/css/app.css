@@ -36392,6 +36392,12 @@ video {
 .container {
   width: 100%;
 }
+@media (min-width: 400px) {
+
+  .container {
+    max-width: 400px;
+  }
+}
 @media (min-width: 640px) {
 
   .container {
@@ -36416,10 +36422,28 @@ video {
     max-width: 1280px;
   }
 }
+@media (min-width: 1440px) {
+
+  .container {
+    max-width: 1440px;
+  }
+}
 @media (min-width: 1536px) {
 
   .container {
     max-width: 1536px;
+  }
+}
+@media (min-width: 1920px) {
+
+  .container {
+    max-width: 1920px;
+  }
+}
+@media (min-width: 2180px) {
+
+  .container {
+    max-width: 2180px;
   }
 }
 button,
@@ -36595,6 +36619,9 @@ button,
 }
 .max-w-xl {
   max-width: 36rem;
+}
+.max-w-screen-2xl {
+  max-width: 1440px;
 }
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -36864,6 +36891,11 @@ button,
 
 .ant-dropdown-menu-dark, .ant-dropdown-menu-dark .ant-dropdown-menu {
     background: white !important;
+}
+
+.ant-picker-header-view {
+    display: flex !important;
+    justify-content: center !important;
 }
 
 @media (prefers-color-scheme: dark) {

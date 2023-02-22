@@ -1,29 +1,30 @@
-import React from 'react'
-import {Affix, Layout} from 'antd'
-import MenuHelper from "../menu-helper";
-import {FiHome, FiSettings, FiUser} from "react-icons/fi";
-import {connect} from "react-redux";
+import { Affix, Layout } from 'antd'
 import PropTypes from "prop-types";
+import React from 'react'
+import { FiCalendar, FiHome, FiSettings, FiUser } from "react-icons/fi";
+import { connect } from "react-redux";
+import { SidebarMenus } from "../../utils/side-bar-menu";
+import MenuHelper from "../menu-helper";
 import SideProfile from "./side-profile";
-import {SidebarMenus} from "../../utils/side-bar-menu";
 
-function AppSidebar (props) {
+function AppSidebar(props) {
     const {name} = props
 
     return (
-        <Affix offsetTop={2} className={'hidden md:block'}>
+        <Affix offsetTop={ 2 } className={ 'hidden md:block' }>
             <div>
-                <Layout.Sider theme={'light'}
+                <Layout.Sider theme={ 'light' }
                               collapsible
-                              style={{ background: '#fff', height: '98vh', borderRadius: '10px' }}>
-                    <div align={'center'}>
-                        <SideProfile size={50} name={name}/>
+                              style={ {background: '#fff', height: '98vh', borderRadius: '10px'} }>
+                    <div align={ 'center' }>
+                        <SideProfile size={ 50 } name={ name }/>
                     </div>
-                    <MenuHelper icons={{
+                    <MenuHelper icons={ {
                         home: <FiHome/>,
                         pim: <FiUser/>,
                         config: <FiSettings/>,
-                    }} menus={SidebarMenus} direction={'inline'}/>
+                        'time-off': <FiCalendar/>,
+                    } } menus={ SidebarMenus } direction={ 'inline' }/>
                 </Layout.Sider>
             </div>
         </Affix>
@@ -32,7 +33,8 @@ function AppSidebar (props) {
 
 AppSidebar.defaultProps = {
     collapsed: true,
-    setCollapsed: ()=>{},
+    setCollapsed: () => {
+    },
 }
 
 AppSidebar.propTypes = {
@@ -42,7 +44,7 @@ AppSidebar.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    name : state.userReducer.loggedInUser.name,
+    name: state.userReducer.loggedInUser.name,
 })
 
 export default connect(mapStateToProps)(AppSidebar)

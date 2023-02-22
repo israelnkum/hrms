@@ -3,7 +3,7 @@ export const SidebarMenus = [
         title: 'HOME',
         link: '/',
         children: [],
-        permissions: ['Admin'],
+        permissions: ['admin', 'super-admin', 'staff'],
         icon: 'home'
     },
     {
@@ -11,25 +11,25 @@ export const SidebarMenus = [
         link: '#',
         children: [
             {
-                permission: '',
+                permission: 'add-employee',
                 modal: true,
                 title: 'Add Employee',
                 link: '/pim/employees/form',
             },
             // {
-            //     permission: '',
+            //    permissions: ['admin', 'super-admin'],
             //     modal: true,
             //     title: 'Upload Employees',
             //     link: '/pim/employees/upload',
             // },
             {
-                permission: '',
+                permission: 'view-employee',
                 modal: false,
                 title: 'All Employees',
                 link: '/pim/employees',
             }
         ],
-        permissions: ['Admin'],
+        permissions: ['admin', 'super-admin'],
         icon: 'pim'
     },
     {
@@ -37,26 +37,52 @@ export const SidebarMenus = [
         link: '#',
         children: [
             {
-                permission: '',
+                permission: 'add-leave-types',
                 modal: false,
                 title: 'Leave Types',
                 link: '/pim/employees/form',
             },
             {
-                permission: '',
+                permission: 'view-pending-leave-request',
                 modal: false,
                 title: 'Pending Requests',
                 link: '/pim/employees',
             },
             {
-                permission: '',
+                permission: 'view-approved-leave-request',
                 modal: false,
                 title: 'Approved Requests',
                 link: '/pim/employees',
             }
         ],
-        permissions: ['Admin'],
+        permissions: ['admin', 'super-admin'],
         icon: 'pim'
+    },
+    {
+        title: 'Time Off',
+        link: '#',
+        children: [
+            {
+                permission: 'request-time-off',
+                modal: true,
+                title: 'Request a Time Off',
+                link: '/time-off/form',
+            },
+            {
+                permission: 'view-pending-time-off',
+                modal: false,
+                title: 'Pending Time Offs',
+                link: '/time-off/pending',
+            },
+            {
+                permission: 'view-approved-time-off',
+                modal: false,
+                title: 'Approved Time Offs',
+                link: '/time-off/approved',
+            }
+        ],
+        permissions: ['admin', 'super-admin', 'staff'],
+        icon: 'time-off'
     },
     // {
     //     title: 'Config',

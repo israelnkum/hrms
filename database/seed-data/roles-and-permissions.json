@@ -1,0 +1,22 @@
+[
+  {
+    "group": "Employee",
+    "permissions": ["add", "edit", "delete", "view"]
+  },
+  {
+    "group": "Department",
+    "permissions": ["add", "edit", "delete", "view"]
+  },
+  {
+    "group": "Leave Types",
+    "permissions": ["add", "edit", "delete", "view"]
+  },
+  {
+    "group": "Leave Request",
+    "permissions": ["approve", "disapproved", "view-approved", "view-pending"]
+  },
+  {
+    "group": "Time Off",
+    "permissions": ["request", "view-pending", "view-approved"]
+  }
+]

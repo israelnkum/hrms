@@ -1,28 +1,27 @@
-import React from 'react'
-import {Route, Routes} from 'react-router-dom'
-import {Outlet, useLocation} from 'react-router'
-import {ModalRoutes} from "./ModalRoutes";
-import Dashboard from "../../components/dashboard";
-import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import PageWrapper from "../../components/admin/page-wrapper";
-import AllEmployees from "../../components/employees/all-employees";
+import React from 'react'
+import { connect } from "react-redux";
+import { Outlet, useLocation } from 'react-router'
+import { Route, Routes } from 'react-router-dom'
 import Configs from "../../components/admin/config";
 import Departments from "../../components/admin/config/departments";
-import Users from "../../components/admin/config/users";
 import TerminationReasons from "../../components/admin/config/termination-reasons";
-import EmployeeDetail from "../../components/employees/detail/employee-detail";
-import PersonalDetail from "../../components/employees/detail/personal-details";
+import Users from "../../components/admin/config/users";
+import PageWrapper from "../../components/admin/page-wrapper";
+import Dashboard from "../../components/dashboard";
+import AllEmployees from "../../components/employees/all-employees";
 import ContactDetails from "../../components/employees/detail/contact-details";
-import EmergencyContact from "../../components/employees/detail/emergency-contact";
 import Dependants from "../../components/employees/detail/dependants";
+import EmergencyContact from "../../components/employees/detail/emergency-contact";
+import EmployeeDetail from "../../components/employees/detail/employee-detail";
 import Job from "../../components/employees/detail/job-detail";
-import Salary from "../../components/employees/detail/salary";
-import ReportsTo from "../../components/employees/detail/reports-to";
+import PersonalDetail from "../../components/employees/detail/personal-details";
 import Qualifications from "../../components/employees/detail/qualifications";
+import ReportsTo from "../../components/employees/detail/reports-to";
+import Salary from "../../components/employees/detail/salary";
+import { ModalRoutes } from "./ModalRoutes";
 
-const ProtectedRoutes = (props) => {
-    const {activeRoles} = props
+const ProtectedRoutes = () => {
     const location = useLocation()
     const background = location.state && location.state.background
 

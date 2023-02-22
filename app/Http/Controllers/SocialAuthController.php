@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactDetail;
 use App\Models\User;
 use Auth;
 use Exception;
-use Hash;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Log;
@@ -22,10 +22,8 @@ class SocialAuthController
         return Socialite::driver('google')->redirect();
     }
 
-    /**
-     * @return Exception|RedirectResponse
-     */
-    public function handleGoogleCallback()
+
+    public function handleGoogleCallback(): RedirectResponse
     {
         try {
             $socialUser = Socialite::driver('google')->user();
@@ -34,19 +32,39 @@ class SocialAuthController
                 return back('Something went wrong');
             }
 
-            $checkUser = User::where('email', $socialUser->email)->first();
+            $contactDetail = ContactDetail::where('work_email', $socialUser->getEmail())->first();
 
-            if (!$checkUser) {
+            if (!$contactDetail) {
                 return redirect()->route('account-not-found');
             }
 
-            Auth::login($checkUser);
+            if (!$contactDetail->employee->userAccount) {
+                $user = User::updateOrCreate([
+                    'email' => $socialUser->getEmail()
+                ], [
+                    'name' => $socialUser->getName(),
+                    'username' => $socialUser->getEmail(),
+                    'email' => $socialUser->getEmail(),
+                    'password' => Hash::make(Str::random()),
+                    'provider' => 'google',
+                    'provider_id' => $socialUser->getId(),
+                    'employee_id' => $contactDetail->employee_id
+                ]);
+
+                $user->assignRole('staff');
+            } else {
+                $contactDetail->employee->userAccount->assignRole('staff');
+
+                $user = $contactDetail->employee->userAccount;
+            }
+
+            Auth::login($user);
 
             return redirect()->intended('home');
         } catch (Exception $exception) {
             Log::error($exception);
 
-            return $exception;
+            return back('Something went wrong');
         }
     }
 }
