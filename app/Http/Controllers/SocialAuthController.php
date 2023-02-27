@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactDetail;
 use App\Models\User;
-use Auth;
 use Exception;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
-use Log;
 
 class SocialAuthController
 {
@@ -53,10 +53,15 @@ class SocialAuthController
 
                 $user->assignRole('staff');
             } else {
+
                 $contactDetail->employee->userAccount->assignRole('staff');
 
                 $user = $contactDetail->employee->userAccount;
             }
+
+            $contactDetail->employee()->update([
+                'user_id' => $user->id
+            ]);
 
             Auth::login($user);
 

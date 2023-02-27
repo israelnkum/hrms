@@ -87,6 +87,6 @@ TlaModal.propTypes = {
     width: PropTypes.any,
     type: PropTypes.string,
     children: PropTypes.any,
-    title: PropTypes.string,
+    title: PropTypes.any,
     modalAction: PropTypes.any,
 }

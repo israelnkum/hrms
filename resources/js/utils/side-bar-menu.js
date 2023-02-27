@@ -7,6 +7,13 @@ export const SidebarMenus = [
         icon: 'home'
     },
     {
+        title: 'My Info',
+        link: '/my-info',
+        children: [],
+        permissions: ['admin', 'staff'],
+        icon: 'info'
+    },
+    {
         title: 'PIM',
         link: '#',
         children: [

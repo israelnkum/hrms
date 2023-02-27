@@ -19,6 +19,7 @@ import PersonalDetail from "../../components/employees/detail/personal-details";
 import Qualifications from "../../components/employees/detail/qualifications";
 import ReportsTo from "../../components/employees/detail/reports-to";
 import Salary from "../../components/employees/detail/salary";
+import AllTimeOffs from "../../components/time-off/all-time-offs";
 import { ModalRoutes } from "./ModalRoutes";
 
 const ProtectedRoutes = () => {
@@ -27,36 +28,41 @@ const ProtectedRoutes = () => {
 
     return (
         <>
-            <Routes location={background || location}>
-                <Route exact element={<Dashboard/>} path='home'/>
-                <Route exact element={<Dashboard/>} path='/'/>
-                <Route exact element={<Dashboard/>} path='/js/*'/>
-                <Route path='pim' element={<PageWrapper/>}>
-                    <Route path='employees' element={<AllEmployees/>}/>
-                    <Route path='employees/:id/:name' element={<EmployeeDetail/>}>
-                        <Route path='' element={<PersonalDetail/>}/>
-                        <Route path='personal-details' element={<PersonalDetail/>}/>
-                        <Route path='contact-details' element={<ContactDetails/>}/>
-                        <Route path='emergency-contacts' element={<EmergencyContact/>}/>
-                        <Route path='dependents' element={<Dependants/>}/>
-                        <Route path='job' element={<Job/>}/>
-                        <Route path='salary' element={<Salary/>}/>
-                        <Route path='reports-to' element={<ReportsTo/>}/>
-                        <Route path='qualifications' element={<Qualifications/>}/>
+            <Routes location={ background || location }>
+                <Route exact element={ <Dashboard/> } path='home'/>
+                <Route exact element={ <Dashboard/> } path='/'/>
+                <Route exact element={ <Dashboard/> } path='/js/*'/>
+                <Route path='pim' element={ <PageWrapper/> }>
+                    <Route path='employees' element={ <AllEmployees/> }/>
+                    <Route path='employees/:id/:name' element={ <EmployeeDetail/> }>
+                        <Route path='' element={ <PersonalDetail/> }/>
+                        <Route path='personal-details' element={ <PersonalDetail/> }/>
+                        <Route path='contact-details' element={ <ContactDetails/> }/>
+                        <Route path='emergency-contacts' element={ <EmergencyContact/> }/>
+                        <Route path='dependents' element={ <Dependants/> }/>
+                        <Route path='job' element={ <Job/> }/>
+                        <Route path='salary' element={ <Salary/> }/>
+                        <Route path='reports-to' element={ <ReportsTo/> }/>
+                        <Route path='qualifications' element={ <Qualifications/> }/>
                     </Route>
                 </Route>
-                <Route path='app/configs' element={<Configs/>}>
-                    <Route element={<PageWrapper/>}>
-                        <Route path='departments' element={<Departments/>}/>
-                        <Route path='users' element={<Users/>}/>
-                        <Route path='termination-reasons' element={<TerminationReasons/>}/>
+
+                <Route path='time-off' element={ <PageWrapper/> }>
+                    <Route path='pending' element={ <AllTimeOffs/> }/>
+                    <Route path='approved' element={ <AllTimeOffs/> }/>
+                </Route>
+                <Route path='app/configs' element={ <Configs/> }>
+                    <Route element={ <PageWrapper/> }>
+                        <Route path='departments' element={ <Departments/> }/>
+                        <Route path='users' element={ <Users/> }/>
+                        <Route path='termination-reasons' element={ <TerminationReasons/> }/>
                     </Route>
                 </Route>
                 <Route exact>
                     <>not found</>
                 </Route>
             </Routes>
-            {background && (<><ModalRoutes/> <Outlet /></>)}
+            { background && (<><ModalRoutes/> <Outlet/></>) }
         </>
     )
 }
@@ -64,7 +70,9 @@ const ProtectedRoutes = () => {
 ProtectedRoutes.propTypes = {
     activeRoles: PropTypes.array.isRequired
 }
+
 const mapStateToProps = (state) => ({
     activeRoles: state.userReducer.activeRoles
 })
+
 export default connect(mapStateToProps)(ProtectedRoutes)

@@ -63,8 +63,8 @@ module.exports = {
                     '700': '#B93815',
                 },
                 'success': {
-                    '300': '#6CE9A6',
                     '50': '#ECFDF3',
+                    '300': '#6CE9A6',
                     '700': '#027A48',
                 },
                 'white': '#FFFFFF',
@@ -83,6 +83,9 @@ module.exports = {
                     '700': '#C01048',
                     '100': '#FFE4E8'
                 }
+            },
+            content: {
+                'arrow-right': 'url("assets/icons/arrow-right.svg")'
             }
         },
     },

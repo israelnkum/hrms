@@ -46,7 +46,10 @@ function TlaFormWrapper(props) {
                     <div align={ "right" } className={ 'flex justify-end' }>
                         <CloseModal/>
                         &nbsp;
-                        <Button size={ "large" } type="primary" className={ 'bg-blue-400' } htmlType="submit">
+                        <Button size={ "large" }
+                                block
+                                type="primary"
+                                className={ 'btn-primary' } htmlType="submit">
                             Submit
                         </Button>
                     </div>
@@ -65,7 +68,7 @@ TlaFormWrapper.defaultProps = {
 TlaFormWrapper.propTypes = {
     initialValues: PropTypes.object,
     submitValues: PropTypes.object,
-    formTitle: PropTypes.string,
+    formTitle: PropTypes.any,
     onSubmit: PropTypes.func,
     file: PropTypes.any,
     width: PropTypes.any,

@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class ContactDetail extends ApplicationModel
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'employee_id',
@@ -31,5 +32,15 @@ class ContactDetail extends ApplicationModel
     public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class);
+    }
+
+    /**
+     * @param $notification
+     *
+     * return string
+     */
+    public function routeNotificationForMail($notification): string
+    {
+        return $this->work_email;
     }
 }

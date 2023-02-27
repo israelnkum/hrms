@@ -3,15 +3,15 @@ import PropTypes from 'prop-types'
 import { Avatar, Image } from 'antd'
 import { getInitials } from '../utils'
 
-export default function TlaImage ({ src, size, name, preview }) {
+export default function TlaImage({src, size, name, preview}) {
     return (
         <>
             {
                 src === null
-                    ? <Avatar style={{ background: 'var(--Primary-400)' }} size={size} src={src}>{getInitials(name)}</Avatar>
-                    : <Avatar style={{ background: 'var(--Primary-400)' }}
-                              size={size}
-                              src={preview ? <Image src={src} /> : src}>{getInitials(name)}
+                    ? <Avatar className={ 'bg-primary-800' } size={ size } src={ src }>{ getInitials(name) }</Avatar>
+                    : <Avatar className={ 'bg-primary-800' } size={ size }
+                              src={ preview ? <Image src={ src }/> : src }>
+                        { getInitials(name) }
                     </Avatar>
             }
         </>

@@ -1,3 +1,6 @@
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -26,4 +29,12 @@
 .ant-picker-header-view {
     display: flex !important;
     justify-content: center !important;
+}
+
+.slick-next:before {
+    content: url("/images/arrow-right.svg") !important;
+}
+
+.slick-prev:before {
+    content: url("/images/arrow-left.svg") !important;
 }

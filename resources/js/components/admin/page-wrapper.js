@@ -54,12 +54,11 @@ function PageWrapper () {
         </Row>
     )
     return (
-        <>
+        <div className={'w-full'}>
             <GlobalStyles/>
             <Card size={'small'}>
                 <PageCrumbs/> <br/>
-                <Card className={'inner-card'}
-                      title={PageTitle}>
+                <Card className={'inner-card'} title={PageTitle}>
                     <Row align={'middle'} justify={'space-between'}>
                         <Col span={12}>
                             {extra}
@@ -71,7 +70,7 @@ function PageWrapper () {
                     <Outlet context={{setPageInfo, setExtra }}/>
                 </Card>
             </Card>
-        </>
+        </div>
     )
 }
 

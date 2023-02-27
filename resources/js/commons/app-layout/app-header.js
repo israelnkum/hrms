@@ -30,18 +30,14 @@ export default function AppHeader() {
     )
 
     return (
-        <Affix offsetTop={2}>
+        <Affix offsetTop={1}>
             <Layout.Header style={{
-                borderRadius: '10px',
                 backgroundColor: '#fff',
-                marginTop: 5,
                 borderBottom: 'solid #d9d9d9 1px'
             }}>
                 <Row justify="space-between" align="middle">
                     <Col span={17} xs={10} sm={18}>
-                        <Dropdown trigger={['click']} overlay={menu}>
-                            <a>Menu</a>
-                        </Dropdown>
+                        TTU HRMS
                     </Col>
                     <Col span={6} xs={10} sm={6}>
                         <div align={'right'} className={'pt-1'}>

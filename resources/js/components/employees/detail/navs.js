@@ -63,10 +63,10 @@ function Navs ({ employee }) {
         //     title: 'Salary',
         //     icon: <BiCoinStack/>,
         // },
-        // {
-        //     title: 'Reports-to',
-        //     icon: <TbReportAnalytics/>,
-        // },
+        {
+            title: 'Reports-to',
+            icon: <TbReportAnalytics/>,
+        },
         {
             title: 'Qualifications',
             icon: <TbCertificate/>,

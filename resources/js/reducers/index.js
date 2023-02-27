@@ -1,7 +1,8 @@
-import {combineReducers} from 'redux'
-import {persistReducer} from 'redux-persist'
+import { combineReducers } from 'redux'
+import { persistReducer } from 'redux-persist'
 import sessionStorage from 'redux-persist/lib/storage/session'
 import employeeReducer from './employee-reducer'
+import timeOffReducer from "./time-off-reducer";
 import userReducer from './UserReducer'
 import commonReducer from "./common-reducer";
 import qualificationReducer from "./qualification-reducer";
@@ -22,6 +23,7 @@ const persistConfig = {
         'emergencyContactReducer',
         'dependantReducer',
         'jobDetailsReducer',
+        'timeOffReducer'
     ]
 }
 
@@ -34,6 +36,7 @@ const rootReducer = combineReducers({
     jobDetailsReducer,
     emergencyContactReducer,
     dependantReducer,
+    timeOffReducer
 })
 
 export default persistReducer(persistConfig, rootReducer)

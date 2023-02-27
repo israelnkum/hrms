@@ -46,6 +46,10 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::resource('/qualifications', EducationController::class);
     Route::resource('/emergency-contacts', EmergencyContactController::class);
     Route::resource('/dependants', DependantController::class);
+    Route::prefix('leave-request')->group(function () {
+        Route::get('holidays', [LeaveRequestController::class, 'getHolidays']);
+        Route::get('types', [LeaveRequestController::class, 'getLeaveTypes']);
+    });
     Route::resource('/leave-request', LeaveRequestController::class);
 });
 

@@ -6,16 +6,18 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\HtmlString;
 
 class VoteCast extends Notification implements ShouldQueue
 {
     use Queueable;
+
     private $mailData;
 
     public $tries = 5;
 
-    public function retryUntil()
+    public function retryUntil(): Carbon
     {
         return now()->addMinutes(10);
     }
@@ -44,9 +46,9 @@ class VoteCast extends Notification implements ShouldQueue
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         $portfolioName = strtoupper($this->mailData->electionPortfolio->portfolio->name);
         if ($this->mailData->skipped == 1){
