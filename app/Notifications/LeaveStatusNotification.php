@@ -2,23 +2,26 @@
 
 namespace App\Notifications;
 
+use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class LeaveStatusNotification extends Notification
+class LeaveStatusNotification extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    private array $data;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(array $data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -27,7 +30,7 @@ class LeaveStatusNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function via($notifiable)
+    public function via($notifiable): array
     {
         return ['mail'];
     }
@@ -36,14 +39,20 @@ class LeaveStatusNotification extends Notification
      * Get the mail representation of the notification.
      *
      * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
+        $status = strtoupper($this->data['leaveStatus']);
+
+        $pendingText  = $status === 'APPROVED' ? ' and it\'s pending HR approval.' : '';
+
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->greeting('Dear ' . $this->data['employee'] . ',')
+            ->subject('Leave Request '. $status)
+            ->line('Your leave request was '. $status .' by '. $this->data['supervisor'])
+            ->line('on '. Carbon::parse($this->data['date'])->format('D, M d Y'))
+            ->action('Review Request', env('FRONTEND_URL'));
     }
 
     /**
@@ -52,7 +61,7 @@ class LeaveStatusNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         return [
             //

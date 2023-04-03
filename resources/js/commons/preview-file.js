@@ -44,9 +44,7 @@ export default function PreviewFile() {
     )
     return (
         <TlaDrawer extra={<Extra/>}>
-            <Space>
-                <PreviewDocument/>
-            </Space>
+            <PreviewDocument/>
         </TlaDrawer>
     )
 }

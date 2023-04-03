@@ -1,0 +1,4 @@
+export const Types = {
+  GET_PEOPLE: 'GET_PEOPLE',
+  ADD_PEOPLE_FILTER: 'ADD_PEOPLE_FILTER'
+}

@@ -3,32 +3,19 @@ export const SidebarMenus = [
         title: 'HOME',
         link: '/',
         children: [],
-        permissions: ['admin', 'super-admin', 'staff'],
+        permissions: [],
         icon: 'home'
     },
     {
-        title: 'My Info',
-        link: '/my-info',
-        children: [],
-        permissions: ['admin', 'staff'],
-        icon: 'info'
-    },
-    {
-        title: 'PIM',
+        title: 'EMPLOYEES',
         link: '#',
         children: [
             {
                 permission: 'add-employee',
                 modal: true,
                 title: 'Add Employee',
-                link: '/pim/employees/form',
+                link: '/employees/form',
             },
-            // {
-            //    permissions: ['admin', 'super-admin'],
-            //     modal: true,
-            //     title: 'Upload Employees',
-            //     link: '/pim/employees/upload',
-            // },
             {
                 permission: 'view-employee',
                 modal: false,
@@ -36,7 +23,7 @@ export const SidebarMenus = [
                 link: '/pim/employees',
             }
         ],
-        permissions: ['admin', 'super-admin'],
+        permissions: ['add-employee', 'view-employee'],
         icon: 'pim'
     },
     {
@@ -47,23 +34,23 @@ export const SidebarMenus = [
                 permission: 'add-leave-types',
                 modal: false,
                 title: 'Leave Types',
-                link: '/pim/employees/form',
+                link: '/leave-management/leave-types',
             },
             {
                 permission: 'view-pending-leave-request',
                 modal: false,
                 title: 'Pending Requests',
-                link: '/pim/employees',
+                link: '/leave-management/pending-request',
             },
             {
                 permission: 'view-approved-leave-request',
                 modal: false,
                 title: 'Approved Requests',
-                link: '/pim/employees',
+                link: '/leave-management/approved-request',
             }
         ],
-        permissions: ['admin', 'super-admin'],
-        icon: 'pim'
+        permissions: ['add-leave-types', 'view-pending-leave-request', 'view-approved-leave-request'],
+        icon: 'time-off'
     },
     {
         title: 'Time Off',
@@ -88,8 +75,15 @@ export const SidebarMenus = [
                 link: '/time-off/approved',
             }
         ],
-        permissions: ['admin', 'super-admin', 'staff'],
+        permissions: ['request-time-off', 'view-pending-time-off', 'view-approved-time-off'],
         icon: 'time-off'
+    },
+    {
+        title: 'People',
+        link: '/people',
+        children: [],
+        permissions: [],
+        icon: 'config'
     },
     // {
     //     title: 'Config',

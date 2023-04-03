@@ -23,14 +23,17 @@ const AppLayout = (props) => {
 
     return (
         <Spin spinning={ loading }>
+            {/*#d9d9d9*/}
             <div className={ 'max-w-screen-2xl mx-auto' }>
                 {
                     !loading &&
                     <div>
                         <AppHeader/>
-                        <div className={'flex gap-x-2 w-full'}>
+                        <div className={'flex gap-x-2'}>
                             <AppSidebar/>
-                            { children }
+                            <div className={'mt-1.5 grow'}>
+                                { children }
+                            </div>
                         </div>
                     </div>
                 }

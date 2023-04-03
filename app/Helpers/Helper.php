@@ -2,12 +2,13 @@
 
 namespace App\Helpers;
 
-use App\Models\Role;
-use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role;
 
-class HelperFunctions
+class Helper
 {
     public static function saveImage($model, $file, $directory): void
     {
@@ -20,9 +21,8 @@ class HelperFunctions
 
     public static function createUserAccount($model, $data, $userName = null): void
     {
-
         $password = strtoupper(Str::random(10));
-       $user = $model::find($data['id'])->user()->updateOrCreate(
+        $user = $model::find($data['id'])->user()->updateOrCreate(
             ['username' => $data['email']],
             [
                 'username' => $data['email'],
@@ -39,5 +39,15 @@ class HelperFunctions
         $user->roles()->attach($role->id);
     }
 
+    public static function formatDate($request)
+    {
+        if ($request->date !== 'null') {
+            $explode = explode(',', $request->date);
+            $request['start_date'] = Carbon::parse($explode[1])->format('Y-m-d');
+            $request['end_date'] = Carbon::parse($explode[3])->format('Y-m-d');
+        }
+
+        return $request->all();
+    }
 
 }

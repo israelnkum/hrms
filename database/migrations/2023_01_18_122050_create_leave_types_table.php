@@ -25,7 +25,7 @@ return new class extends Migration {
             $table->integer('maximum_allotment')->nullable();
             $table->integer('maximum_consecutive_days')->nullable();
             $table->integer('should_request_before')->nullable();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

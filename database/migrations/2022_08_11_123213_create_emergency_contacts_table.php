@@ -17,14 +17,14 @@ return new class extends Migration
     {
         Schema::create('emergency_contacts', static function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Employee::class);
+            $table->foreignIdFor(Employee::class)->constrained();
             $table->string('name');
             $table->string('relationship');
             $table->string('phone_number');
             $table->string('alt_phone_number')->nullable();
             $table->string('email')->nullable();
+            $table->foreignIdFor(User::class)->constrained();
             $table->softDeletes();
-            $table->foreignIdFor(User::class);
             $table->timestamps();
         });
     }

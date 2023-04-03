@@ -1,13 +1,12 @@
-import React, {useState} from 'react'
+import { Col, DatePicker, Form, Input, Row, Select } from 'antd'
+import moment from "moment/moment";
 import PropTypes from 'prop-types'
-import {Checkbox, Col, DatePicker, Form, Input, Row, Select} from 'antd'
-import {connect} from 'react-redux'
-import {useLocation} from "react-router-dom";
-import ChangePicture from "../commons/change-picture";
-import {handleAddEmployee, handleUpdateEmployee} from "../../actions/employee/EmployeeAction";
+import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { useLocation } from "react-router-dom";
+import { handleAddEmployee, handleUpdateEmployee } from "../../actions/employee/EmployeeAction";
 import TlaFormWrapper from "../../commons/tla-form-wrapper";
 import TlaSelect from "../../commons/tla/TlaSelect";
-import moment from "moment/moment";
 
 
 function EmployeeForm (props) {
@@ -36,29 +35,11 @@ function EmployeeForm (props) {
                         formTitle={`${(formValues.id === 0 ? "New" : "Edit")} Employee`}>
             <Row gutter={10}>
                 <Render editing={false}>
-                    <Row>
-                        <Col span={12}>
-                            <div align={'center'}>
-                                <ChangePicture
-                                    hasFile={selectedFile === null}
-                                    setFile={setSelectedFile}/>
-                            </div>
-                        </Col>
-                        <Col span={12}>
-                            <Row>
-                                <Col span={24}>
-                                    <Form.Item name="ssnit_number" label="ssnit number">
-                                        <Input size={'large'}/>
-                                    </Form.Item>
-                                </Col>
-                                <Col span={24}>
-                                    <Form.Item name="dob" label="date of birth">
-                                        <DatePicker style={{ width: '100%' }} size={'large'}/>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
+                    <Col span={8}>
+                        <Form.Item name="ssnit_number" label="ssnit number">
+                            <Input size={'large'}/>
+                        </Form.Item>
+                    </Col>
                 </Render>
 
                 <Col span={formValues.id === 0 ? 12 : 8}>
@@ -121,11 +102,16 @@ function EmployeeForm (props) {
                     <Col span={8}>
                         <TlaSelect label={'gtec placement'} name={'gtec_placement'} optionKey={'name'} options={ranks}/>
                     </Col>
-                    <Col span={24}>
+                    <Col span={8}>
+                        <Form.Item name="dob" label="date of birth">
+                            <DatePicker style={{ width: '100%' }} size={'large'}/>
+                        </Form.Item>
+                    </Col>
+                    {/*<Col span={24}>
                         <Form.Item name="create_account" valuePropName="checked">
                             <Checkbox>Create user account</Checkbox>
                         </Form.Item>
-                    </Col>
+                    </Col>*/}
                 </Render>
                 <Col>
                     <Form.Item hidden name="id" label="ID"
@@ -146,7 +132,7 @@ EmployeeForm.propTypes = {
     addEmployee: PropTypes.func.isRequired,
     updateEmployee: PropTypes.func.isRequired,
     departments: PropTypes.array.isRequired,
-    ranks: PropTypes.array.isRequired,
+    ranks: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => ({

@@ -7,14 +7,18 @@ use App\Helpers\SaveFile;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Http\Resources\EmployeeResource;
+use App\Models\ActivityLog;
 use App\Models\Employee;
+use App\Models\PreviousRank;
 use App\Traits\UsePrint;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -108,6 +112,22 @@ class EmployeeController extends Controller
                 $saveFile->save();
             }
 
+            PreviousRank::updateOrCreate([
+                'rank_id' => $employee->rank_id,
+                'employee_id' => $employee->id
+            ], [
+                'rank_id' => $employee->rank_id,
+                'employee_id' => $employee->id,
+                'user_id' => Auth::id()
+            ]);
+
+            $user = Auth::user();
+
+            ActivityLog::add($user->employee->name . 'update the personal details for ' . $employee->name,
+                'updated', [''], 'job-details')
+                ->to($employee)
+                ->as($user);
+
             DB::commit();
 
             return new EmployeeResource($employee);
@@ -163,5 +183,16 @@ class EmployeeController extends Controller
             ->orWhere('first_name', 'like', '%' . $query . '%')->get();
 
         return EmployeeResource::collection($employees);
+    }
+
+    public function getPeople(): AnonymousResourceCollection
+    {
+        $employeesQuery = Employee::query();
+
+        if(!$this->getRoles()->contains('super-admin')) {
+           $employeesQuery->where('department_id', Auth::user()->employee->department_id);
+        }
+
+        return EmployeeResource::collection($employeesQuery->paginate(10));
     }
 }

@@ -1,43 +1,29 @@
-import React, {useState} from 'react'
-import {connect} from 'react-redux'
-import {Outlet} from 'react-router'
-import {Button, Card, Col, Row, Space} from 'antd'
-import {FiPlus} from 'react-icons/fi'
-import {createGlobalStyle} from 'styled-components'
-import TlaAddNew from '../../commons/tla-add-new'
-import {Link} from 'react-router-dom'
+import { Button, Col, Row, Space } from 'antd'
 import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+import { FiPlus } from 'react-icons/fi'
+import { connect } from 'react-redux'
+import { Outlet } from 'react-router'
+import { Link } from 'react-router-dom'
+import TlaAddNew from '../../commons/tla-add-new'
 import PageCrumbs from "./page-crumbs";
-
-const GlobalStyles = createGlobalStyle`
-      .inner-card .ant-card-body {
-        padding: 10px;
-      }
-      .inner-card .ant-card-head {
-        padding: 0 10px ;
-      }
-      .inner-card .ant-card-head-title {
-        padding: 10px 0;
-      }
-    `
-
 
 function PageWrapper () {
     const [pageInfo, setPageInfo] = useState({});
     const [extra, setExtra] = useState(<></>);
 
     const PageTitle = (
-        <Row align={'middle'} justify={'space-between'}>
+        <Row className={'mb-2'} align={'middle'} justify={'space-between'}>
             <Col span={12}>
                 <Space>
                     {/*<Button icon={<FiArrowLeft/>}>Go Back</Button>*/}
                     <h3 className="text-title" style={{ fontSize: 18, paddingTop: 5 }}>{pageInfo.title}</h3>
                 </Space>
             </Col>
-            <Col span={12}>
+            <Col span={12} className={'flex justify-end'}>
                 {
                     pageInfo.addLink &&
-                    <div align={'right'}>
+                    <div className={'w-fit'}>
                         {
                             !pageInfo.modalLink ?
                                 <TlaAddNew link={pageInfo.addLink} data={pageInfo?.extraInfo}>
@@ -55,21 +41,21 @@ function PageWrapper () {
     )
     return (
         <div className={'w-full'}>
-            <GlobalStyles/>
-            <Card size={'small'}>
-                <PageCrumbs/> <br/>
-                <Card className={'inner-card'} title={PageTitle}>
-                    <Row align={'middle'} justify={'space-between'}>
-                        <Col span={12}>
+            <div className={'bg-gray-20'}>
+                <PageCrumbs/>
+                <div className={'inner-card bg-gray-20'}>
+                    {PageTitle}
+                    <div align={'middle'} className={'flex justify-between'}>
+                        <div>
                             {extra}
-                        </Col>
-                        <Col span={8}>
+                        </div>
+                        <div>
                             {/*<TlaSearch/>*/}
-                        </Col>
-                    </Row>
+                        </div>
+                    </div>
                     <Outlet context={{setPageInfo, setExtra }}/>
-                </Card>
-            </Card>
+                </div>
+            </div>
         </div>
     )
 }

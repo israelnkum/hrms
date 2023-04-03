@@ -15,7 +15,7 @@ class SendLeaveRequestJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private object $data;
+    private $data;
 
     private ContactDetail $to;
     /**

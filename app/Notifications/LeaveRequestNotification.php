@@ -11,7 +11,7 @@ class LeaveRequestNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    private object $data;
+    private array $data;
 
     /**
      * Create a new notification instance.
@@ -40,13 +40,16 @@ class LeaveRequestNotification extends Notification implements ShouldQueue
      *
      * @param mixed $notifiable
      *
-     * @return \Illuminate\Notifications\Messages\MailMessage
+     * @return MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->greeting('Dear ' . $this->data->first_name . '!')
-            ->action('Review', url('/'));
+            ->subject('Time off Request')
+            ->greeting('Dear ' . $this->data['supervisor'] . '!')
+            ->line($this->data['employee'] . ' ' . ' has requested ' . $this->data['daysRequested'] . ' day(s) off,')
+            ->line('Starting from ' . $this->data['startDate'] . ' and will resume on ' . $this->data['endDate'])
+            ->action('Review Request', env('FRONTEND_URL'));
     }
 
     /**

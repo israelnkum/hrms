@@ -54,7 +54,7 @@ function EmergencyContactForm (props) {
                         <Input size={'large'}/>
                     </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col span={24}>
                     <Form.Item name="email" label="Email"
                                rules={[
                                    {
@@ -89,6 +89,7 @@ function EmergencyContactForm (props) {
         </TlaFormWrapper>
     )
 }
+
 EmergencyContactForm.propTypes = {
     addEmergencyContact: PropTypes.func.isRequired,
     updateEmergencyContact: PropTypes.func.isRequired,

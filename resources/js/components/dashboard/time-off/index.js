@@ -29,7 +29,7 @@ function TimeOff({getLeaveTypes, leaveTypes}) {
                     Time Off
                 </div>
             }
-            className={ 'border px-4 rounded-lg border-none shadow-sm' }>
+            className={ 'px-2 rounded-lg border-none shadow-sm w-full' }>
             <Spin spinning={ loading }>
                 <div>
                     <Slider { ...settings }>

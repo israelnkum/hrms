@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,13 +23,22 @@ class LeaveRequestResource extends JsonResource
             'leave_type' => $this->leaveType->name,
             'reason' => $this->reason,
             'days_requested' => $this->days_requested,
+            'days_approved' => $this->days_approved,
             'employee_id' => $this->employee_id,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
             'status' => $this->status,
             'supervisor_id' => $this->supervisor_id,
             'employee' => $this->employee->name,
-            'approver' => $this->approver->name
+            'department' => $this->employee->department->name,
+            'approver' => $this->approver->name,
+            'date_requested' => Carbon::parse($this->created_at)->diffForHumans(),
+            'startDate' => Carbon::parse($this->start_date)->format('D, M d Y'),
+            'endDate' => Carbon::parse($this->end_date)->format('D, M d Y'),
+            'hr_status' => $this->hr_status,
+            'sup_approval' => $this->sup_approval,
+            'hr_approval' => $this->hr_approval,
+            'created_at' => Carbon::parse($this->created_at)->format('M d y'),
         ];
     }
 }

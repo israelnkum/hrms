@@ -11,7 +11,7 @@ function AppSidebar(props) {
     const {name} = props
 
     return (
-        <Affix offsetTop={ 70 }>
+        <Affix offsetTop={ 65 }>
             <Layout.Sider
                 theme={ 'light' }
                 style={ {background: '#fff', height: '100vh'} }>

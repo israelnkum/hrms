@@ -1,15 +1,18 @@
-import { Spin, Card } from "antd";
+import { Card, Spin } from "antd";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from 'react'
 import { BsCalendar3 } from "react-icons/bs";
 import { connect } from "react-redux";
-import { handleGetLeaveTypes } from "../../../actions/time-off/TimeOffAction";
+import { handleGetWhoIsOut } from "../../../actions/commons/CommonAction";
 
-function WhoIsOut({getLeaveTypes}) {
+function WhoIsOut({getWhoIsOut}) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        getLeaveTypes().then(() => setLoading(false))
+        getWhoIsOut().then((res) => {
+            console.log(res.data)
+            setLoading(false)
+        })
     }, [])
 
 
@@ -17,11 +20,11 @@ function WhoIsOut({getLeaveTypes}) {
         <Card
             title={
                 <div className={ 'flex items-center gap-x-2' }>
-                    <BsCalendar3 className={ 'text-2xl' }/>
+                    <BsCalendar3 className={ 'text-xl' }/>
                     <p>Who&rsquo;s out?</p>
                 </div>
             }
-            className={ 'border px-4 rounded-lg border-none shadow-sm' }>
+            className={ 'rounded-lg border-none shadow-sm' }>
             <Spin spinning={ loading }>
 
             </Spin>
@@ -30,16 +33,16 @@ function WhoIsOut({getLeaveTypes}) {
 }
 
 WhoIsOut.propTypes = {
-    getLeaveTypes: PropTypes.func.isRequired,
-    leaveTypes: PropTypes.array.isRequired
+    getWhoIsOut: PropTypes.func.isRequired,
+    whoIsOut: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    leaveTypes: state.timeOffReducer.leaveTypes
+    whoIsOut: state.commonReducer.whoIsOut
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getLeaveTypes: () => dispatch(handleGetLeaveTypes())
+    getWhoIsOut: () => dispatch(handleGetWhoIsOut())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WhoIsOut)

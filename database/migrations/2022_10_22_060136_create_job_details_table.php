@@ -2,6 +2,7 @@
 
 use App\Models\Employee;
 use App\Models\JobCategory;
+use App\Models\Position;
 use App\Models\SubUnit;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -20,7 +21,7 @@ return new class extends Migration
         Schema::create('job_details', static function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employee::class)->constrained();
-            $table->string('job_title')->nullable();
+            $table->foreignIdFor(Position::class)->nullable()->constrained();
             $table->string('status')->nullable();
             $table->foreignIdFor(JobCategory::class)->nullable()->constrained();
             $table->foreignIdFor(SubUnit::class)->nullable()->constrained();

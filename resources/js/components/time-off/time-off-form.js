@@ -1,18 +1,17 @@
 import { Col, DatePicker, Form, Input, InputNumber, Row, Select, Spin } from 'antd'
-import moment from "moment/moment";
 import dayjs from 'dayjs'
+import moment from "moment/moment";
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { AiOutlineFieldTime } from "react-icons/ai";
 import { connect } from 'react-redux'
 import { useLocation } from "react-router-dom";
-import { handleGetHolidays, handleRequestTimeOff } from "../../actions/time-off/TimeOffAction";
+import { handleRequestTimeOff } from "../../actions/time-off/TimeOffAction";
 import TlaFormWrapper from "../../commons/tla-form-wrapper";
 import Employees from "../commons/form/employees";
 
 function TimeOffForm(props) {
-    const [loading, setLoading] = useState(true)
-    const {requestTimeOff, getHolidays, holidays, leaveTypes} = props
+    const {requestTimeOff, holidays, leaveTypes} = props
     const [form] = Form.useForm();
     const {state} = useLocation()
 
@@ -21,12 +20,6 @@ function TimeOffForm(props) {
         ...state.data,
         start_date: state?.data ? (state?.data.start_date ? moment(state?.data.start_date) : null) : null,
     }
-
-    useEffect(() => {
-        getHolidays().then(() => {
-            setLoading(false)
-        }).catch(() => setLoading(false))
-    }, [])
 
     const disabledDate = (current) => {
         if (!current) {
@@ -52,7 +45,7 @@ function TimeOffForm(props) {
                     { `${ (formValues.id === 0 ? "Request" : "Edit") } a Time off` }
                 </div>
             }>
-            <Spin spinning={ loading }>
+            <Spin spinning={ false }>
                 <Row gutter={ 10 }>
                     <Col span={ 24 }>
                         <Form.Item
@@ -64,7 +57,9 @@ function TimeOffForm(props) {
                                     message: 'Required'
                                 }
                             ] }>
-                            <Select size={ 'large' } placeholder={ 'Select Leave Type' } className={ 'rounded-lg' }>
+                            <Select size={ 'large' }
+                                    placeholder={ 'Select Leave Type' }
+                                    className={ 'rounded-lg' }>
                                 {
                                     leaveTypes.map(({id, name}) => (
                                         <Select.Option value={ id } key={ id }>{ name }</Select.Option>
@@ -85,24 +80,22 @@ function TimeOffForm(props) {
                                        }
                                    ] }>
                             <InputNumber
+                                max={ 45 }
                                 min={ 0.5 }
                                 style={ {width: '100%', borderRadius: 10} }
-                                step={ 0.5 } size={ 'large' }/>
+                                step={ 0.5 } size={ 'large' } placeholder={'Number of days'}/>
                         </Form.Item>
                     </Col>
-                    {
-                        !loading &&
-                        <Col span={ 12 }>
-                            <Form.Item name="start_date" label="Starting date" rules={ [
-                                {
-                                    required: true,
-                                    message: 'Required'
-                                }
-                            ] }>
-                                <DatePicker disabledDate={ disabledDate } style={ {width: '100%'} } size={ 'large' }/>
-                            </Form.Item>
-                        </Col>
-                    }
+                    <Col span={ 12 }>
+                        <Form.Item name="start_date" label="Starting date" rules={ [
+                            {
+                                required: true,
+                                message: 'Required'
+                            }
+                        ] }>
+                            <DatePicker disabledDate={ disabledDate } style={ {width: '100%'} } size={ 'large' }/>
+                        </Form.Item>
+                    </Col>
 
                     <Col span={ 24 }>
                         <Form.Item name="reason" label="Notes" rules={ [
@@ -132,8 +125,7 @@ function TimeOffForm(props) {
 TimeOffForm.propTypes = {
     requestTimeOff: PropTypes.func.isRequired,
     holidays: PropTypes.array.isRequired,
-    leaveTypes: PropTypes.array.isRequired,
-    getHolidays: PropTypes.func.isRequired
+    leaveTypes: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => ({
@@ -143,7 +135,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     requestTimeOff: (data) => dispatch(handleRequestTimeOff(data)),
-    getHolidays: () => dispatch(handleGetHolidays()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(TimeOffForm)

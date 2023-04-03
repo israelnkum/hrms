@@ -1,6 +1,12 @@
-
 import api from "../../utils/api";
-import { getHolidays, getLeaveRequests, getLeaveTypes, requestTimeOff, } from './ActionCreators'
+import { changeLeaveStatus } from "../commons/ActionCreators";
+import {
+    changeLeaveRequestStatus,
+    getHolidays,
+    getLeaveRequests,
+    getLeaveTypes, getTimeOff,
+    requestTimeOff,
+} from './ActionCreators'
 
 /**
  * Store a newly created resource in storage.
@@ -47,14 +53,50 @@ export const handleGetLeaveTypes = () => (dispatch) => {
         })
     })
 }
+
 /**
  *
  * @returns {function(*): Promise<unknown>}
  */
 export const handleGetLeaveRequest = (params) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        api().get(`/leave-request?${params}`).then((res) => {
+        api().get(`/leave-request?${ params }`).then((res) => {
             dispatch(getLeaveRequests(res.data))
+            resolve(res)
+        }).catch((err) => {
+            reject(err)
+        })
+    })
+}
+
+/**
+ *
+ * @returns {function(*): Promise<unknown>}
+ */
+export const handleGetTimeOff = (id) => (dispatch) => {
+    return new Promise((resolve, reject) => {
+        api().get(`/leave-request/${ id }`).then((res) => {
+            dispatch(getTimeOff(res.data))
+            resolve(res)
+        }).catch((err) => {
+            reject(err)
+        })
+    })
+}
+
+/**
+ *
+ * @returns {function(*): Promise<unknown>}
+ */
+export const handleChangeLeaveRequestStatus = (data, fromDashboard = false) => (dispatch) => {
+    return new Promise((resolve, reject) => {
+        api().post('/leave-request/status/change', data).then((res) => {
+
+            if (fromDashboard) {
+                dispatch(changeLeaveStatus(res.data))
+            } else {
+                dispatch(changeLeaveRequestStatus(res.data))
+            }
             resolve(res)
         }).catch((err) => {
             reject(err)

@@ -18,7 +18,7 @@ function Employees(props) {
                 },
             ]}>
             <SearchItems search={getEmployees} displayField={'name'}
-                         text={'Search by employee name'}
+                         text={'Search by last name'}
                          onChangeCallback={({ id }) => {
                              form.setFieldsValue({
                                  employee_id: id

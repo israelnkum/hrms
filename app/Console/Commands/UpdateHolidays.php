@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Console\Command\Command as CommandAlias;
 
 class UpdateHolidays extends Command
 {
@@ -52,12 +53,12 @@ class UpdateHolidays extends Command
 
             $this->output->success('Holidays updated');
 
-            return Command::SUCCESS;
+            return CommandAlias::SUCCESS;
         } catch (\Exception $exception) {
             Log::error('Holiday Update Error', [$exception]);
             $this->output->title('Holiday Update Failed');
 
-            return Command::FAILURE;
+            return CommandAlias::FAILURE;
         }
     }
 }

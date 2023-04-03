@@ -1,4 +1,6 @@
 import { Store } from './Store'
+import dayjs from "dayjs";
+
 export const getAge = (dateString) => {
   const today = new Date()
   const birthDate = new Date(dateString)
@@ -53,4 +55,8 @@ export const completeExport = (data, filename = 'report') => {
         document.body.appendChild(link)
         link.click()
     }
+}
+
+export const formatDate = (date) => {
+    return dayjs(date).format('MMM Do YY')
 }

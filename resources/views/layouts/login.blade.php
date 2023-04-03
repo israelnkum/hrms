@@ -84,7 +84,8 @@
                 <div class="col-md-4 text-center">
                     <div class="card login-body p-4 shadow-sm border-0">
                         <div align="center">
-                            <img height="auto" align="center" width="100" alt="logo" src="{{asset('images/ttuLogo.png')}}"/>
+                            <img height="auto" align="center" width="200" alt="logo" src="{{asset('images/ttuLogo.png')
+                            }}"/>
                         </div>
                         <div>
                             <div class="">

@@ -1,5 +1,5 @@
-import React from "react";
-import { Button, Form } from "antd";
+import React, { useState } from "react";
+import { Button, Form, Spin } from "antd";
 import { useNavigate } from "react-router-dom";
 import { TlaModal } from "./pop-ups/tla-modal";
 import PropTypes from "prop-types";
@@ -9,9 +9,11 @@ import { TlaError, TlaSuccess } from "../utils/messages";
 function TlaFormWrapper(props) {
     const navigate = useNavigate();
     const [form] = Form.useForm();
+    const [loading, setLoading] = useState(false)
     const {onSubmit, initialValues, formTitle, children, file, width, customForm} = props;
 
     const submit = (values) => {
+        setLoading(true)
         const formData = new FormData();
         values.id !== 0 && formData.append("_method", "PUT");
         file !== null ? formData.append('file', file) : ''
@@ -23,38 +25,41 @@ function TlaFormWrapper(props) {
         }
 
         onSubmit(formData).then(() => {
+            setLoading(false)
             TlaSuccess();
             customForm ? customForm.resetFields() : form.resetFields();
             navigate(-1);
         }).catch((error) => {
+            setLoading(false)
             TlaError(error.response.data.message)
         });
     };
 
     return (
         <TlaModal title={ formTitle } width={ width }>
-            <Form
-                form={ customForm ? customForm : form }
-                onFinish={ (values) => {
-                    submit(values)
-                } }
-                layout="vertical"
-                name="createQualificationForm"
-                initialValues={ initialValues }>
-                { children }
-                <Form.Item>
-                    <div align={ "right" } className={ 'flex justify-end' }>
-                        <CloseModal/>
-                        &nbsp;
-                        <Button size={ "large" }
-                                block
-                                type="primary"
-                                className={ 'btn-primary' } htmlType="submit">
-                            Submit
-                        </Button>
-                    </div>
-                </Form.Item>
-            </Form>
+            <Spin spinning={loading} tip={'Please Wait'}>
+                <Form
+                    form={ customForm ? customForm : form }
+                    onFinish={ (values) => {
+                        submit(values)
+                    } }
+                    layout="vertical"
+                    name="createForm"
+                    initialValues={ initialValues }>
+                    { children }
+                    <Form.Item>
+                        <div align={ "right" } className={ 'flex gap-x-2 justify-end' }>
+                            <CloseModal/>
+                            <Button size={ "large" }
+                                    block
+                                    type="primary"
+                                    className={ 'btn-primary' } htmlType="submit">
+                                Submit
+                            </Button>
+                        </div>
+                    </Form.Item>
+                </Form>
+            </Spin>
         </TlaModal>
     );
 }

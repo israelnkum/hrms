@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from 'react'
 import { connect } from "react-redux";
 import AdminDashboard from "./admin";
-import EmployeeDashboard from "./employee";
+import EmployeeDashboard from "./employee-dashboard";
 
 function Dashboard({activeRoles}) {
     return (

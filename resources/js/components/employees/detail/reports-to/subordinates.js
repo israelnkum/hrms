@@ -1,54 +1,62 @@
-import React from 'react'
-import {Table, Space, Button, Tag, Typography} from 'antd'
-import {connect} from "react-redux";
+import { Space, Spin, Table, Typography } from 'antd'
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from 'react'
+import { connect } from "react-redux";
+import {
+    handleDeleteDirectReport,
+    handleGetAllDirectReports
+} from "../../../../actions/employee/direct-reports/DirectReportAction";
 import TlaTableWrapper from "../../../../commons/table/tla-table-wrapper";
-import TlaAddNew from "../../../../commons/tla-add-new";
 import TlaEdit from "../../../../commons/tla-edit";
 import TlaConfirm from "../../../../commons/TlaConfirm";
+import { TlaSuccess } from "../../../../utils/messages";
 
-const { Column } = Table
-const test = [
-    {
-        id: 1,
-        name: 'Darrell Steward',
-        method: 'Direct',
-        phone: '0544513074',
-        key: 'name',
-    },
-    {
-        id: 2,
-        name: 'Devon Lane',
-        method: 'Direct',
-        phone: "0544513074",
-        key: 'name',
-    },
-    {
-        id: 3,
-        name: 'Cameron Williamson',
-        method: 'Indirect',
-        phone: "0544513074",
-        key: 'name',
-    },
-    {
-        id: 4,
-        name: 'Darrell Steward',
-        method: 'Indirect',
-        phone: '0544513074',
-        key: 'name',
-    }
-];
-function Subordinates () {
+const {Column} = Table
+
+function Subordinates({getDirectReports, directReports, deleteDeleteDirectReport, employeeId}) {
+    const [loading, setLoading] = useState(true)
+    const {data, meta} = directReports
+
+    useEffect(() => {
+        getDirectReports(`supervisorId=${ employeeId }`).then(() => setLoading(false))
+    }, [])
     return (
-        <>
-            <TlaTableWrapper extra={<Typography.Text>SUBORDINATES</Typography.Text>} callbackFunction={() => {}} data={test}>
-                <Column title="Name" dataIndex={'name'}/>
-                <Column title="Reporting Method" dataIndex={'method'}/>
+        <Spin spinning={ loading } tip={ 'Please wait' }>
+            <TlaTableWrapper
+                extra={ <Typography.Text>SUBORDINATES</Typography.Text> }
+                callbackFunction={ () => {getDirectReports(`supervisorId=${ employeeId }`)} }
+                meta={ meta } data={ data }>
+                <Column title="Name" dataIndex={ ['employee', 'name'] }/>
+                <Column title="Email" dataIndex={ ['employee', 'email'] }/>
+                <Column title="Reporting Method" dataIndex={ 'method' }/>
+                <Column title="Action" render={ (value) => (
+                    <Space size={ 0 }>
+                        <TlaEdit icon data={ value } link={ 'form' } type={ 'text' }/>
+                        <TlaConfirm title={ 'Subordinate' } callBack={ () => {
+                            deleteDeleteDirectReport(value.id).then(() => TlaSuccess('Record Deleted'))
+                        } }/>
+                    </Space>
+                ) }/>
             </TlaTableWrapper>
-        </>
+        </Spin>
     )
 }
 
 Subordinates.propTypes = {
+    getDirectReports: PropTypes.func.isRequired,
+    directReports: PropTypes.object.isRequired,
+    deleteDeleteDirectReport: PropTypes.object.isRequired,
+    employeeId: PropTypes.number.isRequired
 }
 
-export default connect()(Subordinates)
+const mapStateToProps = (state) => ({
+    directReports: state.directReportReducer.directReports,
+    employeeId: state.employeeReducer.employee.id
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    getDirectReports: (params) => dispatch(handleGetAllDirectReports(params)),
+    deleteDeleteDirectReport: (id) => dispatch(handleDeleteDirectReport(id)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Subordinates)

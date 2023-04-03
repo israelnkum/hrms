@@ -9,6 +9,7 @@ use App\Models\Dependant;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,11 +19,13 @@ class DependantController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     *
      * @return AnonymousResourceCollection
      */
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        $dependants = Dependant::paginate(10);
+        $dependants = Dependant::where('employee_id', $request->employeeId)->paginate(10);
 
         return DependantResource::collection($dependants);
     }
@@ -57,7 +60,7 @@ class DependantController extends Controller
      * @param $id
      * @return DependantResource|JsonResponse
      */
-    public function update(UpdateDependantRequest $request, $id)
+    public function update(UpdateDependantRequest $request, $id): JsonResponse|DependantResource
     {
         DB::beginTransaction();
         try {

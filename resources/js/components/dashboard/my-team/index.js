@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from 'react'
 import { FiUsers } from "react-icons/fi";
 import { connect } from "react-redux";
-import { handleGetLeaveTypes } from "../../../actions/time-off/TimeOffAction";
+import { handleGetMyTeam } from "../../../actions/commons/CommonAction";
+import TeamMember from "./team-member";
 
-function MyTeam({getLeaveTypes}) {
+function MyTeam({getTeamMembers, teamMembers}) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        getLeaveTypes().then(() => setLoading(false))
+        getTeamMembers().then(() => setLoading(false))
     }, [])
 
     return (
@@ -20,25 +21,31 @@ function MyTeam({getLeaveTypes}) {
                     <p>My Team</p>
                 </div>
             }
-            className={ 'border px-4 rounded-lg border-none shadow-sm' }>
+            className={ 'rounded-lg border-none shadow-sm' }>
             <Spin spinning={ loading }>
-
+                <div className={'flex flex-wrap gap-3'}>
+                    {
+                        teamMembers.map((member) => (
+                            <TeamMember member={ member } key={ member.id }/>
+                        ))
+                    }
+                </div>
             </Spin>
         </Card>
     )
 }
 
 MyTeam.propTypes = {
-    getLeaveTypes: PropTypes.func.isRequired,
-    leaveTypes: PropTypes.array.isRequired
+    getTeamMembers: PropTypes.func.isRequired,
+    teamMembers: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    leaveTypes: state.timeOffReducer.leaveTypes
+    teamMembers: state.commonReducer.teamMembers
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getLeaveTypes: () => dispatch(handleGetLeaveTypes())
+    getTeamMembers: () => dispatch(handleGetMyTeam())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyTeam)

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Scopes\ActivityLogScope;
+use App\scopes\ActivityLogScope;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +38,7 @@ class ActivityLog extends Model
      */
     protected static function booted(): void
     {
-        static::addGlobalScope(new ActivityLogScope);
+        static::addGlobalScope(new ActivityLogScope());
     }
 
     public function to($loggable): ActivityLog

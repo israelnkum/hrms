@@ -133,12 +133,19 @@ class Employee extends ApplicationModel
         return $this->hasOne(User::class);
     }
 
-
     /**
      * @return HasMany
      */
     public function leaveRequests(): HasMany
     {
         return $this->hasMany(LeaveRequest::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function employeeSupervisor(): HasOne
+    {
+        return $this->hasOne(EmployeeSupervisor::class);
     }
 }

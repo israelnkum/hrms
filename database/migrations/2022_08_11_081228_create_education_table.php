@@ -17,8 +17,8 @@ return new class extends Migration
     {
         Schema::create('education', static function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Employee::class);
-            $table->foreignIdFor(EducationLevel::class);
+            $table->foreignIdFor(Employee::class)->constrained();
+            $table->foreignIdFor(EducationLevel::class)->constrained();
             $table->string('institute');
             $table->string('major');
             $table->date('start_date');

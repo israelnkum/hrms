@@ -1,22 +1,61 @@
 [
   {
+    "roles": [
+      "hr"
+    ],
     "group": "Employee",
-    "permissions": ["add", "edit", "delete", "view"]
+    "permissions": [
+      "add",
+      "edit",
+      "delete",
+      "view"
+    ]
   },
   {
+    "roles": [
+      "hr"
+    ],
     "group": "Department",
-    "permissions": ["add", "edit", "delete", "view"]
+    "permissions": [
+      "add",
+      "edit",
+      "delete",
+      "view"
+    ]
   },
   {
+    "roles": [
+      "hr"
+    ],
     "group": "Leave Types",
-    "permissions": ["add", "edit", "delete", "view"]
+    "permissions": [
+      "add",
+      "edit",
+      "delete",
+      "view"
+    ]
   },
   {
+    "roles": [
+      "hr"
+    ],
     "group": "Leave Request",
-    "permissions": ["approve", "disapproved", "view-approved", "view-pending"]
+    "permissions": [
+      "approve",
+      "disapprove",
+      "view-approved",
+      "view-pending"
+    ]
   },
   {
+    "roles": [
+      "staff"
+    ],
     "group": "Time Off",
-    "permissions": ["request", "view-pending", "view-approved"]
+    "permissions": [
+      "request",
+      "view-pending",
+      "view-approved"
+    ]
   }
 ]

@@ -31,8 +31,8 @@ function PersonalDetails (props) {
         <ViewAllWrapper loading={loading} noData={false}>
             <Row gutter={10} justify={'space-between'}>
                 <Col span={24}>
-                    <div align={'right'}>
-                        <TlaEdit data={employee} icon link={`/pim/employees/${id}/${employee.name}/edit`} text={'Edit'} />
+                    <div className={'flex justify-end'}>
+                        <TlaEdit data={employee} icon link={`/employees/${id}/${employee.name}/edit`} text={'Edit'} />
                     </div>
                 </Col>
                 <Col span={11}>
@@ -48,7 +48,7 @@ function PersonalDetails (props) {
                     <List size="small" itemLayout="horizontal">
                         <Item title={'Department'} value={employee.department}/>
                         <Item title={'GTEC Placement'} value={employee.gtec_placement_name}/>
-                        <Item title={'Qualification'} value={'Male'}/>
+                        <Item title={'Qualification'} value={employee?.qualification}/>
                         <Item title={'Rank'} value={employee.rank}/>
                         <Item title={'SSNIT No'} value={employee.ssnit_number}/>
                     </List>

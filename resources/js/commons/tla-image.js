@@ -8,8 +8,10 @@ export default function TlaImage({src, size, name, preview}) {
         <>
             {
                 src === null
-                    ? <Avatar className={ 'bg-primary-800' } size={ size } src={ src }>{ getInitials(name) }</Avatar>
-                    : <Avatar className={ 'bg-primary-800' } size={ size }
+                    ? <Avatar className={ 'bg-primary-500 border border-white' } size={ size } src={ src }>
+                        { getInitials(name) }
+                    </Avatar>
+                    : <Avatar className={ 'bg-primary-500' } size={ size }
                               src={ preview ? <Image src={ src }/> : src }>
                         { getInitials(name) }
                     </Avatar>

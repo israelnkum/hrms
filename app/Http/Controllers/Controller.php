@@ -6,6 +6,7 @@ use App\Http\Resources\CelebrationResource;
 use App\Models\EducationLevel;
 use App\Models\Employee;
 use App\Models\JobCategory;
+use App\Models\Position;
 use App\Models\Rank;
 use App\Models\Department;
 use App\Models\SubUnit;
@@ -34,6 +35,7 @@ class Controller extends BaseController
 
         $isStaff = $loggedInUser->getRoleNames()->contains('staff') || $loggedInUser->getRoleNames()->contains('admin');
         $educationalLevels = EducationLevel::all();
+        $positions = Position::all();
         $jobCategories = JobCategory::all();
         $subUnits = SubUnit::all();
         $ranks = Rank::all();
@@ -46,7 +48,7 @@ class Controller extends BaseController
 
         $celebrations->when($isStaff, static function ($q) {
            return $q->where('department_id', Auth::user()->employee->department_id);
-        })->orderBy('dob')->limit(20);
+        })->orderBy('dob')->limit(5);
 
 
         $celebrations = $celebrations->get();
@@ -65,6 +67,7 @@ class Controller extends BaseController
             'jobCategories' => $jobCategories,
             'subUnits' => $subUnits,
             'departments' => $departments,
+            'positions' => $positions,
             'ranks' => $ranks,
             'dashboard' => [
                 'ranks' => $this->formatData($dashboardRanks),
@@ -86,5 +89,9 @@ class Controller extends BaseController
             'series' => $builder->pluck('name'),
             'values' => $builder->pluck('employees_count')
         ];
+    }
+
+    public function getRoles() {
+        return Auth::user()->getRoleNames();
     }
 }

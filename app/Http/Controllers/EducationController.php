@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\EducationExport;
+use App\Helpers\Helper;
 use App\Helpers\SaveFile;
 use App\Http\Requests\StoreEducationRequest;
 use App\Http\Requests\UpdateEducationRequest;
@@ -29,35 +30,30 @@ class EducationController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     *
      * @return AnonymousResourceCollection|Response|BinaryFileResponse
      */
-    public function index(Request $request)
+    public function index(Request $request): Response|BinaryFileResponse|AnonymousResourceCollection
     {
         $educations = Education::query();
 
-        if ($request->has('export') && $request->export === 'true'){
+       /* if ($request->has('export') && $request->export === 'true'){
             return  Excel::download(new EducationExport(
                 EducationResource::collection($educations->get())), 'Educations.xlsx');
         }
 
         if ($request->has('print') && $request->print === 'true'){
-            return $this->pdf('print.employee.qualifications',
+            return $this->pdf('print.employee-dashboard.qualifications',
                 EducationResource::collection($educations->get()),'Educations');
         }
         if ($request->has('page') && $request->page == 0){
             return EducationResource::collection($educations->get());
-        }
+        }*/
+
+        $educations->where('employee_id', $request->employeeId);
 
         return EducationResource::collection($educations->paginate(10));
-    }
-
-
-    public function formatDate ($request) {
-        $explode = explode(',', $request->date);
-        $request['start_date']  = Carbon::parse($explode[0])->format('Y-m-d');
-        $request['end_date']  = Carbon::parse($explode[1])->format('Y-m-d');
-
-        return $request->all();
     }
 
     /**
@@ -66,11 +62,11 @@ class EducationController extends Controller
      * @param StoreEducationRequest $request
      * @return EducationResource|JsonResponse
      */
-    public function store(StoreEducationRequest $request)
+    public function store(StoreEducationRequest $request): JsonResponse|EducationResource
     {
         DB::beginTransaction();
         try {
-            $education = Education::create($this->formatDate($request));
+            $education = Education::create(Helper::formatDate($request));
             if ($education && $request->has('file') && $request->file !== "null"){
                 $saveFile = new SaveFile($education, $request->file('file'), $this->docPath, $this->allowedFiles);
                 $saveFile->save();
@@ -97,7 +93,7 @@ class EducationController extends Controller
         DB::beginTransaction();
         try {
             $education = Education::findOrFail($id);
-            $education->update($this->formatDate($request));
+            $education->update(Helper::formatDate($request));
             if ($request->has('file') && $request->file !== "null"){
                 $saveFile = new SaveFile($education, $request->file('file'), $this->docPath, $this->allowedFiles);
                 $saveFile->save();

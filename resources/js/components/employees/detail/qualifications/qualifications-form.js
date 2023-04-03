@@ -11,7 +11,7 @@ import TlaSelect from "../../../../commons/tla/TlaSelect";
 import ChangePicture from "../../../commons/change-picture";
 import {useParams} from "react-router";
 import TlaFormWrapper from "../../../../commons/tla-form-wrapper";
-import moment from "moment";
+import dayjs from 'dayjs';
 
 function QualificationsForm(props) {
     const [selectedFile, setSelectedFile] = useState(null)
@@ -25,8 +25,8 @@ function QualificationsForm(props) {
         employee_id: id,
         ...state.data,
         date: [
-            state?.data ? moment(state?.data.start_date) : '',
-            state?.data ? moment(state?.data.end_date) : '',
+            state?.data ? dayjs(state?.data.start_date) : '',
+            state?.data ? dayjs(state?.data.end_date) : '',
         ]
     };
 

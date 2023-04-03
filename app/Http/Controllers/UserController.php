@@ -49,7 +49,8 @@ class UserController extends Controller
         return [
             'user' => $loggedInUser->only(['id', 'name', 'username']),
             'roles' => $loggedInUser->getRoleNames(),
-            'permissions' => $loggedInUser->getPermissionsViaRoles()->pluck('name')
+            'permissions' => $loggedInUser->getPermissionsViaRoles()->pluck('name'),
+            'employee_id' => $loggedInUser->employee ? $loggedInUser->employee->id: null
         ];
     }
 

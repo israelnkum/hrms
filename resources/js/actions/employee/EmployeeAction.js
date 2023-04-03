@@ -1,3 +1,4 @@
+import { completeExport } from "../../utils";
 import api from '../../utils/api'
 import {
     addEmployee,
@@ -8,16 +9,15 @@ import {
     removeEmployee,
     updateEmployee,
 } from './ActionCreators'
-import {completeExport} from "../../utils";
 
 /**
  * Store a newly created resource in storage.
- * @param driver
+ * @param employee
  * @returns {function(*): Promise<unknown>}
  */
-export const handleAddEmployee = (driver) => (dispatch) => {
+export const handleAddEmployee = (employee) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        api().post('/employees', driver).then((res) => {
+        api().post('/employees', employee).then((res) => {
             dispatch(addEmployee(res.data))
             resolve(res)
         }).catch((err) => {
@@ -42,6 +42,8 @@ export const handleGetAllEmployees = (params) => (dispatch) => {
         })
     })
 }
+
+
 /**
  * Display a listing of the resource.
  * @returns {function(*): Promise<unknown>}
@@ -87,7 +89,7 @@ export const handleGetSingleEmployee = (id) => (dispatch) => {
 export const handleUpdateEmployee = (data) => (dispatch) => {
     return new Promise((resolve, reject) => {
         api().post(`/employees/${data.get('id')}`, data, {
-            // headers: { 'Content-type': 'multipart/employee-data' }
+            // headers: { 'Content-type': 'multipart/employee-dashboard-data' }
         }).then((res) => {
             dispatch(updateEmployee(res.data))
             resolve(res)
