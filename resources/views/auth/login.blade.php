@@ -7,9 +7,9 @@
                 <div class="input-group">
                     <label for="username" class="sr-only">Email</label>
                     <div class="input-group-prepend">
-                                                <span class="input-group-text addon" id="basic-addon1">
-                                                    <i class="fa fa-envelope"></i>
-                                                </span>
+                        <span class="input-group-text addon" id="basic-addon1">
+                            <i class="fa fa-envelope"></i>
+                        </span>
                     </div>
                     <input id="username" placeholder="Enter your email" type="text" class="form-control form-control-lg" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
                     <div class="invalid-feedback text-right mb-0">
@@ -57,7 +57,7 @@
                 </button>
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-12 py-5">
                 <a href="{{ url('auth/google/redirect') }}" class="text-decoration-none">
                     <button type="button" class="btn btn-light btn-lg btn-block border">
                         <img width="20" src="{{asset('assets/img/google.svg')}}" class="mr-2" alt="icon">

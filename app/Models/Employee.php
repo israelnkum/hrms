@@ -110,6 +110,14 @@ class Employee extends ApplicationModel
     }
 
     /**
+     * @return HasOne
+     */
+    public function nextOfKin(): HasOne
+    {
+        return $this->hasOne(NextOfKin::class);
+    }
+
+    /**
      * @return BelongsTo
      */
     public function emergencyContacts(): BelongsTo

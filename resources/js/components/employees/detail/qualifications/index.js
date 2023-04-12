@@ -37,10 +37,9 @@ function Qualifications(props) {
                 </TlaAddNew>
             } callbackFunction={ () => {
             } } data={ data }>
-                <Column title="Institute" dataIndex={ 'institute' }/>
-                <Column title="Major" dataIndex={ 'major' }/>
-                <Column title="Start Date" dataIndex={ 'start_date' }/>
-                <Column title="End Date" dataIndex={ 'end_date' }/>
+                <Column title="Institution" dataIndex={ 'institution' }/>
+                <Column title="Qualification" dataIndex={ 'qualification' }/>
+                <Column title="Date" dataIndex={ 'date' }/>
                 <Column title="Action" render={ (value) => (
                     <Space size={ 0 }>
                         <TlaEdit icon data={ value } link={ 'form' } type={ 'text' }/>

@@ -12,6 +12,7 @@ use App\Http\Controllers\JobDetailController;
 use App\Http\Controllers\LeaveManagementController;
 use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\LeaveTypeController;
+use App\Http\Controllers\NextOfKinController;
 use App\Http\Controllers\PreviousPositionController;
 use App\Http\Controllers\PreviousRankController;
 use App\Http\Controllers\UserController;
@@ -50,6 +51,7 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
 
     Route::apiResource('/contact-details', ContactDetailController::class);
     Route::apiResource('/job-details', JobDetailController::class);
+    Route::apiResource('/next-of-kin', NextOfKinController::class);
     Route::apiResource('/qualifications', EducationController::class);
     Route::apiResource('/emergency-contacts', EmergencyContactController::class);
     Route::apiResource('/dependants', DependantController::class);

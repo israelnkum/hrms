@@ -17,7 +17,7 @@ class LeaveTypeSeeder extends Seeder
         $types = [
             [
                 'name' => 'Annual Leave',
-                'description' => NULL,
+                'description' => null,
                 'entitlement_type' => 'custom',
                 'number_of_days' => 0,
                 'start_of_annual_cycle' => '2023-01-01',
@@ -30,7 +30,7 @@ class LeaveTypeSeeder extends Seeder
             ],
             [
                 'name' => 'Casual Leave',
-                'description' => NULL,
+                'description' => null,
                 'entitlement_type' => 'custom',
                 'number_of_days' => 0,
                 'start_of_annual_cycle' => '2023-01-01',
@@ -43,7 +43,7 @@ class LeaveTypeSeeder extends Seeder
             ],
             [
                 'name' => 'Maternity Leave',
-                'description' => NULL,
+                'description' => null,
                 'entitlement_type' => 'custom',
                 'number_of_days' => 0,
                 'start_of_annual_cycle' => '2023-01-01',
@@ -56,7 +56,7 @@ class LeaveTypeSeeder extends Seeder
             ],
             [
                 'name' => 'Study Leave',
-                'description' => NULL,
+                'description' => null,
                 'entitlement_type' => 'custom',
                 'number_of_days' => 0,
                 'start_of_annual_cycle' => '2023-01-01',
@@ -69,7 +69,7 @@ class LeaveTypeSeeder extends Seeder
             ],
             [
                 'name' => 'Sick Leave',
-                'description' => NULL,
+                'description' => null,
                 'entitlement_type' => 'custom',
                 'number_of_days' => 0,
                 'start_of_annual_cycle' => '2023-01-01',
@@ -80,22 +80,22 @@ class LeaveTypeSeeder extends Seeder
                 'should_request_before' => 1,
                 'user_id' => 1
             ],
-            [
-                'name' => 'Bereavement Leave',
-                'description' => NULL,
-                'entitlement_type' => 'custom',
-                'number_of_days' => 0,
-                'start_of_annual_cycle' => '2023-01-01',
-                'allow_half_day' => 1,
-                'allow_carry_forward' => 0,
-                'maximum_allotment' => 0,
-                'maximum_consecutive_days' => 0,
-                'should_request_before' => 1,
-                'user_id' => 1
-            ],
+//            [
+//                'name' => 'Bereavement Leave',
+//                'description' => NULL,
+//                'entitlement_type' => 'custom',
+//                'number_of_days' => 0,
+//                'start_of_annual_cycle' => '2023-01-01',
+//                'allow_half_day' => 1,
+//                'allow_carry_forward' => 0,
+//                'maximum_allotment' => 0,
+//                'maximum_consecutive_days' => 0,
+//                'should_request_before' => 1,
+//                'user_id' => 1
+//            ],
             [
                 'name' => 'Other',
-                'description' => NULL,
+                'description' => null,
                 'entitlement_type' => 'custom',
                 'number_of_days' => 0,
                 'start_of_annual_cycle' => '2023-01-01',
@@ -108,7 +108,7 @@ class LeaveTypeSeeder extends Seeder
             ]
         ];
 
-        foreach ($types as $type){
+        foreach ($types as $type) {
             LeaveType::updateOrCreate(['name' => $type['name']], $type);
         }
     }

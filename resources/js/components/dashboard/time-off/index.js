@@ -18,7 +18,33 @@ function TimeOff({getLeaveTypes, leaveTypes}) {
         infinite: true,
         speed: 500,
         slidesToShow: 2,
-        slidesToScroll: 2
+        slidesToScroll: 2,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
     };
 
     return (
@@ -26,12 +52,12 @@ function TimeOff({getLeaveTypes, leaveTypes}) {
             title={
                 <div className={ 'flex items-center gap-x-2' }>
                     <AiOutlineFieldTime className={ 'text-3xl' }/>
-                    Time Off
+                    Leave Request
                 </div>
             }
             className={ 'px-2 rounded-lg border-none shadow-sm w-full' }>
             <Spin spinning={ loading }>
-                <div>
+                <div className={'hidden md:block'}>
                     <Slider { ...settings }>
                         {
                             leaveTypes.map(({id, name}) => (
@@ -48,7 +74,7 @@ function TimeOff({getLeaveTypes, leaveTypes}) {
                     <TlaAddNew link={ '/time-off/form' }>
                         <Button icon={ <AiOutlineFieldTime className={ 'text-2xl' }/> }
                                 block size={ 'large' }
-                                className={ 'btn-primary' }>&nbsp;Request Time Off</Button>
+                                className={ 'btn-primary' }>&nbsp;Request for leave</Button>
                     </TlaAddNew>
                 </div>
             </Spin>

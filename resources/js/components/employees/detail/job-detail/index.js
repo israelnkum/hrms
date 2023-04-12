@@ -62,23 +62,21 @@ function Job(props) {
                         }/>
                     </List>
                 </Col>
-
-                <Col span={ 24 }>
-                    <Tabs defaultActiveKey="1" items={ [
-                        {
-                            key: 'ranks',
-                            label: 'Previous Ranks',
-                            children: <PreviousRanks/>
-                        },
-                        {
-                            key: 'positions',
-                            label: 'Previous Positions',
-                            children: <PreviousPositions/>
-                        }
-                    ] }/>
-                </Col>
-
             </Row>
+            <div className={'pb-5'}>
+                <Tabs defaultActiveKey="1" items={ [
+                    {
+                        key: 'ranks',
+                        label: 'Previous Ranks',
+                        children: <PreviousRanks/>
+                    },
+                    {
+                        key: 'positions',
+                        label: 'Previous Positions',
+                        children: <PreviousPositions/>
+                    }
+                ] }/>
+            </div>
         </Spin>
     )
 }

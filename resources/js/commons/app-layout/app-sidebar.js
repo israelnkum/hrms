@@ -12,20 +12,22 @@ function AppSidebar(props) {
 
     return (
         <Affix offsetTop={ 65 }>
-            <Layout.Sider
-                theme={ 'light' }
-                style={ {background: '#fff', height: '100vh'} }>
-                <div align={ 'center' }>
-                    <SideProfile size={ 50 } name={ name }/>
-                </div>
-                <MenuHelper icons={ {
-                    home: <FiHome/>,
-                    pim: <FiUser/>,
-                    config: <FiSettings/>,
-                    'time-off': <FiCalendar/>,
-                    info: <FiInfo/>
-                } } menus={ SidebarMenus } direction={ 'inline' }/>
-            </Layout.Sider>
+            <div className={'hidden md:block'}>
+                <Layout.Sider
+                    theme={ 'light' }
+                    style={ {background: '#fff', height: '100vh'} }>
+                    <div align={ 'center' }>
+                        <SideProfile size={ 50 } name={ name }/>
+                    </div>
+                    <MenuHelper icons={ {
+                        home: <FiHome/>,
+                        pim: <FiUser/>,
+                        config: <FiSettings/>,
+                        'time-off': <FiCalendar/>,
+                        info: <FiInfo/>
+                    } } menus={ SidebarMenus } direction={ 'inline' }/>
+                </Layout.Sider>
+            </div>
         </Affix>
     )
 }

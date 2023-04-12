@@ -26,38 +26,69 @@ function JobDetailsForm(props) {
 
     return (
         <TlaFormWrapper
+            width={900}
             file={ selectedFile }
             initialValues={ formValues }
             onSubmit={ updateJobDetail }
             formTitle={ `Edit Job Details` }>
-            <Row gutter={ 10 }>
-                <Col span={ 24 }>
-                    <TlaSelect label={ 'Position' } name={ 'position_id' } optionKey={ 'name' } options={ positions }/>
-                </Col>
-                <Col span={ 12 }>
-                    <Form.Item
-                        name="location"
-                        label="Location">
-                        <Select size={ 'large' } placeholder="Select" showSearch>
-                            <Select.Option value={ 'Main Campus' }>Main Campus</Select.Option>
-                            <Select.Option value={ 'Business Campus' }>Business Campus</Select.Option>
-                        </Select>
-                    </Form.Item>
-                </Col>
-                <Col span={ 12 }>
-                    <TlaSelect label={ 'Job Category' } name={ 'job_category_id' } optionKey={ 'name' }
-                               options={ jobCategories }/>
-                </Col>
-                <Col span={ 12 }>
-                    <TlaSelect label={ 'Sub Unit' } name={ 'sub_unit_id' } optionKey={ 'name' } options={ subUnits }/>
-                </Col>
-                <Col span={ 12 }>
-                    <Form.Item
-                        name="joined_date"
-                        label="Joined Date">
-                        <DatePicker size={ "large" }/>
-                    </Form.Item>
-                </Col>
+            <div className={'flex gap-2'}>
+                <Row gutter={ 10 }>
+                    <Col span={ 24 }>
+                        <TlaSelect label={ 'Position' } name={ 'position_id' } optionKey={ 'name' } options={ positions }/>
+                    </Col>
+                    <Col span={ 12 }>
+                        <Form.Item
+                            name="location"
+                            label="Location">
+                            <Select size={ 'large' } placeholder="Select" showSearch>
+                                <Select.Option value={ 'Main Campus' }>Main Campus</Select.Option>
+                                <Select.Option value={ 'Business Campus' }>Business Campus</Select.Option>
+                            </Select>
+                        </Form.Item>
+                    </Col>
+                    <Col span={ 12 }>
+                        <Form.Item
+                            name="joined_date"
+                            label="Joined Date">
+                            <DatePicker placement={'bottomLeft'} size={ "large" }/>
+                        </Form.Item>
+                    </Col>
+                    <Col span={ 12 }>
+                        <TlaSelect label={ 'Job Category' } name={ 'job_category_id' } optionKey={ 'name' }
+                                   options={ jobCategories }/>
+                    </Col>
+                    <Col span={ 12 }>
+                        <TlaSelect label={ 'Sub Unit' } name={ 'sub_unit_id' } optionKey={ 'name' } options={ subUnits }/>
+                    </Col>
+                    <Col>
+                        <Form.Item
+                            hidden
+                            name="id"
+                            label="ID"
+                            rules={ [
+                                {
+                                    required: true,
+                                    message: "Required",
+                                },
+                            ] }
+                        >
+                            <Input size={ "large" }/>
+                        </Form.Item>
+                        <Form.Item
+                            hidden
+                            name="employee_id"
+                            label="employee_id"
+                            rules={ [
+                                {
+                                    required: true,
+                                    message: "Required",
+                                },
+                            ] }
+                        >
+                            <Input size={ "large" }/>
+                        </Form.Item>
+                    </Col>
+                </Row>
                 <Row className={ 'mb-2' }>
                     <Col>
                         <Card size={ 'small' } title={ 'Employment Contract' }>
@@ -91,35 +122,7 @@ function JobDetailsForm(props) {
                         </Card>
                     </Col>
                 </Row>
-                <Col>
-                    <Form.Item
-                        hidden
-                        name="id"
-                        label="ID"
-                        rules={ [
-                            {
-                                required: true,
-                                message: "Required",
-                            },
-                        ] }
-                    >
-                        <Input size={ "large" }/>
-                    </Form.Item>
-                    <Form.Item
-                        hidden
-                        name="employee_id"
-                        label="employee_id"
-                        rules={ [
-                            {
-                                required: true,
-                                message: "Required",
-                            },
-                        ] }
-                    >
-                        <Input size={ "large" }/>
-                    </Form.Item>
-                </Col>
-            </Row>
+            </div>
         </TlaFormWrapper>
     );
 }

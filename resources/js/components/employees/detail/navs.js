@@ -1,4 +1,3 @@
-import { Button } from 'antd'
 import PropTypes from "prop-types";
 import React from 'react'
 import { BsBriefcase } from "react-icons/bs";
@@ -65,7 +64,7 @@ function Navs({employee}) {
                             <p className={ 'text-base text-white' }>{ employee.rank }</p>
                         </div>
                         <div>
-                            <Button type={'default'} className={'text-white hover:text-white'}>Request Change</Button>
+                            {/*<Button type={'default'} className={'text-white hover:text-white'}>Request Change</Button>*/}
                         </div>
                     </div>
                     <div className={ 'flex gap-3 mt-8' }>

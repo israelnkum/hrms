@@ -27,7 +27,7 @@ function EmployeeDetail({employee}) {
                      <h5>Annual Leave</h5>
                      </div>*/ }
 
-                    <div className={ 'bg-gray-100 pt-3 px-2 flex flex-col gap-3 text-gray-500' }>
+                    <div className={ 'bg-gray-100 pt-3 px-2 flex flex-col gap-3 text-gray-500 h-screen' }>
                         <div>
                             <p className={ 'flex items-center' }><BiPhone/>&nbsp;
                                 <a href={ `tel:${ employee?.telephone }` }>{ employee?.telephone }</a>
@@ -38,7 +38,7 @@ function EmployeeDetail({employee}) {
                         </div>
                         <Divider className={ '!m-2' }/>
                         <div>
-                            <Title text={ employee?.job?.hire_date } title={ 'Hire Date' }/>
+                            <Title text={ employee?.job?.hire_date } title={ 'Date of First appointment' }/>
                             <Divider className={ '!m-2' }/>
                             <Title text={ `#${ employee?.staff_id }` } title={ 'Staff ID' }/>
                             <Divider className={ '!m-2' }/>

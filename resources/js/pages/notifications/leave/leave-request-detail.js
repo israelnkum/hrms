@@ -102,7 +102,7 @@ function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus,
                         </Form.Item>
                     </Col>
                     <Col span={ 24 }>
-                        <Form.Item name={ 'hr_reason' } label={ 'NOTES' }>
+                        <Form.Item name={ 'hr_reason' } label={ 'Reason' }>
                             <Input.TextArea rows={ 3 }/>
                         </Form.Item>
                     </Col>

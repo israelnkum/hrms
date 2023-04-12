@@ -57,6 +57,7 @@ PreviousRanks.propTypes = {
     employeeId: PropTypes.number.isRequired,
     previousRanks: PropTypes.object
 }
+
 const mapStateToProps = (state) => ({
     previousRanks: state.previousRankReducer.previousRanks,
     employeeId: state.employeeReducer.employee.id

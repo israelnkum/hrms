@@ -35,7 +35,7 @@ function AppHeader({user}) {
 
     return (
         <Affix offsetTop={ 1 }>
-            <div className={ 'bg-white h-[60px] px-5 flex items-center justify-between' }>
+            <div className={ 'bg-white h-[60px] px-2 md:px-5 flex items-center justify-between' }>
                 <div>
                     <img width={ 120 } src={ Logo } alt="TTU HRMS"/>
                 </div>

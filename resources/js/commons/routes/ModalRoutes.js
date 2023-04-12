@@ -5,6 +5,7 @@ import ContactDetailsForm from "../../components/employees/detail/contact-detail
 import DependantsForm from "../../components/employees/detail/dependants/dependants-form";
 import EmergencyContactForm from "../../components/employees/detail/emergency-contact/emergency-contact-form";
 import JobDetailsForm from "../../components/employees/detail/job-detail/job-details-form";
+import NextOfKinForm from "../../components/employees/detail/next-of-kin/next-of-kin-form";
 import PreviousPositionForm from "../../components/employees/detail/previous-positions/previous-position-form";
 import PreviousRankForm from "../../components/employees/detail/previous-ranks/previous-rank-form";
 import QualificationsForm from "../../components/employees/detail/qualifications/qualifications-form";
@@ -20,6 +21,9 @@ export const ModalRoutes = () => {
                 <Route exact path="form" element={<EmployeeForm/>}/>
                 <Route exact path=":id/:name">
                     <Route exact path="edit" element={<EmployeeForm/>}/>
+                    <Route exact path="personal-details">
+                        <Route exact path="next-of-kin/form" element={<NextOfKinForm />} />
+                    </Route>
                     <Route exact path="qualifications">
                         <Route exact path="form" element={<QualificationsForm />} />
                     </Route>

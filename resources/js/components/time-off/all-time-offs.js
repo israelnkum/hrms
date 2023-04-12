@@ -101,7 +101,7 @@ function AllTimeOffs(props) {
                             </Space>
                         </>
                     ) }/>
-                    <Column title="Approver" render={ (_, {id, approver, status}) => (
+                    <Column title="Approved By" render={ (_, {id, approver, status}) => (
                         <>
                             <Space className={ 'leading-none' } direction={ 'vertical' }>
                                 <p>{ approver }</p>

@@ -6,7 +6,7 @@ import EmployeeDashboard from "./employee-dashboard";
 
 function Dashboard({activeRoles}) {
     return (
-        <div className={'mt-1.5 w-full'}>
+        <div className={'mt-1.5'}>
             {
                 activeRoles.includes('staff') &&
                 <EmployeeDashboard/>

@@ -43,7 +43,7 @@ class AppSetup extends Command
         } catch (\Exception $exception) {
 
             Log::info($exception);
-            $this->output->error('Something went wrong');
+            $this->output->error($exception->getMessage());
             return CommandAlias::FAILURE;
         }
     }

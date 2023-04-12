@@ -53,25 +53,25 @@ export const SidebarMenus = [
         icon: 'time-off'
     },
     {
-        title: 'Time Off',
+        title: 'Leave Request',
         link: '#',
         children: [
             {
                 permission: 'request-time-off',
                 modal: true,
-                title: 'Request a Time Off',
+                title: 'Make Request',
                 link: '/time-off/form',
             },
             {
                 permission: 'view-pending-time-off',
                 modal: false,
-                title: 'Pending Time Offs',
+                title: 'Pending Request',
                 link: '/time-off/pending',
             },
             {
                 permission: 'view-approved-time-off',
                 modal: false,
-                title: 'Approved Time Offs',
+                title: 'Approved Request',
                 link: '/time-off/approved',
             }
         ],

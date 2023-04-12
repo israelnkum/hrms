@@ -10894,6 +10894,9 @@ button,
 .h-\[150px\]{
   height: 150px;
 }
+.h-screen{
+  height: 100vh;
+}
 .max-h-\[200px\]{
   max-height: 200px;
 }
@@ -11136,13 +11139,13 @@ button,
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
-.py-5{
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
-}
 .py-3{
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
+}
+.py-5{
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 .px-4{
   padding-left: 1rem;
@@ -11467,6 +11470,9 @@ button,
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
   }
+  .md\:block{
+    display: block;
+  }
   .md\:flex{
     display: flex;
   }
@@ -11493,6 +11499,10 @@ button,
   }
   .md\:border-l{
     border-left-width: 1px;
+  }
+  .md\:px-5{
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
   .md\:pb-0{
     padding-bottom: 0px;

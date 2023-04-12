@@ -19,10 +19,10 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Employee::class)->constrained();
             $table->foreignIdFor(EducationLevel::class)->constrained();
-            $table->string('institute');
-            $table->string('major');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->string('institution');
+            $table->string('qualification');
+            $table->date('date');
+            $table->enum('type', ['professional', 'academic'])->default('academic');
             $table->softDeletes();
             $table->timestamps();
         });

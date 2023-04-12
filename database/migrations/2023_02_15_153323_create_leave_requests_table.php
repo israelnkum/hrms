@@ -12,15 +12,15 @@ return new class extends Migration {
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('leave_requests', static function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employee::class)->constrained();
             $table->foreignIdFor(Employee::class, 'supervisor_id')->constrained('employees');
             $table->foreignIdFor(LeaveType::class)->constrained();
-            $table->decimal('days_requested');
-            $table->decimal('days_approved')->default(0);
+            $table->integer('days_requested');
+            $table->integer('days_approved')->default(0);
             $table->date('start_date');
             $table->date('end_date');
             $table->longText('reason');

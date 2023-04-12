@@ -69,7 +69,7 @@ function TimeOffForm(props) {
                         </Form.Item>
                     </Col>
                     <Col span={ 24 }>
-                        <Employees label={ 'Supervisor' } form={ form }/>
+                        <Employees label={ 'approved by' } form={ form }/>
                     </Col>
                     <Col span={ 12 }>
                         <Form.Item name="number_of_days" label="Number of days"
@@ -81,9 +81,9 @@ function TimeOffForm(props) {
                                    ] }>
                             <InputNumber
                                 max={ 45 }
-                                min={ 0.5 }
+                                min={ 1 }
                                 style={ {width: '100%', borderRadius: 10} }
-                                step={ 0.5 } size={ 'large' } placeholder={'Number of days'}/>
+                                size={ 'large' } placeholder={'Number of days'}/>
                         </Form.Item>
                     </Col>
                     <Col span={ 12 }>
@@ -98,7 +98,7 @@ function TimeOffForm(props) {
                     </Col>
 
                     <Col span={ 24 }>
-                        <Form.Item name="reason" label="Notes" rules={ [
+                        <Form.Item name="reason" label="Reason" rules={ [
                             {
                                 required: true,
                                 message: 'Required'
