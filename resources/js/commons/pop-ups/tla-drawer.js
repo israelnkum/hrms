@@ -7,7 +7,7 @@ export default function TlaDrawer({children, extra}) {
     const navigate = useNavigate()
     return (
         <PopUps>
-            <div className="ant-drawer ant-drawer-right ant-drawer-open" tabIndex="-1">
+            <div className="ant-drawer ant-drawer-right css-1e3x2xa ant-drawer-open" tabIndex="-1">
                 <div className="ant-drawer-mask"></div>
                 <div tabIndex="0" aria-hidden="true" data-sentinel="start"
                      style={{ width: '0px', height: '0px', overflow: 'hidden', outline: 'none', position: 'absolute' }}></div>

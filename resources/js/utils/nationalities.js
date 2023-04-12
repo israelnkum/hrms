@@ -129,10 +129,16 @@ export const faculties = [
     {name: 'Faculty of Engineering'},
 ]
 
-
 export const relationships = [
     {name: 'Parent'},
     {name: 'Sibling'},
-    {name: 'Partner'},
+    {name: 'Spouse'},
     {name: 'Friend'},
+];
+
+export const dependantsRelationships = [
+    {name: 'Parent'},
+    {name: 'Child'},
+    {name: 'Spouse'},
+    {name: 'Nephew/Niece'},
 ];

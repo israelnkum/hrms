@@ -1,32 +1,35 @@
-import React, {useEffect, useState} from 'react'
-import {Button, Space, Table, Typography} from 'antd'
-import {connect} from "react-redux";
-import TlaTableWrapper from "../../../../commons/table/tla-table-wrapper";
-import TlaAddNew from "../../../../commons/tla-add-new";
-import TlaEdit from "../../../../commons/tla-edit";
-import TlaConfirm from "../../../../commons/TlaConfirm";
+import { Button, Space, Spin, Table, Typography } from 'antd'
 
 import PropTypes from "prop-types";
-import {TlaSuccess} from "../../../../utils/messages";
+import React, { useEffect, useState } from 'react'
+import { connect } from "react-redux";
 import {
     handleDeleteEmergencyContact,
     handleGetAllEmergencyContacts
 } from "../../../../actions/employee/emergency-contacts/EmergencyContactAction";
+import TlaTableWrapper from "../../../../commons/table/tla-table-wrapper";
+import TlaAddNew from "../../../../commons/tla-add-new";
+import TlaEdit from "../../../../commons/tla-edit";
+import TlaConfirm from "../../../../commons/TlaConfirm";
+import { TlaSuccess } from "../../../../utils/messages";
 
 const { Column } = Table
 
 function EmergencyContacts (props) {
-    const { getEmergencyContacts, deleteEmergencyContacts, emergencyContacts } = props
+    const { getEmergencyContacts, deleteEmergencyContacts, emergencyContacts, employeeId } = props
+
     const { data, meta }= emergencyContacts
+
     const [loading, setLoading] = useState(true)
+
     useEffect(() => {
-        getEmergencyContacts().then(() => {
+        getEmergencyContacts(`employeeId=${employeeId}`).then(() => {
             setLoading(false)
         })
     }, [])
 
     return (
-        <>
+        <Spin spinning={loading}>
             {/*<FilterQualification/>*/}
             <TlaTableWrapper meta={meta} extra={
                 <TlaAddNew link={'form'}>
@@ -45,23 +48,25 @@ function EmergencyContacts (props) {
                 <Column  title="Action" render={(value) => (
                     <Space size={0}>
                         <TlaEdit icon data={value} link={'form'} type={'text'}/>
-                        <TlaConfirm title={'Dependant'} callBack={()=>{
+                        <TlaConfirm title={'Contact'} callBack={()=>{
                             deleteEmergencyContacts(value.id).then(() => TlaSuccess('Record Deleted'))
                         }}/>
                     </Space>
                 )}/>
             </TlaTableWrapper>
-        </>
+        </Spin>
     )
 }
 
 EmergencyContacts.propTypes = {
     getEmergencyContacts: PropTypes.func.isRequired,
     deleteEmergencyContacts: PropTypes.func.isRequired,
-    emergencyContacts: PropTypes.object,
+    employeeId: PropTypes.number.isRequired,
+    emergencyContacts: PropTypes.object
 }
 const mapStateToProps = (state) => ({
-    emergencyContacts: state.emergencyContactReducer.emergencyContacts
+    emergencyContacts: state.emergencyContactReducer.emergencyContacts,
+    employeeId: state.employeeReducer.employee.id
 })
 
 const mapDispatchToProps = (dispatch) => ({

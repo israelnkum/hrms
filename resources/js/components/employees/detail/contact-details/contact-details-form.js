@@ -17,6 +17,15 @@ function ContactDetailsForm(props) {
 
     const formValues = {
         id: 0,
+        address: '',
+        city: '',
+        country: '',
+        nationality: '',
+        telephone: '',
+        work_telephone: '',
+        zip_code: '',
+        work_email: '',
+        other_email: '',
         employee_id: id,
         ...state.data
     };
@@ -25,8 +34,7 @@ function ContactDetailsForm(props) {
         <TlaFormWrapper
             initialValues={formValues}
             onSubmit={updateContactDetail}
-            formTitle={`Edit Contact Details`}
-        >
+            formTitle={`Edit Contact Details`}>
             <Row gutter={10}>
                 <Col span={24}>
                     <Form.Item

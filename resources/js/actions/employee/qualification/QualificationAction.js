@@ -4,12 +4,12 @@ import {completeExport} from "../../../utils";
 
 /**
  * Store a newly created resource in storage.
- * @param driver
+ * @param data
  * @returns {function(*): Promise<unknown>}
  */
-export const handleAddQualification = (driver) => (dispatch) => {
+export const handleAddQualification = (data) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        api().post('/qualifications', driver).then((res) => {
+        api().post('/qualifications', data).then((res) => {
             dispatch(addQualification(res.data))
             resolve(res)
         }).catch((err) => {

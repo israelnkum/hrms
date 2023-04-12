@@ -1,11 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import { Col, List, Row } from "antd";
 import PropTypes from 'prop-types'
-import {connect} from "react-redux";
-import {Col, List, Row} from "antd";
-import {useParams} from "react-router";
-import ViewAllWrapper from "../../../../commons/view-all-wrapper";
+import React, { useEffect, useState } from 'react'
+import { connect } from "react-redux";
+import { useParams } from "react-router";
+import { handleGetSingleEmployee } from "../../../../actions/employee/EmployeeAction";
 import TlaEdit from "../../../../commons/tla-edit";
-import {handleGetSingleEmployee} from "../../../../actions/employee/EmployeeAction";
+import ViewAllWrapper from "../../../../commons/view-all-wrapper";
+import NextOfKin from "../next-of-kin";
 
 const Item = ({ title, value }) => (
     <List.Item>
@@ -31,8 +32,8 @@ function PersonalDetails (props) {
         <ViewAllWrapper loading={loading} noData={false}>
             <Row gutter={10} justify={'space-between'}>
                 <Col span={24}>
-                    <div align={'right'}>
-                        <TlaEdit data={employee} icon link={`/pim/employees/${id}/${employee.name}/edit`} text={'Edit'} />
+                    <div className={'flex justify-end'}>
+                        <TlaEdit data={employee} icon link={`/employees/${id}/${employee.name}/edit`} text={'Edit'} />
                     </div>
                 </Col>
                 <Col span={11}>
@@ -48,12 +49,13 @@ function PersonalDetails (props) {
                     <List size="small" itemLayout="horizontal">
                         <Item title={'Department'} value={employee.department}/>
                         <Item title={'GTEC Placement'} value={employee.gtec_placement_name}/>
-                        <Item title={'Qualification'} value={'Male'}/>
+                        <Item title={'Qualification'} value={employee?.qualification}/>
                         <Item title={'Rank'} value={employee.rank}/>
                         <Item title={'SSNIT No'} value={employee.ssnit_number}/>
                     </List>
                 </Col>
             </Row>
+            <NextOfKin/>
         </ViewAllWrapper>
     )
 }

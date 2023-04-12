@@ -30,10 +30,11 @@ class EmployeeResource extends JsonResource
             'age' => Carbon::parse($this->dob)->age,
             'gender' => $this->gender,
             'marital_status' => $this->marital_status,
-            'telephone' => $this->telephone,
-            'work_telephone' => $this->work_telephone,
-            'work_email' => $this->work_email,
-            'other_email' => $this->other_email,
+            'telephone' => $this->contactDetail->telephone,
+            'work_telephone' => $this->contactDetail->work_telephone,
+            'work_email' => $this->contactDetail->work_email,
+            'other_email' => $this->contactDetail->other_email,
+            'qualification' => $this->qualification,
             'ssnit_number' => $this->ssnit_number,
             'gtec_placement' => $this->gtec_placement,
             'gtec_placement_name' => $this->gtecPlacement->name,
@@ -42,6 +43,11 @@ class EmployeeResource extends JsonResource
             'department_id' => $this->department_id,
             'department' => $this->department->name,
             'photo' => $this->photo ? '/storage/images/employees/'.$this->photo->file_name : null,
+            'job' => [
+                'hire_date' => $this->jobDetail->joined_date ? Carbon::parse($this->jobDetail->joined_date)->format('Y-m-d') : 'Not Updated',
+                'location' => $this->jobDetail->location ?? 'Not Updated'
+            ],
+            'supervisor' => $this->employeeSupervisor?->supervisor->name
         ];
     }
 }

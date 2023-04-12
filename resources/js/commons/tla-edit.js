@@ -1,20 +1,17 @@
 import React from 'react'
-import {Button} from 'antd'
-import {connect} from 'react-redux'
-import {Link, useLocation} from 'react-router-dom'
+import { Button } from 'antd'
+import { connect } from 'react-redux'
+import { Link, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {FiEdit2} from "react-icons/fi";
+import { FiEdit2 } from "react-icons/fi";
 
-function TlaEdit ({ link, data, text, icon, type, activeRoles }) {
+function TlaEdit({link, data, text, icon, type, activeRoles}) {
     const location = useLocation()
     return (
         // activeRoles.includes('Admin') &&
-        <Link to={link} state={{
-            background: location,
-            data: data
-        }}>
-            <Button type={type} icon={icon && <FiEdit2/>}>
-                &nbsp;{text}
+        <Link to={ link } state={ {background: location, data: data} }>
+            <Button type={ type } icon={ icon && <FiEdit2/> }>
+                &nbsp;{ text }
             </Button>
         </Link>
     )

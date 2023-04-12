@@ -25,8 +25,8 @@ class StoreEducationRequest extends FormRequest
     {
         return [
             'education_level_id' => 'required|integer',
-            'institute' => 'required',
-            'major' => 'required',
+            'institution' => 'required',
+            'qualification' => 'required',
         ];
     }
 }

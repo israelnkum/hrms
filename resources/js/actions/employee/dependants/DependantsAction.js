@@ -50,7 +50,7 @@ export const handleGetSingleDependant = (id) => (dispatch) => {
 export const handleUpdateDependant = (data) => (dispatch) => {
     return new Promise((resolve, reject) => {
         api().post(`/dependants/${data.get('id')}`, data, {
-            // headers: { 'Content-type': 'multipart/employee-data' }
+            // headers: { 'Content-type': 'multipart/employee-dashboard-data' }
         }).then((res) => {
             dispatch(updateDependant(res.data))
             resolve(res)

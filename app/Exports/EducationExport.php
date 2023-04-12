@@ -30,10 +30,9 @@ class EducationExport implements FromCollection, WithMapping, WithHeadings, Shou
     {
         return [
             'Education Level',
-            'Institute',
-            'Major',
-            'Start Date',
-            'End Date',
+            'Institution',
+            'Qualification',
+            'Date'
         ];
     }
 
@@ -42,10 +41,9 @@ class EducationExport implements FromCollection, WithMapping, WithHeadings, Shou
         return [
             $row->employee->name,
             $row->educationLevel->name,
-            $row->institute,
-            $row->major,
-            $row->start_date,
-            $row->end_date,
+            $row->institution,
+            $row->qualification,
+            $row->date
         ];
     }
 }

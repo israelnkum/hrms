@@ -18,7 +18,6 @@ class EducationLevelSeeder extends Seeder
         $levels = [
             ['name' => 'Junior High/Secondary School'],
             ['name' => 'Senior Secondary School'],
-            ['name' => 'Undergraduate'],
             ['name' => 'Graduate'],
             ['name' => 'Post Graduate'],
         ];

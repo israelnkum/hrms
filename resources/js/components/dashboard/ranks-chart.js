@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
-import {connect} from "react-redux";
+import React from 'react'
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Chart from "react-apexcharts";
-import {Card} from "antd";
+import { Card } from "antd";
 
 function RanksChart ({ ranks }) {
     const data ={

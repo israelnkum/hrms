@@ -7,6 +7,17 @@ module.exports = {
     ],
     theme: {
         extend: {
+            screens: {
+                'xs': '400px',
+                'sm': '640px',
+                'md': '768px',
+                'lg': '1024px',
+                'xl': '1280px',
+                '2xl': '1440px',
+                '3xl': '1536px',
+                '4xl': '1920px',
+                '5xl': '2180px',
+            },
             colors: {
                 'blue': {
                     '400': '#53B1FD',
@@ -28,10 +39,11 @@ module.exports = {
                     '500': '#2E90FA',
                     '600': '#1570EF',
                     '700': '#175CD3',
-                    '800': '#1849A9',
+                    '800': '#1a337e',
                     'hover': '#2E90FA'
                 },
                 'gray': {
+                    '20': '#EFEFEF',
                     '25': '#FCFCFD',
                     '50': '#F9FAFB',
                     '100': '#F2F4F7',
@@ -52,8 +64,8 @@ module.exports = {
                     '700': '#B93815',
                 },
                 'success': {
-                    '300': '#6CE9A6',
                     '50': '#ECFDF3',
+                    '300': '#6CE9A6',
                     '700': '#027A48',
                 },
                 'white': '#FFFFFF',
@@ -72,6 +84,9 @@ module.exports = {
                     '700': '#C01048',
                     '100': '#FFE4E8'
                 }
+            },
+            content: {
+                'arrow-right': 'url("assets/icons/arrow-right.svg")'
             }
         },
     },

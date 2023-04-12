@@ -1,54 +1,71 @@
-import React, {useState} from 'react'
-import {Affix, Button, Col, Dropdown, Layout, Row} from 'antd'
-import PoweroffOutlined from '@ant-design/icons/lib/icons/PoweroffOutlined'
-import {useDispatch} from 'react-redux'
-import {logout} from '../../actions/logout/LogoutAction'
-import MenuHelper from "../menu-helper";
-import {FiHome, FiMenu, FiSettings, FiUser} from "react-icons/fi";
-import {SidebarMenus} from "../../utils";
+import { Affix, Dropdown, Space, Spin } from 'antd'
+import PropTypes from "prop-types";
+import React, { useState } from 'react'
+import { FiChevronDown, FiInfo, FiLogOut } from "react-icons/fi";
+import { connect, useDispatch } from 'react-redux'
+import { Link } from "react-router-dom";
+import { logout } from '../../actions/logout/LogoutAction'
+import Logo from '../../assets/img/ttuLogo.png'
 
-export default function AppHeader () {
-  const dispatch = useDispatch()
-  const [loading, setLoading] = useState(false)
-  const handleLogout = () => {
-    setLoading(true)
-    dispatch(logout()).then(() => {
-      window.location.reload()
-      window.location.replace('/login')
-      setLoading(false)
-    })
-  }
-const menu = (
-    <div style={{ width: 150 }}>
-        <MenuHelper icons={{
-            home: <FiHome/>,
-            pim: <FiUser/>,
-            config: <FiSettings/>,
-        }} menus={SidebarMenus} direction={'inline'}/>
-    </div>
-)
-  return (
-        <Affix offsetTop={2}>
-            <Layout.Header style={{ borderRadius: '10px', backgroundColor: '#fff', marginTop: 5, borderBottom: 'solid #d9d9d9 1px' }}>
-                {/*<div className="logo" align={'center'}>*/}
-                {/*    <Logo/>*/}
-                {/*</div>*/}
-                <Row justify="space-between" align="middle">
-                    <Col span={17} xs={10} sm={18}>
-                        <Dropdown trigger={['click']} overlay={menu}>
-                            <a>Menu</a>
+function AppHeader({user}) {
+    const dispatch = useDispatch()
+    const [loading, setLoading] = useState(false)
+    const handleLogout = () => {
+        setLoading(true)
+        dispatch(logout()).then(() => {
+            window.location.reload()
+            window.location.replace('/login')
+            setLoading(false)
+        })
+    }
+    const items = [
+        {
+            key: '2',
+            label: (
+                <Link to={ `/employees/${ user.employee_id }/${ user.name }` }>My Info</Link>
+            ),
+            icon: <FiInfo/>
+        },
+        {
+            key: '4',
+            label: <p title={ 'Logout' } onClick={ () => handleLogout() }>Logout</p>,
+            icon: <FiLogOut/>
+        },
+    ];
+
+    return (
+        <Affix offsetTop={ 1 }>
+            <div className={ 'bg-white h-[60px] px-2 md:px-5 flex items-center justify-between' }>
+                <div>
+                    <img width={ 120 } src={ Logo } alt="TTU HRMS"/>
+                </div>
+                <div>
+
+                </div>
+                <div>
+                    <Spin spinning={ loading }>
+                        <Dropdown
+                            menu={ {items} }>
+                            <a onClick={ (e) => e.preventDefault() }>
+                                <Space>
+                                    Hi { user.name }
+                                    <FiChevronDown/>
+                                </Space>
+                            </a>
                         </Dropdown>
-                    </Col>
-                    <Col span={6} xs={10} sm={6}>
-                        <div align={'right'} className={'pt-1'}>
-                            <Button loading={loading} title={'Logout'}
-                                    onClick={() => handleLogout()}
-                                    icon={<PoweroffOutlined size={'small'}/>} type={'default'}
-                            />
-                        </div>
-                    </Col>
-                </Row>
-            </Layout.Header>
+                    </Spin>
+                </div>
+            </div>
         </Affix>
-  )
+    )
 }
+
+AppHeader.propTypes = {
+    user: PropTypes.object.isRequired
+}
+
+const mapStateToProps = (state) => ({
+    user: state.userReducer.loggedInUser
+})
+
+export default connect(mapStateToProps)(AppHeader)

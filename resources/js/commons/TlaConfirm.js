@@ -36,7 +36,7 @@ const TlaConfirm = (props) => {
     const confirm = () => {
         Modal.confirm({
             title: '',
-            icon: <img src={Exclamation} alt={'Confirm'}/>,
+            icon: <img className={'mx-auto'} src={Exclamation} alt={'Confirm'}/>,
             content: `Do you want to delete ${title}?`,
             okText: 'Delete',
             cancelText: 'Cancel',
@@ -68,7 +68,6 @@ const TlaConfirm = (props) => {
 TlaConfirm.defaultProps = {
     title: '',
     btnText: '',
-    callBack: ()=>{},
     showIcon: true,
 }
 
@@ -78,4 +77,5 @@ TlaConfirm.propTypes = {
     callBack: PropTypes.func,
     showIcon: PropTypes.bool,
 }
+
 export default TlaConfirm;

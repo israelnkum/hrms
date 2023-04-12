@@ -56,7 +56,7 @@ export default function UserForm (props) {
                     layout="vertical"
                     name="createGroupForm"
                     initialValues={defaultValues}>
-                    <Form.Item name="firstName" label="First Name"
+                    <Form.Item name="first_name" label="First Name"
                         rules={[
                           {
                             required: true,
@@ -66,7 +66,7 @@ export default function UserForm (props) {
                     >
                         <Input />
                     </Form.Item>
-                    <Form.Item name="lastName" label="Last Name"
+                    <Form.Item name="last_name" label="Last Name"
                         rules={[
                           {
                             required: true,

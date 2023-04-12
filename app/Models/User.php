@@ -2,40 +2,36 @@
 
 namespace App\Models;
 
-use App\Http\Traits\UsesUuid;
+use App\Traits\HasActivityLogs;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes;
-    protected $appends =[
-      'name'
+    use HasFactory, Notifiable, SoftDeletes, HasRoles, HasActivityLogs;
+
+    protected $appends = [
+        'name'
     ];
 
-    public function getNameAttribute(): string
-    {
-        return  $this->firstName." ".$this->lastName;
-    }
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'firstName',
-        'lastName',
+        'name',
         'username',
         'email',
         'password',
-        'phoneNumber',
+        'phone_number',
+        'provider',
+        'provider_id',
+        'employee_id'
     ];
 
     /**
@@ -57,18 +53,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles(): BelongsToMany
+    /**
+     * @return BelongsTo
+     */
+    public function employee(): BelongsTo
     {
-        return $this->belongsToMany(Role::class,'role_user', 'user_id','role_id')
-            ->withPivot('deleted_at')
-            ->withoutGlobalScope( SoftDeletingScope::class);
+        return $this->belongsTo(Employee::class)->withDefault(null);
     }
-
-
-    public function activeRoles(): BelongsToMany
-    {
-        return $this->belongsToMany(Role::class,'role_user','user_id','role_id')
-           ->wherePivot('deleted_at',null);
-    }
-
 }
