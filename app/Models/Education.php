@@ -15,10 +15,9 @@ class Education extends Model
     protected $fillable = [
         'employee_id',
         'education_level_id',
-        'institute',
-        'major',
-        'start_date',
-        'end_date',
+        'institution',
+        'qualification',
+        'date'
     ];
 
     protected $casts = [

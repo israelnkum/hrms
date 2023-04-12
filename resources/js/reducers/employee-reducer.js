@@ -4,6 +4,10 @@ const initialState = {
         data: [],
         meta: {}
     },
+    people: {
+        data: [],
+        meta: {}
+    },
     employee: {},
     filter: {
         department_id: 'all',

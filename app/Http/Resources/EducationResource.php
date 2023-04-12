@@ -20,13 +20,12 @@ class EducationResource extends JsonResource
         return [
             'id' => $this->id,
             'employee_id' => $this->employee_id,
-            'employee' => new EmployeeResource($this->employee),
+            'employee-dashboard' => new EmployeeResource($this->employee),
             'education_level_id' => $this->education_level_id,
             'education_level' => $this->educationLevel,
-            'institute' => $this->institute,
-            'major' => $this->major,
-            'start_date' => $this->start_date,
-            'end_date' => $this->end_date,
+            'institution' => $this->institution,
+            'qualification' => $this->qualification,
+            'date' => $this->date,
         ];
     }
 }

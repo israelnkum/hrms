@@ -1,8 +1,8 @@
 @extends('print-layout.print')
 @section('headers')
     <th>Education Level</th>
-    <th>institute</th>
-    <th>major</th>
+    <th>institution</th>
+    <th>Qualification</th>
     <th>start date</th>
     <th>end date</th>
 @endsection
@@ -12,8 +12,8 @@
         <tr>
             <td>{{$i}}</td>
             <td>{{$dat->educationLevel->name}}</td>
-            <td>{{$dat->institute}}</td>
-            <td>{{$dat->major}}</td>
+            <td>{{$dat->institution}}</td>
+            <td>{{$dat->qualification}}</td>
             <td>{{$dat->start_date}}</td>
             <td>{{$dat->end_date}}</td>
         </tr>

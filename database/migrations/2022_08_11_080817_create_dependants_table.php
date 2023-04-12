@@ -17,13 +17,13 @@ return new class extends Migration
     {
         Schema::create('dependants', static function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Employee::class);
+            $table->foreignIdFor(Employee::class)->constrained();
             $table->string('name');
             $table->string('relationship');
             $table->string('phone_number')->nullable();
             $table->string('alt_phone_number')->nullable();
             $table->string('dob')->nullable();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(User::class)->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

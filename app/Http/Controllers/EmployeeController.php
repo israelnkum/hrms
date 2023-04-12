@@ -7,22 +7,27 @@ use App\Helpers\SaveFile;
 use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Http\Resources\EmployeeResource;
+use App\Models\ActivityLog;
 use App\Models\Employee;
+use App\Models\PreviousRank;
 use App\Traits\UsePrint;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class EmployeeController extends Controller
 {
     use UsePrint;
+
     protected string $docPath = 'images/employees';
-    protected array $allowedFiles = ['png','jpg','jpeg'];
+    protected array $allowedFiles = ['png', 'jpg', 'jpeg'];
 
     /**
      * Display a listing of the resource.
@@ -44,18 +49,20 @@ class EmployeeController extends Controller
 
         $employeesQuery->when($request->has('job_category_id') &&
             $request->job_category_id !== 'all', function ($q) use ($request) {
-            return $q->whereRelation('jobDetail', static function ($jQuery) use ($request){
+            return $q->whereRelation('jobDetail', static function ($jQuery) use ($request) {
                 return $jQuery->where('job_category_id', $request->job_category_id);
             });
         });
 
 
-        if ($request->has('export') && $request->export === 'true'){
-            return  Excel::download(new EmployeeExport(EmployeeResource::collection($employeesQuery->get())), 'Expenses.xlsx');
+        if ($request->has('export') && $request->export === 'true') {
+            return Excel::download(new EmployeeExport(EmployeeResource::collection($employeesQuery->get())),
+                'Expenses.xlsx');
         }
 
-        if ($request->has('print') && $request->print === 'true'){
-            return $this->pdf('print.employee.all', EmployeeResource::collection($employeesQuery->get()),'Expenses', 'landscape');
+        if ($request->has('print') && $request->print === 'true') {
+            return $this->pdf('print.employee.all', EmployeeResource::collection($employeesQuery->get()), 'Expenses',
+                'landscape');
         }
 
         return EmployeeResource::collection($employeesQuery->paginate(10));
@@ -65,6 +72,7 @@ class EmployeeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreEmployeeRequest $request
+     *
      * @return EmployeeResource|JsonResponse
      */
     public function store(StoreEmployeeRequest $request)
@@ -75,17 +83,20 @@ class EmployeeController extends Controller
             $employee->contactDetail()->create();
             $employee->jobDetail()->create();
             DB::commit();
+
             return new EmployeeResource($employee);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage()
             ], 400);
         }
     }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param UpdateEmployeeRequest $request
+     *
      * @return EmployeeResource|JsonResponse
      */
     public function update(UpdateEmployeeRequest $request, $id)
@@ -96,14 +107,31 @@ class EmployeeController extends Controller
             $request['dob'] = $request->dob !== 'null' ? Carbon::parse($request->dob)->format('Y-m-d') : null;
             $employee->update($request->all());
 
-            if ($request->has('file') && $request->file !== "null"){
+            if ($request->has('file') && $request->file !== "null") {
                 $saveFile = new SaveFile($employee, $request->file('file'), $this->docPath, $this->allowedFiles);
                 $saveFile->save();
             }
 
+            PreviousRank::updateOrCreate([
+                'rank_id' => $employee->rank_id,
+                'employee_id' => $employee->id
+            ], [
+                'rank_id' => $employee->rank_id,
+                'employee_id' => $employee->id,
+                'user_id' => Auth::id()
+            ]);
+
+            $user = Auth::user();
+
+            ActivityLog::add($user->employee->name . 'update the personal details for ' . $employee->name,
+                'updated', [''], 'job-details')
+                ->to($employee)
+                ->as($user);
+
             DB::commit();
+
             return new EmployeeResource($employee);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage()
             ], 400);
@@ -114,6 +142,7 @@ class EmployeeController extends Controller
      * Display the specified resource.
      *
      * @param Employee $employee
+     *
      * @return EmployeeResource
      */
     public function show(Employee $employee): EmployeeResource
@@ -125,6 +154,7 @@ class EmployeeController extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
+     *
      * @return JsonResponse|null
      */
     public function destroy($id): ?JsonResponse
@@ -134,13 +164,35 @@ class EmployeeController extends Controller
             $employee = Employee::findOrFail($id);
             $employee->delete();
             DB::commit();
+
             return response()->json([
-                'message' =>'Employee Deleted'
+                'message' => 'Employee Deleted'
             ]);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage()
             ], 400);
         }
+    }
+
+    public function searchEmployees($query): AnonymousResourceCollection
+    {
+        $employees = Employee::query()
+            ->where('last_name', 'like', '%' . $query . '%')
+            ->orWhere('middle_name', 'like', '%' . $query . '%')
+            ->orWhere('first_name', 'like', '%' . $query . '%')->get();
+
+        return EmployeeResource::collection($employees);
+    }
+
+    public function getPeople(): AnonymousResourceCollection
+    {
+        $employeesQuery = Employee::query();
+
+        if(!$this->getRoles()->contains('super-admin')) {
+           $employeesQuery->where('department_id', Auth::user()->employee->department_id);
+        }
+
+        return EmployeeResource::collection($employeesQuery->paginate(10));
     }
 }

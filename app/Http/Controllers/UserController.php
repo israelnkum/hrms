@@ -23,6 +23,7 @@ class UserController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +31,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::collection(User::withTrashed()->whereHas('activeRoles', function ($q){
+        return UserResource::collection(User::withTrashed()->whereHas('activeRoles', function ($q) {
             $q->where('name', 'Admin')->orWhere('name', 'EC')->orWhere('name', 'Agent');
         })->get());
     }
@@ -38,16 +39,18 @@ class UserController extends Controller
     public function getActiveRoles()
     {
         $loggedInUser = Auth::user();
-        $activeRoles = [];
 
         if (!$loggedInUser) {
             return response()->json([
-               'message' => 'Unauthenticated'
+                'message' => 'Unauthenticated'
             ], 422);
         }
+
         return [
-            $loggedInUser->only(['id', 'name', 'username']),
-            $activeRoles
+            'user' => $loggedInUser->only(['id', 'name', 'username']),
+            'roles' => $loggedInUser->getRoleNames(),
+            'permissions' => $loggedInUser->getPermissionsViaRoles()->pluck('name'),
+            'employee_id' => $loggedInUser->employee ? $loggedInUser->employee->id: null
         ];
     }
 
@@ -55,15 +58,17 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
+     *
      * @return Response
+     * @throws Exception
      */
-    public function store(Request $request)
+    public function store(Request $request): Response
     {
-        $username = $request->firstName.'.'.$request->lastName;
-        $checkUsername = User::where('username',$username)->count();
+        $username = $request->first_name . '.' . $request->last_name;
+        $checkUsername = User::where('username', $username)->count();
 
-        if ($checkUsername >= 1){
-            $username = $username.'_'.mt_rand(10,150);
+        if ($checkUsername >= 1) {
+            $username = $username . '_' . random_int(10, 150);
         }
         DB::beginTransaction();
         $request['username'] = strtolower($username);
@@ -72,55 +77,48 @@ class UserController extends Controller
             $user = User::create($request->all());
             $role = Role::where('name', 'Admin')->first();
             DB::commit();
+
             return \response(new UserResource($user));
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             DB::rollBack();
+
             return \response('Something went wrong', 422);
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param Request $request
      * @param  $id
+     *
      * @return JsonResponse|Response
      */
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
-        try
-        {
+        try {
             User::find($id)->update($request->all());
             DB::commit();
 
             $user = User::find($id);
-            return \response($request->has('voter') ? new VoterResource($user) : new UserResource($user));
 
-        }catch (Exception $exception){
+            return \response($request->has('voter') ? new VoterResource($user) : new UserResource($user));
+        } catch (Exception $exception) {
             DB::rollBack();
+
             return response('Something went wrong', 422);
         }
     }
 
-    public function getUserRoles($id){
+    public function getUserRoles($id)
+    {
         $userRoles = User::find($id)->roles;
         $otherRoles = Role::whereNotIn('id', $userRoles->pluck('pivot.roleId'))->get();
 
-        return [ $userRoles, $otherRoles ];
+        return [$userRoles, $otherRoles];
     }
-
 
 
     public function importVoters(Request $request)
@@ -129,42 +127,43 @@ class UserController extends Controller
         ini_set('MAX_EXECUTION_TIME', '-1');
         set_time_limit(0);
 
-        $valid_exts = array('csv','xls','xlsx'); // valid extensions
+        $valid_exts = array('csv', 'xls', 'xlsx'); // valid extensions
         $file = $request->file('file');
         if (!empty($file)) {
             $ext = strtolower($file->getClientOriginalExtension());
             if (in_array($ext, $valid_exts)) {
-                $voterList= Excel::toCollection(new VoterImport(),$file);
+                $voterList = Excel::toCollection(new VoterImport(), $file);
                 $voters = $voterList[0];
                 DB::beginTransaction();
                 try {
-
                     $uploaded = [];
                     for ($i = 0; $i < count($voters); $i++) {
                         $user = User::updateOrcreate([
                             'username' => $voters[$i]['username']
-                        ],[
-                            'firstName' => $voters[$i]['first_name'] ?? $voters[$i]['last_name'],
-                            'lastName'  => $voters[$i]['last_name'] ?? $voters[$i]['first_name'],
-                            'username'  => $voters[$i]['username'],
-                            'email'  => $voters[$i]['email'],
-                            'phoneNumber'  => $voters[$i]['phone_number'],
-                            'password'  => Hash::make($voters[$i]['password']),
+                        ], [
+                            'first_name' => $voters[$i]['first_name'] ?? $voters[$i]['last_name'],
+                            'last_name' => $voters[$i]['last_name'] ?? $voters[$i]['first_name'],
+                            'username' => $voters[$i]['username'],
+                            'email' => $voters[$i]['email'],
+                            'phone_number' => $voters[$i]['phone_number'],
+                            'password' => Hash::make($voters[$i]['password']),
                         ]);
 
 
                         $uploaded[] = $user->id;
                     }
                     DB::commit();
+
                     return response()->json([
                         'message' => count($uploaded) . '  Voters uploaded successful'
                     ]);
 //                    return \response(VoterResource::collection($allVoters->get()));
-                }catch (Exception $exception){
+                } catch (Exception $exception) {
                     DB::rollBack();
+
                     return response($exception->getMessage(), 422);
                 }
-            }else {
+            } else {
                 return response('Only excel file is accepted!', 422);
             }
         } else {
@@ -175,6 +174,7 @@ class UserController extends Controller
     public function downloadUploadFormat(): BinaryFileResponse
     {
         $pathToFile = public_path('assets/voterUploadFormat.xlsx');
+
         return response()->download($pathToFile);
     }
 }

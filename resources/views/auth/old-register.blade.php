@@ -21,9 +21,9 @@
                                                <i class="fa fa-user-circle"></i>
                                            </span>
                                             </div>
-                                            <input id="firstName" placeholder="First Name" type="text" class="form-control @error('name') is-invalid @enderror" name="firstName" value="{{ old('firstName') }}" required autocomplete="firstName" autofocus>
+                                            <input id="first_name" placeholder="First Name" type="text" class="form-control @error('name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus>
                                         </div>
-                                        @error('firstName')
+                                        @error('first_name')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -36,9 +36,9 @@
                                                <i class="fa fa-user-circle"></i>
                                            </span>
                                             </div>
-                                            <input id="lastName" placeholder="Last Name" type="text" class="form-control @error('lastName') is-invalid @enderror" name="lastName" value="{{ old('lastName') }}" required autocomplete="lastName" autofocus>
+                                            <input id="last_name" placeholder="Last Name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus>
                                         </div>
-                                        @error('lastName')
+                                        @error('last_name')
                                         <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

@@ -17,7 +17,7 @@ function AllEmployees (props) {
     const [loading, setLoading] = useState(true)
     const { setPageInfo, setExtra } = useOutletContext();
     useEffect(() => {
-        setPageInfo({ title: 'Employees', addLink: '/pim/employees/form', buttonText: 'Employee' })
+        setPageInfo({ title: 'Employees', addLink: '/employees/form', buttonText: 'Employee' })
 
         getEmployees(new URLSearchParams(filter)).then(() => {
             setLoading(false)
@@ -25,12 +25,12 @@ function AllEmployees (props) {
     }, [])
 
     return (
-        <div>
+        <div className={'pb-10'}>
             <FilterEmployees/>
             <ViewAllWrapper loading={loading} noData={data.length === 0}>
                 <TlaTableWrapper filterObj={filter}  callbackFunction={getEmployees} data={data} meta={meta}>
                     <Column title="Name" render={(_, {id, name, staff_id}) => (
-                        <Link to={`${id}/${name}`} state={{ staffId: id }}>
+                        <Link to={`/employees/${id}/${name}/personal-details`} state={{ staffId: id }}>
                             <Space>
                                 <TlaImage size={40} src={'Avatar'} name={name}/>
                                 <Space direction={'vertical'} size={1}>
@@ -54,8 +54,8 @@ function AllEmployees (props) {
                     )}/>
                     <Column title="Email" render={(_, {work_email, other_email}) => (
                         <Space direction={'vertical'} size={1}>
-                            <a href={`tel:${work_email}`}>{work_email}</a>
-                            <a href={`tel:${other_email}`}>{other_email}</a>
+                            <a href={`mailto:${work_email}`}>{work_email}</a>
+                            <a href={`mailto:${other_email}`}>{other_email}</a>
                         </Space>
                     )}/>
                     <Column title="GTECH Placement & Rank" render={(_, {gtech_placement, rank}) => (

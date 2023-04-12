@@ -11,11 +11,13 @@ function TlaPagination (props) {
         <div>
             {
                 (showHeader || extra) &&
-                <Card bordered={false} size={'small'} extra={extra} title={
+                <div className={'flex justify-between items-center mb-2'}>
                     <Typography.Text>
                         {meta.from} - {meta.to} of {meta.total}
                     </Typography.Text>
-                }/>
+
+                    {extra}
+                </div>
             }
             {children}
             <div style={{ marginTop: 10 }} align={'right'}>

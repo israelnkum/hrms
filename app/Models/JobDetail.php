@@ -16,7 +16,7 @@ class JobDetail extends ApplicationModel
      * @var string[]
      */
     protected $fillable = [
-        'job_title',
+        'position_id',
         'status',
         'location',
         'joined_date',
@@ -38,22 +38,33 @@ class JobDetail extends ApplicationModel
         'contract_end_date' => 'date',
     ];
 
+
+    public function position(): BelongsTo
+    {
+        return $this->belongsTo(Position::class);
+    }
+
     public function photo(): MorphOne
     {
-        return $this->morphOne(Photo::class,'photoable');
+        return $this->morphOne(Photo::class, 'photoable');
     }
 
     public function subUnit(): BelongsTo
     {
         return $this->belongsTo(SubUnit::class)->withDefault([
-           'name' => '-'
+            'name' => '-'
         ]);
     }
 
     public function jobCategory(): BelongsTo
     {
         return $this->belongsTo(JobCategory::class)->withDefault([
-           'name' => '-'
+            'name' => '-'
         ]);
+    }
+
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(Employee::class);
     }
 }

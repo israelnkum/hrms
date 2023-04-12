@@ -6,7 +6,7 @@ function ViewAllWrapper (props) {
     const {loading, children, noData} = props
     return (
         noData ? <Empty/> :
-            <Spin spinning={loading}>
+            <Spin tip={'Please Wait'} spinning={loading}>
                 {!loading && children}
             </Spin>
     )

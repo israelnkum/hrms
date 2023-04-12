@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import {
-    Upload,
-    Modal, Button
-} from 'antd'
+import { UploadOutlined } from "@ant-design/icons";
+import { Button, Modal, Upload } from 'antd'
 import ImgCrop from 'antd-img-crop'
-import {UploadOutlined} from "@ant-design/icons";
+import PropTypes from 'prop-types'
+import React, { useState } from 'react'
+
 export default function ChangePicture (props) {
     const {hasFile, setFile, isDocument} = props
     const [preview, setPreview] = useState({
@@ -45,14 +43,15 @@ export default function ChangePicture (props) {
             title: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
         })
     }
-    useEffect(() => {
-    }, [])
+
     return (
         <div>
             {
                 isDocument ?
                     <Upload {...uploadProps} onPreview={onPreview}>
-                        <Button type={'primary'} icon={<UploadOutlined />}>{!hasFile  ? 'Change' : 'Select File'}</Button>
+                        <Button type={'primary'} icon={<UploadOutlined />}>
+                            {!hasFile  ? 'Change' : 'Select File'}
+                        </Button>
                     </Upload> :
                     <>
                         <ImgCrop rotate>
@@ -62,7 +61,7 @@ export default function ChangePicture (props) {
                         </ImgCrop>
                         <Modal
                             width={400}
-                            visible={preview.visible}
+                            open={preview.visible}
                             title={preview.title}
                             footer={null}
                             onCancel={() => { setPreview({ visible: false }) }}>

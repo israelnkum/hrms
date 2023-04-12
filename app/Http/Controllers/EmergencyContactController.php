@@ -8,6 +8,7 @@ use App\Http\Resources\EmergencyContactResource;
 use App\Models\EmergencyContact;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,9 +20,9 @@ class EmergencyContactController extends Controller
      *
      * @return AnonymousResourceCollection
      */
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
-        $emergencyContacts = EmergencyContact::paginate(10);
+        $emergencyContacts = EmergencyContact::where('employee_id', $request->employeeId)->paginate(10);
 
         return EmergencyContactResource::collection($emergencyContacts);
     }

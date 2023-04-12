@@ -18,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
     color: var(--Gray-900);
     margin-top: 20px;
   }
+  
   .profile-job-title {
     margin-top: -28px;
   }
@@ -25,7 +26,6 @@ const GlobalStyles = createGlobalStyle`
 const ProfileContainer = styled.div`
   background: url(${ProfileBg}) center center no-repeat;
   background-size: cover;
-  border-radius: 10px 10px 0 0;
   height: 100px;
 `
 const AvatarContainer = styled.div`
@@ -36,6 +36,7 @@ const AvatarContainer = styled.div`
   align-items: center;
   align-content: center;
 `
+
 function Profile ({user, size}) {
     return (
         <>

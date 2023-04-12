@@ -44,16 +44,6 @@
         .login-body {
             border-radius: 10px;
         }
-        .addon {
-            color: #3490dc !important;
-            background: transparent;
-            font-size: 15px !important;
-            text-align: center !important;
-            width: 45px !important;
-            border-top-left-radius: 10px !important;
-            border-bottom-left-radius: 10px !important;
-
-        }
     </style>
     <link href="{{ asset('css/fontawesome.min.css') }}" rel="stylesheet">
 
@@ -84,7 +74,8 @@
                 <div class="col-md-4 text-center">
                     <div class="card login-body p-4 shadow-sm border-0">
                         <div align="center">
-                            <img height="auto" align="center" width="100" alt="logo" src="{{asset('images/ttuLogo.png')}}"/>
+                            <img height="auto" align="center" width="150" alt="logo" src="{{asset('images/ttuLogo.png')
+                            }}"/>
                         </div>
                         <div>
                             <div class="">

@@ -42,7 +42,11 @@ class Employee extends ApplicationModel
         'qualification',
         'rank_id',
         'department_id',
-        'user_id'
+        'user_id',
+        'senior_staff',
+        'senior_member',
+        'junior_staff',
+        'secondment_staff'
     ];
 
     protected $casts = [
@@ -106,6 +110,14 @@ class Employee extends ApplicationModel
     }
 
     /**
+     * @return HasOne
+     */
+    public function nextOfKin(): HasOne
+    {
+        return $this->hasOne(NextOfKin::class);
+    }
+
+    /**
      * @return BelongsTo
      */
     public function emergencyContacts(): BelongsTo
@@ -121,4 +133,27 @@ class Employee extends ApplicationModel
         return $this->hasMany(Education::class);
     }
 
+    /**
+     * @return HasOne
+     */
+    public function userAccount(): HasOne
+    {
+        return $this->hasOne(User::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function leaveRequests(): HasMany
+    {
+        return $this->hasMany(LeaveRequest::class);
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function employeeSupervisor(): HasOne
+    {
+        return $this->hasOne(EmployeeSupervisor::class);
+    }
 }

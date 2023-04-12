@@ -1,0 +1,147 @@
+import { Button, Form, Input, Popconfirm, Space, Table } from 'antd'
+import PropTypes from 'prop-types'
+import React, { useEffect, useState } from 'react'
+import { connect } from "react-redux";
+import { useLocation, useOutletContext } from "react-router";
+import { handleChangeLeaveRequestStatus, handleGetLeaveRequest } from "../../actions/time-off/TimeOffAction";
+import TlaTableWrapper from "../../commons/table/tla-table-wrapper";
+import ViewAllWrapper from "../../commons/view-all-wrapper";
+import { TlaError, TlaSuccess } from "../../utils/messages";
+
+const {Column} = Table
+
+function AllTimeOffs(props) {
+    const {setPageInfo, setExtra} = useOutletContext();
+    const {getLeaveRequests, leaveRequests, permissions, changeLeaveStatus} = props
+    const {data, meta} = leaveRequests
+    const [loading, setLoading] = useState(true)
+    const {pathname} = useLocation()
+
+    const status = pathname === '/time-off/pending' ? 'pending' : 'approved'
+
+    useEffect(() => {
+        setPageInfo({title: 'All Time Offs'})
+        getLeaveRequests(new URLSearchParams(`status=${ status }`)).then(() => {
+            setLoading(false)
+        })
+    }, [pathname])
+
+    const bgColors = {
+        'pending': 'bg-blue-500',
+        'approved': 'bg-success-700'
+    }
+
+    const [form] = Form.useForm();
+
+    const onFinish = (values) => {
+        changeLeaveStatus(values).then(() => {
+            TlaSuccess();
+            form.resetFields();
+        }).catch((error) => {
+            TlaError(error.response.data.message)
+        });
+    };
+
+    const ApproveOrDisapprove = ({id, action}) => (
+        <Form form={ form } initialValues={ {leave_request_id: id, status: action} } onFinish={ onFinish }>
+            <Form.Item hidden rules={ [{required: true}] } name={ 'leave_request_id' }>
+                <Input/>
+            </Form.Item>
+            <Form.Item hidden rules={ [{required: true}] } name={ 'status' }>
+                <Input/>
+            </Form.Item>
+            <Form.Item>
+                <Popconfirm
+                    title="Delete the task"
+                    description="Are you sure to delete this task?"
+                    onConfirm={ form.submit }
+                    okText="Yes"
+                    cancelText="No">
+                    {
+                        action === 'approved' &&
+                        <Button htmlType={ 'submit' } size={ 'middle' } className={ 'btn-success' }>Approve</Button>
+                    }
+                    {
+                        action === 'rejected' &&
+                        <Button htmlType={ 'submit' } size={ 'middle' } className={ 'btn-primary' }>Reject</Button>
+                    }
+                </Popconfirm>
+
+            </Form.Item>
+        </Form>
+    )
+
+    ApproveOrDisapprove.propTypes = {
+        id: PropTypes.any.isRequired,
+        action: PropTypes.string.isRequired,
+    }
+
+    return (
+        <div>
+            <ViewAllWrapper loading={ loading } noData={ data.length === 0 }>
+                <TlaTableWrapper filterObj={ {} } callbackFunction={ getLeaveRequests } data={ data } meta={ meta }>
+                    <Column title="Leave Type" render={ (_, {leave_type}) => (
+                        <>
+                            <Space direction={ 'vertical' }>
+                                <p className={ 'leading-none' }>{ leave_type }</p>
+                                <div
+                                    className={ `${ bgColors[status] } text-white py-px px-1 rounded-lg capitalize w-fit` }>
+                                    { status }
+                                </div>
+                            </Space>
+                        </>
+                    ) }/>
+                    <Column title="Employee" dataIndex={ 'employee' }/>
+                    <Column title="Duration" render={ (_, {start_date, end_date, days_requested}) => (
+                        <>
+                            <Space className={ 'leading-none' } direction={ 'vertical' }>
+                                <p>From: { start_date }</p>
+                                <p>To: { end_date }</p>
+                                <p>Days: { days_requested }</p>
+                            </Space>
+                        </>
+                    ) }/>
+                    <Column title="Approved By" render={ (_, {id, approver, status}) => (
+                        <>
+                            <Space className={ 'leading-none' } direction={ 'vertical' }>
+                                <p>{ approver }</p>
+                                {
+                                    (status === 'pending' || status === 'rejected') &&
+                                    <Space>
+                                        {
+                                            permissions.includes('approve-leave-request') &&
+                                            <ApproveOrDisapprove id={ id } action={ 'approved' }/>
+                                        }
+                                        {
+                                            permissions.includes('disapprove-leave-request') &&
+                                            <ApproveOrDisapprove id={ id } action={ 'rejected' }/>
+                                        }
+                                    </Space>
+                                }
+                            </Space>
+                        </>
+                    ) }/>
+                </TlaTableWrapper>
+            </ViewAllWrapper>
+        </div>
+    )
+}
+
+AllTimeOffs.propTypes = {
+    getLeaveRequests: PropTypes.func,
+    leaveRequests: PropTypes.object,
+    permissions: PropTypes.array.isRequired,
+    changeLeaveStatus: PropTypes.func.isRequired,
+}
+
+const mapStateToProps = (state) => ({
+    leaveRequests: state.timeOffReducer.leaveRequests,
+    permissions: state.userReducer.permissions
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    getLeaveRequests: (payload) => dispatch(handleGetLeaveRequest(payload)),
+    changeLeaveStatus: (payload) => dispatch(handleChangeLeaveRequestStatus(payload)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllTimeOffs)

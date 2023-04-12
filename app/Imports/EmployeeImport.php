@@ -10,67 +10,74 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithProgressBar;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class EmployeeImport implements ToModel, WithHeadingRow, WithProgressBar
 {
     use Importable;
 
     /**
+     * @param array $row
+     *
      * @return Employee
      */
-    public function model(array $collection)
+    public function model(array $row): Employee
     {
-        $data = $collection;
-
         $rank = null;
-        if ($data['rank'] != ''){
-            $rank = Rank::firstOrCreate([
-                'name' => $data['rank']
+
+        if ($row['rank'] && $row['rank'] !== '') {
+            $rank = (new Rank)->firstOrCreate([
+                'name' => $row['rank']
             ]);
         }
 
         $gtec_placement = null;
-        if ($data['gtec_placement'] != ''){
+
+        if ($row['gtec_placement'] && $row['gtec_placement'] !== '') {
             $gtec_placement = Rank::firstOrCreate([
-                'name' => $data['gtec_placement']
+                'name' => $row['gtec_placement']
             ]);
         }
 
         $department = Department::firstOrCreate([
-            'name' => $data['department']
+            'name' => $row['department']
         ]);
 
         $employee = Employee::updateOrCreate([
-            'first_name' => $data['first_name'] ?: '',
-            'middle_name' => $data['middle_name'] ?: '',
-            'last_name' => $data['last_name'] ?: '',
-            'staff_id' => $data['staff_id'] ?: '',
-        ],[
-            'title' => $data['title'] ?: '',
-            'first_name' => $data['first_name'] ?: '',
-            'middle_name' => $data['middle_name'] ?: '',
-            'last_name' => $data['last_name'] ?: '',
-            'staff_id' => $data['staff_id'] ?: '',
-            'dob' => Carbon::parse(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($data['date_of_birth']))->format('Y-m-d'),
-            'gender' => $data['gender'] ?: '',
-            'ssnit_number' => $data['ssnit_no'] ?: '',
+            'first_name' => $row['first_name'] ?: '',
+            'middle_name' => $row['middle_name'] ?: '',
+            'last_name' => $row['last_name'] ?: '',
+            'staff_id' => $row['staff_id'] ?: '',
+        ], [
+            'title' => $row['title'] ?: '',
+            'first_name' => $row['first_name'] ?: '',
+            'middle_name' => $row['middle_name'] ?: '',
+            'last_name' => $row['last_name'] ?: '',
+            'staff_id' => $row['staff_id'] ?: '',
+            'dob' => Carbon::parse(Date::excelToDateTimeObject($row['date_of_birth']))->format('Y-m-d'),
+            'gender' => $row['gender'] ?: '',
+            'ssnit_number' => $row['ssnit_no'] ?: '',
             'gtec_placement' => $gtec_placement?->id,
-            'qualification' => $data['qualification'] ?: '',
+            'qualification' => $row['qualification'] ?: '',
+            'senior_staff' => $row['senior_staff'] ?? false,
+            'senior_member' => $row['senior_member'] ?? false,
+            'junior_staff' => $row['junior_staff'] ?? false,
+            'secondment_staff' => $row['secondment_staff'] ?? false,
             'rank_id' => $rank->id,
             'department_id' => $department->id,
             'user_id' => 1
         ]);
 
         $employee->contactDetail()->create([
-            'telephone' => $data['phone_number'] ?: '',
-            'work_telephone' => $data['other_phone_number'] ?: '',
-            'work_email' => $data['work_email'] ?: '',
-            'other_email' => $data['personal_email'] ?: '',
+            'telephone' => $row['phone_number'] ?: '',
+            'work_telephone' => $row['other_phone_number'] ?: '',
+            'work_email' => $row['work_email'] ?: '',
+            'other_email' => $row['personal_email'] ?: '',
             'user_id' => 1,
         ]);
 
         $employee->jobDetail()->create([
-            'status' => $data['status']
+            'status' => $row['status']
         ]);
 
         return $employee;

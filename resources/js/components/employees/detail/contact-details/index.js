@@ -30,7 +30,7 @@ function ContactDetails (props) {
     return (
         <Row gutter={10} justify={'space-between'}>
             <Col span={24}>
-                <div align={'right'}>
+                <div className={'flex justify-end'}>
                     <TlaEdit data={contactDetail} icon link={'form'} text={'Edit'} />
                 </div>
             </Col>

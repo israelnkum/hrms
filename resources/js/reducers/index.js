@@ -1,7 +1,16 @@
-import {combineReducers} from 'redux'
-import {persistReducer} from 'redux-persist'
+import { combineReducers } from 'redux'
+import { persistReducer } from 'redux-persist'
 import sessionStorage from 'redux-persist/lib/storage/session'
+import communityServiceReducer from "./community-service-reducer";
+import directReportReducer from "./direct-report-reducer";
 import employeeReducer from './employee-reducer'
+import leaveManagementReducer from "./leave-management-reducer";
+import leaveTypesReducer from "./leave-types-reducer";
+import nextOfKinsReducer from "./next-of-kin-reducer";
+import peopleReducer from "./people-reducer";
+import previousPositionReducer from "./previous-position-reducer";
+import previousRankReducer from "./previous-rank-reducer";
+import timeOffReducer from "./time-off-reducer";
 import userReducer from './UserReducer'
 import commonReducer from "./common-reducer";
 import qualificationReducer from "./qualification-reducer";
@@ -15,6 +24,9 @@ const persistConfig = {
     storage: sessionStorage,
     whitelist: [
         'employeeReducer',
+        'peopleReducer',
+        'leaveTypesReducer',
+        'leaveManagementReducer',
         'userReducer',
         'commonReducer',
         'qualificationReducer',
@@ -22,11 +34,20 @@ const persistConfig = {
         'emergencyContactReducer',
         'dependantReducer',
         'jobDetailsReducer',
+        'timeOffReducer',
+        'directReportReducer',
+        'communityServiceReducer',
+        'previousPositionReducer',
+        'previousRankReducer',
+        'nextOfKinsReducer'
     ]
 }
 
 const rootReducer = combineReducers({
     employeeReducer,
+    peopleReducer,
+    leaveTypesReducer,
+    leaveManagementReducer,
     userReducer,
     commonReducer,
     qualificationReducer,
@@ -34,6 +55,12 @@ const rootReducer = combineReducers({
     jobDetailsReducer,
     emergencyContactReducer,
     dependantReducer,
+    timeOffReducer,
+    directReportReducer,
+    communityServiceReducer,
+    previousPositionReducer,
+    previousRankReducer,
+    nextOfKinsReducer
 })
 
 export default persistReducer(persistConfig, rootReducer)

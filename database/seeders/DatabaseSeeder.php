@@ -17,11 +17,11 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             JobCategorySeeder::class,
             SubUnitSeeder::class,
-            RoleSeeder::class,
-//            DepartmentSeeder::class,
-//            RankSeeder::class,
+            RolesAndPermissionsSeeder::class,
             TerminationReasonSeeder::class,
-            EducationLevelSeeder::class
+            EducationLevelSeeder::class,
+            LeaveTypeSeeder::class,
+            PositionSeeder::class
         ]);
     }
 }

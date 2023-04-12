@@ -50,7 +50,7 @@ export const handleGetSingleEmergencyContact = (id) => (dispatch) => {
 export const handleUpdateEmergencyContact = (data) => (dispatch) => {
     return new Promise((resolve, reject) => {
         api().post(`/emergency-contacts/${data.get('id')}`, data, {
-            // headers: { 'Content-type': 'multipart/employee-data' }
+            // headers: { 'Content-type': 'multipart/employee-dashboard-data' }
         }).then((res) => {
             dispatch(updateEmergencyContact(res.data))
             resolve(res)

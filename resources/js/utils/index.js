@@ -1,4 +1,6 @@
 import { Store } from './Store'
+import dayjs from "dayjs";
+
 export const getAge = (dateString) => {
   const today = new Date()
   const birthDate = new Date(dateString)
@@ -15,49 +17,6 @@ export const activeRoles = () => {
   console.log(state)
   return state.userReducer.activeRoles
 }
-
-export const SidebarMenus = [
-    {
-        title: 'HOME',
-        link: '/',
-        children: [],
-        permissions: ['Admin'],
-        icon: 'home'
-    },
-    {
-        title: 'PIM',
-        link: '#',
-        children: [
-            {
-                permission: '',
-                modal: true,
-                title: 'Add Employee',
-                link: '/pim/employees/form',
-            },
-            // {
-            //     permission: '',
-            //     modal: true,
-            //     title: 'Upload Employees',
-            //     link: '/pim/employees/upload',
-            // },
-            {
-                permission: '',
-                modal: false,
-                title: 'All Employees',
-                link: '/pim/employees',
-            }
-        ],
-        permissions: ['Admin'],
-        icon: 'pim'
-    },
-    // {
-    //     title: 'Config',
-    //     link: '/app/configs/departments',
-    //     children: [],
-    //     permissions: ['Admin'],
-    //     icon: 'config'
-    // },
-]
 
 export const capitalize = (word) => {
     return word.replace(/(^\w{1})|(\s+\w{1})/g, letter => letter.toUpperCase())
@@ -96,4 +55,8 @@ export const completeExport = (data, filename = 'report') => {
         document.body.appendChild(link)
         link.click()
     }
+}
+
+export const formatDate = (date) => {
+    return dayjs(date).format('MMM Do YY')
 }
