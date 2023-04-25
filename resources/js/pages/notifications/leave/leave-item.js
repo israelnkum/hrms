@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { handleChangeLeaveRequestStatus } from "../../../actions/time-off/TimeOffAction";
 import TlaImage from "../../../commons/tla-image";
 
-function LeaveItem({data, changeLeaveStatus}) {
+function LeaveItem({data}) {
     return (
         <List
             itemLayout="horizontal"

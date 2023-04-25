@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { handleGetLeaveTypes } from "../../../actions/time-off/TimeOffAction";
 import Slider from "react-slick";
 import TlaAddNew from "../../../commons/tla-add-new";
+import ValidateComponent from "../../../commons/validate-component";
 
 function TimeOff({getLeaveTypes, leaveTypes}) {
     const [loading, setLoading] = useState(true)
@@ -71,11 +72,13 @@ function TimeOff({getLeaveTypes, leaveTypes}) {
                     </Slider>
                 </div>
                 <div className={ 'mt-3' }>
-                    <TlaAddNew link={ '/time-off/form' }>
-                        <Button icon={ <AiOutlineFieldTime className={ 'text-2xl' }/> }
-                                block size={ 'large' }
-                                className={ 'btn-primary' }>&nbsp;Request for leave</Button>
-                    </TlaAddNew>
+                    <ValidateComponent permissions={['request-leave']}>
+                        <TlaAddNew link={ '/time-off/form' }>
+                            <Button icon={ <AiOutlineFieldTime className={ 'text-2xl' }/> }
+                                    block size={ 'large' }
+                                    className={ 'btn-primary' }>&nbsp;Request for leave</Button>
+                        </TlaAddNew>
+                    </ValidateComponent>
                 </div>
             </Spin>
         </Card>

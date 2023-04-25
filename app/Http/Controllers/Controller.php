@@ -17,6 +17,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Spatie\Permission\Models\Permission;
 
 class Controller extends BaseController
 {
@@ -24,8 +25,7 @@ class Controller extends BaseController
 
     public function getCommonData()
     {
-        $loggedInUser  = Auth::user();
-
+        $loggedInUser = Auth::user();
 
         if (!$loggedInUser) {
             return response()->json([
@@ -43,11 +43,11 @@ class Controller extends BaseController
         $employees = Employee::count();
         $males = Employee::where('gender', 'Male')->count();
         $females = Employee::where('gender', 'Female')->count();
-
+        $permissions = Permission::all()->groupBy('group');
         $celebrations = Employee::query();
 
         $celebrations->when($isStaff, static function ($q) {
-           return $q->where('department_id', Auth::user()->employee->department_id);
+            return $q->where('department_id', Auth::user()->employee->department_id);
         })->orderBy('dob')->limit(5);
 
 
@@ -78,6 +78,7 @@ class Controller extends BaseController
                 'male' => $males,
                 'female' => $females
             ],
+            'permissions' => $permissions,
             'celebrations' => CelebrationResource::collection($celebrations)
         ]);
     }
@@ -91,7 +92,24 @@ class Controller extends BaseController
         ];
     }
 
-    public function getRoles() {
+    public function getRoles()
+    {
         return Auth::user()->getRoleNames();
+    }
+
+    public function hasPermission($permission)
+    {
+        return Auth::user()?->hasPermissionTo($permission);
+    }
+
+
+    public function isHr(): bool
+    {
+        return $this->hasPermission('approve-leave') || $this->hasPermission('disapprove-leave');
+    }
+
+    public function isSupervisor(): bool
+    {
+        return $this->hasPermission('approve-leave-request') || $this->hasPermission('decline-leave-request');
     }
 }

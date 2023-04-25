@@ -9,9 +9,4 @@ function Notifications() {
     )
 }
 
-
-Notifications.defaultProps = {}
-
-Notifications.propTypes = {}
-
 export default Notifications

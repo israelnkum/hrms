@@ -2,31 +2,31 @@ import { Spin } from "antd";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from 'react'
 import { connect } from "react-redux";
+import { useLocation } from "react-router";
 import { handleGetAllLeaveRequest } from "../../../actions/leave-management/leave-requests/Actions";
+import { TlaError } from "../../../utils/messages";
 import LeaveItem from "./leave-item";
 
-function Leave({ getLeaveRequests, leaveRequests }) {
+function Leave({getLeaveRequests, leaveRequests}) {
     const [loading, setLoading] = useState(true)
-
+    const {pathname} = useLocation()
     useEffect(() => {
-        getLeaveRequests(new URLSearchParams(`status=pending`)).then(() => {
-            setLoading(false)
-        })
-    }, [])
+        getLeaveRequests(new URLSearchParams(`status=${ pathname.split('/').pop() }`))
+            .then(() => setLoading(false))
+            .catch((err) => {
+                TlaError(err.response.data.message)
+                setLoading(false)
+            })
+    }, [pathname])
+
     return (
         <div>
-            <div>
-
-            </div>
-           <Spin spinning={loading}>
-               <LeaveItem data={leaveRequests?.data || [] }/>
-           </Spin>
+            <Spin spinning={ loading }>
+                <LeaveItem data={ leaveRequests?.data || [] }/>
+            </Spin>
         </div>
     )
 }
-
-
-Leave.defaultProps = {}
 
 Leave.propTypes = {
     getLeaveRequests: PropTypes.func,
@@ -38,8 +38,8 @@ const mapStateToProps = (state) => ({
     permissions: state.userReducer.permissions
 })
 
-
 const mapDispatchToProps = (dispatch) => ({
     getLeaveRequests: (payload) => dispatch(handleGetAllLeaveRequest(payload))
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(Leave)

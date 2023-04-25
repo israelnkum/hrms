@@ -5,23 +5,21 @@ import { connect } from "react-redux";
 import { useLocation, useOutletContext } from "react-router";
 import { handleChangeLeaveRequestStatus, handleGetLeaveRequest } from "../../actions/time-off/TimeOffAction";
 import TlaTableWrapper from "../../commons/table/tla-table-wrapper";
-import ViewAllWrapper from "../../commons/view-all-wrapper";
 import { TlaError, TlaSuccess } from "../../utils/messages";
+import FilterTimeOffs from "./filter-time-offs";
 
 const {Column} = Table
 
 function AllTimeOffs(props) {
     const {setPageInfo, setExtra} = useOutletContext();
-    const {getLeaveRequests, leaveRequests, permissions, changeLeaveStatus} = props
+    const {getLeaveRequests, leaveRequests, filter, permissions, changeLeaveStatus} = props
     const {data, meta} = leaveRequests
     const [loading, setLoading] = useState(true)
     const {pathname} = useLocation()
 
-    const status = pathname === '/time-off/pending' ? 'pending' : 'approved'
-
     useEffect(() => {
-        setPageInfo({title: 'All Time Offs'})
-        getLeaveRequests(new URLSearchParams(`status=${ status }`)).then(() => {
+        setPageInfo({title: 'Leave Requests'})
+        getLeaveRequests(new URLSearchParams(filter)).then(() => {
             setLoading(false)
         })
     }, [pathname])
@@ -78,51 +76,48 @@ function AllTimeOffs(props) {
 
     return (
         <div>
-            <ViewAllWrapper loading={ loading } noData={ data.length === 0 }>
-                <TlaTableWrapper filterObj={ {} } callbackFunction={ getLeaveRequests } data={ data } meta={ meta }>
-                    <Column title="Leave Type" render={ (_, {leave_type}) => (
-                        <>
-                            <Space direction={ 'vertical' }>
-                                <p className={ 'leading-none' }>{ leave_type }</p>
-                                <div
-                                    className={ `${ bgColors[status] } text-white py-px px-1 rounded-lg capitalize w-fit` }>
-                                    { status }
-                                </div>
-                            </Space>
-                        </>
-                    ) }/>
-                    <Column title="Employee" dataIndex={ 'employee' }/>
-                    <Column title="Duration" render={ (_, {start_date, end_date, days_requested}) => (
-                        <>
-                            <Space className={ 'leading-none' } direction={ 'vertical' }>
-                                <p>From: { start_date }</p>
-                                <p>To: { end_date }</p>
-                                <p>Days: { days_requested }</p>
-                            </Space>
-                        </>
-                    ) }/>
-                    <Column title="Approved By" render={ (_, {id, approver, status}) => (
-                        <>
-                            <Space className={ 'leading-none' } direction={ 'vertical' }>
-                                <p>{ approver }</p>
+            <FilterTimeOffs/>
+            <TlaTableWrapper
+                formLoading={ loading }
+                filterObj={ {} }
+                callbackFunction={ getLeaveRequests }
+                data={ data } meta={ meta }>
+                <Column title="Leave Type" render={ (_, {leave_type}) => (
+                    <Space direction={ 'vertical' }>
+                        <p className={ 'leading-none' }>{ leave_type }</p>
+                        <div
+                            className={ `${ bgColors[status] } text-white py-px px-1 rounded-lg capitalize w-fit` }>
+                            { status }
+                        </div>
+                    </Space>
+                ) }/>
+                <Column title="Employee" dataIndex={ 'employee' }/>
+                <Column title="Duration" render={ (_, {start_date, end_date, days_requested}) => (
+                    <Space className={ 'leading-none' } direction={ 'vertical' }>
+                        <p>From: { start_date }</p>
+                        <p>To: { end_date }</p>
+                        <p>Days: { days_requested }</p>
+                    </Space>
+                ) }/>
+                <Column title="Approved By" render={ (_, {id, approver, status}) => (
+                    <Space className={ 'leading-none' } direction={ 'vertical' }>
+                        <p>{ approver }</p>
+                        {
+                            (status === 'pending' || status === 'rejected') &&
+                            <Space>
                                 {
-                                    (status === 'pending' || status === 'rejected') &&
-                                    <Space>
-                                        {
-                                            permissions.includes('approve-leave-request') &&
-                                            <ApproveOrDisapprove id={ id } action={ 'approved' }/>
-                                        }
-                                        {
-                                            permissions.includes('disapprove-leave-request') &&
-                                            <ApproveOrDisapprove id={ id } action={ 'rejected' }/>
-                                        }
-                                    </Space>
+                                    permissions.includes('approve-leave-request') &&
+                                    <ApproveOrDisapprove id={ id } action={ 'approved' }/>
+                                }
+                                {
+                                    permissions.includes('disapprove-leave-request') &&
+                                    <ApproveOrDisapprove id={ id } action={ 'rejected' }/>
                                 }
                             </Space>
-                        </>
-                    ) }/>
-                </TlaTableWrapper>
-            </ViewAllWrapper>
+                        }
+                    </Space>
+                ) }/>
+            </TlaTableWrapper>
         </div>
     )
 }
@@ -130,12 +125,14 @@ function AllTimeOffs(props) {
 AllTimeOffs.propTypes = {
     getLeaveRequests: PropTypes.func,
     leaveRequests: PropTypes.object,
+    filter: PropTypes.object,
     permissions: PropTypes.array.isRequired,
     changeLeaveStatus: PropTypes.func.isRequired,
 }
 
 const mapStateToProps = (state) => ({
     leaveRequests: state.timeOffReducer.leaveRequests,
+    filter: state.timeOffReducer.filter,
     permissions: state.userReducer.permissions
 })
 

@@ -68,7 +68,7 @@ class LeaveTypeSeeder extends Seeder
                 'user_id' => 1
             ],
             [
-                'name' => 'Sick Leave',
+                'name' => 'Sick Leave/Excuse Duty Leave',
                 'description' => null,
                 'entitlement_type' => 'custom',
                 'number_of_days' => 0,
@@ -80,21 +80,8 @@ class LeaveTypeSeeder extends Seeder
                 'should_request_before' => 1,
                 'user_id' => 1
             ],
-//            [
-//                'name' => 'Bereavement Leave',
-//                'description' => NULL,
-//                'entitlement_type' => 'custom',
-//                'number_of_days' => 0,
-//                'start_of_annual_cycle' => '2023-01-01',
-//                'allow_half_day' => 1,
-//                'allow_carry_forward' => 0,
-//                'maximum_allotment' => 0,
-//                'maximum_consecutive_days' => 0,
-//                'should_request_before' => 1,
-//                'user_id' => 1
-//            ],
             [
-                'name' => 'Other',
+                'name' => 'Compassionate Leave',
                 'description' => null,
                 'entitlement_type' => 'custom',
                 'number_of_days' => 0,
@@ -105,7 +92,46 @@ class LeaveTypeSeeder extends Seeder
                 'maximum_consecutive_days' => 0,
                 'should_request_before' => 1,
                 'user_id' => 1
-            ]
+            ],
+            [
+                'name' => 'Sabbatical Leave',
+                'description' => null,
+                'entitlement_type' => 'custom',
+                'number_of_days' => 0,
+                'start_of_annual_cycle' => '2023-01-01',
+                'allow_half_day' => 1,
+                'allow_carry_forward' => 0,
+                'maximum_allotment' => 0,
+                'maximum_consecutive_days' => 0,
+                'should_request_before' => 1,
+                'user_id' => 1
+            ],
+            [
+                'name' => 'Examination Leave',
+                'description' => null,
+                'entitlement_type' => 'custom',
+                'number_of_days' => 0,
+                'start_of_annual_cycle' => '2023-01-01',
+                'allow_half_day' => 1,
+                'allow_carry_forward' => 0,
+                'maximum_allotment' => 0,
+                'maximum_consecutive_days' => 0,
+                'should_request_before' => 1,
+                'user_id' => 1
+            ],
+            [
+                'name' => 'Leave of Absence',
+                'description' => null,
+                'entitlement_type' => 'custom',
+                'number_of_days' => 0,
+                'start_of_annual_cycle' => '2023-01-01',
+                'allow_half_day' => 1,
+                'allow_carry_forward' => 0,
+                'maximum_allotment' => 0,
+                'maximum_consecutive_days' => 0,
+                'should_request_before' => 1,
+                'user_id' => 1
+            ],
         ];
 
         foreach ($types as $type) {

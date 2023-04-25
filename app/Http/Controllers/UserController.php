@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
 use App\Imports\VoterImport;
-use App\Models\Role;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -15,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Spatie\Permission\Models\Role;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class UserController extends Controller
@@ -49,8 +49,9 @@ class UserController extends Controller
         return [
             'user' => $loggedInUser->only(['id', 'name', 'username']),
             'roles' => $loggedInUser->getRoleNames(),
-            'permissions' => $loggedInUser->getPermissionsViaRoles()->pluck('name'),
-            'employee_id' => $loggedInUser->employee ? $loggedInUser->employee->id: null
+            'permissions' => $loggedInUser->getPermissionsViaRoles()->pluck('name')->merge
+            ($loggedInUser->getDirectPermissions()->pluck('name')),
+            'employee_id' => $loggedInUser->employee ? $loggedInUser->employee->id : null
         ];
     }
 
@@ -104,7 +105,7 @@ class UserController extends Controller
 
             $user = User::find($id);
 
-            return \response($request->has('voter') ? new VoterResource($user) : new UserResource($user));
+            return \response(new UserResource($user));
         } catch (Exception $exception) {
             DB::rollBack();
 
@@ -112,69 +113,11 @@ class UserController extends Controller
         }
     }
 
-    public function getUserRoles($id)
+    public function getUserRoles($id): array
     {
         $userRoles = User::find($id)->roles;
         $otherRoles = Role::whereNotIn('id', $userRoles->pluck('pivot.roleId'))->get();
 
         return [$userRoles, $otherRoles];
-    }
-
-
-    public function importVoters(Request $request)
-    {
-        ini_set('memory_limit', '-1');
-        ini_set('MAX_EXECUTION_TIME', '-1');
-        set_time_limit(0);
-
-        $valid_exts = array('csv', 'xls', 'xlsx'); // valid extensions
-        $file = $request->file('file');
-        if (!empty($file)) {
-            $ext = strtolower($file->getClientOriginalExtension());
-            if (in_array($ext, $valid_exts)) {
-                $voterList = Excel::toCollection(new VoterImport(), $file);
-                $voters = $voterList[0];
-                DB::beginTransaction();
-                try {
-                    $uploaded = [];
-                    for ($i = 0; $i < count($voters); $i++) {
-                        $user = User::updateOrcreate([
-                            'username' => $voters[$i]['username']
-                        ], [
-                            'first_name' => $voters[$i]['first_name'] ?? $voters[$i]['last_name'],
-                            'last_name' => $voters[$i]['last_name'] ?? $voters[$i]['first_name'],
-                            'username' => $voters[$i]['username'],
-                            'email' => $voters[$i]['email'],
-                            'phone_number' => $voters[$i]['phone_number'],
-                            'password' => Hash::make($voters[$i]['password']),
-                        ]);
-
-
-                        $uploaded[] = $user->id;
-                    }
-                    DB::commit();
-
-                    return response()->json([
-                        'message' => count($uploaded) . '  Voters uploaded successful'
-                    ]);
-//                    return \response(VoterResource::collection($allVoters->get()));
-                } catch (Exception $exception) {
-                    DB::rollBack();
-
-                    return response($exception->getMessage(), 422);
-                }
-            } else {
-                return response('Only excel file is accepted!', 422);
-            }
-        } else {
-            return \response('Please upload an excel file!', 422);
-        }
-    }
-
-    public function downloadUploadFormat(): BinaryFileResponse
-    {
-        $pathToFile = public_path('assets/voterUploadFormat.xlsx');
-
-        return response()->download($pathToFile);
     }
 }

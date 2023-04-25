@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Employee::class)->constrained();
             $table->foreignIdFor(Employee::class, 'supervisor_id')->constrained('employees');
+            $table->foreignIdFor(Employee::class, 'hr_id')->nullable()->comment('who in HR approved')->constrained('employees');
             $table->foreignIdFor(LeaveType::class)->constrained();
             $table->integer('days_requested');
             $table->integer('days_approved')->default(0);
@@ -31,6 +32,8 @@ return new class extends Migration {
             $table->longText('sup_reason')->nullable();
             $table->date('hr_approval')->nullable()->comment('Date approved by HR');
             $table->longText('hr_reason')->nullable();
+            $table->date('moved')->comment('Moved for HR approval')->nullable();
+            $table->foreignIdFor(Employee::class, 'moved_by')->nullable()->constrained('employees');
             $table->softDeletes();
             $table->timestamps();
         });

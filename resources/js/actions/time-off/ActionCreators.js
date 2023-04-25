@@ -70,3 +70,10 @@ export const getTimeOff = (payload) => {
       payload: payload
   }
 }
+
+export const addFilter = (payload) => {
+  return {
+    type: Types.ADD_TIME_OFF_FILTER,
+    payload: payload
+  }
+}

@@ -40,11 +40,11 @@ function PageWrapper () {
         </Row>
     )
     return (
-        <div className={'w-full'}>
-            <div className={'bg-gray-20'}>
+        <div>
+            <div>
                 <PageCrumbs/>
-                <div className={'inner-card bg-gray-20'}>
-                    {PageTitle}
+                <div className={'m-2'}>
+                    {/*{PageTitle}*/}
                     <div align={'middle'} className={'flex justify-between'}>
                         <div>
                             {extra}

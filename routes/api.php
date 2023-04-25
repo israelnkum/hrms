@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommonController;
 use App\Http\Controllers\CommunityServiceController;
 use App\Http\Controllers\ContactDetailController;
 use App\Http\Controllers\DependantController;
@@ -66,18 +67,23 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     });
     Route::apiResource('/leave-request', LeaveRequestController::class);
     Route::prefix('leave-management')->group(function () {
+        Route::get('/filter-params', [LeaveManagementController::class, 'getFilterParams']);
         Route::get('/leave-request', [LeaveManagementController::class, 'getLeaveRequests']);
         Route::post('/leave-request/status/hr/change', [LeaveRequestController::class, 'hrChangeLeaveStatus']);
         Route::apiResource('/leave-types', LeaveTypeController::class);
     });
 
-    Route::get('/supervisor/{supervisorId}/pending-actions', [HomeController::class, 'getPendingApprovals']);
+    Route::get('/supervisor/{employee}/pending-actions', [HomeController::class, 'getPendingApprovals']);
     Route::get('/my-team', [HomeController::class, 'getMyTeam']);
     Route::get('/who-is-out', [HomeController::class, 'getWhoIsOut']);
+    Route::prefix('common')->group(function () {
+        Route::get('permissions/{id}', [CommonController::class, 'getAllPermissions']);
+        Route::post('permissions/assign', [CommonController::class, 'assignPermissions']);
+    });
+
+    Route::get('notifications/navs', [CommonController::class, 'getNotificationNavs']);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::get('commons', [HomeController::class, 'getCommonData']);

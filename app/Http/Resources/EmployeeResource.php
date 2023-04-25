@@ -13,7 +13,8 @@ class EmployeeResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  Request  $request
+     * @param Request $request
+     *
      * @return array
      */
     public function toArray($request): array
@@ -42,12 +43,14 @@ class EmployeeResource extends JsonResource
             'rank' => $this->rank->name,
             'department_id' => $this->department_id,
             'department' => $this->department->name,
-            'photo' => $this->photo ? '/storage/images/employees/'.$this->photo->file_name : null,
+            'photo' => $this->photo ? '/storage/images/employees/' . $this->photo->file_name : null,
             'job' => [
                 'hire_date' => $this->jobDetail->joined_date ? Carbon::parse($this->jobDetail->joined_date)->format('Y-m-d') : 'Not Updated',
                 'location' => $this->jobDetail->location ?? 'Not Updated'
             ],
-            'supervisor' => $this->employeeSupervisor?->supervisor->name
+            'supervisor' => $this->employeeSupervisor?->supervisor->name,
+            'permissions' => $this->userAccount?->getPermissionsViaRoles()->pluck('id')->merge
+            ($this->userAccount?->getDirectPermissions()->pluck('id'))
         ];
     }
 }

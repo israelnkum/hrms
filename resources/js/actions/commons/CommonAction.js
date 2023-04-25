@@ -1,5 +1,6 @@
 import api from '../../utils/api'
-import { getCommonData, getMyTeam, getPendingActions, getWhoIsOut, } from './ActionCreators'
+import { updateEmployee } from "../employee/ActionCreators";
+import { getAllPermissions, getCommonData, getMyTeam, getPendingActions, getWhoIsOut, } from './ActionCreators'
 
 export const handleGetCommonData = () => (dispatch) => {
     return new Promise((resolve, reject) => {
@@ -14,7 +15,7 @@ export const handleGetCommonData = () => (dispatch) => {
 
 export const handleGetPendingActions = (supervisorId) => (dispatch) => {
     return new Promise((resolve, reject) => {
-        api().get(`/supervisor/${supervisorId}/pending-actions`).then((res) => {
+        api().get(`/supervisor/${ supervisorId }/pending-actions`).then((res) => {
             dispatch(getPendingActions(res.data))
             resolve(res)
         }).catch((err) => {
@@ -38,6 +39,29 @@ export const handleGetWhoIsOut = () => (dispatch) => {
     return new Promise((resolve, reject) => {
         api().get(`/who-is-out`).then((res) => {
             dispatch(getWhoIsOut(res.data))
+            resolve(res)
+        }).catch((err) => {
+            reject(err)
+        })
+    })
+}
+
+
+export const handleGetAllPermissions = (staffId) => (dispatch) => {
+    return new Promise((resolve, reject) => {
+        api().get(`/common/permissions/${ staffId }`).then((res) => {
+            dispatch(getAllPermissions(res.data))
+            resolve(res)
+        }).catch((err) => {
+            reject(err)
+        })
+    })
+}
+
+export const handleAssignPermissions = (data) => (dispatch) => {
+    return new Promise((resolve, reject) => {
+        api().post('/common/permissions/assign', data).then((res) => {
+            dispatch(updateEmployee(res.data.data))
             resolve(res)
         }).catch((err) => {
             reject(err)

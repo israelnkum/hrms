@@ -7,11 +7,7 @@ import {handleExportEmployees, handleGetAllEmployees} from "../../actions/employ
 import TlaSelect from "../../commons/tla/TlaSelect";
 
 function FilterEmployees (props) {
-    const { submitFilter, filter, exportFilter,
-        departments,
-        ranks,
-        educationalLevels,
-        jobCategories } = props
+    const { submitFilter, filter, exportFilter, departments, ranks, jobCategories } = props
     const initials = {
         ...filter,
         export: false
