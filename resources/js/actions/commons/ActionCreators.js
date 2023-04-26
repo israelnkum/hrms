@@ -34,3 +34,18 @@ export const getWhoIsOut = (payload) => {
       payload: payload
   }
 }
+
+
+export const getAllPermissions = (payload) => {
+  return {
+    type: Types.GET_PERMISSIONS,
+    payload
+  }
+}
+
+export const assignPermissions = (payload) => {
+  return {
+    type: Types.ASSIGN_PERMISSION,
+    payload
+  }
+}

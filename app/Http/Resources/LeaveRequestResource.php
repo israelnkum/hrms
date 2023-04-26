@@ -39,6 +39,10 @@ class LeaveRequestResource extends JsonResource
             'sup_approval' => $this->sup_approval,
             'hr_approval' => $this->hr_approval,
             'created_at' => Carbon::parse($this->created_at)->format('M d y'),
+            'hr_id' => $this->hr_id,
+            'approved_hr' => $this->approvedHr?->name,
+            'moved_by' => $this->movedBy?->name,
+            'moved' => $this->moved
         ];
     }
 }

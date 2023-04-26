@@ -37,45 +37,33 @@ export const SidebarMenus = [
                 link: '/leave-management/leave-types',
             },
             {
-                permission: 'view-pending-leave-request',
+                permission: 'view-approved-leave',
                 modal: false,
-                title: 'Pending Requests',
-                link: '/leave-management/pending-request',
-            },
-            {
-                permission: 'view-approved-leave-request',
-                modal: false,
-                title: 'Approved Requests',
-                link: '/leave-management/approved-request',
+                title: 'All Leave Requests',
+                link: '/leave-management/leave-requests',
             }
         ],
-        permissions: ['add-leave-types', 'view-pending-leave-request', 'view-approved-leave-request'],
+        permissions: ['add-leave-types', 'view-pending-leave', 'view-approved-leave', 'approve-leave', 'disapprove-leave'],
         icon: 'time-off'
     },
     {
-        title: 'Leave Request',
+        title: 'My Leave Requests',
         link: '#',
         children: [
             {
-                permission: 'request-time-off',
+                permission: 'request-leave',
                 modal: true,
                 title: 'Make Request',
                 link: '/time-off/form',
             },
             {
-                permission: 'view-pending-time-off',
+                permission: 'view-pending-request',
                 modal: false,
-                title: 'Pending Request',
-                link: '/time-off/pending',
-            },
-            {
-                permission: 'view-approved-time-off',
-                modal: false,
-                title: 'Approved Request',
-                link: '/time-off/approved',
+                title: 'Leave Requests',
+                link: '/time-offs',
             }
         ],
-        permissions: ['request-time-off', 'view-pending-time-off', 'view-approved-time-off'],
+        permissions: ['request-time-request', 'view-pending-request', 'view-approved-request'],
         icon: 'time-off'
     },
     {
@@ -83,7 +71,7 @@ export const SidebarMenus = [
         link: '/people',
         children: [],
         permissions: [],
-        icon: 'config'
+        icon: 'people'
     },
     // {
     //     title: 'Config',

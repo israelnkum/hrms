@@ -12,7 +12,7 @@ function EmployeeDashboard() {
                 <div className={ 'w-full sm:w-full md:w-[372px]' }>
                     <TimeOff/>
                 </div>
-                <div className={ 'grow' }>
+                <div className={ 'shrink grow-0 md:grow' }>
                     <PendingActions/>
                 </div>
             </div>

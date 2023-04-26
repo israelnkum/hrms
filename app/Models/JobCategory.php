@@ -11,6 +11,8 @@ class JobCategory extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name', 'user_id'
+        'name',
+        'leave_entitlement',
+        'user_id'
     ];
 }

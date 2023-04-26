@@ -5,10 +5,10 @@
     ],
     "group": "Employee",
     "permissions": [
-      "add",
-      "edit",
-      "delete",
-      "view"
+      "add-employee",
+      "edit-employee",
+      "delete-employee",
+      "view-employee"
     ]
   },
   {
@@ -17,10 +17,10 @@
     ],
     "group": "Department",
     "permissions": [
-      "add",
-      "edit",
-      "delete",
-      "view"
+      "add-department",
+      "edit-department",
+      "delete-department",
+      "view-department"
     ]
   },
   {
@@ -29,33 +29,34 @@
     ],
     "group": "Leave Types",
     "permissions": [
-      "add",
-      "edit",
-      "delete",
-      "view"
+      "add-leave-types",
+      "edit-leave-types",
+      "delete-leave-types",
+      "view-leave-types"
     ]
   },
   {
     "roles": [
       "hr"
     ],
-    "group": "Leave Request",
+    "group": "Leave Management",
     "permissions": [
-      "approve",
-      "disapprove",
-      "view-approved",
-      "view-pending"
+      "move-leave",
+      "approve-leave",
+      "disapprove-leave",
+      "view-approved-leave",
+      "view-pending-leave"
     ]
   },
   {
     "roles": [
       "staff"
     ],
-    "group": "Time Off",
+    "group": "Leave Request",
     "permissions": [
-      "request",
-      "view-pending",
-      "view-approved"
+      "request-leave",
+      "view-pending-request",
+      "view-approved-request"
     ]
   }
 ]

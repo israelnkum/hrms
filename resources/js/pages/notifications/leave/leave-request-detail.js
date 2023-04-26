@@ -1,13 +1,15 @@
-import { Button, Col, DatePicker, Divider, Form, Input, Radio, Row, Space, Spin } from "antd";
+import { Button, Col, DatePicker, Divider, Form, Input, Radio, Row, Space, Spin, Tag, Timeline } from "antd";
 import dayjs from 'dayjs';
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from 'react';
+import { TbEqual } from "react-icons/tb";
 import { FiArrowRight } from "react-icons/fi";
 import { connect } from 'react-redux';
 import { useLocation, useNavigate } from "react-router-dom";
 import { handleApproveLeaveRequest } from "../../../actions/leave-management/leave-requests/Actions";
 import { handleChangeLeaveRequestStatus, handleGetTimeOff } from "../../../actions/time-off/TimeOffAction";
 import TlaImage from "../../../commons/tla-image";
+import ValidateComponent from "../../../commons/validate-component";
 import { TlaError, TlaSuccess } from "../../../utils/messages";
 
 function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus, timeOff, holidays}) {
@@ -49,15 +51,29 @@ function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus,
     // eslint-disable-next-line react/prop-types
     const DurationItem = ({date}) => (
         <div className={ 'border-2 w-fit' }>
-            <p className={ 'bg-gray-800 text-white uppercase text-xs py-1 px-2' +
-                ' text-center' }>
-                { dayjs(date).format('MMM') }
-            </p>
             <div className={ 'py-2 px-3' }>
                 <h3 className={ 'text-xl' }>
                     { dayjs(date).format('Do') }
                 </h3>
             </div>
+            <p className={ 'bg-gray-800 text-white uppercase text-xs py-1 px-2' +
+                ' text-center' }>
+                { dayjs(date).format('MMM') }
+            </p>
+        </div>
+    )
+
+    // eslint-disable-next-line react/prop-types
+    const Days = ({days}) => (
+        <div className={ 'border-2 w-fit border-success-700' }>
+            <div className={ 'py-2 px-3' }>
+                <h3 className={ 'text-xl text-success-700' }>
+                    { days }
+                </h3>
+            </div>
+            <p className={ 'bg-success-700 text-white uppercase text-xs py-1 px-2 text-center' }>
+                Days
+            </p>
         </div>
     )
 
@@ -73,6 +89,31 @@ function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus,
         return saturdayAndSunday || months || holidays.includes(dayjs(current).format('YYYY-MM-DD'))
     }
 
+    const ActionComponent = () => (
+        <>
+            <Form.Item name={ 'hr_status_update' }
+                       rules={ [{required: true, message: 'Choose an option'}] }>
+                <Radio.Group>
+                    <ValidateComponent permissions={ ['approve-leave-request', 'approve-leave'] }>
+                        <Radio value="approved"> Approve </Radio>
+                    </ValidateComponent>
+                    <ValidateComponent permissions={ ['decline-leave-request', 'disapprove-leave'] }>
+                        <Radio value="rejected"> Decline </Radio>
+                    </ValidateComponent>
+                </Radio.Group>
+            </Form.Item>
+            <ValidateComponent
+                permissions={ [
+                    'approve-leave-request',
+                    'decline-leave-request',
+                    'approve-leave',
+                    'disapprove-leave'
+                ] }>
+                <Button size={ 'large' } className={ 'btn-primary uppercase' } block
+                        htmlType={ 'submit' }>Submit</Button>
+            </ValidateComponent>
+        </>
+    )
     const ApprovalForm = () => (
         <React.Fragment>
             <div className={ 'mt-2' }>
@@ -109,14 +150,21 @@ function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus,
                 </Row>
             </div>
             <div className={ 'flex flex-col items-start gap-2' }>
-                <Form.Item name={ 'hr_status_update' } rules={ [{required: true, message: 'Choose an option'}] }>
-                    <Radio.Group>
-                        <Radio value="approved"> Approve </Radio>
-                        <Radio value="rejected"> Decline </Radio>
-                    </Radio.Group>
-                </Form.Item>
-                <Button size={ 'large' } className={ 'btn-primary uppercase' } block
-                        htmlType={ 'submit' }>Submit</Button>
+                {
+                    timeOff.sup_approval ?
+                        <>
+                            {
+                                timeOff?.moved ? <ActionComponent/> :
+                                    <ValidateComponent permissions={ ['move-leave'] }>
+                                        <Button
+                                            size={ 'large' }
+                                            className={ 'btn-primary' }
+                                            block
+                                            htmlType={ 'submit' }>Move for Approval</Button>
+                                    </ValidateComponent>
+                            }
+                        </> : <ActionComponent/>
+                }
             </div>
         </React.Fragment>
     )
@@ -124,8 +172,38 @@ function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus,
     const LeaveDetail = () => (
         <div className={ 'mt-5' }>
             <h3 className={ 'text-success-700 text-2xl text-center font-bold' }>Leave Approved</h3>
+
         </div>
     )
+
+    const formatDate = (date) => (
+        dayjs(date).format('Do MMM YYYY')
+    )
+
+
+    // eslint-disable-next-line react/prop-types
+    const TimelineItem = ({date = null}) => (
+        <Tag color={ date ? 'green' : 'red' }>
+            { date ? formatDate(date) : 'Pending' }
+        </Tag>
+    )
+
+    const timelineItems = [
+        {
+            label: <>Supervisor Approval</>,
+            children: <TimelineItem
+                date={ timeOff?.sup_approval ?? null }/>
+        },
+        {
+            label: 'Validated',
+            children: <TimelineItem date={ timeOff?.moved ?? null }/>
+        },
+        {
+            label: 'HR Approval',
+            children: <TimelineItem date={ timeOff?.hr_approval }/>
+        }
+    ];
+
     return (
         <div className={ 'w-full' }>
             <div className={ ' mx-auto' }>
@@ -134,7 +212,7 @@ function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus,
                         !loading &&
                         <Form onFinish={ onFinish } layout="vertical" initialValues={ formValues } form={ form }>
                             <div className={ 'shadow-lg bg-white' }>
-                                <div className={ 'p-3 flex justify-between gap-3' }>
+                                <div className={ 'p-3 flex justify-start gap-3' }>
                                     <div>
                                         <Space direction={ 'vertical' }>
                                             <Space>
@@ -161,27 +239,13 @@ function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus,
                                                 <DurationItem date={ timeOff?.start_date }/>
                                                 <FiArrowRight className={ 'text-xl' }/>
                                                 <DurationItem date={ timeOff?.end_date }/>
+                                                <TbEqual className={ 'text-xl' }/>
+                                                <Days
+                                                    days={ timeOff?.days_approved > 0 ? timeOff?.days_approved : timeOff?.days_requested }/>
                                             </div>
-                                            <p>{ timeOff?.days_approved > 0 ? timeOff?.days_approved : timeOff?.days_requested } Days
-                                                Time Off</p>
                                         </div>
-                                        <Divider className={ '!my-2' }/>
-                                        <div className={ 'flex justify-between' }>
-                                            <h3>Supervisor Approval</h3>
-                                            <p>{ timeOff?.sup_approval ?? <span
-                                                className={ 'bg-danger rounded-lg p-1 text-white' }>Pending</span> }</p>
-                                        </div>
-                                        <Divider className={ '!my-2' }/>
-                                        <div className={ 'flex justify-between' }>
-                                            <h3>HR Approval</h3>
-                                            <p>
-                                                {
-                                                    timeOff?.hr_approval ??
-                                                    <span
-                                                        className={ 'bg-danger rounded-lg p-1 text-white' }>Pending</span>
-                                                }
-                                            </p>
-                                        </div>
+                                        <Divider/>
+                                        <Timeline mode={ 'left' } items={ timelineItems }/>
                                     </div>
                                 </div>
                             </div>

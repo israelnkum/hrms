@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { handleChangeLeaveRequestStatus } from "../../../actions/time-off/TimeOffAction";
 import TlaImage from "../../../commons/tla-image";
+import ValidateComponent from "../../../commons/validate-component";
 import { TlaError, TlaSuccess } from "../../../utils/messages";
 
 function PendingItem({data, changeLeaveStatus}) {
@@ -35,21 +36,24 @@ function PendingItem({data, changeLeaveStatus}) {
     // eslint-disable-next-line react/prop-types
     const Content = ({leaveData}) => (
         <Space size={ 'small' }>
-            <Button
-                onClick={ () => {
-                    approveOrDisapprove(leaveData, 'approved')
-                } }
-                title={ 'Approve Request' }
-                icon={ <FiCheckCircle className={ 'text-base' }/> }
-                className={ 'btn-success  h-8 !w-8' }/>
-
-            <Button
-                onClick={ () => {
-                    approveOrDisapprove(leaveData, 'rejected')
-                } }
-                title={ 'Deny Request' }
-                icon={ <IoIosCloseCircleOutline className={ 'text-base' }/> }
-                className={ 'btn-danger  h-8 !w-8' }/>
+            <ValidateComponent permissions={ ['approve-leave-request', 'approve-leave'] }>
+                <Button
+                    onClick={ () => {
+                        approveOrDisapprove(leaveData, 'approved')
+                    } }
+                    title={ 'Approve Request' }
+                    icon={ <FiCheckCircle className={ 'text-base' }/> }
+                    className={ 'btn-success  h-8 !w-8' }/>
+            </ValidateComponent>
+            <ValidateComponent permissions={ ['decline-leave-request', 'disapprove-leave'] }>
+                <Button
+                    onClick={ () => {
+                        approveOrDisapprove(leaveData, 'rejected')
+                    } }
+                    title={ 'Deny Request' }
+                    icon={ <IoIosCloseCircleOutline className={ 'text-base' }/> }
+                    className={ 'btn-danger  h-8 !w-8' }/>
+            </ValidateComponent>
             <Button
                 onClick={ () => {
                     approveOrDisapprove(leaveData, 'viewed')
@@ -71,7 +75,8 @@ function PendingItem({data, changeLeaveStatus}) {
                         <List.Item.Meta
                             avatar={ <TlaImage size={ 45 } name={ item.employee } preview={ false } src={ '' }/> }
                             title={
-                                <Link to={ `/notifications/leave-request/${item.id}/details` } state={{ id: item.id }}>
+                                <Link to={ `/notifications/leave-request/${ item.id }/details` }
+                                      state={ {id: item.id} }>
                                     <span>{ `${ item.employee } requested` }</span>&nbsp;
                                     <b>{ item.startDate + ' - ' + item.endDate }</b>&nbsp;
                                     <span>off</span>
@@ -94,8 +99,12 @@ PendingItem.propTypes = {
     changeLeaveStatus: PropTypes.func.isRequired,
 }
 
+const mapStateToProps = (state) => ({
+    data: state.commonReducer.pendingActions.leaveRequest,
+})
+
 const mapDispatchToProps = (dispatch) => ({
     changeLeaveStatus: (payload) => dispatch(handleChangeLeaveRequestStatus(payload, true))
 })
 
-export default connect(null, mapDispatchToProps)(PendingItem)
+export default connect(mapStateToProps, mapDispatchToProps)(PendingItem)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\LeaveRequestResource;
 use App\Http\Resources\MyTeamResource;
+use App\Models\Employee;
 use App\Models\EmployeeSupervisor;
 use App\Models\LeaveRequest;
 use Illuminate\Contracts\Foundation\Application;
@@ -34,19 +35,20 @@ class HomeController extends Controller
 
 
     /**
-     * @param $supervisorId
+     * @param Employee $employee
      *
      * @return JsonResponse
      */
-    public function getPendingApprovals($supervisorId): JsonResponse
+    public function getPendingApprovals(Employee $employee): JsonResponse
     {
         $leaveRequest = LeaveRequest::query();
 
-        $leaveRequest->when(!$this->getRoles()->contains('hr'), function ($q) use ($supervisorId) {
-            $q->where('supervisor_id', $supervisorId)->where('status', 'pending');
-        });
+        $leaveRequest->where('supervisor_id', $employee->id)->where('status', 'pending');
 
-        $leaveRequest->when($this->getRoles()->contains('hr'), function ($q) {
+        $isHr = $this->hasPermission('move-leave') || $this->hasPermission('approve-leave') ||
+            $this->hasPermission('disapprove-leave');
+
+        $leaveRequest->when($isHr, function ($q) {
             $q->orWhere('hr_status', 'pending')->where('status', 'approved');
         });
 

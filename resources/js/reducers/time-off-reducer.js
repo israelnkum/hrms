@@ -7,6 +7,9 @@ const initialState = {
     leaveRequests: {
         data: [],
         meta: {}
+    },
+    filter: {
+        status: 'Pending'
     }
 }
 
@@ -23,6 +26,9 @@ export default function timeOffReducer(state = initialState, action) {
 
         case Types.GET_TIME_OFF:
             return {...state, leaveRequest: action.payload}
+
+        case Types.ADD_TIME_OFF_FILTER:
+            return {...state, filter: action.payload}
 
         case Types.CHANGE_LEAVE_STATUS:
             return {

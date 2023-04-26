@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { handleGetPendingActions } from "../../../actions/commons/CommonAction";
 import PendingItem from "./pending-item";
 
-function PendingActions({getPendingActions, pendingActions, employeeId}) {
+function PendingActions({getPendingActions, employeeId}) {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -15,28 +15,27 @@ function PendingActions({getPendingActions, pendingActions, employeeId}) {
     }, [])
 
     return (
-        <Card actions={[<Link key={'notifications'} to={'/notifications/leave-request'}>View all notifications</Link>]}
-            title={
-                <div className={ 'flex items-center justify-between gap-x-2' }>
-                    <div className={ 'flex gap-2 items-center' }>
-                        <AiOutlineNotification className={ 'text-3xl' }/>
-                        What is happening in TTU?
-                    </div>
-                    <div>
-                        <Link to={ '/announcements' } className={ 'bg-blue-800 text-white p-1 text-sm rounded-lg' }>
-                            Announcements
-                        </Link>
-                    </div>
-                </div>
-            }
-            className={ 'rounded-lg border-none shadow-sm h-full' }>
+        <Card actions={ [
+            <Link key={ 'notifications' } to={ '/notifications/leave-request' }>
+                View all notifications
+            </Link>] }
+              title={
+                  <div className={ 'flex items-center justify-between gap-x-2' }>
+                      <div className={ 'flex gap-2 items-center' }>
+                          <AiOutlineNotification className={ 'text-3xl' }/>
+                          What is happening in TTU?
+                      </div>
+                      <div>
+                          <Link to={ '/announcements' } className={ 'bg-blue-800 text-white p-1 text-sm rounded-lg' }>
+                              Announcements
+                          </Link>
+                      </div>
+                  </div>
+              }
+              className={ 'rounded-lg border-none shadow-sm h-full' }>
             <Spin spinning={ loading }>
-                <div className={'overflow-auto max-h-[200px]'}>
-                    {
-                        Object.keys(pendingActions).map((item, index) => (
-                            <PendingItem data={pendingActions[item]} key={index}/>
-                        ))
-                    }
+                <div className={ 'overflow-auto max-h-[200px]' }>
+                    <PendingItem/>
                 </div>
             </Spin>
         </Card>
@@ -45,12 +44,10 @@ function PendingActions({getPendingActions, pendingActions, employeeId}) {
 
 PendingActions.propTypes = {
     getPendingActions: PropTypes.func.isRequired,
-    pendingActions: PropTypes.object,
     employeeId: PropTypes.any
 }
 
 const mapStateToProps = (state) => ({
-    pendingActions: state.commonReducer.pendingActions,
     employeeId: state.userReducer.loggedInUser.employee_id
 })
 

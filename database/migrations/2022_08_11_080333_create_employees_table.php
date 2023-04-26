@@ -28,9 +28,10 @@ return new class extends Migration
             $table->text('qualification')->nullable();
             $table->string('marital_status')->nullable();
             $table->string('ssnit_number')->nullable();
-            $table->boolean('senior_member')->default(false)->comment('Non Teaching staff');
-            $table->boolean('senior_staff')->default(false)->comment('Non Teaching staff');
-            $table->boolean('junior_staff')->default(false)->comment('Non Teaching staff');
+            $table->boolean('key_officer')->default(false);
+            $table->boolean('senior_member')->default(false);
+            $table->boolean('senior_staff')->default(false);
+            $table->boolean('junior_staff')->default(false);
             $table->boolean('secondment_staff')->default(false);
             $table->foreignIdFor(Rank::class, 'gtec_placement')->nullable()->constrained('ranks');
             $table->foreignIdFor(Department::class)->nullable()->constrained();

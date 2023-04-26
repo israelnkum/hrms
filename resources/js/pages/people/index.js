@@ -25,31 +25,29 @@ function People (props) {
     }, [])
 
     return (
-        <ViewAllWrapper loading={loading} noData={data.length === 0}>
-            <TlaTableWrapper numberColumn={false} filterObj={filter}  callbackFunction={getPeople} data={data} meta={meta}>
-                <Column render={(_, {title, name, rank}) => (
-                    <Space>
-                        <TlaImage size={70} src={'Avatar'} name={name}/>
-                        <Space direction={'vertical'} size={1}>
-                            <p className={'text-primary-800 text-2xl font-bold'}>{title}&nbsp;{name}</p>
-                            {rank}
-                        </Space>
+        <TlaTableWrapper numberColumn={false} filterObj={filter}  callbackFunction={getPeople} data={data} meta={meta}>
+            <Column render={(_, {title, name, rank}) => (
+                <Space>
+                    <TlaImage size={70} src={'Avatar'} name={name}/>
+                    <Space direction={'vertical'} size={1}>
+                        <p className={'text-primary-800 text-2xl font-bold'}>{title}&nbsp;{name}</p>
+                        {rank}
                     </Space>
-                )}/>
-                <Column render={(_, {work_email, work_telephone}) => (
-                    <Space direction={'vertical'}>
-                        <Space size={1}>
-                            <BiEnvelope/>
-                            <p>{work_email}</p>
-                        </Space>
-                        <Space size={1}>
-                            <BiPhone/>
-                            <p>{work_telephone}</p>
-                        </Space>
+                </Space>
+            )}/>
+            <Column render={(_, {work_email, work_telephone}) => (
+                <Space direction={'vertical'}>
+                    <Space size={1}>
+                        <BiEnvelope/>
+                        <p>{work_email}</p>
                     </Space>
-                )}/>
-            </TlaTableWrapper>
-        </ViewAllWrapper>
+                    <Space size={1}>
+                        <BiPhone/>
+                        <p>{work_telephone}</p>
+                    </Space>
+                </Space>
+            )}/>
+        </TlaTableWrapper>
     )
 }
 

@@ -7,7 +7,8 @@ import ViewAllWrapper from "../view-all-wrapper";
 
 function TlaTableWrapper({
                              meta, data, callbackFunction, children,
-                             numberColumn, numberColumnTitle, hasSelection, filterObj, extra
+                             numberColumn, numberColumnTitle, hasSelection, filterObj, extra,
+                             formLoading
                          }) {
     const [loading, setLoading] = useState(false)
     const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -20,7 +21,6 @@ function TlaTableWrapper({
         onChange: onSelectChange,
     };
     return (
-
         <TlaPagination extra={ extra } meta={ meta } loadData={ (pageNumber) => {
             const urlParams = new URLSearchParams(filterObj)
             urlParams.append('page', pageNumber);
@@ -30,8 +30,10 @@ function TlaTableWrapper({
             })
         } }>
 
-            <Table rowSelection={ hasSelection ? rowSelection : null } pagination={ false }
-                   loading={ loading } dataSource={ data } scroll={ {x: 50} } rowKey={ 'id' }>
+            <Table className={ 'w-full' }
+                   rowSelection={ hasSelection ? rowSelection : null }
+                   pagination={ false }
+                   loading={ loading } dataSource={ data } scroll={ {x: 20} } rowKey={ 'id' }>
                 {
                     numberColumn &&
                     <Table.Column width={ 50 } title={ numberColumnTitle } render={ (text, record, index) => {
@@ -39,7 +41,7 @@ function TlaTableWrapper({
                         return <>{ `${ number++ }.` }</>
                     } }/>
                 }
-                <ViewAllWrapper loading={ false } noData={ data.length === 0 }>
+                <ViewAllWrapper loading={ formLoading } noData={ data.length === 0 }>
                     { children }
                 </ViewAllWrapper>
             </Table>
@@ -59,6 +61,7 @@ TlaTableWrapper.defaultProps = {
     numberColumn: true,
     hasSelection: false,
     filterObj: null,
+    formLoading: false,
 }
 
 TlaTableWrapper.propTypes = {
@@ -71,6 +74,7 @@ TlaTableWrapper.propTypes = {
     numberColumnTitle: PropTypes.string,
     numberColumn: PropTypes.bool,
     extra: PropTypes.any,
+    formLoading: PropTypes.bool,
 }
 
 
