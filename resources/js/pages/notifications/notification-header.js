@@ -5,7 +5,7 @@ function NotificationHeader() {
 
     return (
         <div className={'bg-primary-800 text-white p-3'}>
-            <h3 className={ 'text-lg text-white' }>Time Off Request</h3>
+            <h3 className={ 'text-lg text-white' }>Leave Request</h3>
         </div>
     )
 }
