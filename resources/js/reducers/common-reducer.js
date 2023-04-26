@@ -5,12 +5,16 @@ const initialState = {
     pendingActions: {},
     teamMembers: [],
     whoIsOut: [],
+    userPermissions: []
 }
 
 export default function commonReducer(state = initialState, action) {
     switch (action.type) {
         case Types.GET_COMMON_DATA:
             return {...state, commons: action.payload}
+
+        case Types.GET_PERMISSIONS:
+            return {...state, userPermissions: action.payload.userPermissions}
 
         case Types.GET_PENDING_ACTIONS:
             return {...state, pendingActions: action.payload}

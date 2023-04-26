@@ -43,7 +43,6 @@ export const handleGetAllEmployees = (params) => (dispatch) => {
     })
 }
 
-
 /**
  * Display a listing of the resource.
  * @returns {function(*): Promise<unknown>}

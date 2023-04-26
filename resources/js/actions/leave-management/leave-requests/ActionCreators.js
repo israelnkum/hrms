@@ -11,6 +11,7 @@ export const getLeaveRequest = (payload) => {
       payload: payload
   }
 }
+
 /**
  *
  * @param payload
@@ -19,6 +20,19 @@ export const getLeaveRequest = (payload) => {
 export const approveLeaveRequest = (payload) => {
   return {
     type: Types.APPROVE_LEAVE_REQUEST,
+      payload: payload
+  }
+}
+
+export const addFilter = (payload) => {
+  return {
+    type: Types.ADD_LEAVE_REQUEST_FILTER,
+      payload: payload
+  }
+}
+export const getFilterParams = (payload) => {
+  return {
+    type: Types.GET_FILTER_PARAMS,
       payload: payload
   }
 }

@@ -1,8 +1,7 @@
-import React from 'react'
-import styled, {createGlobalStyle} from 'styled-components'
-import {connect} from 'react-redux'
-import ProfileBg from '../../assets/img/dashboard/profile-bg.jpg'
 import PropTypes from 'prop-types'
+import React from 'react'
+import { connect } from 'react-redux'
+import styled, { createGlobalStyle } from 'styled-components'
 import TlaImage from "../tla-image";
 
 const GlobalStyles = createGlobalStyle`
@@ -14,22 +13,19 @@ const GlobalStyles = createGlobalStyle`
     box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
     border-radius: 200px;
   }
+
   .profile-name {
     color: var(--Gray-900);
     margin-top: 20px;
   }
-  
+
   .profile-job-title {
     margin-top: -28px;
   }
 `
-const ProfileContainer = styled.div`
-  background: url(${ProfileBg}) center center no-repeat;
-  background-size: cover;
-  height: 100px;
-`
+
 const AvatarContainer = styled.div`
-  margin-top: -32px;
+  margin-top: 20px;
   justify-content: center;
   display: block;
   text-align: center;
@@ -37,23 +33,31 @@ const AvatarContainer = styled.div`
   align-content: center;
 `
 
-function Profile ({user, size}) {
+function Profile({user, size, collapsed}) {
     return (
         <>
             <GlobalStyles/>
-            <ProfileContainer/>
             <AvatarContainer>
-                <TlaImage name={user.name} size={size} src={''}/>
-                <h3 className={'text-md-medium profile-name'}>{user.name}</h3> <br/>
-                {/*<h4 className={'text-sm-normal profile-job-title'}>Product Designer</h4>*/}
+                <TlaImage name={ user.name } size={ size } src={ '' }/>
+                {
+                    !collapsed &&
+                    <h3 className={ 'text-md-medium profile-name' }>{ user.name }</h3>
+                }
+
+                {/*<h4 className={'text-sm-normal profile-job-title'}>Product Designer</h4>*/ }
             </AvatarContainer>
         </>
     )
 }
 
+Profile.defaultProps = {
+    collapsed: false
+}
+
 Profile.propTypes = {
     user: PropTypes.object.isRequired,
     size: PropTypes.number,
+    collapsed: PropTypes.bool,
 }
 
 const mapStateToProps = (state) => ({

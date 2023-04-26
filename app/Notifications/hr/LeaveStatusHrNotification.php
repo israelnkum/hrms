@@ -49,7 +49,7 @@ class LeaveStatusHrNotification extends Notification implements ShouldQueue
             ->greeting('Dear ' . $this->data['hr'] . ',')
             ->subject('Leave Request Notification')
             ->line($this->data['supervisor']. ' '. $status . ' a leave request for '. $this->data['employee'].' on '.
-                Carbon::parse($this->data['date'])->format('D, M d Y') .' and it\'s pending approval.')
+                Carbon::parse($this->data['date'])->format('D, M d Y') .' and it\'s pending your action.')
             ->action('Review Request', env('FRONTEND_URL'));
     }
 

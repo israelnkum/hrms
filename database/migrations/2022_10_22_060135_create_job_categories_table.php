@@ -17,6 +17,7 @@ return new class extends Migration
         Schema::create('job_categories', static function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('leave_entitlement')->default(0);
             $table->foreignIdFor(User::class)->nullable()->constrained();
             $table->softDeletes();
             $table->timestamps();

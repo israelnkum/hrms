@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SocialAuthController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------

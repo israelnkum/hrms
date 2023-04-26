@@ -52,7 +52,7 @@ class LeaveRequestController extends Controller
         $leaveRequestQuery->when($request->has('status'), function ($q) use ($request) {
             return $q->where('status', $request->status);
         });
-
+        
         $leaveRequestQuery->where('employee_id', Auth::user()->employee->id);
 
         return LeaveRequestResource::collection($leaveRequestQuery->paginate(10));
@@ -118,6 +118,17 @@ class LeaveRequestController extends Controller
         }
     }
 
+    private function validateLeaveDays($startDate, $daysRequested)
+    {
+        $daysCount = $this->getLeaveDays($startDate, $daysRequested);
+
+        if ($daysCount < $daysRequested) {
+            $daysRequested = $this->getLeaveDays($startDate, $daysRequested + ($daysRequested - $daysCount));
+        }
+
+        return $daysRequested;
+    }
+
     /**
      * @param $startDate
      * @param $numberOfDays
@@ -169,11 +180,10 @@ class LeaveRequestController extends Controller
         try {
             $leaveRequest = LeaveRequest::find($request->id);
 
-            $date = Carbon::now()->format('Y-m-d');
-
+            $date = Carbon::now()->format('Y-m-d');;
             $daysApproved =
                 $request->days_requested != $leaveRequest->days_requested ?
-                    $this->getLeaveDays($request->start_date, $request->days_requested) : $request->days_requested;
+                    $this->validateLeaveDays($request->start_date, $request->days_requested) : $request->days_requested;
 
             $leaveRequest->update([
                 'days_approved' => $daysApproved,
@@ -198,7 +208,6 @@ class LeaveRequestController extends Controller
 //                    'date' => $date
 //                ], true, $request->status === 'approved'));
 
-
                 // notify employee
                 $employeeUserAccount->notify(new LeaveStatusNotification([
                     'leaveStatus' => $request->status,
@@ -210,12 +219,12 @@ class LeaveRequestController extends Controller
 
             if ($request->status === 'approved') {
                 // notify HRs
-                $users = User::role('hr')->get();
+                $users = User::permission('move-leave')->get();
 
                 foreach ($users as $item) {
                     if (!empty($item)) {
                         $item->notify(new LeaveStatusHrNotification([
-                            'hr' => $item->employee->name,
+                            'hr' => $item->employee?->name,
                             'supervisor' => $user->employee->name,
                             'employee' => $employeeUserAccount->employee->name,
                             'date' => $date,
@@ -244,7 +253,6 @@ class LeaveRequestController extends Controller
         }
     }
 
-
     public function hrChangeLeaveStatus(HrChangeLeaveStatusRequest $request): JsonResponse
     {
         DB::beginTransaction();
@@ -254,33 +262,40 @@ class LeaveRequestController extends Controller
 
             $daysApproved = $this->validateLeaveDays($request->start_date, $request->days_requested);
 
-            $leaveRequest->update([
-                'days_approved' => $daysApproved,
-                'start_date' => Carbon::parse($request->start_date)->format('Y-m-d'),
-                'end_date' => $this->lastDate,
-                'hr_reason' => $request->hr_reason,
-                'hr_status' => $request->hr_status_update,
-                'hr_approval' => date('Y-m-d'),
-            ]);
 
-            $user = Auth::user();
+            if ($leaveRequest->moved == null) {
+                $this->moveLeaveForApproval($leaveRequest,
+                    Carbon::parse($request->start_date)->format('Y-m-d'), $daysApproved);
+            } else {
+                $user = Auth::user();
 
-            ActivityLog::add($user->employee->name . ' ' . $request->hr_status_update . ' leave request',
-                $request->hr_status_update, [''], 'leave-request')
-                ->to($leaveRequest)
-                ->as($user);
+                $leaveRequest->update([
+                    'days_approved' => $daysApproved,
+                    'start_date' => Carbon::parse($request->start_date)->format('Y-m-d'),
+                    'end_date' => $this->lastDate,
+                    'hr_reason' => $request->hr_reason,
+                    'hr_status' => $request->hr_status_update,
+                    'hr_approval' => date('Y-m-d'),
+                    'hr_id' => $user?->employee->id
+                ]);
 
-            $date = Carbon::now()->format('Y-m-d');
+                ActivityLog::add($user->employee->name . ' ' . $request->hr_status_update . ' leave request',
+                    $request->hr_status_update, [''], 'leave-request')
+                    ->to($leaveRequest)
+                    ->as($user);
 
-            $employeeUserAccount = $leaveRequest->employee->userAccount;
+                $date = Carbon::now()->format('Y-m-d');
 
-            $employeeUserAccount->notify(new LeaveStatusNotification([
-                'leaveStatus' => $request->hr_status_update,
-                'supervisor' => $employeeUserAccount->employee->name,
-                'employee' => $user->employee->name,
-                'date' => $date,
-                'hasPendingText' => false
-            ]));
+                $employeeUserAccount = $leaveRequest->employee->userAccount;
+
+                $employeeUserAccount->notify(new LeaveStatusNotification([
+                    'leaveStatus' => $request->hr_status_update,
+                    'supervisor' => $employeeUserAccount->employee->name,
+                    'employee' => $user->employee->name,
+                    'date' => $date,
+                    'hasPendingText' => false
+                ]));
+            }
 
             DB::commit();
 
@@ -290,6 +305,36 @@ class LeaveRequestController extends Controller
             Log::error('HR Change Leave Status: ', [$exception]);
 
             return response()->json('Something went wrong', 400);
+        }
+    }
+
+    public function moveLeaveForApproval(LeaveRequest $leaveRequest, $startDate, $approvedDays)
+    {
+        $leaveRequest->update([
+            'moved' => Carbon::now()->format('Y-m-d'),
+            'start_date' => $startDate,
+            'days_approved' => $approvedDays,
+            'moved_by' => Auth::user()->employee->id
+        ]);
+
+        $user = Auth::user();
+        ActivityLog::add($user->employee->name . ' Moved leave request',
+            'Moved', [''], 'leave-request')
+            ->to($leaveRequest)
+            ->as($user);
+
+        $users = User::permission('approve-leave')->get();
+
+        foreach ($users as $item) {
+            if (!empty($item)) {
+                $item->notify(new LeaveStatusHrNotification([
+                    'hr' => $item->employee?->name,
+                    'supervisor' => $leaveRequest->employee->name,
+                    'employee' => $user?->employee->name,
+                    'date' => Carbon::now()->format('Y-m-d'),
+                    'leaveStatus' => 'Moved'
+                ]));
+            }
         }
     }
 
@@ -308,16 +353,5 @@ class LeaveRequestController extends Controller
     public function show(LeaveRequest $leaveRequest): JsonResponse
     {
         return response()->json(new LeaveRequestResource($leaveRequest));
-    }
-
-    private function validateLeaveDays($startDate, $daysRequested) {
-
-        $daysCount = $this->getLeaveDays($startDate, $daysRequested);
-
-        if ($daysCount < $daysRequested) {
-          $daysRequested =  $this->getLeaveDays($startDate, $daysRequested + ($daysRequested - $daysCount));
-        }
-
-        return $daysRequested;
     }
 }

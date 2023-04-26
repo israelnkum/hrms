@@ -7,6 +7,7 @@ import employeeReducer from './employee-reducer'
 import leaveManagementReducer from "./leave-management-reducer";
 import leaveTypesReducer from "./leave-types-reducer";
 import nextOfKinsReducer from "./next-of-kin-reducer";
+import notificationsReducer from "./notifications-reducer";
 import peopleReducer from "./people-reducer";
 import previousPositionReducer from "./previous-position-reducer";
 import previousRankReducer from "./previous-rank-reducer";
@@ -39,7 +40,8 @@ const persistConfig = {
         'communityServiceReducer',
         'previousPositionReducer',
         'previousRankReducer',
-        'nextOfKinsReducer'
+        'nextOfKinsReducer',
+        'notificationsReducer'
     ]
 }
 
@@ -60,7 +62,8 @@ const rootReducer = combineReducers({
     communityServiceReducer,
     previousPositionReducer,
     previousRankReducer,
-    nextOfKinsReducer
+    nextOfKinsReducer,
+    notificationsReducer
 })
 
 export default persistReducer(persistConfig, rootReducer)

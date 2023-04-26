@@ -26,7 +26,10 @@ class LeaveRequest extends Model
         'sup_approval',
         'hr_approval',
         'sup_reason',
-        'hr_reason'
+        'hr_reason',
+        'hr_id',
+        'moved',
+        'moved_by'
     ];
 
 //    protected $casts = [
@@ -47,6 +50,22 @@ class LeaveRequest extends Model
     public function approver(): BelongsTo
     {
         return $this->belongsTo(Employee::class, 'supervisor_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function approvedHr(): BelongsTo
+    {
+        return $this->belongsTo(Employee::class, 'hr_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function movedBy(): BelongsTo
+    {
+        return $this->belongsTo(Employee::class, 'moved_by');
     }
 
     /**

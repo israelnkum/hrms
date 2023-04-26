@@ -30,7 +30,7 @@ import People from "../../pages/people";
 import { ModalRoutes } from "./ModalRoutes";
 import notificationsRoute from "./notifications-route";
 
-const ProtectedRoutes = ({ getHolidays }) => {
+const ProtectedRoutes = ({getHolidays}) => {
     const [loading, setLoading] = useState(true)
 
     const location = useLocation()
@@ -43,7 +43,7 @@ const ProtectedRoutes = ({ getHolidays }) => {
     }, [])
 
     return (
-        <Spin spinning={loading} tip={'Please wait'}>
+        <Spin spinning={ loading } tip={ 'Please wait' }>
             { background && (<React.Fragment><ModalRoutes/> <Outlet/></React.Fragment>) }
             <Routes location={ background || location }>
                 <Route exact element={ <Dashboard/> } path='home'/>
@@ -64,19 +64,15 @@ const ProtectedRoutes = ({ getHolidays }) => {
                     <Route path='qualifications' element={ <Qualifications/> }/>
                     <Route path='community-services' element={ <CommunityServices/> }/>
                 </Route>
-                <Route path='time-off' element={ <PageWrapper/> }>
-                    <Route path='pending' element={ <AllTimeOffs/> }/>
-                    <Route path='approved' element={ <AllTimeOffs/> }/>
-                </Route>
                 <Route element={ <PageWrapper/> }>
+                    <Route path='time-offs' element={ <AllTimeOffs/> }/>
                     <Route path={ 'announcements' } element={ <Announcements/> }/>
                     <Route path={ 'people' } element={ <People/> }/>
                     <Route path={ 'leave-management' }>
                         <Route path={ 'leave-types' } element={ <LeaveTypes/> }/>
-                        <Route path={ 'pending-request' } element={ <AllLeaveRequests/> }/>
-                        <Route path={ 'approved-request' } element={ <AllLeaveRequests/> }/>
+                        <Route path={ 'leave-requests' } element={ <AllLeaveRequests/> }/>\
                     </Route>
-                    {notificationsRoute}
+                    { notificationsRoute }
                 </Route>
                 <Route path='app/configs' element={ <Configs/> }>
                     <Route element={ <PageWrapper/> }>

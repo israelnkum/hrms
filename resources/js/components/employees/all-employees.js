@@ -1,23 +1,24 @@
-import React, {useEffect, useState} from 'react'
-import {Space, Table} from 'antd'
+import { Space, Table } from 'antd'
 import PropTypes from 'prop-types'
-import {connect} from "react-redux";
+import React, { useEffect, useState } from 'react'
+import { connect } from "react-redux";
+import { useOutletContext } from 'react-router'
+import { Link } from "react-router-dom";
+import { handleGetAllEmployees } from "../../actions/employee/EmployeeAction";
 import TlaTableWrapper from "../../commons/table/tla-table-wrapper";
-import {useOutletContext} from 'react-router'
 import TlaImage from "../../commons/tla-image";
-import {Link} from "react-router-dom";
-import {handleGetAllEmployees} from "../../actions/employee/EmployeeAction";
-import ViewAllWrapper from "../../commons/view-all-wrapper";
+import Permissions from "../config/permissions";
 import FilterEmployees from "./filter-employees";
 
-const { Column } = Table
-function AllEmployees (props) {
-    const { getEmployees, employees, filter } = props
-    const { data, meta }= employees
+const {Column} = Table
+
+function AllEmployees(props) {
+    const {getEmployees, employees, filter} = props
+    const {data, meta} = employees
     const [loading, setLoading] = useState(true)
-    const { setPageInfo, setExtra } = useOutletContext();
+    const {setPageInfo, setExtra} = useOutletContext();
     useEffect(() => {
-        setPageInfo({ title: 'Employees', addLink: '/employees/form', buttonText: 'Employee' })
+        setPageInfo({title: 'Employees', addLink: '/employees/form', buttonText: 'Employee'})
 
         getEmployees(new URLSearchParams(filter)).then(() => {
             setLoading(false)
@@ -25,47 +26,43 @@ function AllEmployees (props) {
     }, [])
 
     return (
-        <div className={'pb-10'}>
+        <div className={ 'pb-10' }>
             <FilterEmployees/>
-            <ViewAllWrapper loading={loading} noData={data.length === 0}>
-                <TlaTableWrapper filterObj={filter}  callbackFunction={getEmployees} data={data} meta={meta}>
-                    <Column title="Name" render={(_, {id, name, staff_id}) => (
-                        <Link to={`/employees/${id}/${name}/personal-details`} state={{ staffId: id }}>
-                            <Space>
-                                <TlaImage size={40} src={'Avatar'} name={name}/>
-                                <Space direction={'vertical'} size={1}>
-                                    {name}
-                                    {`Staff ID: ${staff_id}`}
-                                </Space>
+            <TlaTableWrapper
+                formLoading={ loading }
+                filterObj={ filter }
+                callbackFunction={ getEmployees }
+                data={ data } meta={ meta }>
+                <Column title="Name" render={ (_, {id, name, staff_id, rank}) => (
+                    <Link to={ `/employees/${ id }/${ name }/personal-details` } state={ {staffId: id} }>
+                        <Space>
+                            <TlaImage size={ 40 } src={ 'Avatar' } name={ name }/>
+                            <Space direction={ 'vertical' } size={ 1 }>
+                                { name }
+                                { `Staff ID: ${ staff_id }` }
+                                { rank }
                             </Space>
-                        </Link>
-                    )}/>
-                    <Column title="Department" dataIndex={'department'}/>
-                    <Column title="D.o.B" render={(_, {dob, age}) => (
-                        <Space direction={'vertical'} size={1}>
-                            {dob}  {`Age: ${age}`}
                         </Space>
-                    )}/>
-                    <Column title="Phone" render={(_, {telephone, work_telephone}) => (
-                        <Space direction={'vertical'} size={1}>
-                            <a href={`tel:${telephone}`}>{telephone}</a>
-                            <a href={`tel:${work_telephone}`}>{work_telephone}</a>
-                        </Space>
-                    )}/>
-                    <Column title="Email" render={(_, {work_email, other_email}) => (
-                        <Space direction={'vertical'} size={1}>
-                            <a href={`mailto:${work_email}`}>{work_email}</a>
-                            <a href={`mailto:${other_email}`}>{other_email}</a>
-                        </Space>
-                    )}/>
-                    <Column title="GTECH Placement & Rank" render={(_, {gtech_placement, rank}) => (
-                        <Space direction={'vertical'} size={1}>
-                            {gtech_placement}
-                            {rank}
-                        </Space>
-                    )}/>
-                </TlaTableWrapper>
-            </ViewAllWrapper>
+                    </Link>
+                ) }/>
+                <Column title="Department" dataIndex={ 'department' }/>
+                <Column title="D.o.B" render={ (_, {dob, age}) => (
+                    <Space direction={ 'vertical' } size={ 1 }>
+                        { dob } { `Age: ${ age }` }
+                    </Space>
+                ) }/>
+                <Column title="Contact" render={ (_, {telephone, work_telephone, work_email, other_email}) => (
+                    <Space direction={ 'vertical' } size={ 1 }>
+                        <a href={ `mailto:${ work_email }` }>{ work_email }</a>
+                        <a href={ `mailto:${ other_email }` }>{ other_email }</a>
+                        <a href={ `tel:${ telephone }` }>{ telephone }</a>
+                        <a href={ `tel:${ work_telephone }` }>{ work_telephone }</a>
+                    </Space>
+                ) }/>
+                <Column title="Permissions" render={ (_, {permissions, id}) => (
+                    <Permissions staffPermissions={ permissions ?? [] } employeeId={ id }/>
+                ) }/>
+            </TlaTableWrapper>
         </div>
     )
 }

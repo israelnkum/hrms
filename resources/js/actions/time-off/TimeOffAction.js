@@ -1,3 +1,4 @@
+import { completeExport } from "../../utils";
 import api from "../../utils/api";
 import { changeLeaveStatus } from "../commons/ActionCreators";
 import {
@@ -6,6 +7,7 @@ import {
     getLeaveRequests,
     getLeaveTypes, getTimeOff,
     requestTimeOff,
+    addFilter
 } from './ActionCreators'
 
 /**
@@ -62,12 +64,15 @@ export const handleGetLeaveRequest = (params) => (dispatch) => {
     return new Promise((resolve, reject) => {
         api().get(`/leave-request?${ params }`).then((res) => {
             dispatch(getLeaveRequests(res.data))
+            params?.delete('page')
+            params && dispatch(addFilter(Object.fromEntries(params)))
             resolve(res)
         }).catch((err) => {
             reject(err)
         })
     })
 }
+
 
 /**
  *

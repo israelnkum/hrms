@@ -68,9 +68,6 @@ function TimeOffForm(props) {
                             </Select>
                         </Form.Item>
                     </Col>
-                    <Col span={ 24 }>
-                        <Employees label={ 'approved by' } form={ form }/>
-                    </Col>
                     <Col span={ 12 }>
                         <Form.Item name="number_of_days" label="Number of days"
                                    rules={ [
@@ -93,8 +90,11 @@ function TimeOffForm(props) {
                                 message: 'Required'
                             }
                         ] }>
-                            <DatePicker disabledDate={ disabledDate } style={ {width: '100%'} } size={ 'large' }/>
+                            <DatePicker placement={'bottomRight'} disabledDate={ disabledDate } style={ {width: '100%'} } size={ 'large' }/>
                         </Form.Item>
+                    </Col>
+                    <Col span={ 24 }>
+                        <Employees label={ 'Approved by' } form={ form }/>
                     </Col>
 
                     <Col span={ 24 }>

@@ -7,7 +7,7 @@ import { useLocation } from 'react-router'
 
 const rootSubmenuKeys = []
 
-function MenuHelper({activeRoles, permissions, menus, direction, icons, linkStyles}) {
+function MenuHelper({permissions, menus, direction, icons, linkStyles}) {
     const location = useLocation()
     const [openKeys, setOpenKeys] = useState([])
 
@@ -46,7 +46,7 @@ function MenuHelper({activeRoles, permissions, menus, direction, icons, linkStyl
                                 </Link>, icons[child.icon] ?? '', child.title
                             ) : permissions.includes(child.permission) &&
                             getItem(
-                                <Link className={ 'nav-item' } style={ linkStyles }
+                                <Link className={ 'nav-item !text-capitalize' } style={ linkStyles }
                                       state={ {background: child.modal && location} } to={ child.link }>
                                     { child.title }
                                 </Link>, icons[child.icon] ?? '', child.title
@@ -62,7 +62,7 @@ function MenuHelper({activeRoles, permissions, menus, direction, icons, linkStyl
             className={ 'sideBarNav' }
             defaultSelectedKeys={ ['dashboard'] } openKeys={ openKeys } onOpenChange={ onOpenChange }
             mode={ direction }
-            theme="dark"
+            theme="light"
             items={ items }
         />
     )

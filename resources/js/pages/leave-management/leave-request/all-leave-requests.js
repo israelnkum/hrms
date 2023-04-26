@@ -7,23 +7,21 @@ import { Link } from "react-router-dom";
 import { handleGetAllLeaveRequest } from "../../../actions/leave-management/leave-requests/Actions";
 import TlaTableWrapper from "../../../commons/table/tla-table-wrapper";
 import TlaImage from "../../../commons/tla-image";
-import ViewAllWrapper from "../../../commons/view-all-wrapper";
+import FilterLeaveRequests from "./filter-leave-requests";
 
 
 const {Column} = Table
 
 function AllLeaveRequests(props) {
     const {setPageInfo, setExtra} = useOutletContext();
-    const {getLeaveRequests, leaveRequests, permissions} = props
+    const {getLeaveRequests, leaveRequests, permissions, filter} = props
     const {data, meta} = leaveRequests
     const [loading, setLoading] = useState(true)
     const {pathname} = useLocation()
 
-    const status = pathname === '/leave-management/pending-request' ? 'pending' : 'approved'
-
     useEffect(() => {
-        setPageInfo({title: 'All Time Offs'})
-        getLeaveRequests(new URLSearchParams(`status=${ status }`)).then(() => {
+        setPageInfo({title: 'Leave Request'})
+        getLeaveRequests(new URLSearchParams(filter)).then(() => {
             setLoading(false)
         })
     }, [pathname])
@@ -80,61 +78,72 @@ function AllLeaveRequests(props) {
 
     return (
         <div>
-            <ViewAllWrapper loading={ loading } noData={ data.length === 0 }>
-                <TlaTableWrapper filterObj={ {} } callbackFunction={ getLeaveRequests } data={ data } meta={ meta }>
-                    <Column title="Leave Type" render={ (_, {id, leave_type}) => (
-                        <Link to={ `/notifications/leave-request/${ id }/details` } state={ {id: id} }>
-                            <Space direction={ 'vertical' }>
-                                <p className={ 'leading-none' }>{ leave_type }</p>
-                                <div
-                                    className={ `${ bgColors[status] } text-white py-px px-1 rounded-lg capitalize w-fit` }>
-                                    { status }
-                                </div>
-                            </Space>
-                        </Link>
-                    ) }/>
-                    <Column title="Employee" render={ (_, {employee, department}) => (
-                        <Space className={ 'leading-none' }>
-                            <div>
-                                <TlaImage name={ employee } src={ 'Avatar' } size={ 45 }/>
+            <FilterLeaveRequests/>
+            <TlaTableWrapper
+                formLoading={ loading }
+                filterObj={ {} }
+                callbackFunction={ getLeaveRequests }
+                data={ data } meta={ meta }>
+                <Column title="Leave Type" render={ (_, {id, leave_type, status}) => (
+                    <Link to={ `/notifications/leave-request/${ id }/details` } state={ {id: id} }>
+                        <Space direction={ 'vertical' }>
+                            <p className={ 'leading-none' }>{ leave_type }</p>
+                            <div
+                                className={ `${ bgColors[status] } text-white py-px px-1 rounded-lg capitalize w-fit` }>
+                                { status }
                             </div>
-                            <Space className={ 'leading-none' } direction={ 'vertical' }>
-                                <p>{ employee }</p>
-                                <p>{ department }</p>
-                            </Space>
                         </Space>
-                    ) }/>
-                    <Column title="Duration" render={ (_, {startDate, endDate, days_requested}) => (
-                        <>
-                            <Space className={ 'leading-none w-full' } direction={ 'vertical' }>
-                                <Item title={ 'From' } value={ startDate }/>
-                                <Item title={ 'To' } value={ endDate }/>
-                                <Item title={ 'Days' } value={ days_requested }/>
-                            </Space>
-                        </>
-                    ) }/>
-                    <Column title="Approver" render={ (_, {id, approver, status}) => (
-                        <>
-                            <Space className={ 'leading-none' } direction={ 'vertical' }>
-                                <p>{ approver }</p>
-                                {
-                                    (status === 'pending' || status === 'rejected') &&
-                                    <Space>
-                                        {
-                                            permissions.includes('approve-leave-request') &&
-                                            <ApproveOrDisapprove id={ id } action={ 'approved' }/>
-                                        }
-                                        {
-                                            permissions.includes('disapprove-leave-request') &&
-                                            <ApproveOrDisapprove id={ id } action={ 'rejected' }/>
-                                        }
-                                    </Space>
-                                }
-                            </Space>
-                        </>
-                    ) }/>
-                </TlaTableWrapper>
-            </ViewAllWrapper>
+                    </Link>
+                ) }/>
+                <Column title="Employee" render={ (_, {employee, department}) => (
+                    <Space className={ 'leading-none' }>
+                        <div>
+                            <TlaImage name={ employee } src={ 'Avatar' } size={ 45 }/>
+                        </div>
+                        <Space className={ 'leading-none' } direction={ 'vertical' }>
+                            <p>{ employee }</p>
+                            <p>{ department }</p>
+                        </Space>
+                    </Space>
+                ) }/>
+                <Column title="Duration" render={ (_, {startDate, endDate}) => (
+                    <>
+                        <Space className={ 'leading-none w-full' } direction={ 'vertical' }>
+                            <Item title={ 'From' } value={ startDate }/>
+                            <Item title={ 'To' } value={ endDate }/>
+                        </Space>
+                    </>
+                ) }/>
+                <Column title="Days" render={ (_, {days_approved, days_requested}) => (
+                    <>
+                        <Space className={ 'leading-none w-full' } direction={ 'vertical' }>
+                            <Item title={ 'Requested' } value={ days_requested }/>
+                            <Item title={ 'Approved' } value={ days_approved }/>
+                        </Space>
+                    </>
+                ) }/>
+                <Column title="Approver" render={ (_, {id, approver, status, approved_hr}) => (
+                    <>
+                        <Space className={ 'leading-none' } direction={ 'vertical' }>
+                            <p>Sup: { approver }</p>
+                            <p>HR: { approved_hr }</p>
+                            {
+                                (status === 'pending' || status === 'rejected') &&
+                                <Space>
+                                    {
+                                        permissions.includes('approve-leave') &&
+                                        <ApproveOrDisapprove id={ id } action={ 'approved' }/>
+                                    }
+                                    {
+                                        permissions.includes('disapprove-leave') &&
+                                        <ApproveOrDisapprove id={ id } action={ 'rejected' }/>
+                                    }
+                                </Space>
+                            }
+                        </Space>
+                    </>
+                ) }/>
+            </TlaTableWrapper>
         </div>
     )
 }
@@ -142,11 +151,13 @@ function AllLeaveRequests(props) {
 AllLeaveRequests.propTypes = {
     getLeaveRequests: PropTypes.func,
     leaveRequests: PropTypes.object,
+    filter: PropTypes.object,
     permissions: PropTypes.array.isRequired
 }
 
 const mapStateToProps = (state) => ({
     leaveRequests: state.leaveManagementReducer.leaveRequests,
+    filter: state.leaveManagementReducer.filter,
     permissions: state.userReducer.permissions
 })
 
