@@ -50,7 +50,7 @@ function FilterLeaveRequests(props) {
                                     name={ 'supervisor_id' } hasAll
                                     optionKey={ 'name' }
                                     options={ filterParams?.supervisors }
-                                    label={ 'leave type' }/>
+                                    label={ 'Supervisor' }/>
                             </Col>
                             <Col span={ 6 } xs={ 24 } sm={ 24 } md={ 6 } lg={ 6 } xl={ 6 }>
                                 <TlaSelect

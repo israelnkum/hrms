@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\LeaveRequestResource;
+use App\Models\Employee;
 use App\Models\LeaveRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -64,10 +65,9 @@ class LeaveManagementController extends Controller
      */
     public function getFilterParams(): JsonResponse
     {
-        $supervisors = LeaveRequest::with('approver:id,first_name,middle_name,last_name')
-            ->distinct('supervisor_id')->get()->pluck('approver');
-        $hrs = LeaveRequest::with('approvedHr:id,first_name,middle_name,last_name')
-            ->distinct('hr_id')->get()->pluck('approvedHr');
+        $supervisors = Employee::query()->has('supervisorLeaveApprovals')->get();
+
+        $hrs = Employee::query()->has('hrLeaveApprovals')->get();
 
         return response()->json([
             "status" => "success",
