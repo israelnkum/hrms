@@ -156,4 +156,13 @@ class Employee extends ApplicationModel
     {
         return $this->hasOne(EmployeeSupervisor::class);
     }
+
+    public function supervisorLeaveApprovals(): HasMany
+    {
+        return $this->hasMany(LeaveRequest::class, 'supervisor_id');
+    }
+    public function hrLeaveApprovals(): HasMany
+    {
+        return $this->hasMany(LeaveRequest::class, 'hr_id');
+    }
 }
