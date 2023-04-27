@@ -62,7 +62,7 @@ export const formatDate = (date) => {
 }
 
 export const statuses = [
-    'Pending', 'Approved', 'Declined', 'Canceled'
+    'Pending', 'Approved', 'Rejected', 'Canceled'
 ]
 
 export const hrStatuses = [

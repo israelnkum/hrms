@@ -50,9 +50,10 @@ class LeaveRequestController extends Controller
         $leaveRequestQuery = LeaveRequest::query();
 
         $leaveRequestQuery->when($request->has('status'), function ($q) use ($request) {
-            return $q->where('status', $request->status);
+            return $q->where('status', $request->status)->orWhere('hr_status', $request->status);
         });
-        
+
+        Log::info($request->status);
         $leaveRequestQuery->where('employee_id', Auth::user()->employee->id);
 
         return LeaveRequestResource::collection($leaveRequestQuery->paginate(10));

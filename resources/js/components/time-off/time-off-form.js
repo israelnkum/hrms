@@ -42,7 +42,7 @@ function TimeOffForm(props) {
             formTitle={
                 <div className={ 'flex gap-x-2 items-center' }>
                     <AiOutlineFieldTime className={ 'text-3xl' }/>
-                    { `${ (formValues.id === 0 ? "Request" : "Edit") } a Time off` }
+                    { `${ (formValues.id === 0 ? "Request" : "Edit") } Leave` }
                 </div>
             }>
             <Spin spinning={ false }>
