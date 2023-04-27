@@ -26,7 +26,9 @@ function AllTimeOffs(props) {
 
     const bgColors = {
         'pending': 'bg-blue-500',
-        'approved': 'bg-success-700'
+        'approved': 'bg-success-700',
+        'rejected': 'bg-error-700',
+        'Rejected': 'bg-error-700',
     }
 
     const [form] = Form.useForm();
@@ -85,13 +87,26 @@ function AllTimeOffs(props) {
                 <Column title="Leave Type" render={ (_, {leave_type}) => (
                     <Space direction={ 'vertical' }>
                         <p className={ 'leading-none' }>{ leave_type }</p>
-                        <div
-                            className={ `${ bgColors[status] } text-white py-px px-1 rounded-lg capitalize w-fit` }>
-                            { status }
-                        </div>
                     </Space>
                 ) }/>
-                <Column title="Employee" dataIndex={ 'employee' }/>
+                <Column title="Leave Type" render={ (_, {hr_status, status}) => (
+                    <Space direction={ 'vertical' }>
+                        <Space>
+                            <p>Supervisor</p>
+                            <div
+                                className={ `${ bgColors[status] } text-white py-px px-1 rounded-lg capitalize w-fit` }>
+                                { status }
+                            </div>
+                        </Space>
+                        <Space>
+                            <p>HR</p>
+                            <div
+                                className={ `${ bgColors[status] } text-white py-px px-1 rounded-lg capitalize w-fit` }>
+                                { hr_status }
+                            </div>
+                        </Space>
+                    </Space>
+                ) }/>
                 <Column title="Duration" render={ (_, {start_date, end_date, days_requested}) => (
                     <Space className={ 'leading-none' } direction={ 'vertical' }>
                         <p>From: { start_date }</p>

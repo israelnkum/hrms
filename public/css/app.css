@@ -11116,6 +11116,10 @@ button,
   --tw-bg-opacity: 1;
   background-color: rgb(2 122 72 / var(--tw-bg-opacity));
 }
+.bg-error-700{
+  --tw-bg-opacity: 1;
+  background-color: rgb(180 35 24 / var(--tw-bg-opacity));
+}
 .bg-primary-800{
   --tw-bg-opacity: 1;
   background-color: rgb(26 51 126 / var(--tw-bg-opacity));
