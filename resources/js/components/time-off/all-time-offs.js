@@ -28,7 +28,6 @@ function AllTimeOffs(props) {
         'pending': 'bg-blue-500',
         'approved': 'bg-success-700',
         'rejected': 'bg-error-700',
-        'Rejected': 'bg-error-700',
     }
 
     const [form] = Form.useForm();
@@ -101,7 +100,7 @@ function AllTimeOffs(props) {
                         <Space>
                             <p>HR</p>
                             <div
-                                className={ `${ bgColors[status] } text-white py-px px-1 rounded-lg capitalize w-fit` }>
+                                className={ `${ bgColors[hr_status] } text-white py-px px-1 rounded-lg capitalize w-fit` }>
                                 { hr_status }
                             </div>
                         </Space>
