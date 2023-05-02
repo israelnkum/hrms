@@ -11,7 +11,7 @@ function Leave({getLeaveRequests, leaveRequests}) {
     const [loading, setLoading] = useState(true)
     const {pathname} = useLocation()
     useEffect(() => {
-        getLeaveRequests(new URLSearchParams(`status=${ pathname.split('/').pop() }`))
+        getLeaveRequests(new URLSearchParams(`hr_status=${ pathname.split('/').pop() }`))
             .then(() => setLoading(false))
             .catch((err) => {
                 TlaError(err.response.data.message)

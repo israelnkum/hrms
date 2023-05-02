@@ -10,6 +10,7 @@ import { handleApproveLeaveRequest } from "../../../actions/leave-management/lea
 import { handleChangeLeaveRequestStatus, handleGetTimeOff } from "../../../actions/time-off/TimeOffAction";
 import TlaImage from "../../../commons/tla-image";
 import ValidateComponent from "../../../commons/validate-component";
+import { statusColors } from "../../../utils";
 import { TlaError, TlaSuccess } from "../../../utils/messages";
 
 function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus, timeOff, holidays}) {
@@ -171,7 +172,9 @@ function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus,
 
     const LeaveDetail = () => (
         <div className={ 'mt-5' }>
-            <h3 className={ 'text-success-700 text-2xl text-center font-bold' }>Leave Approved</h3>
+            <h3 className={ `text-${ statusColors[timeOff.hr_status] } text-2xl text-center font-bold` }>
+                Leave { timeOff.hr_status }
+            </h3>
 
         </div>
     )
@@ -182,25 +185,32 @@ function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus,
 
 
     // eslint-disable-next-line react/prop-types
-    const TimelineItem = ({date = null}) => (
-        <Tag color={ date ? 'green' : 'red' }>
+    const TimelineItem = ({date = null, color = 'red'}) => (
+        <Tag color={ color }>
             { date ? formatDate(date) : 'Pending' }
         </Tag>
     )
 
+    const colors = {
+        'rejected': 'red',
+        'approved': 'green'
+    }
+
     const timelineItems = [
         {
-            label: <>Supervisor Approval</>,
-            children: <TimelineItem
-                date={ timeOff?.sup_approval ?? null }/>
+            label: `Supervisor ${ timeOff?.status }`,
+            children: <TimelineItem date={ timeOff?.sup_approval ?? null } color={colors[timeOff?.status]}/>,
+            color: colors[timeOff?.status]
         },
         {
             label: 'Validated',
-            children: <TimelineItem date={ timeOff?.moved ?? null }/>
+            children: <TimelineItem date={ timeOff?.moved ?? null } color={'green'}/>,
+            color: 'green'
         },
         {
-            label: 'HR Approval',
-            children: <TimelineItem date={ timeOff?.hr_approval }/>
+            label: `HR ${ timeOff.hr_status }`,
+            children: <TimelineItem date={ timeOff?.hr_approval } color={colors[timeOff?.hr_status]}/>,
+            color: colors[timeOff?.hr_status]
         }
     ];
 
@@ -224,7 +234,9 @@ function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus,
                                                     <h5>{ timeOff?.department }</h5>
                                                 </div>
                                             </Space>
+                                            <Divider className={ '!my-1' }/>
                                             <Space direction={ 'vertical' }>
+                                                <h3 className={'font-bold'}>Reason:</h3>
                                                 <p>{ timeOff?.reason }</p>
                                             </Space>
                                         </Space>

@@ -42,7 +42,7 @@ function NotificationsWrapper({notificationNavs, getNotificationNavs}) {
                                                 permission: ''
                                             },
                                             {
-                                                title: `Rejected (${ notificationNavs.leave_request.declined ?? 0 })`,
+                                                title: `Rejected (${ notificationNavs.leave_request.rejected ?? 0 })`,
                                                 link: '/notifications/leave-request/rejected',
                                                 icon: 'home',
                                                 modal: false,
