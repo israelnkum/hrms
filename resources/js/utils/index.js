@@ -69,6 +69,11 @@ export const hrStatuses = [
     'Pending', 'Approved', 'Rejected'
 ]
 
+export const statusColors = {
+    'pending': 'blue-500',
+    'approved': 'success-700',
+    'rejected': 'error-700',
+}
 export const hasPermission = (allPermissions, permission) => {
     return allPermissions.some(role => permission.includes(role));
 }

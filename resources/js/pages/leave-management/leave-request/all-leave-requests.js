@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { handleGetAllLeaveRequest } from "../../../actions/leave-management/leave-requests/Actions";
 import TlaTableWrapper from "../../../commons/table/tla-table-wrapper";
 import TlaImage from "../../../commons/tla-image";
+import LeaveStatus from "../../../components/time-off/leave-status";
 import FilterLeaveRequests from "./filter-leave-requests";
 
 
@@ -94,6 +95,9 @@ function AllLeaveRequests(props) {
                             </div>
                         </Space>
                     </Link>
+                ) }/>
+                <Column title="Status" render={ (_, {hr_status, status}) => (
+                    <LeaveStatus hrStatus={hr_status} supervisorStatus={status}/>
                 ) }/>
                 <Column title="Employee" render={ (_, {employee, department}) => (
                     <Space className={ 'leading-none' }>

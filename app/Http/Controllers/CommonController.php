@@ -8,6 +8,7 @@ use App\Models\LeaveRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Permission;
@@ -80,40 +81,47 @@ class CommonController extends Controller
             return [
                 'leave_request' => [
                     'approved' => $approved,
-                    'pending' => $pending
+                    'pending' => $pending,
+                    'rejected' => 0
                 ],
-                'total' => $approved + $pending
+                'total' => $approved
             ];
         }
 
         if ($this->isSupervisor()) {
-            $approved = LeaveRequest::where('status', 'approved')->count();
-            $pending = LeaveRequest::where('status', 'approved')->count();
+            $approved = LeaveRequest::where('status', 'approved')
+                ->where('supervisor_id', Auth::user()->employee->id)->count();
+            $pending = LeaveRequest::query()->where('status', 'pending')
+                ->where('supervisor_id', Auth::user()->employee->id)->count();
             return [
                 'leave_request' => [
                     'approved' => $approved,
-                    'pending' => $pending
+                    'pending' => $pending,
+                    'rejected' => 0
                 ],
-                'total' => $pending + $approved
+                'total' => $pending
             ];
         }
 
         if ($this->isHr()) {
             $approved = LeaveRequest::where('hr_status', 'approved')->count();
-            $pending = LeaveRequest::where('hr_status', 'pending')->count();
+            $rejected = LeaveRequest::where('hr_status', 'rejected')->count();
+            $pending = LeaveRequest::where('hr_status', 'pending')->where('status', 'approved')->count();
             return [
                 'leave_request' => [
                     'approved' => $approved,
-                    'pending' => $pending
+                    'pending' => $pending,
+                    'rejected' => $rejected
                 ],
-                'total' => $pending + $approved
+                'total' => $pending
             ];
         }
 
         return [
             'leave_request' => [
                 'approved' => 0,
-                'pending' => 0
+                'pending' => 0,
+                'rejected' => 0
             ]
         ];
     }

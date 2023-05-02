@@ -9,7 +9,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class LeaveManagementController extends Controller
 {
@@ -21,11 +20,11 @@ class LeaveManagementController extends Controller
     public function getLeaveRequests(Request $request): JsonResponse|AnonymousResourceCollection
     {
         if ($this->isHr() || $this->isSupervisor()) {
-            $leaveRequestQuery = LeaveRequest::query();
             if ($this->isHr() && $this->isSupervisor()) {
-                $leaveRequestQuery->when($request->has('status'), function ($q) use ($request) {
-                    return $q->where('hr_status', strtolower($request->status))
-                        ->orWhere('status', strtolower($request->status));
+                $leaveRequestQuery = LeaveRequest::query();
+                $leaveRequestQuery->when($request->has('hr_status'), function ($q) use ($request) {
+                    return $q->where('hr_status', strtolower($request->hr_status))
+                        ->orWhere('status', strtolower($request->hr_status));
                 });
 
                 $leaveRequestQuery->where('supervisor_id', Auth::user()->employee->id);
@@ -34,18 +33,19 @@ class LeaveManagementController extends Controller
             }
 
             if ($this->isHr()) {
-                $leaveRequestQuery->when($request->has('status'), function ($q) use ($request) {
-                    return $q->where('hr_status', strtolower($request->status));
+                $leaveRequestQuery = LeaveRequest::query();
+                $leaveRequestQuery->when($request->has('hr_status'), function ($q) use ($request) {
+                    return $q->where('hr_status', strtolower($request->hr_status));
                 });
 
                 $leaveRequestQuery->where('status', 'approved');
-
                 return LeaveRequestResource::collection($leaveRequestQuery->paginate(10));
             }
 
             if ($this->isSupervisor()) {
-                $leaveRequestQuery->when($request->has('status'), function ($q) use ($request) {
-                    return $q->where('status', strtolower($request->status));
+                $leaveRequestQuery = LeaveRequest::query();
+                $leaveRequestQuery->when($request->has('hr_status'), function ($q) use ($request) {
+                    return $q->where('status', strtolower($request->hr_status));
                 });
 
                 $leaveRequestQuery->where('supervisor_id', Auth::user()->employee->id);
@@ -57,7 +57,7 @@ class LeaveManagementController extends Controller
         return response()->json([
             'status' => 'error',
             'message' => 'Not enough permissions'
-        ], 400);
+        ], 401);
     }
 
     /**

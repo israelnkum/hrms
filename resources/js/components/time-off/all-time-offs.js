@@ -7,6 +7,7 @@ import { handleChangeLeaveRequestStatus, handleGetLeaveRequest } from "../../act
 import TlaTableWrapper from "../../commons/table/tla-table-wrapper";
 import { TlaError, TlaSuccess } from "../../utils/messages";
 import FilterTimeOffs from "./filter-time-offs";
+import LeaveStatus from "./leave-status";
 
 const {Column} = Table
 
@@ -88,23 +89,8 @@ function AllTimeOffs(props) {
                         <p className={ 'leading-none' }>{ leave_type }</p>
                     </Space>
                 ) }/>
-                <Column title="Leave Type" render={ (_, {hr_status, status}) => (
-                    <Space direction={ 'vertical' }>
-                        <Space>
-                            <p>Supervisor</p>
-                            <div
-                                className={ `${ bgColors[status] } text-white py-px px-1 rounded-lg capitalize w-fit` }>
-                                { status }
-                            </div>
-                        </Space>
-                        <Space>
-                            <p>HR</p>
-                            <div
-                                className={ `${ bgColors[hr_status] } text-white py-px px-1 rounded-lg capitalize w-fit` }>
-                                { hr_status }
-                            </div>
-                        </Space>
-                    </Space>
+                <Column title="Status" render={ (_, {hr_status, status}) => (
+                    <LeaveStatus hrStatus={hr_status} supervisorStatus={status}/>
                 ) }/>
                 <Column title="Duration" render={ (_, {start_date, end_date, days_requested}) => (
                     <Space className={ 'leading-none' } direction={ 'vertical' }>
