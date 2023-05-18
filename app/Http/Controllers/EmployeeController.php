@@ -10,6 +10,7 @@ use App\Http\Resources\EmployeeResource;
 use App\Models\ActivityLog;
 use App\Models\Employee;
 use App\Models\PreviousRank;
+use App\Traits\InformationUpdate;
 use App\Traits\UsePrint;
 use Carbon\Carbon;
 use Exception;
@@ -24,7 +25,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class EmployeeController extends Controller
 {
-    use UsePrint;
+    use UsePrint, InformationUpdate;
 
     protected string $docPath = 'images/employees';
     protected array $allowedFiles = ['png', 'jpg', 'jpeg'];
@@ -105,6 +106,22 @@ class EmployeeController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $request['dob'] = $request->dob !== 'null' ? Carbon::parse($request->dob)->format('Y-m-d') : null;
+
+            $newUpdate = $this->infoDifference($request->all(), $employee);
+
+
+            if (count($newUpdate) > 0) {
+                $employee->informationUpdate()->updateOrCreate([
+                    'information_type' => 'employee',
+                    'information_id' => $employee->id,
+                    'status' => 'pending'
+                ],[
+                    'old_info' => $employee->only(array_keys($newUpdate)),
+                    'new_info' => $newUpdate,
+                    'requested_by' => Auth::id()
+                ]);
+            }
+
             $employee->update($request->all());
 
             if ($request->has('file') && $request->file !== "null") {

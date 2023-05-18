@@ -9,6 +9,7 @@ use App\Http\Controllers\EducationController;
 use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InformationUpdateController;
 use App\Http\Controllers\JobDetailController;
 use App\Http\Controllers\LeaveManagementController;
 use App\Http\Controllers\LeaveRequestController;
@@ -82,6 +83,10 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     });
 
     Route::get('notifications/navs', [CommonController::class, 'getNotificationNavs']);
+    Route::prefix('information-update')->group(function () {
+        Route::get('/all', [InformationUpdateController::class, 'index']);
+        Route::get('/{informationUpdate}', [InformationUpdateController::class, 'show']);
+    });
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

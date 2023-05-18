@@ -29,12 +29,12 @@ function MenuHelper({permissions, menus, direction, icons, linkStyles}) {
         }
     }
 
-    const items = menus.map((nav) => {
+    const items = menus.map((nav, index) => {
         rootSubmenuKeys.push(nav.title)
         return (nav.permissions.length === 0 || permissions.some(role => nav.permissions.includes(role))) && getItem(
             <Link className={ 'nav-item' } style={ linkStyles } to={ nav.link }>{ nav.title }</Link>,
             icons[nav.icon] ?? '',
-            nav.title,
+            nav.title + index,
             nav.children.length > 0 && nav.children.map((child) => (
                     (child.permission === '' ?
                             getItem(
@@ -43,13 +43,13 @@ function MenuHelper({permissions, menus, direction, icons, linkStyles}) {
                                       state={ {background: child.modal && location} }
                                       to={ child.link }>
                                     { child.title }
-                                </Link>, icons[child.icon] ?? '', child.title
+                                </Link>, icons[child.icon] ?? '', child.title + index
                             ) : permissions.includes(child.permission) &&
                             getItem(
                                 <Link className={ 'nav-item !text-capitalize' } style={ linkStyles }
                                       state={ {background: child.modal && location} } to={ child.link }>
                                     { child.title }
-                                </Link>, icons[child.icon] ?? '', child.title
+                                </Link>, icons[child.icon] ?? '', child.title + index
                             )
                     )
                 )

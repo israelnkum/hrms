@@ -161,8 +161,16 @@ class Employee extends ApplicationModel
     {
         return $this->hasMany(LeaveRequest::class, 'supervisor_id');
     }
+
+
     public function hrLeaveApprovals(): HasMany
     {
         return $this->hasMany(LeaveRequest::class, 'hr_id');
+    }
+
+
+    public function informationUpdate(): MorphOne
+    {
+        return $this->morphOne(InformationUpdate::class, 'information');
     }
 }

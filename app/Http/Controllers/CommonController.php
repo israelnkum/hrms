@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
+use App\Models\InformationUpdate;
 use App\Models\LeaveRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -75,17 +76,12 @@ class CommonController extends Controller
      */
     public function getNotificationNavs(): array
     {
+//        Log::info(Auth::user()?->can('approve-employee-update'));
         if ($this->isSupervisor() && $this->isHr()) {
             $approved = LeaveRequest::where('hr_status', 'approved')->orWhere('status', 'approved')->count();
             $pending = LeaveRequest::where('hr_status', 'pending')->orWhere('status', 'pending')->count();
-            return [
-                'leave_request' => [
-                    'approved' => $approved,
-                    'pending' => $pending,
-                    'rejected' => 0
-                ],
-                'total' => $approved
-            ];
+
+            return $this->notificationData($approved, $pending);
         }
 
         if ($this->isSupervisor()) {
@@ -93,36 +89,49 @@ class CommonController extends Controller
                 ->where('supervisor_id', Auth::user()->employee->id)->count();
             $pending = LeaveRequest::query()->where('status', 'pending')
                 ->where('supervisor_id', Auth::user()->employee->id)->count();
-            return [
-                'leave_request' => [
-                    'approved' => $approved,
-                    'pending' => $pending,
-                    'rejected' => 0
-                ],
-                'total' => $pending
-            ];
+
+            return $this->notificationData($approved, $pending);
         }
 
         if ($this->isHr()) {
             $approved = LeaveRequest::where('hr_status', 'approved')->count();
             $rejected = LeaveRequest::where('hr_status', 'rejected')->count();
             $pending = LeaveRequest::where('hr_status', 'pending')->where('status', 'approved')->count();
-            return [
-                'leave_request' => [
-                    'approved' => $approved,
-                    'pending' => $pending,
-                    'rejected' => $rejected
-                ],
-                'total' => $pending
+
+
+            return $this->notificationData($approved, $pending, $rejected);
+        }
+
+        return $this->notificationData();
+    }
+
+    public function notificationData($approved = 0, $pending = 0, $rejected = 0, $infoUpdates = 0): array
+    {
+        if (Auth::user()?->can('approve-employee-update')) {
+            $pendingUpdate = InformationUpdate::query()->where('status', 'pending')->count();
+            $approvedUpdate = InformationUpdate::query()->where('status', 'approved')->count();
+            $rejectedUpdate = InformationUpdate::query()->where('status', 'rejected')->count();
+            $informationUpdates = [
+                'pending' => $pendingUpdate,
+                'approved' => $approvedUpdate,
+                'rejected' => $rejectedUpdate
+            ];
+        } else {
+            $informationUpdates = [
+                'pending' => 0,
+                'approved' => 0,
+                'rejected' => 0
             ];
         }
 
         return [
             'leave_request' => [
-                'approved' => 0,
-                'pending' => 0,
-                'rejected' => 0
-            ]
+                'approved' => $approved,
+                'pending' => $pending,
+                'rejected' => $rejected
+            ],
+            'info_updates' => $informationUpdates,
+            'total' => $pending
         ];
     }
 }

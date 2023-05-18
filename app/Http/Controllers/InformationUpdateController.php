@@ -4,83 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInformationUpdateRequest;
 use App\Http\Requests\UpdateInformationUpdateRequest;
+use App\Http\Resources\InformationUpdateResource;
 use App\Models\InformationUpdate;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class InformationUpdateController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request): AnonymousResourceCollection
     {
-        //
+        $infoUpdates = InformationUpdate::query()->where('status', $request->status)->paginate(10);
+
+        return InformationUpdateResource::collection($infoUpdates);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
-     * Store a newly created resource in storage.
+     * @param InformationUpdate $informationUpdate
      *
-     * @param  \App\Http\Requests\StoreInformationUpdateRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return InformationUpdateResource
      */
-    public function store(StoreInformationUpdateRequest $request)
+    public function show(InformationUpdate $informationUpdate): InformationUpdateResource
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\InformationUpdate  $informationUpdate
-     * @return \Illuminate\Http\Response
-     */
-    public function show(InformationUpdate $informationUpdate)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\InformationUpdate  $informationUpdate
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(InformationUpdate $informationUpdate)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateInformationUpdateRequest  $request
-     * @param  \App\Models\InformationUpdate  $informationUpdate
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateInformationUpdateRequest $request, InformationUpdate $informationUpdate)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\InformationUpdate  $informationUpdate
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(InformationUpdate $informationUpdate)
-    {
-        //
+        return new InformationUpdateResource($informationUpdate);
     }
 }

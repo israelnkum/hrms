@@ -19,6 +19,7 @@ import contactDetailsReducer from "./contact-details-reducer";
 import emergencyContactReducer from "./emergency-contact-reducer";
 import dependantReducer from "./dependants-reducer";
 import jobDetailsReducer from "./job-details-reducer";
+import informationUpdateReducer from "./information-update-reducer";
 
 const persistConfig = {
     key: 'root',
@@ -41,7 +42,8 @@ const persistConfig = {
         'previousPositionReducer',
         'previousRankReducer',
         'nextOfKinsReducer',
-        'notificationsReducer'
+        'notificationsReducer',
+        'informationUpdateReducer'
     ]
 }
 
@@ -63,7 +65,8 @@ const rootReducer = combineReducers({
     previousPositionReducer,
     previousRankReducer,
     nextOfKinsReducer,
-    notificationsReducer
+    notificationsReducer,
+    informationUpdateReducer
 })
 
 export default persistReducer(persistConfig, rootReducer)
