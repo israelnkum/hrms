@@ -27,27 +27,25 @@ function InfoUpdate({getInformationUpdates, informationUpdates}) {
         <div>
             <NotificationHeader title={`${capitalize(status)} Information Update`}/>
             <Spin spinning={loading}>
-                <List
-                    itemLayout="horizontal"
-                    dataSource={informationUpdates?.data || []}
-                    renderItem={(item) => (
-                        <Link className={'!no-underline'} to={`/notifications/info-update/${item.id}/details`}
-                              state={{id: item.id}}>
-                            <List.Item>
-                                <List.Item.Meta
-                                    avatar={<TlaImage size={45} name={item.requested_by} preview={false} src={''}/>}
-                                    title={
-                                        <>
-                                            <span>{`${item.requested_by} requested ${item.information}`}</span>
-                                        </>
-                                    }
-                                    description={item.date_requested}
-                                />
-                                <p className={'text-xs text-gray-500'}>{item?.created_at}</p>
-                            </List.Item>
-                        </Link>
-                    )}
-                />
+                <div className={'p-3'}>
+                    <List
+                        itemLayout="horizontal"
+                        dataSource={informationUpdates?.data || []}
+                        renderItem={(item) => (
+                            <Link className={'!no-underline'} to={`/notifications/info-update/${item.id}/details`}
+                                  state={{id: item.id}}>
+                                <List.Item>
+                                    <List.Item.Meta
+                                        avatar={<TlaImage size={45} name={item.requested_by} preview={false} src={''}/>}
+                                        title={`${item.requested_by} requested ${item.information} data update`}
+                                        description={item.date_requested}
+                                    />
+                                    <p className={'text-xs text-gray-500'}>{item?.created_at}</p>
+                                </List.Item>
+                            </Link>
+                        )}
+                    />
+                </div>
             </Spin>
         </div>
     )

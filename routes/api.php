@@ -83,10 +83,7 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     });
 
     Route::get('notifications/navs', [CommonController::class, 'getNotificationNavs']);
-    Route::prefix('information-update')->group(function () {
-        Route::get('/all', [InformationUpdateController::class, 'index']);
-        Route::get('/{informationUpdate}', [InformationUpdateController::class, 'show']);
-    });
+    Route::apiResource('information-updates', InformationUpdateController::class);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -78,7 +78,7 @@ function NotificationsWrapper({notificationNavs, getNotificationNavs}) {
                                                     permission: ''
                                                 }
                                             ],
-                                            permissions: [],
+                                            permissions: ['approve-employee-update'],
                                             icon: 'home'
                                         }
                                         // , {

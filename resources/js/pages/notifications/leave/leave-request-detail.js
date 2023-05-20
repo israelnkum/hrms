@@ -218,7 +218,7 @@ function LeaveRequestDetail({getTimeOff, changeHrLeaveStatus, changeLeaveStatus,
 
     return (
         <div className={'w-full'}>
-            <NotificationHeader title={'Leave Request Detail'}/>
+            <NotificationHeader title={'Leave Request Detail'} status={timeOff?.hr_status}/>
             <div className={' mx-auto'}>
                 <Spin spinning={loading || updating}>
                     {

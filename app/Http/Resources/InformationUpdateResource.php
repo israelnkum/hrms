@@ -21,7 +21,7 @@ class InformationUpdateResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'information' => $this->information->information_type,
+            'information' => $this->information_type,
             'department' => $this->requestedBy->employee->department->name,
             'old_info' => $this->old_info,
             'new_info' => $this->new_info,

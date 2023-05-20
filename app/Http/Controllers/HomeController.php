@@ -45,8 +45,8 @@ class HomeController extends Controller
 
         $leaveRequest->where('supervisor_id', $employee->id)->where('status', 'pending');
 
-        $isHr = $this->hasPermission('move-leave') || $this->hasPermission('approve-leave') ||
-            $this->hasPermission('disapprove-leave');
+        $isHr = $this->can('move-leave') || $this->can('approve-leave') ||
+            $this->can('disapprove-leave');
 
         $leaveRequest->when($isHr, function ($q) {
             $q->orWhere('hr_status', 'pending')->where('status', 'approved');

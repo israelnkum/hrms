@@ -171,6 +171,6 @@ class Employee extends ApplicationModel
 
     public function informationUpdate(): MorphOne
     {
-        return $this->morphOne(InformationUpdate::class, 'information');
+        return $this->morphOne(InformationUpdate::class, 'information')->latest();
     }
 }

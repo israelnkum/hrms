@@ -20,3 +20,11 @@ export const addFilter = (payload) => {
         payload: payload
     }
 }
+
+
+export const updateInformationRequest = (payload) => {
+    return {
+        type: Types.UPDATE_INFORMATION_REQUEST,
+        payload: payload
+    }
+}

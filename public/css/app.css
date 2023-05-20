@@ -10927,6 +10927,9 @@ button,
 .max-h-\[200px\]{
   max-height: 200px;
 }
+.max-h-\[60px\]{
+  max-height: 60px;
+}
 .min-h-screen{
   min-height: 100vh;
 }
@@ -10984,6 +10987,9 @@ button,
 }
 .max-w-xl{
   max-width: 36rem;
+}
+.max-w-\[900px\]{
+  max-width: 900px;
 }
 .flex-1{
   flex: 1 1 0%;
@@ -11051,6 +11057,9 @@ button,
 }
 .rounded{
   border-radius: 0.25rem;
+}
+.\!rounded-none{
+  border-radius: 0px !important;
 }
 .rounded-t-lg{
   border-top-left-radius: 0.5rem;
@@ -11127,6 +11136,10 @@ button,
 .bg-blue-800{
   --tw-bg-opacity: 1;
   background-color: rgb(24 73 169 / var(--tw-bg-opacity));
+}
+.\!bg-white{
+  --tw-bg-opacity: 1 !important;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity)) !important;
 }
 .bg-gray-800{
   --tw-bg-opacity: 1;
@@ -11364,6 +11377,18 @@ button,
 .text-primary-800{
   --tw-text-opacity: 1;
   color: rgb(26 51 126 / var(--tw-text-opacity));
+}
+.\!text-primary-800{
+  --tw-text-opacity: 1 !important;
+  color: rgb(26 51 126 / var(--tw-text-opacity)) !important;
+}
+.\!text-white{
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
+}
+.text-error-700{
+  --tw-text-opacity: 1;
+  color: rgb(180 35 24 / var(--tw-text-opacity));
 }
 .text-success-700{
   --tw-text-opacity: 1;

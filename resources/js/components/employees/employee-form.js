@@ -11,7 +11,7 @@ import TlaSelect from "../../commons/tla/TlaSelect";
 
 function EmployeeForm(props) {
     const [selectedFile, setSelectedFile] = useState(null)
-    const {addEmployee, updateEmployee, departments, ranks} = props
+    const {addEmployee, updateEmployee, departments, ranks, employeeId} = props
 
     const {state} = useLocation()
 
@@ -72,7 +72,7 @@ function EmployeeForm(props) {
                 </Col>
                 <Col span={ formValues.id === 0 ? 12 : 8 }>
                     <Form.Item name="staff_id" label="Staff ID">
-                        <Input size={ 'large' }/>
+                        <Input disabled={employeeId === formValues.id} size={ 'large' }/>
                     </Form.Item>
                 </Col>
                 <Render editing={ false }>
@@ -95,14 +95,14 @@ function EmployeeForm(props) {
                         </Form.Item>
                     </Col>
                     <Col span={ 8 }>
-                        <TlaSelect label={ 'Department' } name={ 'department_id' } optionKey={ 'name' }
+                        <TlaSelect disabled={employeeId === formValues.id} label={ 'Department' } name={ 'department_id' } optionKey={ 'name' }
                                    options={ departments }/>
                     </Col>
                     <Col span={ 8 }>
-                        <TlaSelect label={ 'rank' } name={ 'rank_id' } optionKey={ 'name' } options={ ranks }/>
+                        <TlaSelect disabled={employeeId === formValues.id} label={ 'rank' } name={ 'rank_id' } optionKey={ 'name' } options={ ranks }/>
                     </Col>
                     <Col span={ 8 }>
-                        <TlaSelect label={ 'gtec placement' } name={ 'gtec_placement' } optionKey={ 'name' }
+                        <TlaSelect disabled={employeeId === formValues.id} label={ 'gtec placement' } name={ 'gtec_placement' } optionKey={ 'name' }
                                    options={ ranks }/>
                     </Col>
                     <Col span={ 8 }>
@@ -123,7 +123,7 @@ function EmployeeForm(props) {
                                        required: true,
                                        message: 'Required'
                                    }
-                               ] }>
+                               ] }>f
                         <Input size={ 'large' }/>
                     </Form.Item>
                 </Col>
@@ -136,12 +136,14 @@ EmployeeForm.propTypes = {
     addEmployee: PropTypes.func.isRequired,
     updateEmployee: PropTypes.func.isRequired,
     departments: PropTypes.array.isRequired,
-    ranks: PropTypes.array.isRequired
+    ranks: PropTypes.array.isRequired,
+    employeeId: PropTypes.number.isRequired
 }
 
 const mapStateToProps = (state) => ({
     departments: state.commonReducer.commons.departments,
-    ranks: state.commonReducer.commons.ranks
+    ranks: state.commonReducer.commons.ranks,
+    employeeId: state.userReducer.loggedInUser.employee_id
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -122,8 +122,6 @@ class EmployeeController extends Controller
                 ]);
             }
 
-            $employee->update($request->all());
-
             if ($request->has('file') && $request->file !== "null") {
                 $saveFile = new SaveFile($employee, $request->file('file'), $this->docPath, $this->allowedFiles);
                 $saveFile->save();
