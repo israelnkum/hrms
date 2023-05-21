@@ -18,8 +18,8 @@ return new class extends Migration
         Schema::create('dependants', static function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employee::class)->constrained();
-            $table->string('name');
-            $table->string('relationship');
+            $table->string('name')->nullable();
+            $table->string('relationship')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('alt_phone_number')->nullable();
             $table->string('dob')->nullable();

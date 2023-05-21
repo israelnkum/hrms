@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreInformationUpdateRequest;
+use App\Enums\Statuses;
 use App\Http\Requests\UpdateInformationUpdateRequest;
 use App\Http\Resources\InformationUpdateResource;
 use App\Models\InformationUpdate;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -48,17 +47,26 @@ class InformationUpdateController extends Controller
         return new InformationUpdateResource($informationUpdate);
     }
 
-    public function update(UpdateInformationUpdateRequest $request, InformationUpdate $informationUpdate)
+    /**
+     * @param UpdateInformationUpdateRequest $request
+     * @param InformationUpdate $informationUpdate
+     *
+     * @return JsonResponse
+     */
+    public function update(UpdateInformationUpdateRequest $request, InformationUpdate $informationUpdate): JsonResponse
     {
         try {
             DB::beginTransaction();
-            $informationUpdate->information()->update($informationUpdate->new_info);
 
             $informationUpdate->update([
                 'status' => $request->status,
                 'status_changed_by' => Auth::id(),
                 'status_changed_date' => Carbon::now()->format('Y-m-d')
             ]);
+
+            if ($request->status === Statuses::APPROVED->value) {
+                $informationUpdate->information()->update($informationUpdate->new_info);
+            }
 
             DB::commit();
 

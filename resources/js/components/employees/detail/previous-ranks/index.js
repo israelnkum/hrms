@@ -30,7 +30,7 @@ function PreviousRanks (props) {
     return (
         <Spin spinning={loading}>
             <TlaTableWrapper meta={meta} extra={
-                <TlaAddNew link={'ranks/form'}>
+                <TlaAddNew link={'form'}>
                     <Button>Add Previous Rank</Button>
                 </TlaAddNew>
             } callbackFunction={getPreviousRanks} data={data}>

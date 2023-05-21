@@ -17,7 +17,7 @@ class Employee extends ApplicationModel
     /**
      * @var string[]
      */
-    protected $appends =[
+    protected $appends = [
         'name'
     ];
 
@@ -49,6 +49,9 @@ class Employee extends ApplicationModel
         'secondment_staff'
     ];
 
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'marital_status' => 'string'
     ];
@@ -58,7 +61,7 @@ class Employee extends ApplicationModel
      */
     public function getNameAttribute(): string
     {
-        return  $this->first_name." ".$this->middle_name." ".$this->last_name;
+        return $this->first_name . " " . $this->middle_name . " " . $this->last_name;
     }
 
     /**
@@ -90,7 +93,7 @@ class Employee extends ApplicationModel
      */
     public function photo(): MorphOne
     {
-        return $this->morphOne(Photo::class,'photoable');
+        return $this->morphOne(Photo::class, 'photoable');
     }
 
     /**
@@ -118,11 +121,20 @@ class Employee extends ApplicationModel
     }
 
     /**
-     * @return BelongsTo
+     * @return HasMany
      */
-    public function emergencyContacts(): BelongsTo
+    public function emergencyContacts(): hasMany
     {
-        return $this->belongsTo(EmergencyContact::class);
+        return $this->hasMany(EmergencyContact::class);
+    }
+
+
+    /**
+     * @return HasMany
+     */
+    public function departments(): hasMany
+    {
+        return $this->hasMany(Dependant::class);
     }
 
     /**
@@ -157,20 +169,30 @@ class Employee extends ApplicationModel
         return $this->hasOne(EmployeeSupervisor::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function supervisorLeaveApprovals(): HasMany
     {
         return $this->hasMany(LeaveRequest::class, 'supervisor_id');
     }
 
 
+    /**
+     * @return HasMany
+     */
     public function hrLeaveApprovals(): HasMany
     {
         return $this->hasMany(LeaveRequest::class, 'hr_id');
     }
 
-
+    /**
+     * @return MorphOne
+     */
     public function informationUpdate(): MorphOne
     {
-        return $this->morphOne(InformationUpdate::class, 'information')->latest();
+        return $this->morphOne(InformationUpdate::class, 'information')
+            ->where('status', 'pending')
+            ->latest();
     }
 }

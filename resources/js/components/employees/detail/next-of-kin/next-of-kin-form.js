@@ -19,7 +19,8 @@ function NextOfKinForm(props) {
         address: '',
         email: '',
         employee_id: employeeId,
-        ...state.data
+        ...state.data,
+        ...state?.data?.info_update?.new_info
     };
 
     return (

@@ -31,7 +31,7 @@ function PreviousPositions (props) {
     return (
         <Spin spinning={loading}>
             <TlaTableWrapper meta={meta} extra={
-                <TlaAddNew link={'positions/form'}>
+                <TlaAddNew link={'form'}>
                     <Button>Add Previous Position</Button>
                 </TlaAddNew>
             } callbackFunction={getPreviousPositions} data={data}>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
@@ -42,5 +43,15 @@ class ContactDetail extends ApplicationModel
     public function routeNotificationForMail($notification): string
     {
         return $this->work_email;
+    }
+
+    /**
+     * @return MorphOne
+     */
+    public function informationUpdate(): MorphOne
+    {
+        return $this->morphOne(InformationUpdate::class, 'information')
+            ->where('status', 'pending')
+            ->latest();
     }
 }

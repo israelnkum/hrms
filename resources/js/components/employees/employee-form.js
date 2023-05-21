@@ -1,26 +1,28 @@
-import { Col, DatePicker, Form, Input, Row, Select } from 'antd'
+import {Col, DatePicker, Form, Input, Row, Select} from 'antd'
 import dayjs from "dayjs";
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import { useLocation } from "react-router-dom";
-import { handleAddEmployee, handleUpdateEmployee } from "../../actions/employee/EmployeeAction";
+import React from 'react'
+import {connect} from 'react-redux'
+import {useLocation} from "react-router-dom";
+import {handleAddEmployee, handleUpdateEmployee} from "../../actions/employee/EmployeeAction";
 import TlaFormWrapper from "../../commons/tla-form-wrapper";
 import TlaSelect from "../../commons/tla/TlaSelect";
 
 
 function EmployeeForm(props) {
-    const [selectedFile, setSelectedFile] = useState(null)
+    // const [selectedFile, setSelectedFile] = useState(null)
     const {addEmployee, updateEmployee, departments, ranks, employeeId} = props
 
     const {state} = useLocation()
 
     const formValues = {
-        id: 0, create_account: false,
+        id: 0,
+        create_account: false,
         staff_id: null,
         marital_status: null,
         ...state.data,
         dob: state?.data ? (state?.data.dob ? dayjs(state?.data.dob) : null) : null,
+        ...state?.data?.info_update?.new_info
     }
 
     const Render = ({children, editing = true}) => (
@@ -30,7 +32,7 @@ function EmployeeForm(props) {
     return (
         <TlaFormWrapper
             width={ formValues.id === 0 ? 520 : 700 }
-            file={ selectedFile }
+            file={ null }
             initialValues={ formValues }
             onSubmit={ formValues.id === 0 ? addEmployee : updateEmployee }
             formTitle={ `${ (formValues.id === 0 ? "New" : "Edit") } Employee` }>

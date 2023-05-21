@@ -43,11 +43,12 @@ function AppSidebar(props) {
 }
 
 AppSidebar.defaultProps = {
-    collapsed: false
+    collapsed: false,
+    name: 'User'
 }
 
 AppSidebar.propTypes = {
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     collapsed: PropTypes.bool,
 }
 

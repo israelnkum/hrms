@@ -49,7 +49,7 @@ export default function ChangePicture (props) {
             {
                 isDocument ?
                     <Upload {...uploadProps} onPreview={onPreview}>
-                        <Button type={'primary'} icon={<UploadOutlined />}>
+                        <Button size={'large'} type={'primary'} icon={<UploadOutlined />}>
                             {!hasFile  ? 'Change' : 'Select File'}
                         </Button>
                     </Upload> :

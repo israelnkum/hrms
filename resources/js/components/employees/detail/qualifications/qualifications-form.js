@@ -20,11 +20,16 @@ function QualificationsForm(props) {
 
     const {state} = useLocation();
 
+    const newInfo = state?.data?.info_update?.new_info;
+
+    const update = {...newInfo, date: newInfo?.date ? dayjs(newInfo?.date) : (state?.data ? dayjs(state?.data.date) : null)}
+
+
     const formValues = {
         id: 0,
         employee_id: id,
         ...state.data,
-        date: state?.data ? dayjs(state?.data.date) : ''
+        ...update
     };
 
     return (
@@ -40,6 +45,19 @@ function QualificationsForm(props) {
                         isDocument={ true }
                         hasFile={ selectedFile === null }
                         setFile={ setSelectedFile }/>
+                </Col>
+                <Col span={ 12 }>
+                    <Form.Item
+                        name="date"
+                        label="Date"
+                        rules={ [
+                            {
+                                required: true,
+                                message: "Date is Required",
+                            },
+                        ] }>
+                        <DatePicker size={ "large" }/>
+                    </Form.Item>
                 </Col>
                 <Col span={ 24 }>
                     <TlaSelect label={ 'Education Level' } name={ 'education_level_id' } optionKey={ 'name' }
@@ -72,19 +90,7 @@ function QualificationsForm(props) {
                         <Input size={ "large" }/>
                     </Form.Item>
                 </Col>
-                <Col span={ 24 }>
-                    <Form.Item
-                        name="date"
-                        label="Date"
-                        rules={ [
-                            {
-                                required: true,
-                                message: "Date is Required",
-                            },
-                        ] }>
-                        <DatePicker size={ "large" }/>
-                    </Form.Item>
-                </Col>
+
                 <Col>
                     <Form.Item
                         hidden

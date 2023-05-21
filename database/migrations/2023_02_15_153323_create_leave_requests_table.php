@@ -26,8 +26,8 @@ return new class extends Migration {
             $table->date('end_date');
             $table->longText('reason');
             $table->boolean('viewed')->default(false);
-            $table->enum('status', ['pending', 'rejected', 'approved', 'cancelled', 'viewed'])->default('pending');
-            $table->enum('hr_status', ['pending', 'rejected', 'approved', 'cancelled', 'viewed'])->default('pending');
+            $table->string('status')->default('pending');
+            $table->string('hr_status')->default('pending');
             $table->date('sup_approval')->nullable()->comment('Date approved by supervisor');
             $table->longText('sup_reason')->nullable();
             $table->date('hr_approval')->nullable()->comment('Date approved by HR');

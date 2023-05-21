@@ -7,7 +7,7 @@ import { useLocation } from 'react-router'
 
 const rootSubmenuKeys = []
 
-function MenuHelper({permissions, menus, direction, icons, linkStyles}) {
+function MenuHelper({permissions, menus, direction, icons, linkStyles, theme}) {
     const location = useLocation()
     const [openKeys, setOpenKeys] = useState([])
 
@@ -62,7 +62,7 @@ function MenuHelper({permissions, menus, direction, icons, linkStyles}) {
             className={ 'sideBarNav' }
             defaultSelectedKeys={ ['dashboard'] } openKeys={ openKeys } onOpenChange={ onOpenChange }
             mode={ direction }
-            theme="light"
+            theme={theme}
             items={ items }
         />
     )
@@ -71,11 +71,13 @@ function MenuHelper({permissions, menus, direction, icons, linkStyles}) {
 MenuHelper.defaultProps = {
     direction: 'inline',
     icons: {},
+    theme: 'light'
 }
 
 MenuHelper.propTypes = {
     menus: PropTypes.array.isRequired,
     direction: PropTypes.string,
+    theme: PropTypes.string,
     activeRoles: PropTypes.array.isRequired,
     permissions: PropTypes.array.isRequired,
     icons: PropTypes.object,

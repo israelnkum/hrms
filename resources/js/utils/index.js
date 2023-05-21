@@ -1,4 +1,4 @@
-import { Store } from './Store'
+import {Store} from './Store'
 import dayjs from "dayjs";
 
 export const getAge = (dateString) => {
@@ -51,7 +51,7 @@ export const completeExport = (data, filename = 'report') => {
     } else {
         const link = document.createElement('a')
         link.href = window.URL.createObjectURL(new Blob([data]))
-        link.setAttribute('download', `${ filename + '.' + extension }`)
+        link.setAttribute('download', `${filename + '.' + extension}`)
         document.body.appendChild(link)
         link.click()
     }
@@ -77,3 +77,9 @@ export const statusColors = {
 export const hasPermission = (allPermissions, permission) => {
     return allPermissions.some(role => permission.includes(role));
 }
+
+export const formatUrl = (text = '') => {
+    return text.toLowerCase().replaceAll(' ', '-')
+}
+
+export const formatLabel = (text) => (capitalize(text.replaceAll('_', ' ')))

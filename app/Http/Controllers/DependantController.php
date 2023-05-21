@@ -6,6 +6,8 @@ use App\Http\Requests\StoreDependantRequest;
 use App\Http\Requests\UpdateDependantRequest;
 use App\Http\Resources\DependantResource;
 use App\Models\Dependant;
+use App\Models\Employee;
+use App\Traits\InformationUpdate;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -16,6 +18,8 @@ use Illuminate\Support\Facades\DB;
 
 class DependantController extends Controller
 {
+    use InformationUpdate;
+
     /**
      * Display a listing of the resource.
      *
@@ -40,13 +44,21 @@ class DependantController extends Controller
     {
         DB::beginTransaction();
         try {
-            $request['user_id'] = Auth::user()->id;
-            $request['dob'] = $request->dob !=  null ? Carbon::parse($request->dob)->format('Y-m-d') : null;
-            $dependant = Dependant::create($request->all());
+            $employee = Employee::findOrFail($request->employee_id);
+
+            $request['dob'] = $request->dob != null ? Carbon::parse($request->dob)->format('Y-m-d') : null;
+
+            $dependant = $employee->departments()->create([
+                'user_id' => Auth::id()
+            ]);
+
+            $this->infoDifference($dependant, $request->all());
+            $this->requestUpdate($dependant);
+
             DB::commit();
 
             return new DependantResource($dependant);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage()
             ], 400);
@@ -66,11 +78,14 @@ class DependantController extends Controller
         try {
             $request['dob'] = $request->dob !== 'null' ? Carbon::parse($request->dob)->format('Y-m-d') : null;
             $dependant = Dependant::findOrFail($id);
-            $dependant->update($request->all());
+
+            $this->infoDifference($dependant, $request->all());
+            $this->requestUpdate($dependant);
+
             DB::commit();
 
             return new DependantResource($dependant);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage()
             ], 400);
@@ -88,13 +103,14 @@ class DependantController extends Controller
         DB::beginTransaction();
         try {
             $dependant = Dependant::findOrFail($id);
+            $dependant->informationUpdate()->delete();
             $dependant->delete();
 
             DB::commit();
             return response()->json([
-                'message' =>'Emergency Contact Deleted'
+                'message' => 'Emergency Contact Deleted'
             ]);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage()
             ], 400);

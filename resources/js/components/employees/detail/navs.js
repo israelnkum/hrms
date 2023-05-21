@@ -1,89 +1,94 @@
 import PropTypes from "prop-types";
 import React from 'react'
-import { BsBriefcase } from "react-icons/bs";
-import { FiPhoneCall, FiUser, FiUsers } from "react-icons/fi";
-import { TbCertificate, TbReportAnalytics } from "react-icons/tb";
-import { connect } from "react-redux";
-import { Link, useMatch } from "react-router-dom";
+import {connect} from "react-redux";
 import TlaImage from "../../../commons/tla-image";
+import MenuHelper from "../../../commons/menu-helper";
+import {formatUrl} from "../../../utils";
 
 function Navs({employee}) {
-    const modules = [
+    const test = [
         {
             title: 'Personal Details',
-            icon: <FiUser/>,
+            link: formatUrl('Personal Details'),
+            children: [],
+            permissions: [],
+            icon: 'home'
+        },
+        {
+            title: 'Next of kin',
+            link:  formatUrl('Next of kin'),
+            children: [],
+            permissions: [],
+            icon: 'home'
         },
         {
             title: 'Contact Details',
-            icon: <FiPhoneCall/>,
-        },
-        {
-            title: 'Emergency Contacts',
-            icon: <FiPhoneCall/>,
-        },
-        {
-            title: 'Dependents',
-            icon: <FiUsers/>,
+            link:  formatUrl('Contact Details'),
+            children: [],
+            permissions: [],
+            icon: 'home'
         },
         {
             title: 'Job',
-            icon: <BsBriefcase/>,
-        },
-        // {
-        //     title: 'Salary',
-        //     icon: <BiCoinStack/>,
-        // },
-        {
-            title: 'Direct Reports',
-            icon: <TbReportAnalytics/>,
+            link: formatUrl('Job'),
+            children: [],
+            permissions: [],
+            icon: 'home'
         },
         {
             title: 'Qualifications',
-            icon: <TbCertificate/>,
+            link: formatUrl('Qualifications'),
+            children: [],
+            permissions: [],
+            icon: 'home'
+        },
+    /*    {
+            title: 'Direct Reports',
+            link: formatUrl('Direct Reports'),
+            children: [],
+            permissions: [],
+            icon: 'home'
+        },*/
+        {
+            title: 'Emergency Contacts',
+            link: formatUrl('Emergency Contacts'),
+            children: [],
+            permissions: [],
+            icon: 'home'
+        },
+        {
+            title: 'Dependents',
+            link: formatUrl('Dependents'),
+            children: [],
+            permissions: [],
+            icon: 'home'
         },
         {
             title: 'Community Services',
-            icon: <TbCertificate/>,
+            link: formatUrl('Community Services'),
+            children: [],
+            permissions: [],
+            icon: 'home'
         }
     ]
 
-    function formatUrl(text) {
-        return text.toLowerCase().replace(' ', '-')
-    }
-
     return (
-        <div className={ 'bg-primary-800 px-4 rounded-t-lg' }>
-            <div className={ 'relative flex gap-3 items-center' }>
+        <div className={'bg-primary-800 px-4 rounded-t-lg'}>
+            <div className={'relative flex gap-3 items-center'}>
                 <div className={'absolute top-[30px]'}>
-                    <TlaImage size={ 130 } src={ employee.photo } name={ employee.name }/>
+                    <TlaImage size={130} src={employee.photo} name={employee.name}/>
                 </div>
-                <div className={ 'flex flex-col justify-between ml-[176px]' }>
-                    <div className={'mt-3 flex justify-between items-center'}>
+                <div className={'flex flex-col justify-between ml-[176px]'}>
+                    <div className={'mt-3 flex justify-between items-center mb-3'}>
                         <div>
-                            <h3 className={ 'text-2xl text-white font-bold leading-1 mb-0' }>{ employee.name }</h3>
-                            <p className={ 'text-base text-white' }>{ employee.rank }</p>
+                            <h3 className={'text-2xl text-white font-bold leading-1 mb-0'}>{employee.name}</h3>
+                            <p className={'text-base text-white'}>{employee.rank}</p>
                         </div>
                         <div>
                             {/*<Button type={'default'} className={'text-white hover:text-white'}>Request Change</Button>*/}
                         </div>
                     </div>
-                    <div className={ 'flex gap-3 mt-8' }>
-                        {
-                            modules.map((item) => {
-                                const to = formatUrl(item.title)
-                                const match = useMatch(`/employees/:id/:name/${ to }`)
-
-                                return (
-                                    <div key={ item.title } className={ `${match ? 'bg-white' : ''} pt-3 pb-2 rounded-t-lg` }>
-                                        <Link className={ `${ match ? 'text-black' : 'text-white' } text-[13px] px-2` }
-                                              to={ to }>
-                                            { item.title }
-                                        </Link>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
+                    <MenuHelper menus={test} theme={'dark'} direction={'horizontal'}/>
                 </div>
             </div>
         </div>

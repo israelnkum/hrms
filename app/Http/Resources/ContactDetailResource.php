@@ -30,6 +30,7 @@ class ContactDetailResource extends JsonResource
             'work_email' => $this->work_email,
             'other_email' => $this->other_email,
             'nationality' => $this->nationality,
+            'info_update' => $this->informationUpdate,
         ];
     }
 }

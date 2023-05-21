@@ -1,16 +1,15 @@
-import { Button, Space, Spin, Table, Typography } from 'antd'
+import {Button, Space, Spin, Table} from 'antd'
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from 'react'
-import { connect } from "react-redux";
-import {
-    handleDeleteDependant,
-    handleGetAllDependants
-} from "../../../../actions/employee/dependants/DependantsAction";
+import React, {useEffect, useState} from 'react'
+import {connect} from "react-redux";
+import {handleDeleteDependant, handleGetAllDependants} from "../../../../actions/employee/dependants/DependantsAction";
 import TlaTableWrapper from "../../../../commons/table/tla-table-wrapper";
 import TlaAddNew from "../../../../commons/tla-add-new";
 import TlaEdit from "../../../../commons/tla-edit";
 import TlaConfirm from "../../../../commons/TlaConfirm";
-import { TlaSuccess } from "../../../../utils/messages";
+import {TlaSuccess} from "../../../../utils/messages";
+import {formatLabel} from "../../../../utils";
+import TableContent from "../TableContent";
 
 const {Column} = Table
 
@@ -35,15 +34,15 @@ function Dependant(props) {
                     <Button>Add Dependant</Button>
                 </TlaAddNew>
             } callbackFunction={ getDependants } data={ data }>
-                <Column title="name" dataIndex={ 'name' }/>
-                <Column title="relationship" dataIndex={ 'relationship' }/>
-                <Column title="DOB" dataIndex={ 'dob' }/>
-                <Column title="Contact" render={ ({phone_number, alt_phone_Number}) => (
-                    <Space size={ 0 } direction={ 'vertical' }>
-                        <Typography.Text>{ phone_number }</Typography.Text>
-                        <Typography.Text>{ alt_phone_Number }</Typography.Text>
-                    </Space>
-                ) }/>
+                {
+                    ['name', 'relationship', 'dob', 'phone_number', 'alt_phone_number']
+                        .map((item, index) => (
+                            <Column key={index} title={formatLabel(item)} render={(contact) => (
+                                <TableContent newData={contact?.info_update?.new_info?.[item]}
+                                              oldData={contact?.[item]}/>
+                            )}/>
+                        ))
+                }
                 <Column title="Action" render={ (value) => (
                     <Space size={ 0 }>
                         <TlaEdit icon data={ value } link={ 'form' } type={ 'text' }/>

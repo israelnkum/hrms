@@ -10,16 +10,21 @@ import {
 import TlaFormWrapper from "../../../../commons/tla-form-wrapper";
 import TlaSelect from "../../../../commons/tla/TlaSelect";
 import {relationships} from "../../../../utils/nationalities";
-import moment from "moment/moment";
+import dayjs from "dayjs";
 
-function DependantsForm (props) {
-    const { addDependant, updateDependant, employeeId } = props
-    const { state } = useLocation()
+function DependantsForm(props) {
+    const {addDependant, updateDependant, employeeId} = props
+    const {state} = useLocation()
+
+    const newInfo = state?.data?.info_update?.new_info;
+
+    const update = {...newInfo, dob: newInfo?.dob ? dayjs(newInfo?.dob) : (state?.data ? dayjs(state?.data.dob) : null)}
+
     const formValues = {
         id: 0,
         employee_id: employeeId,
         ...state.data,
-        dob: state?.data ? moment(state?.data.dob) : null
+        ...update
     }
 
     return (
@@ -40,7 +45,8 @@ function DependantsForm (props) {
                     </Form.Item>
                 </Col>
                 <Col span={12}>
-                    <TlaSelect name={'relationship'} label={'Relationship'} options={relationships} optionKey={'name'} required/>
+                    <TlaSelect name={'relationship'} label={'Relationship'} options={relationships} optionKey={'name'}
+                               required/>
                 </Col>
                 <Col span={12}>
                     <Form.Item name="phone_number" label="Phone"
@@ -87,6 +93,7 @@ function DependantsForm (props) {
         </TlaFormWrapper>
     )
 }
+
 DependantsForm.propTypes = {
     addDependant: PropTypes.func.isRequired,
     updateDependant: PropTypes.func.isRequired,

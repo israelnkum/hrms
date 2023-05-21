@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Statuses;
+use App\Enums\Statuses;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +13,8 @@ class InformationUpdate extends Model
     use HasFactory;
 
     protected $fillable = [
-        'information',
+        'information_id',
+        'information_type',
         'old_info',
         'new_info',
         'status',

@@ -3,17 +3,20 @@
 namespace App\Http\Resources;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use JsonSerializable;
 
 class JobDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
+     * @param  Request  $request
+     * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id' => $this->id,
@@ -21,9 +24,9 @@ class JobDetailResource extends JsonResource
             'job_title' => $this->position?->name,
             'status' => $this->status,
             'location' => $this->location,
-            'joined_date' => $this->joined_date,
-            'contract_start_date' => $this->contract_start_date,
-            'contract_end_date' => $this->contract_end_date,
+            'joined_date' => Carbon::parse($this->joined_date)->format('Y-m-d'),
+            'contract_start_date' => Carbon::parse($this->contract_start_date)->format('Y-m-d'),
+            'contract_end_date' => Carbon::parse($this->contract_end_date)->format('Y-m-d'),
             'employee_id' => $this->employee_id,
             'user_id' => $this->user_id,
             'job_category_id' => $this->job_category_id,
@@ -31,6 +34,7 @@ class JobDetailResource extends JsonResource
             'sub_unit_id' => $this->sub_unit_id,
             'sub_unit' => $this->subUnit->name,
             'contract_detail' => $this->photo ? $this->photo->file_name : null,
+            'info_update' => $this->informationUpdate,
         ];
     }
 }
