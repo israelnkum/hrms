@@ -10,6 +10,7 @@ use App\Http\Resources\EmployeeResource;
 use App\Models\ActivityLog;
 use App\Models\Employee;
 use App\Models\PreviousRank;
+use App\Traits\InformationUpdate;
 use App\Traits\UsePrint;
 use Carbon\Carbon;
 use Exception;
@@ -24,7 +25,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class EmployeeController extends Controller
 {
-    use UsePrint;
+    use UsePrint, InformationUpdate;
 
     protected string $docPath = 'images/employees';
     protected array $allowedFiles = ['png', 'jpg', 'jpeg'];
@@ -96,16 +97,18 @@ class EmployeeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param UpdateEmployeeRequest $request
-     *
+     * @param $id
      * @return EmployeeResource|JsonResponse
      */
-    public function update(UpdateEmployeeRequest $request, $id)
+    public function update(UpdateEmployeeRequest $request, $id): EmployeeResource|JsonResponse
     {
         DB::beginTransaction();
         try {
             $employee = Employee::findOrFail($id);
             $request['dob'] = $request->dob !== 'null' ? Carbon::parse($request->dob)->format('Y-m-d') : null;
-            $employee->update($request->all());
+
+            $this->infoDifference($employee, $request->all());
+            $this->requestUpdate($employee);
 
             if ($request->has('file') && $request->file !== "null") {
                 $saveFile = new SaveFile($employee, $request->file('file'), $this->docPath, $this->allowedFiles);
@@ -189,8 +192,8 @@ class EmployeeController extends Controller
     {
         $employeesQuery = Employee::query();
 
-        if(!$this->getRoles()->contains('super-admin')) {
-           $employeesQuery->where('department_id', Auth::user()->employee->department_id);
+        if (!$this->getRoles()?->contains('super-admin')) {
+            $employeesQuery->where('department_id', Auth::user()->employee->department_id);
         }
 
         return EmployeeResource::collection($employeesQuery->paginate(10));

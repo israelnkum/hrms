@@ -17,7 +17,7 @@ function EmployeeDetail({employee}) {
     )
     return (
         <div>
-            <Affix offsetTop={ 60 }>
+            <Affix offsetTop={ 68 }>
                 <Navs/>
             </Affix>
             <div className={ 'bg-white flex pr-4' }>
@@ -27,7 +27,7 @@ function EmployeeDetail({employee}) {
                      <h5>Annual Leave</h5>
                      </div>*/ }
 
-                    <div className={ 'bg-gray-100 pt-3 px-2 flex flex-col gap-3 text-gray-500 h-screen' }>
+                    <div className={ 'bg-gray-100 pt-5 px-2 flex flex-col gap-3 text-gray-500 h-screen' }>
                         <div>
                             <p className={ 'flex items-center' }><BiPhone/>&nbsp;
                                 <a href={ `tel:${ employee?.telephone }` }>{ employee?.telephone }</a>

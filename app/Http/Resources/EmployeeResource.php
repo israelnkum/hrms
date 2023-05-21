@@ -27,6 +27,7 @@ class EmployeeResource extends JsonResource
             'last_name' => $this->last_name,
             'name' => $this->name,
             'staff_id' => $this->staff_id,
+            'info_update' => $this->informationUpdate,
             'dob' => $this->dob,
             'age' => Carbon::parse($this->dob)->age,
             'gender' => $this->gender,

@@ -1,61 +1,28 @@
-import { Col, List, Row } from "antd";
 import PropTypes from 'prop-types'
-import React, { useEffect, useState } from 'react'
-import { connect } from "react-redux";
-import { useParams } from "react-router";
-import { handleGetSingleEmployee } from "../../../../actions/employee/EmployeeAction";
-import TlaEdit from "../../../../commons/tla-edit";
+import React, {useEffect, useState} from 'react'
+import {connect} from "react-redux";
+import {useParams} from "react-router";
+import {handleGetSingleEmployee} from "../../../../actions/employee/EmployeeAction";
 import ViewAllWrapper from "../../../../commons/view-all-wrapper";
-import NextOfKin from "../next-of-kin";
+import DetailWrapper from "../detail-wrapper";
 
-const Item = ({ title, value }) => (
-    <List.Item>
-        <List.Item.Meta
-            title={`${title}:`}
-            description={value}
-        />
-    </List.Item>
-)
-
-Item.propTypes = {
-    title: PropTypes.string,
-    value: PropTypes.string,
-}
-function PersonalDetails (props) {
-    const { getEmployee, employee } = props
+function PersonalDetails(props) {
+    const {getEmployee, employee} = props
     const {id} = useParams()
+    const {info_update} = employee
     const [loading, setLoading] = useState(true)
     useEffect(() => {
         getEmployee(id).then(() => setLoading(false))
     }, [])
     return (
         <ViewAllWrapper loading={loading} noData={false}>
-            <Row gutter={10} justify={'space-between'}>
-                <Col span={24}>
-                    <div className={'flex justify-end'}>
-                        <TlaEdit data={employee} icon link={`/employees/${id}/${employee.name}/edit`} text={'Edit'} />
-                    </div>
-                </Col>
-                <Col span={11}>
-                    <List size="small" itemLayout="horizontal">
-                        <Item title={'Employee ID'} value={employee.staff_id}/>
-                        <Item title={'Name'} value={employee.name}/>
-                        <Item title={'Gender'} value={employee.gender}/>
-                        <Item title={'Marital Status'} value={employee.marital_status}/>
-                        <Item title={'Date of Birth'} value={employee.dob}/>
-                    </List>
-                </Col>
-                <Col span={11}>
-                    <List size="small" itemLayout="horizontal">
-                        <Item title={'Department'} value={employee.department}/>
-                        <Item title={'GTEC Placement'} value={employee.gtec_placement_name}/>
-                        <Item title={'Qualification'} value={employee?.qualification}/>
-                        <Item title={'Rank'} value={employee.rank}/>
-                        <Item title={'SSNIT No'} value={employee.ssnit_number}/>
-                    </List>
-                </Col>
-            </Row>
-            <NextOfKin/>
+            <DetailWrapper
+                oldData={employee}
+                newData={info_update}
+                fields={[
+                    'staff_id', 'first_name', 'middle_name', 'last_name', 'gender', 'marital_status', 'dob',
+                    'department', 'gtec_placement_name', 'qualification', 'rank', 'ssnit_number'
+                ]} editLink={`/employees/${id}/${employee.name}/edit`}/>
         </ViewAllWrapper>
     )
 }

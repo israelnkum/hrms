@@ -2,85 +2,84 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreInformationUpdateRequest;
+use App\Enums\Statuses;
 use App\Http\Requests\UpdateInformationUpdateRequest;
+use App\Http\Resources\InformationUpdateResource;
 use App\Models\InformationUpdate;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class InformationUpdateController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return JsonResponse|AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request): JsonResponse|AnonymousResourceCollection
     {
-        //
+        if (!$this->can('approve-employee-update')) {
+            return response()->json([
+                'message' => 'Not enough permissions'
+            ], 400);
+        }
+
+        $infoUpdates = InformationUpdate::query()->where('status', $request->status)->paginate(10);
+
+        return InformationUpdateResource::collection($infoUpdates);
+    }
+
+
+    /**
+     * @param InformationUpdate $informationUpdate
+     *
+     * @return InformationUpdateResource
+     */
+    public function show(InformationUpdate $informationUpdate): InformationUpdateResource
+    {
+        return new InformationUpdateResource($informationUpdate);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @param UpdateInformationUpdateRequest $request
+     * @param InformationUpdate $informationUpdate
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function create()
+    public function update(UpdateInformationUpdateRequest $request, InformationUpdate $informationUpdate): JsonResponse
     {
-        //
-    }
+        try {
+            DB::beginTransaction();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreInformationUpdateRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreInformationUpdateRequest $request)
-    {
-        //
-    }
+            $informationUpdate->update([
+                'status' => $request->status,
+                'status_changed_by' => Auth::id(),
+                'status_changed_date' => Carbon::now()->format('Y-m-d')
+            ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\InformationUpdate  $informationUpdate
-     * @return \Illuminate\Http\Response
-     */
-    public function show(InformationUpdate $informationUpdate)
-    {
-        //
-    }
+            if ($request->status === Statuses::APPROVED->value) {
+                $informationUpdate->information()->update($informationUpdate->new_info);
+            }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\InformationUpdate  $informationUpdate
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(InformationUpdate $informationUpdate)
-    {
-        //
-    }
+            DB::commit();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateInformationUpdateRequest  $request
-     * @param  \App\Models\InformationUpdate  $informationUpdate
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateInformationUpdateRequest $request, InformationUpdate $informationUpdate)
-    {
-        //
-    }
+            return response()->json([
+                'message' => 'Information update ' . $request->status . ' successfully'
+            ]);
+        } catch (\Exception $exception) {
+            DB::rollBack();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\InformationUpdate  $informationUpdate
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(InformationUpdate $informationUpdate)
-    {
-        //
+            Log::error('Information Update Error: ', [$exception]);
+            return response()->json([
+                'message' => 'Something went wrong'
+            ], 400);
+        }
     }
 }

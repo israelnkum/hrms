@@ -67,4 +67,14 @@ class JobDetail extends ApplicationModel
     {
         return $this->belongsTo(Employee::class);
     }
+
+    /**
+     * @return MorphOne
+     */
+    public function informationUpdate(): MorphOne
+    {
+        return $this->morphOne(InformationUpdate::class, 'information')
+            ->where('status', 'pending')
+            ->latest();
+    }
 }

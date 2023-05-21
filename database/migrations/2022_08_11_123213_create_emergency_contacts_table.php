@@ -18,9 +18,9 @@ return new class extends Migration
         Schema::create('emergency_contacts', static function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employee::class)->constrained();
-            $table->string('name');
-            $table->string('relationship');
-            $table->string('phone_number');
+            $table->string('name')->nullable();
+            $table->string('relationship')->nullable();
+            $table->string('phone_number')->nullable();
             $table->string('alt_phone_number')->nullable();
             $table->string('email')->nullable();
             $table->foreignIdFor(User::class)->constrained();

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use JsonSerializable;
 
-class EducationResource extends JsonResource
+class QualificationResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -26,6 +26,9 @@ class EducationResource extends JsonResource
             'institution' => $this->institution,
             'qualification' => $this->qualification,
             'date' => $this->date,
+            'photo' => new PhotoResource($this->photo),
+            'certificate' => $this->photo ? '/storage/docs/qualifications/' . $this->photo->file_name : null,
+            'info_update' => $this->informationUpdate,
         ];
     }
 }

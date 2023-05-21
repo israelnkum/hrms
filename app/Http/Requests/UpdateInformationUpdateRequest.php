@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateInformationUpdateRequest extends FormRequest
 {
@@ -11,9 +12,9 @@ class UpdateInformationUpdateRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return false;
+        return Auth::user()?->can('approve-employee-update');
     }
 
     /**

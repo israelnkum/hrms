@@ -27,7 +27,8 @@ function ContactDetailsForm(props) {
         work_email: '',
         other_email: '',
         employee_id: id,
-        ...state.data
+        ...state.data,
+        ...state?.data?.info_update?.new_info
     };
 
     return (

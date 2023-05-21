@@ -18,9 +18,10 @@ return new class extends Migration {
             $table->morphs('information');
             $table->jsonb('old_info');
             $table->jsonb('new_info');
-            $table->enum('status', ['approved', 'declined', 'cancel']);
-            $table->date('status_changed_date');
-            $table->foreignIdFor(User::class, 'status_changed_by')->constrained('users');
+            $table->string('status');
+            $table->date('status_changed_date')->nullable();
+            $table->foreignIdFor(User::class, 'status_changed_by')->nullable()->constrained('users');
+            $table->foreignIdFor(User::class, 'requested_by')->constrained('users');
             $table->softDeletes();
             $table->timestamps();
         });

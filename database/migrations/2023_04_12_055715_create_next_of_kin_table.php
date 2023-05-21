@@ -17,8 +17,8 @@ return new class extends Migration
         Schema::create('next_of_kin', static function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Employee::class)->constrained();
-            $table->string('name');
-            $table->string('phone_number');
+            $table->string('name')->nullable();
+            $table->string('phone_number')->nullable();
             $table->string('alt_phone_number')->nullable();
             $table->string('email')->nullable();
             $table->string('address')->nullable();

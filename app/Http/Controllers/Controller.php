@@ -94,22 +94,22 @@ class Controller extends BaseController
 
     public function getRoles()
     {
-        return Auth::user()->getRoleNames();
+        return Auth::user()?->getRoleNames();
     }
 
-    public function hasPermission($permission)
+    public function can($permission)
     {
-        return Auth::user()?->hasPermissionTo($permission);
+        return Auth::user()?->can($permission);
     }
 
 
     public function isHr(): bool
     {
-        return $this->hasPermission('approve-leave') || $this->hasPermission('disapprove-leave');
+        return $this->can('approve-leave') || $this->can('disapprove-leave');
     }
 
     public function isSupervisor(): bool
     {
-        return $this->hasPermission('approve-leave-request') || $this->hasPermission('decline-leave-request');
+        return $this->can('approve-leave-request') || $this->can('decline-leave-request');
     }
 }

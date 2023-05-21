@@ -6,6 +6,8 @@ use App\Http\Requests\StoreEmergencyContactRequest;
 use App\Http\Requests\UpdateEmergencyContactRequest;
 use App\Http\Resources\EmergencyContactResource;
 use App\Models\EmergencyContact;
+use App\Models\Employee;
+use App\Traits\InformationUpdate;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,9 +17,12 @@ use Illuminate\Support\Facades\DB;
 
 class EmergencyContactController extends Controller
 {
+    use InformationUpdate;
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return AnonymousResourceCollection
      */
     public function index(Request $request): AnonymousResourceCollection
@@ -37,12 +42,19 @@ class EmergencyContactController extends Controller
     {
         DB::beginTransaction();
         try {
-            $request['user_id'] = Auth::user()->id;
-            $emergencyContact = EmergencyContact::create($request->all());
+            $employee = Employee::findOrFail($request->employee_id);
+
+            $contact = $employee->emergencyContacts()->create([
+                'user_id' => Auth::id()
+            ]);
+
+            $this->infoDifference($contact, $request->all());
+            $this->requestUpdate($contact);
+
             DB::commit();
 
-            return new EmergencyContactResource($emergencyContact);
-        }catch (Exception $exception){
+            return new EmergencyContactResource($contact);
+        } catch (Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage()
             ], 400);
@@ -56,16 +68,18 @@ class EmergencyContactController extends Controller
      * @param $id
      * @return EmergencyContactResource|JsonResponse
      */
-    public function update(UpdateEmergencyContactRequest $request, $id)
+    public function update(UpdateEmergencyContactRequest $request, $id): JsonResponse|EmergencyContactResource
     {
         DB::beginTransaction();
         try {
             $emergencyContact = EmergencyContact::findOrFail($id);
-            $emergencyContact->update($request->all());
+
+            $this->infoDifference($emergencyContact, $request->all());
+            $this->requestUpdate($emergencyContact);
 
             DB::commit();
             return new EmergencyContactResource($emergencyContact);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage()
             ], 400);
@@ -83,12 +97,13 @@ class EmergencyContactController extends Controller
         DB::beginTransaction();
         try {
             $emergencyContact = EmergencyContact::findOrFail($id);
+            $emergencyContact->informationUpdate()->delete();
             $emergencyContact->delete();
             DB::commit();
             return response()->json([
-                'message' =>'Emergency Contact Deleted'
+                'message' => 'Emergency Contact Deleted'
             ]);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             return response()->json([
                 'message' => $exception->getMessage()
             ], 400);

@@ -21,37 +21,21 @@ export const ModalRoutes = () => {
                 <Route exact path="form" element={<EmployeeForm/>}/>
                 <Route exact path=":id/:name">
                     <Route exact path="edit" element={<EmployeeForm/>}/>
-                    <Route exact path="personal-details">
-                        <Route exact path="next-of-kin/form" element={<NextOfKinForm />} />
-                    </Route>
-                    <Route exact path="qualifications">
-                        <Route exact path="form" element={<QualificationsForm />} />
-                    </Route>
-                    <Route exact path="emergency-contacts">
-                        <Route exact path="form" element={<EmergencyContactForm />} />
-                    </Route>
-                    <Route exact path="contact-details">
-                        <Route exact path="form" element={<ContactDetailsForm />} />
-                    </Route>
+                    <Route exact path="next-of-kin/form" element={<NextOfKinForm />} />
+                    <Route exact path="qualifications/form" element={<QualificationsForm />} />
+                    <Route exact path="emergency-contacts/form" element={<EmergencyContactForm />} />
+                    <Route exact path="contact-details/form" element={<ContactDetailsForm />} />
                     <Route exact path="job">
                         <Route exact path="form" element={<JobDetailsForm />} />
-                        <Route exact path="positions/form" element={<PreviousPositionForm />} />
-                        <Route exact path="ranks/form" element={<PreviousRankForm />} />
+                        <Route exact path="previous-positions/form" element={<PreviousPositionForm />} />
+                        <Route exact path="previous-ranks/form" element={<PreviousRankForm />} />
                     </Route>
-                    <Route exact path="dependents">
-                        <Route exact path="form" element={<DependantsForm />} />
-                    </Route>
-                    <Route exact path="community-services">
-                        <Route exact path="form" element={<CommunityServicesForm />} />
-                    </Route>
+                    <Route exact path="dependents/form" element={<DependantsForm />} />
+                    <Route exact path="community-services/form" element={<CommunityServicesForm />} />
                 </Route>
             </Route>
-            <Route exact path="time-off">
-                <Route exact path="form" element={<TimeOffForm/>}/>
-            </Route>
-            <Route exact path="leave-management/leave-types">
-                <Route exact path="form" element={<LeaveTypeForm/>}/>
-            </Route>
+            <Route exact path="time-off/form" element={<TimeOffForm/>}/>
+            <Route exact path="leave-management/leave-types/form" element={<LeaveTypeForm/>}/>
             <Route exact path="preview/:fileName" element={<PreviewFile/>}/>
         </Routes>
     )

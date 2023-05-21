@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Statuses;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -32,9 +33,9 @@ class LeaveRequest extends Model
         'moved_by'
     ];
 
-//    protected $casts = [
-//        'days_requested' => 'integer'
-//    ];
+    protected $casts = [
+        'status' => Statuses::class,
+    ];
 
     /**
      * @return BelongsTo

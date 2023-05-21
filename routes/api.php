@@ -5,10 +5,11 @@ use App\Http\Controllers\CommunityServiceController;
 use App\Http\Controllers\ContactDetailController;
 use App\Http\Controllers\DependantController;
 use App\Http\Controllers\DirectReportController;
-use App\Http\Controllers\EducationController;
+use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\EmergencyContactController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InformationUpdateController;
 use App\Http\Controllers\JobDetailController;
 use App\Http\Controllers\LeaveManagementController;
 use App\Http\Controllers\LeaveRequestController;
@@ -53,7 +54,7 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::apiResource('/contact-details', ContactDetailController::class);
     Route::apiResource('/job-details', JobDetailController::class);
     Route::apiResource('/next-of-kin', NextOfKinController::class);
-    Route::apiResource('/qualifications', EducationController::class);
+    Route::apiResource('/qualifications', QualificationController::class);
     Route::apiResource('/emergency-contacts', EmergencyContactController::class);
     Route::apiResource('/dependants', DependantController::class);
     Route::apiResource('/direct-reports', DirectReportController::class);
@@ -82,6 +83,7 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     });
 
     Route::get('notifications/navs', [CommonController::class, 'getNotificationNavs']);
+    Route::apiResource('information-updates', InformationUpdateController::class);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

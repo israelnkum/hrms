@@ -1,12 +1,13 @@
-import { Affix, Badge, Dropdown, Space, Spin } from 'antd'
+import {Affix, Badge, Dropdown, Space, Spin} from 'antd'
 import PropTypes from "prop-types";
-import React, { useState } from 'react'
-import { IoNotificationsOutline } from "react-icons/io5";
-import { FiChevronDown, FiInfo, FiLogOut } from "react-icons/fi";
-import { connect, useDispatch } from 'react-redux'
-import { Link } from "react-router-dom";
-import { logout } from '../../actions/logout/LogoutAction'
+import React, {useState} from 'react'
+import {IoNotificationsOutline} from "react-icons/io5";
+import {FiChevronDown, FiInfo, FiLogOut} from "react-icons/fi";
+import {connect, useDispatch} from 'react-redux'
+import {Link} from "react-router-dom";
+import {logout} from '../../actions/logout/LogoutAction'
 import TlaImage from "../tla-image";
+import {formatUrl} from "../../utils";
 
 function AppHeader({user, collapseButton, notificationNavs}) {
     const dispatch = useDispatch()
@@ -23,20 +24,20 @@ function AppHeader({user, collapseButton, notificationNavs}) {
         {
             key: '2',
             label: (
-                <Link to={ `/employees/${ user.employee_id }/${ user.name }` }>My Info</Link>
+                <Link to={`/employees/${user?.employee_id}/${formatUrl(user?.name)}`}>My Info</Link>
             ),
             icon: <FiInfo/>
         },
         {
             key: '4',
-            label: <p title={ 'Logout' } onClick={ () => handleLogout() }>Logout</p>,
+            label: <p title={'Logout'} onClick={() => handleLogout()}>Logout</p>,
             icon: <FiLogOut/>
         },
     ];
 
     return (
-        <Affix offsetTop={ 1 }>
-            <div className={ 'bg-white h-[60px] px-2 md:px-5 flex items-center justify-between border-bottom' }>
+        <Affix offsetTop={1}>
+            <div className={'bg-white h-[60px] px-2 md:px-5 flex items-center justify-between border-bottom'}>
                 <div>
                     {collapseButton}
                 </div>
@@ -47,13 +48,13 @@ function AppHeader({user, collapseButton, notificationNavs}) {
                         </Badge>
                     </Link>
 
-                    <Spin spinning={ loading }>
+                    <Spin spinning={loading}>
                         <Dropdown
-                            menu={ {items} }>
-                            <a onClick={ (e) => e.preventDefault() }>
+                            menu={{items}}>
+                            <a onClick={(e) => e.preventDefault()}>
                                 <Space>
-                                    Hi { user?.name?.split(' ')[0] }
-                                    <TlaImage name={ user.name } size={ 40 } src={ '' }/>
+                                    Hi {user?.name?.split(' ')[0]}
+                                    <TlaImage name={user.name} size={40} src={''}/>
                                     <FiChevronDown/>
                                 </Space>
                             </a>
@@ -67,8 +68,8 @@ function AppHeader({user, collapseButton, notificationNavs}) {
 
 AppHeader.propTypes = {
     user: PropTypes.object.isRequired,
-    collapseButton : PropTypes.any,
-    notificationNavs : PropTypes.any,
+    collapseButton: PropTypes.any,
+    notificationNavs: PropTypes.any,
 }
 
 const mapStateToProps = (state) => ({

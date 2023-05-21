@@ -15,7 +15,10 @@ function EmergencyContactForm (props) {
     const { addEmergencyContact, updateEmergencyContact, employeeId } = props
     const { state } = useLocation()
     const formValues = {
-        id: 0, employee_id: employeeId, ...state.data
+        id: 0,
+        employee_id: employeeId,
+        ...state.data,
+        ...state?.data?.info_update?.new_info
     }
 
     return (

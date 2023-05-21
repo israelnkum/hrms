@@ -9,6 +9,8 @@ use App\Models\ActivityLog;
 use App\Models\Employee;
 use App\Models\JobDetail;
 use App\Models\PreviousPosition;
+use App\Traits\InformationUpdate;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +19,8 @@ use Illuminate\Support\Facades\Log;
 
 class JobDetailController extends Controller
 {
+    use InformationUpdate;
+
     protected string $docPath = 'docs/job_contract';
 
     protected array $allowedFiles = ['pdf'];
@@ -47,34 +51,45 @@ class JobDetailController extends Controller
     {
         DB::beginTransaction();
         try {
-            $detail = JobDetail::findOrFail($id);
+            $jobDetail = JobDetail::findOrFail($id);
 
-            $detail->update($request->all());
+            $request['joined_date'] = $this->getDate($request->joined_date);
+            $request['contract_start_date'] = $this->getDate($request->contract_start_date);
+            $request['contract_end_date'] = $this->getDate($request->contract_end_date);
+
+            $this->infoDifference($jobDetail, $request->all());
+            $this->requestUpdate($jobDetail);
 
             if ($request->has('file') && $request->file !== "null") {
-                $saveFile = new SaveFile($detail, $request->file('file'), $this->docPath, $this->allowedFiles);
-                $saveFile->save();
+                $saveFile = new SaveFile($jobDetail, $request->file('file'), $this->docPath, $this->allowedFiles);
+                $photo = $saveFile->save($jobDetail->photo->file_name ?? null);
+
+                $this->infoDifference($photo, [
+                    'file_name' => $saveFile->fileName
+                ]);
+
+                $this->requestUpdate($photo);
             }
 
             PreviousPosition::updateOrCreate([
                 'position_id' => $request->position_id,
-                'employee_id' => $detail->employee_id
+                'employee_id' => $jobDetail->employee_id
             ], [
                 'position_id' => $request->position_id,
-                'employee_id' => $detail->employee_id,
+                'employee_id' => $jobDetail->employee_id,
                 'user_id' => Auth::id()
             ]);
 
             $user = Auth::user();
 
-            ActivityLog::add($user->employee->name . 'update the job details for ' . $detail->employee->name,
+            ActivityLog::add($user->employee->name . 'update the job details for ' . $jobDetail->employee->name,
                 'updated', [''], 'job-details')
-                ->to($detail)
+                ->to($jobDetail)
                 ->as($user);
 
             DB::commit();
 
-            return new JobDetailResource($detail);
+            return new JobDetailResource($jobDetail);
         } catch (Exception $exception) {
             Log::error('Job Detail Update: ', [$exception]);
 
@@ -83,4 +98,14 @@ class JobDetailController extends Controller
             ], 400);
         }
     }
+
+    public function getDate($date): ?string
+    {
+        if ($date !== 'null') {
+            return Carbon::parse($date)->format('Y-m-d');
+        }
+
+        return null;
+    }
+
 }

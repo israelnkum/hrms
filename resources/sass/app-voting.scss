@@ -43,10 +43,14 @@ html, body {
     background: #EFEFEF !important;
     font-family: var(--Popins) !important;
 }
-
-.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected .nav-item {
-    color: #ffffff !important;
+:where(.css-dev-only-do-not-override-mxhywb).ant-menu-dark {
+    @apply bg-primary-800;
 }
+
+:where(.css-dev-only-do-not-override-mxhywb).ant-menu .ant-menu-submenu-title .anticon {
+    color: white !important;
+}
+
 .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected svg {
     color: #ffffff !important;
 }
@@ -57,9 +61,8 @@ html, body {
     transition: font-size 0.15s cubic-bezier(0.215, 0.61, 0.355, 1), margin 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), color 0.3s;
     color: var(--Gray-900) !important;
 }
-.nav-item {
-    color: var(--Gray-900) !important;
-}
+
+
 .text-md-medium {
     font-family: var(--Popins);
     font-style: normal;
@@ -116,11 +119,11 @@ html, body {
         display: none !important;
     }
 }
-.sideBar,
+
 .sideBarNav {
-    background: #fff !important;
-    border-radius: 10px !important;
+    max-width: 900px !important;
 }
+
 .sideBarNav .ant-menu-sub {
     background: #fff !important;
 }
@@ -130,7 +133,7 @@ html, body {
 }
 
 .ant-menu-dark .ant-menu-item, .ant-menu-dark .ant-menu-item-group-title, .ant-menu-dark .ant-menu-item > a, .ant-menu-dark .ant-menu-item > span > a{
-    color: var(--Gray-900) !important;
+    //color: var(--Gray-900) !important;
 }
 .sideProfile {
     margin-top: 15px;
