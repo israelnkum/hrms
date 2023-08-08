@@ -63,6 +63,9 @@
 
 .anticon::after {
     content: "MORE" !important;
+    font-size: 11px !important;
+    color: #f0f0f0 !important;
+    font-weight: 500 !important;
 }
 
 .ant-picker-header-view {
