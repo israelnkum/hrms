@@ -10,7 +10,7 @@ import TlaImage from "../tla-image";
 import {formatUrl} from "../../utils";
 import NoTextLogo from "../../assets/img/logo-no-text.png";
 
-function AppHeader({user, collapseButton, notificationNavs}) {
+function AppHeader({user, collapseButton, notificationNavs, mobileMenu}) {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
     const handleLogout = () => {
@@ -43,7 +43,9 @@ function AppHeader({user, collapseButton, notificationNavs}) {
                 <div className={'hidden md:block'}>
                     {collapseButton}
                 </div>
-
+                <div className={'block md:hidden'}>
+                    {mobileMenu}
+                </div>
                 <Space size={'large'}>
                     <Link to={'/notifications/leave-request'}>
                         <Badge status="processing" count={notificationNavs?.total} overflowCount={90}>
@@ -73,6 +75,7 @@ AppHeader.propTypes = {
     user: PropTypes.object.isRequired,
     collapseButton: PropTypes.any,
     notificationNavs: PropTypes.any,
+    mobileMenu: PropTypes.node,
 }
 
 const mapStateToProps = (state) => ({

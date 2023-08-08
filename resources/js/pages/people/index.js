@@ -28,9 +28,9 @@ function People (props) {
         <TlaTableWrapper numberColumn={false} filterObj={filter}  callbackFunction={getPeople} data={data} meta={meta}>
             <Column render={(_, {title, name, rank}) => (
                 <Space>
-                    <TlaImage size={70} src={'Avatar'} name={name}/>
+                    <TlaImage size={50} src={'Avatar'} name={name}/>
                     <Space direction={'vertical'} size={1}>
-                        <p className={'text-primary-800 text-2xl font-bold'}>{title}&nbsp;{name}</p>
+                        <p className={'text-primary-800 text-lg md:text-2xl font-bold'}>{title}&nbsp;{name}</p>
                         {rank}
                     </Space>
                 </Space>
