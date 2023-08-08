@@ -52,6 +52,14 @@
     background: white !important;
 }
 
+:where(.css-mxhywb).ant-menu-dark {
+    background: #1a337e !important;
+}
+
+.anticon svg {
+    color: white !important;
+}
+
 .ant-picker-header-view {
     display: flex !important;
     justify-content: center !important;
@@ -66,9 +74,9 @@
 }
 
 :where(.css-dev-only-do-not-override-mxhywb).ant-menu-horizontal .ant-menu-item, :where(.css-dev-only-do-not-override-mxhywb).ant-menu-horizontal .ant-menu-submenu-title::after {
-    content: "MORE";
+    content: "MORE" !important;
 }
 
 :where(.css-dev-only-do-not-override-mxhywb).ant-menu .ant-menu-submenu-title .anticon {
-    display: none;
+    display: none !important;
 }
