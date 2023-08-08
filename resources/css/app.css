@@ -58,6 +58,11 @@
 
 .anticon svg {
     color: white !important;
+    display: none;
+}
+
+.anticon::after {
+    content: "MORE" !important;
 }
 
 .ant-picker-header-view {
