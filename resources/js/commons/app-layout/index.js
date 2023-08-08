@@ -7,6 +7,7 @@ import {getActiveRoles} from "../../actions/users/UserAction";
 import AppHeader from "./app-header";
 import AppSidebar from "./app-sidebar";
 import {MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/icons';
+import MobileMenu from "./mobile-menu";
 
 const AppLayout = (props) => {
     const [loading, setLoading] = useState(true)
@@ -29,6 +30,7 @@ const AppLayout = (props) => {
             </div>
             <Layout>
                 <AppHeader
+                    mobileMenu={<MobileMenu collapsed={collapsed}/>}
                     collapseButton={
                         <Button
                             type="text"

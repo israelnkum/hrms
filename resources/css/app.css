@@ -56,12 +56,12 @@
     background: #1a337e !important;
 }
 
-.anticon svg {
+.anticon-ellipsis svg {
     color: white !important;
     display: none;
 }
 
-.anticon::after {
+.anticon-ellipsis::after {
     content: "MORE" !important;
     font-size: 11px !important;
     color: #f0f0f0 !important;
