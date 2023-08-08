@@ -64,3 +64,11 @@
 .slick-prev:before {
     content: url("/images/arrow-left.svg") !important;
 }
+
+:where(.css-dev-only-do-not-override-mxhywb).ant-menu-horizontal .ant-menu-item, :where(.css-dev-only-do-not-override-mxhywb).ant-menu-horizontal .ant-menu-submenu-title::after {
+    content: "MORE";
+}
+
+:where(.css-dev-only-do-not-override-mxhywb).ant-menu .ant-menu-submenu-title .anticon {
+    display: none;
+}

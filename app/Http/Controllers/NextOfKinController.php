@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateJobDetailRequest;
 use App\Http\Requests\UpdateNextOfKinRequest;
 use App\Http\Resources\NextOfKinResource;
 use App\Models\ActivityLog;
 use App\Models\Employee;
-use App\Models\NextOfKin;
 use App\Traits\InformationUpdate;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -23,7 +21,11 @@ class NextOfKinController extends Controller
     {
         $employee = Employee::findOrFail($employeeId);
 
-        return new NextOfKinResource($employee->nextOfKin);
+        if (!$employee->nextOfKin) {
+            $nextOfKin = $employee->nextOfKin()->create();
+        }
+
+        return new NextOfKinResource($employee->nextOfKin ?? $nextOfKin);
     }
 
     /**

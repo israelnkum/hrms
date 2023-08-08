@@ -57,7 +57,7 @@
                 </button>
             </div>
 
-            <div class="col-md-12 py-5">
+            <div class="col-md-12 py-1">
                 <a href="{{ url('auth/google/redirect') }}" class="text-decoration-none">
                     <button type="button" class="btn btn-light btn-lg btn-block border">
                         <img width="20" src="{{asset('assets/img/google.svg')}}" class="mr-2" alt="icon">

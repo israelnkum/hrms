@@ -3824,3 +3824,201 @@
 [2021-08-06 12:46:40][9507] Failed:     App\Notifications\VoteCast
 [2021-08-06 12:46:40][9505] Failed:     App\Notifications\VoteCast
 [2021-08-06 12:46:40][9506] Failed:     App\Notifications\VoteCast
+  2023-05-21 23:20:15 App\Notifications\LeaveRequestNotification ..... RUNNING
+  2023-05-21 23:20:20 App\Notifications\LeaveRequestNotification  4,893.48ms DONE
+  2023-05-21 23:22:30 App\Notifications\LeaveStatusNotification ...... RUNNING
+  2023-05-21 23:22:30 App\Notifications\hr\LeaveStatusHrNotification . RUNNING
+  2023-05-21 23:22:33 App\Notifications\LeaveStatusNotification  3,468.96ms DONE
+  2023-05-21 23:22:33 App\Notifications\hr\LeaveStatusHrNotification  3,471.61ms DONE
+  2023-05-21 23:25:01 App\Notifications\hr\LeaveStatusHrNotification . RUNNING
+  2023-05-21 23:25:01 App\Notifications\hr\LeaveStatusHrNotification . RUNNING
+  2023-05-21 23:25:02 App\Notifications\hr\LeaveStatusHrNotification  1,622.75ms DONE
+  2023-05-21 23:25:05 App\Notifications\hr\LeaveStatusHrNotification  3,652.64ms DONE
+  2023-05-21 23:25:51 App\Notifications\LeaveStatusNotification ...... RUNNING
+  2023-05-21 23:25:53 App\Notifications\LeaveStatusNotification  1,774.56ms DONE
+PHP Fatal error:  Uncaught ErrorException: include(/opt/lampp/htdocs/ttu/hrms/vendor/composer/../nunomaduro/collision/src/Adapters/Laravel/IgnitionSolutionsRepository.php): Failed to open stream: No such file or directory in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php:571
+Stack trace:
+#0 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): include('...')
+#3 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /opt/lampp/htdocs/ttu/hrms/vendor/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php(54): Composer\Autoload\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(885): NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider->NunoMaduro\Collision\Adapters\Laravel\{closure}()
+#6 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(770): Illuminate\Container\Container->build()
+#7 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(856): Illuminate\Container\Container->resolve()
+#8 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(706): Illuminate\Foundation\Application->resolve()
+#9 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(841): Illuminate\Container\Container->make()
+#10 /opt/lampp/htdocs/ttu/hrms/vendor/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php(66): Illuminate\Foundation\Application->make()
+#11 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): NunoMaduro\Collision\Adapters\Laravel\ExceptionHandler->renderForConsole()
+#12 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(204): Illuminate\Foundation\Bootstrap\HandleExceptions->renderForConsole()
+#13 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#14 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#15 {main}
+  thrown in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php on line 571
+PHP Fatal error:  Uncaught ErrorException: include(/opt/lampp/htdocs/ttu/hrms/vendor/composer/../symfony/error-handler/Error/FatalError.php): Failed to open stream: No such file or directory in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php:571
+Stack trace:
+#0 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): include('...')
+#3 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Composer\Autoload\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(242): Illuminate\Foundation\Bootstrap\HandleExceptions->fatalErrorFromPhpError()
+#6 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#7 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#8 {main}
+  thrown in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php on line 571
+PHP Fatal error:  Uncaught ErrorException: include(/opt/lampp/htdocs/ttu/hrms/vendor/composer/../nunomaduro/collision/src/Adapters/Laravel/IgnitionSolutionsRepository.php): Failed to open stream: No such file or directory in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php:571
+Stack trace:
+#0 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): include('...')
+#3 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /opt/lampp/htdocs/ttu/hrms/vendor/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php(54): Composer\Autoload\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(885): NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider->NunoMaduro\Collision\Adapters\Laravel\{closure}()
+#6 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(770): Illuminate\Container\Container->build()
+#7 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(856): Illuminate\Container\Container->resolve()
+#8 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(706): Illuminate\Foundation\Application->resolve()
+#9 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(841): Illuminate\Container\Container->make()
+#10 /opt/lampp/htdocs/ttu/hrms/vendor/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php(66): Illuminate\Foundation\Application->make()
+#11 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): NunoMaduro\Collision\Adapters\Laravel\ExceptionHandler->renderForConsole()
+#12 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(204): Illuminate\Foundation\Bootstrap\HandleExceptions->renderForConsole()
+#13 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#14 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#15 {main}
+  thrown in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php on line 571
+PHP Fatal error:  Uncaught ErrorException: include(/opt/lampp/htdocs/ttu/hrms/vendor/composer/../symfony/error-handler/Error/FatalError.php): Failed to open stream: No such file or directory in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php:571
+Stack trace:
+#0 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): include('...')
+#3 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Composer\Autoload\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(242): Illuminate\Foundation\Bootstrap\HandleExceptions->fatalErrorFromPhpError()
+#6 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#7 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#8 {main}
+  thrown in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php on line 571
+PHP Fatal error:  Uncaught ErrorException: include(/opt/lampp/htdocs/ttu/hrms/vendor/composer/../nunomaduro/collision/src/Adapters/Laravel/IgnitionSolutionsRepository.php): Failed to open stream: No such file or directory in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php:571
+Stack trace:
+#0 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): include('...')
+#3 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /opt/lampp/htdocs/ttu/hrms/vendor/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php(54): Composer\Autoload\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(885): NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider->NunoMaduro\Collision\Adapters\Laravel\{closure}()
+#6 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(770): Illuminate\Container\Container->build()
+#7 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(856): Illuminate\Container\Container->resolve()
+#8 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(706): Illuminate\Foundation\Application->resolve()
+#9 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(841): Illuminate\Container\Container->make()
+#10 /opt/lampp/htdocs/ttu/hrms/vendor/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php(66): Illuminate\Foundation\Application->make()
+#11 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): NunoMaduro\Collision\Adapters\Laravel\ExceptionHandler->renderForConsole()
+#12 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(204): Illuminate\Foundation\Bootstrap\HandleExceptions->renderForConsole()
+#13 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#14 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#15 {main}
+  thrown in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php on line 571
+PHP Fatal error:  Uncaught ErrorException: include(/opt/lampp/htdocs/ttu/hrms/vendor/composer/../symfony/error-handler/Error/FatalError.php): Failed to open stream: No such file or directory in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php:571
+Stack trace:
+#0 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): include('...')
+#3 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Composer\Autoload\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(242): Illuminate\Foundation\Bootstrap\HandleExceptions->fatalErrorFromPhpError()
+#6 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#7 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#8 {main}
+  thrown in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php on line 571
+PHP Fatal error:  Uncaught ErrorException: include(/opt/lampp/htdocs/ttu/hrms/vendor/composer/../nunomaduro/collision/src/Adapters/Laravel/IgnitionSolutionsRepository.php): Failed to open stream: No such file or directory in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php:571
+Stack trace:
+#0 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): include('...')
+#3 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /opt/lampp/htdocs/ttu/hrms/vendor/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php(54): Composer\Autoload\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(885): NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider->NunoMaduro\Collision\Adapters\Laravel\{closure}()
+#6 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(770): Illuminate\Container\Container->build()
+#7 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(856): Illuminate\Container\Container->resolve()
+#8 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(706): Illuminate\Foundation\Application->resolve()
+#9 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(841): Illuminate\Container\Container->make()
+#10 /opt/lampp/htdocs/ttu/hrms/vendor/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php(66): Illuminate\Foundation\Application->make()
+#11 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): NunoMaduro\Collision\Adapters\Laravel\ExceptionHandler->renderForConsole()
+#12 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(204): Illuminate\Foundation\Bootstrap\HandleExceptions->renderForConsole()
+#13 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#14 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#15 {main}
+  thrown in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php on line 571
+PHP Fatal error:  Uncaught ErrorException: include(/opt/lampp/htdocs/ttu/hrms/vendor/composer/../symfony/error-handler/Error/FatalError.php): Failed to open stream: No such file or directory in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php:571
+Stack trace:
+#0 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): include('...')
+#3 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Composer\Autoload\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(242): Illuminate\Foundation\Bootstrap\HandleExceptions->fatalErrorFromPhpError()
+#6 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#7 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#8 {main}
+  thrown in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php on line 571
+PHP Fatal error:  Uncaught ErrorException: include(/opt/lampp/htdocs/ttu/hrms/vendor/composer/../nunomaduro/collision/src/Adapters/Laravel/IgnitionSolutionsRepository.php): Failed to open stream: No such file or directory in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php:571
+Stack trace:
+#0 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): include('...')
+#3 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /opt/lampp/htdocs/ttu/hrms/vendor/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php(54): Composer\Autoload\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(885): NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider->NunoMaduro\Collision\Adapters\Laravel\{closure}()
+#6 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(770): Illuminate\Container\Container->build()
+#7 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(856): Illuminate\Container\Container->resolve()
+#8 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(706): Illuminate\Foundation\Application->resolve()
+#9 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(841): Illuminate\Container\Container->make()
+#10 /opt/lampp/htdocs/ttu/hrms/vendor/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php(66): Illuminate\Foundation\Application->make()
+#11 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): NunoMaduro\Collision\Adapters\Laravel\ExceptionHandler->renderForConsole()
+#12 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(204): Illuminate\Foundation\Bootstrap\HandleExceptions->renderForConsole()
+#13 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#14 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#15 {main}
+  thrown in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php on line 571
+PHP Fatal error:  Uncaught ErrorException: include(/opt/lampp/htdocs/ttu/hrms/vendor/composer/../symfony/error-handler/Error/FatalError.php): Failed to open stream: No such file or directory in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php:571
+Stack trace:
+#0 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): include('...')
+#3 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Composer\Autoload\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(242): Illuminate\Foundation\Bootstrap\HandleExceptions->fatalErrorFromPhpError()
+#6 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#7 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#8 {main}
+  thrown in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php on line 571
+PHP Fatal error:  Uncaught ErrorException: include(/opt/lampp/htdocs/ttu/hrms/vendor/composer/../nunomaduro/collision/src/Adapters/Laravel/IgnitionSolutionsRepository.php): Failed to open stream: No such file or directory in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php:571
+Stack trace:
+#0 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): include('...')
+#3 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /opt/lampp/htdocs/ttu/hrms/vendor/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php(54): Composer\Autoload\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(885): NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider->NunoMaduro\Collision\Adapters\Laravel\{closure}()
+#6 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(770): Illuminate\Container\Container->build()
+#7 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(856): Illuminate\Container\Container->resolve()
+#8 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Container/Container.php(706): Illuminate\Foundation\Application->resolve()
+#9 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(841): Illuminate\Container\Container->make()
+#10 /opt/lampp/htdocs/ttu/hrms/vendor/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php(66): Illuminate\Foundation\Application->make()
+#11 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(218): NunoMaduro\Collision\Adapters\Laravel\ExceptionHandler->renderForConsole()
+#12 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(204): Illuminate\Foundation\Bootstrap\HandleExceptions->renderForConsole()
+#13 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#14 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#15 {main}
+  thrown in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php on line 571
+PHP Fatal error:  Uncaught ErrorException: include(/opt/lampp/htdocs/ttu/hrms/vendor/composer/../symfony/error-handler/Error/FatalError.php): Failed to open stream: No such file or directory in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php:571
+Stack trace:
+#0 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
+#1 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#2 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(571): include('...')
+#3 /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php(428): Composer\Autoload\includeFile()
+#4 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(255): Composer\Autoload\ClassLoader->loadClass()
+#5 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(242): Illuminate\Foundation\Bootstrap\HandleExceptions->fatalErrorFromPhpError()
+#6 /opt/lampp/htdocs/ttu/hrms/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#7 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#8 {main}
+  thrown in /opt/lampp/htdocs/ttu/hrms/vendor/composer/ClassLoader.php on line 571

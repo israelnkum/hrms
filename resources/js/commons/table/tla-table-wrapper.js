@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import { Table } from 'antd'
-import { connect } from 'react-redux'
+import {Table} from 'antd'
+import {connect} from 'react-redux'
 import TlaPagination from "./TlaPagination";
 import ViewAllWrapper from "../view-all-wrapper";
 
@@ -21,30 +21,31 @@ function TlaTableWrapper({
         onChange: onSelectChange,
     };
     return (
-        <TlaPagination extra={ extra } meta={ meta } loadData={ (pageNumber) => {
+        <TlaPagination extra={extra} meta={meta} loadData={(pageNumber) => {
             const urlParams = new URLSearchParams(filterObj)
             urlParams.append('page', pageNumber);
             setLoading(true);
             (callbackFunction(urlParams)).then(() => {
                 setLoading(false)
             })
-        } }>
+        }}>
 
-            <Table className={ 'w-full' }
-                   rowSelection={ hasSelection ? rowSelection : null }
-                   pagination={ false }
-                   loading={ loading } dataSource={ data } scroll={ {x: 20} } rowKey={ 'id' }>
-                {
-                    numberColumn &&
-                    <Table.Column width={ 50 } title={ numberColumnTitle } render={ (text, record, index) => {
-                        let number = index + meta.from
-                        return <>{ `${ number++ }.` }</>
-                    } }/>
-                }
-                <ViewAllWrapper loading={ formLoading } noData={ data.length === 0 }>
-                    { children }
-                </ViewAllWrapper>
-            </Table>
+            <ViewAllWrapper loading={formLoading} noData={data.length === 0}>
+                <Table className={'w-full'}
+                       rowSelection={hasSelection ? rowSelection : null}
+                       pagination={false}
+                       loading={loading} dataSource={data} scroll={{x: 20}} rowKey={'id'}>
+                    {
+                        numberColumn &&
+                        <Table.Column width={50} title={numberColumnTitle} render={(text, record, index) => {
+                            let number = index + meta.from
+                            return <>{`${number++}.`}</>
+                        }}/>
+                    }
+
+                    {children}
+                </Table>
+            </ViewAllWrapper>
         </TlaPagination>
     )
 }

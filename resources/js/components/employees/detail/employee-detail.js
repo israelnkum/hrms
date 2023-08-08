@@ -21,7 +21,7 @@ function EmployeeDetail({employee}) {
                 <Navs/>
             </Affix>
             <div className={ 'bg-white flex pr-4' }>
-                <div className={ 'w-[200px]' }>
+                <div className={ 'hidden md:block w-[200px]' }>
                     {/*<div className={ 'bg-gray-100 mb-2 py-4 text-center' }>
                      <h3>Out Until Feb 28</h3>
                      <h5>Annual Leave</h5>
@@ -52,7 +52,7 @@ function EmployeeDetail({employee}) {
                         </div>
                     </div>
                 </div>
-                <div className={ 'grow pt-4 pl-4 bg-white' }>
+                <div className={ 'w-full grow pt-4 pl-2 md:pl-4 bg-white' }>
                     <Outlet/>
                 </div>
             </div>

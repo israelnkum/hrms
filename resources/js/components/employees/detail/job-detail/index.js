@@ -23,7 +23,8 @@ function Job(props) {
                 newData={info_update}
                 fields={[
                     'job_title', 'joined_date', 'location',
-                    'job_category', 'contract_start_date', 'contract_end_date', 'sub_unit'
+                    'job_category', 'contract_start_date',
+                    'contract_end_date', 'sub_unit', 'position_id', 'job_category_id'
                 ]}/>
         </Spin>
     )

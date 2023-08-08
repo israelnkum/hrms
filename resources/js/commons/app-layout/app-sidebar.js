@@ -15,10 +15,7 @@ function AppSidebar(props) {
 
     return (
         <Affix offsetTop={ 1 }>
-            <Layout.Sider style={{
-                overflow: 'auto',
-                height: '100vh'
-            }} theme={ 'light' } trigger={ null } collapsible collapsed={ collapsed }>
+            <Layout.Sider style={{overflow: 'auto', height: '100vh'}} theme={ 'light' } trigger={ null } collapsible collapsed={ collapsed }>
                 <div className={ 'flex justify-center items-center' }>
                     {
                         collapsed ?

@@ -40,7 +40,7 @@ function PreviousRanks (props) {
 
                 <Column  title="Action" render={(value) => (
                     <Space size={0}>
-                        <TlaEdit icon data={value} link={'ranks/form'} type={'text'}/>
+                        <TlaEdit icon data={value} link={'form'} type={'text'}/>
                         <TlaConfirm title={'Contact'} callBack={()=>{
                             deletePreviousRanks(value.id).then(() => TlaSuccess('Record Deleted'))
                         }}/>

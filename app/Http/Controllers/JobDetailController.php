@@ -71,14 +71,16 @@ class JobDetailController extends Controller
                 $this->requestUpdate($photo);
             }
 
-            PreviousPosition::updateOrCreate([
-                'position_id' => $request->position_id,
-                'employee_id' => $jobDetail->employee_id
-            ], [
-                'position_id' => $request->position_id,
-                'employee_id' => $jobDetail->employee_id,
-                'user_id' => Auth::id()
-            ]);
+            if ($request->has('position_id') && $request->position_id != 'null') {
+                PreviousPosition::updateOrCreate([
+                    'position_id' => $request->position_id,
+                    'employee_id' => $jobDetail->employee_id
+                ], [
+                    'position_id' => $request->position_id,
+                    'employee_id' => $jobDetail->employee_id,
+                    'user_id' => Auth::id()
+                ]);
+            }
 
             $user = Auth::user();
 

@@ -20,7 +20,7 @@ function PendingActions({getPendingActions, employeeId}) {
                 View all notifications
             </Link>] }
               title={
-                  <div className={ 'flex items-center justify-between gap-x-2' }>
+                  <div className={ 'flex flex-wrap items-center justify-between gap-2' }>
                       <div className={ 'flex gap-2 items-center' }>
                           <AiOutlineNotification className={ 'text-3xl' }/>
                           What is happening in TTU?
@@ -32,7 +32,7 @@ function PendingActions({getPendingActions, employeeId}) {
                       </div>
                   </div>
               }
-              className={ 'rounded-lg border-none shadow-sm h-full' }>
+              className={ 'rounded-lg border-none shadow-sm h-full w-full' }>
             <Spin spinning={ loading }>
                 <div className={ 'overflow-auto max-h-[200px]' }>
                     <PendingItem/>

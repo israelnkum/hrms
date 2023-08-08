@@ -5,6 +5,7 @@ namespace App\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use JsonException;
 
 trait InformationUpdate
@@ -26,7 +27,7 @@ trait InformationUpdate
         $newData = json_decode(json_encode($newInfo, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
         $oldData = json_decode(json_encode($oldInfo, JSON_THROW_ON_ERROR), true, 512, JSON_THROW_ON_ERROR);
 
-        $difference = array_diff($newData, $oldData);
+        $difference = array_diff_assoc($newData, $oldData);
 
         $difference = array_diff($difference, ["null"]);
         unset($difference['_method']);

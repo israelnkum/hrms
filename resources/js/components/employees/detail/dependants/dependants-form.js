@@ -33,7 +33,7 @@ function DependantsForm(props) {
             onSubmit={formValues.id === 0 ? addDependant : updateDependant}
             formTitle={(formValues.id === 0 ? 'New' : 'Edit') + ' Dependant'}>
             <Row gutter={10}>
-                <Col span={12}>
+                <Col span={24} sm={24} md={12}>
                     <Form.Item name="name" label="Name"
                                rules={[
                                    {
@@ -44,11 +44,11 @@ function DependantsForm(props) {
                         <Input size={'large'}/>
                     </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col span={24} sm={24} md={12}>
                     <TlaSelect name={'relationship'} label={'Relationship'} options={relationships} optionKey={'name'}
                                required/>
                 </Col>
-                <Col span={12}>
+                <Col span={24} sm={24} md={12}>
                     <Form.Item name="phone_number" label="Phone"
                                rules={[
                                    {
@@ -59,12 +59,12 @@ function DependantsForm(props) {
                         <Input size={'large'}/>
                     </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col span={24} sm={24} md={12}>
                     <Form.Item name="alt_phone_number" label="Alt Phone">
                         <Input size={'large'}/>
                     </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col span={24} sm={24} md={12}>
                     <Form.Item name="dob" label="Date Of Birth">
                         <DatePicker size={'large'}/>
                     </Form.Item>

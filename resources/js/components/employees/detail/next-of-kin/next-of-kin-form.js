@@ -29,7 +29,7 @@ function NextOfKinForm(props) {
             onSubmit={ updateNextOfKin }
             formTitle={ `Edit Next Of Kin` }>
             <Row gutter={ 10 }>
-                <Col span={ 12 }>
+                <Col span={24} sm={24} md={12}>
                     <Form.Item
                         rules={ [
                             {
@@ -42,7 +42,7 @@ function NextOfKinForm(props) {
                         <Input size={ "large" }/>
                     </Form.Item>
                 </Col>
-                <Col span={ 12 }>
+                <Col span={24} sm={24} md={12}>
                     <Form.Item
                         rules={ [
                             {
@@ -55,21 +55,21 @@ function NextOfKinForm(props) {
                         <Input size={ "large" }/>
                     </Form.Item>
                 </Col>
-                <Col span={ 12 }>
+                <Col span={24} sm={24} md={12}>
                     <Form.Item
                         name="alt_phone_number"
                         label="Alt phone number">
                         <Input size={ "large" }/>
                     </Form.Item>
                 </Col>
-                <Col span={ 12 }>
+                <Col span={24} sm={24} md={12}>
                     <Form.Item
                         name="email"
                         label="email">
                         <Input size={ "large" }/>
                     </Form.Item>
                 </Col>
-                <Col span={ 24 }>
+                <Col span={24} sm={24} md={12}>
                     <Form.Item
                         name="address"
                         label="address">
@@ -86,8 +86,7 @@ function NextOfKinForm(props) {
                                 required: true,
                                 message: "Required",
                             },
-                        ] }
-                    >
+                        ] }>
                         <Input size={ "large" }/>
                     </Form.Item>
                 </Col>
