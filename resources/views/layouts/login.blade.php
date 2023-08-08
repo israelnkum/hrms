@@ -85,7 +85,7 @@
                                 @yield('content')
                             </div>
                             <div class="text-center">
-                                <p>SMART HR &copy; {{date('Y')}} - Powered by TPConnect</p>
+                                <p>SMART HR &copy; {{date('Y')}} - Powered by Directorate of ICT</p>
                             </div>
                         </div>
                     </div>

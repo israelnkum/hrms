@@ -8,6 +8,7 @@ import {Link} from "react-router-dom";
 import {logout} from '../../actions/logout/LogoutAction'
 import TlaImage from "../tla-image";
 import {formatUrl} from "../../utils";
+import NoTextLogo from "../../assets/img/logo-no-text.png";
 
 function AppHeader({user, collapseButton, notificationNavs}) {
     const dispatch = useDispatch()
@@ -38,9 +39,11 @@ function AppHeader({user, collapseButton, notificationNavs}) {
     return (
         <Affix offsetTop={1}>
             <div className={'bg-white h-[60px] px-2 md:px-5 flex items-center justify-between border-bottom'}>
-                <div>
+                <img className={'block md:hidden'} width={ 50 } src={ NoTextLogo } alt="TTU HRMS"/>
+                <div className={'hidden md:block'}>
                     {collapseButton}
                 </div>
+
                 <Space size={'large'}>
                     <Link to={'/notifications/leave-request'}>
                         <Badge status="processing" count={notificationNavs?.total} overflowCount={90}>

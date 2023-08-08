@@ -16,14 +16,14 @@ function Navs({employee}) {
         },
         {
             title: 'Next of kin',
-            link:  formatUrl('Next of kin'),
+            link: formatUrl('Next of kin'),
             children: [],
             permissions: [],
             icon: 'home'
         },
         {
             title: 'Contact Details',
-            link:  formatUrl('Contact Details'),
+            link: formatUrl('Contact Details'),
             children: [],
             permissions: [],
             icon: 'home'
@@ -42,13 +42,13 @@ function Navs({employee}) {
             permissions: [],
             icon: 'home'
         },
-    /*    {
-            title: 'Direct Reports',
-            link: formatUrl('Direct Reports'),
-            children: [],
-            permissions: [],
-            icon: 'home'
-        },*/
+        /*    {
+                title: 'Direct Reports',
+                link: formatUrl('Direct Reports'),
+                children: [],
+                permissions: [],
+                icon: 'home'
+            },*/
         {
             title: 'Emergency Contacts',
             link: formatUrl('Emergency Contacts'),
@@ -75,10 +75,10 @@ function Navs({employee}) {
     return (
         <div className={'bg-primary-800 px-4 rounded-t-lg'}>
             <div className={'relative flex gap-3 items-center'}>
-                <div className={'absolute top-[30px]'}>
+                <div className={'absolute top-[30px] hidden md:block'}>
                     <TlaImage size={130} src={employee.photo} name={employee.name}/>
                 </div>
-                <div className={'flex flex-col justify-between ml-[176px]'}>
+                <div className={'flex flex-col justify-between ml-0 md:!ml-[176px]'}>
                     <div className={'mt-3 flex justify-between items-center mb-3'}>
                         <div>
                             <h3 className={'text-2xl text-white font-bold leading-1 mb-0'}>{employee.name}</h3>
@@ -88,7 +88,9 @@ function Navs({employee}) {
                             {/*<Button type={'default'} className={'text-white hover:text-white'}>Request Change</Button>*/}
                         </div>
                     </div>
-                    <MenuHelper menus={test} theme={'dark'} direction={'horizontal'}/>
+                    <div className={'w-[300px] md:w-full'}>
+                        <MenuHelper menus={test} theme={'dark'} direction={'horizontal'}/>
+                    </div>
                 </div>
             </div>
         </div>

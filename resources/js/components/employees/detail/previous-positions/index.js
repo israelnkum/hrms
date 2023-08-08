@@ -41,7 +41,7 @@ function PreviousPositions (props) {
 
                 <Column  title="Action" render={(value) => (
                     <Space size={0}>
-                        <TlaEdit icon data={value} link={'positions/form'} type={'text'}/>
+                        <TlaEdit icon data={value} link={'form'} type={'text'}/>
                         <TlaConfirm title={'Position'} callBack={()=>{
                             deletePreviousPositions(value.id).then(() => TlaSuccess('Position Deleted'))
                         }}/>
