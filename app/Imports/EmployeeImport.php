@@ -27,7 +27,7 @@ class EmployeeImport implements ToModel, WithHeadingRow, WithProgressBar
 
         if ($row['rank'] && $row['rank'] !== '') {
             $rank = (new Rank)->firstOrCreate([
-                'name' => $row['rank']
+                'name' => ucwords(strtolower($row['rank']))
             ]);
         }
 
@@ -35,7 +35,7 @@ class EmployeeImport implements ToModel, WithHeadingRow, WithProgressBar
 
         if ($row['gtec_placement'] && $row['gtec_placement'] !== '') {
             $gtec_placement = Rank::firstOrCreate([
-                'name' => $row['gtec_placement']
+                'name' => ucwords(strtolower($row['gtec_placement']))
             ]);
         }
 

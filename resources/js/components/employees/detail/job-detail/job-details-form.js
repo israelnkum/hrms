@@ -39,7 +39,7 @@ function JobDetailsForm(props) {
             initialValues={formValues}
             onSubmit={updateJobDetail}
             formTitle={`Edit Job Details`}>
-            <div className={'flex gap-2'}>
+            <div className={'flex sm:flex-wrap flex-nowrap'}>
                 <Row gutter={10}>
                     <Col span={24}>
                         <TlaSelect label={'Position'} name={'position_id'} optionKey={'name'} options={positions}/>
