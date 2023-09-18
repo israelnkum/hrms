@@ -43,9 +43,12 @@
             </div>
             <div class="col-md-6 col-lg-6 col-12 text-right">
                 @if (Route::has('password.request'))
-                    <a class="text-primary" href="{{ route('password.request') }}">
+                    <a target="_blank" class="text-primary" href="https://forms.gle/MJnWgTh24Lmex5iy5">
                         {{ __('Forgot Password?') }}
                     </a>
+                    {{--<a class="text-primary" href="{{ route('password.request') }}">
+                        {{ __('Forgot Password?') }}
+                    </a>--}}
                 @endif
             </div>
         </div>
