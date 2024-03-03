@@ -64,7 +64,7 @@
                 <a href="{{ url('auth/google/redirect') }}" class="text-decoration-none">
                     <button type="button" class="btn btn-light btn-lg btn-block border">
                         <img width="20" src="{{asset('assets/img/google.svg')}}" class="mr-2" alt="icon">
-                        {{ __('Login with Google') }} test
+                        {{ __('Login with Google') }}
                     </button>
                 </a>
             </div>
