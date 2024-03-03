@@ -41,7 +41,7 @@ MyTeam.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    teamMembers: state.commonReducer.teamMembers
+    teamMembers: state.commonReducer?.teamMembers ?? []
 })
 
 const mapDispatchToProps = (dispatch) => ({

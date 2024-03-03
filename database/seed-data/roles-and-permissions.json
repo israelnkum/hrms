@@ -8,7 +8,8 @@
             "add-employee",
             "edit-employee",
             "delete-employee",
-            "view-employee"
+            "view-employee",
+            "approve-employee-update"
         ]
     },
     {
