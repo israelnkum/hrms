@@ -90,35 +90,35 @@ function ContactDetailsForm(props) {
                         </Select>
                     </Form.Item>
                 </Col>
-                <Col span={8}>
+                <Col span={12} xs={12} md={12}>
                     <Form.Item
                         name="telephone"
                         label="Telephone">
                         <Input size={"large"} />
                     </Form.Item>
                 </Col>
-                <Col span={8}>
+                <Col span={12} xs={12} md={12}>
                     <Form.Item
                         name="work_telephone"
                         label="Work Telephone">
                         <Input size={"large"} />
                     </Form.Item>
                 </Col>
-                <Col span={8}>
+                {/*<Col span={12} xs={12} md={8}>
                     <Form.Item
                         name="zip_code"
                         label="Zip Code">
                         <Input size={"large"} />
                     </Form.Item>
-                </Col>
-                <Col span={12}>
+                </Col>*/}
+                <Col span={24} xs={24} md={12}>
                     <Form.Item
                         name="work_email"
                         label="Work Email">
                         <Input size={"large"} />
                     </Form.Item>
                 </Col>
-                <Col span={12}>
+                <Col span={24} xs={24} md={12}>
                     <Form.Item
                         name="other_email"
                         label="Other Email">

@@ -86,8 +86,8 @@ MenuHelper.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        activeRoles: state.userReducer.activeRoles,
-        permissions: state.userReducer.permissions,
+        activeRoles: state.userReducer?.activeRoles ?? [],
+        permissions: state.userReducer?.permissions ?? [],
     }
 }
 

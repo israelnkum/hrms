@@ -100,7 +100,7 @@ PendingItem.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    data: state.commonReducer.pendingActions?.leaveRequest,
+    data: state.commonReducer.pendingActions?.leaveRequest ?? [],
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -14,14 +14,10 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialAuthController
 {
-    /**
-     * @return RedirectResponse
-     */
-    public function redirectToGoogle(): RedirectResponse
+    public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->with(["prompt" => "select_account"])->redirect();
     }
-
 
     public function handleGoogleCallback(): RedirectResponse
     {

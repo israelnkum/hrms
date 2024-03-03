@@ -21,8 +21,8 @@ function EmployeeForm(props) {
         staff_id: null,
         marital_status: null,
         ...state.data,
-        dob: state?.data ? (state?.data.dob ? dayjs(state?.data.dob) : null) : null,
-        ...state?.data?.info_update?.new_info
+        ...state?.data?.info_update?.new_info,
+        dob: state?.data?.info_update?.new_info ? (state?.data?.info_update?.new_info.dob ? dayjs(state?.data?.info_update?.new_info.dob) : null) : (state?.data ? (state?.data.dob ? dayjs(state?.data.dob) : null) : null),
     }
 
     const Render = ({children, editing = true}) => (
@@ -38,14 +38,14 @@ function EmployeeForm(props) {
             formTitle={ `${ (formValues.id === 0 ? "New" : "Edit") } Employee` }>
             <Row gutter={ 10 }>
                 <Render editing={ false }>
-                    <Col span={ 8 }>
+                    <Col span={24} xs={24} md={ 8 }>
                         <Form.Item name="ssnit_number" label="ssnit number">
                             <Input size={ 'large' }/>
                         </Form.Item>
                     </Col>
                 </Render>
 
-                <Col span={ formValues.id === 0 ? 12 : 8 }>
+                <Col span={24} xs={24} md={ formValues.id === 0 ? 12 : 8 }>
                     <Form.Item name="first_name" label="First Name"
                                rules={ [
                                    {
@@ -56,12 +56,12 @@ function EmployeeForm(props) {
                         <Input size={ 'large' }/>
                     </Form.Item>
                 </Col>
-                <Col span={ formValues.id === 0 ? 12 : 8 }>
+                <Col span={24} xs={24} md={ formValues.id === 0 ? 12 : 8 }>
                     <Form.Item name="middle_name" label="Middle Name">
                         <Input size={ 'large' }/>
                     </Form.Item>
                 </Col>
-                <Col span={ formValues.id === 0 ? 12 : 8 }>
+                <Col span={24} xs={24} md={ formValues.id === 0 ? 12 : 8 }>
                     <Form.Item name="last_name" label="Last Name"
                                rules={ [
                                    {
@@ -72,13 +72,13 @@ function EmployeeForm(props) {
                         <Input size={ 'large' }/>
                     </Form.Item>
                 </Col>
-                <Col span={ formValues.id === 0 ? 12 : 8 }>
+                <Col span={24} xs={12} md={ formValues.id === 0 ? 12 : 8 }>
                     <Form.Item name="staff_id" label="Staff ID">
-                        <Input disabled={employeeId === formValues.id} size={ 'large' }/>
+                        <Input size={ 'large' }/>
                     </Form.Item>
                 </Col>
                 <Render editing={ false }>
-                    <Col span={ 8 }>
+                    <Col span={24} xs={12} md={ 8 }>
                         <Form.Item name="gender" label="gender">
                             <Select size={ 'large' } showSearch>
                                 <Select.Option value={ 'Male' }>Male</Select.Option>
@@ -87,7 +87,7 @@ function EmployeeForm(props) {
                             </Select>
                         </Form.Item>
                     </Col>
-                    <Col span={ 8 }>
+                    <Col span={24} xs={24} md={ 8 }>
                         <Form.Item name="marital_status" label="marital status">
                             <Select size={ 'large' } showSearch>
                                 <Select.Option value={ 'Single' }>Single</Select.Option>
@@ -96,18 +96,18 @@ function EmployeeForm(props) {
                             </Select>
                         </Form.Item>
                     </Col>
-                    <Col span={ 8 }>
-                        <TlaSelect disabled={employeeId === formValues.id} label={ 'Department' } name={ 'department_id' } optionKey={ 'name' }
+                    <Col span={24} xs={24} md={ 8 }>
+                        <TlaSelect label={ 'Department' } name={ 'department_id' } optionKey={ 'name' }
                                    options={ departments }/>
                     </Col>
-                    <Col span={ 8 }>
-                        <TlaSelect disabled={employeeId === formValues.id} label={ 'rank' } name={ 'rank_id' } optionKey={ 'name' } options={ ranks }/>
+                    <Col span={24} xs={24} md={ 8 }>
+                        <TlaSelect label={ 'rank' } name={ 'rank_id' } optionKey={ 'name' } options={ ranks }/>
                     </Col>
-                    <Col span={ 8 }>
-                        <TlaSelect disabled={employeeId === formValues.id} label={ 'gtec placement' } name={ 'gtec_placement' } optionKey={ 'name' }
+                    <Col span={24} xs={24} md={ 8 }>
+                        <TlaSelect label={ 'gtec placement' } name={ 'gtec_placement' } optionKey={ 'name' }
                                    options={ ranks }/>
                     </Col>
-                    <Col span={ 8 }>
+                    <Col span={24} xs={24} md={ 8 }>
                         <Form.Item name="dob" label="date of birth">
                             <DatePicker style={ {width: '100%'} } size={ 'large' }/>
                         </Form.Item>
