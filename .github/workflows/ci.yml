@@ -38,14 +38,14 @@ jobs:
             SANCTUM_STATEFUL_DOMAINS: hrms.ttuportal.com
             FRONTEND_URL: https://hrms.ttuportal.com
 
-#      - name: Commit built assets
-#        run: |
-#          git config --local user.email "israelnkum@gmail.com"
-#          git config --local user.name "Amos Appiah Nkum"
+      - name: Commit built assets
+        run: |
+          git config --local user.email "israelnkum@gmail.com"
+          git config --local user.name "Amos Appiah Nkum"
 #          git checkout -B master
 #          git add -f public/
 #          git commit -m "Build front-end assets"
-#          git push -f origin master
+          git push -f origin master
 
       - name: 📂 Deploy to server via ssh
         uses: appleboy/ssh-action@v0.1.7
