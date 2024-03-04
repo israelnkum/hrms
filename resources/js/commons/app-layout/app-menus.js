@@ -25,7 +25,7 @@ function AppMenus(props) {
                     <SideProfile collapsed={collapsed} size={collapsed ? 30 : 50} name={name}/>
                 </div>
             }
-            Testing Deployment
+
             <MenuHelper icons={{
                 home: <FiHome/>,
                 pim: <FiUser/>,
