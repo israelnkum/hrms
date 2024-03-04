@@ -42,9 +42,9 @@ jobs:
         run: |
           git config --local user.email "israelnkum@gmail.com"
           git config --local user.name "Amos Appiah Nkum"
-#          git checkout -B master
-#          git add -f public/
-#          git commit -m "Build front-end assets"
+          git checkout -B master
+          git add -f public/
+          git commit -m "Build front-end assets"
           git push -f origin master
 
       - name: 📂 Deploy to server via ssh
