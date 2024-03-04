@@ -18,15 +18,25 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '18.x'
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo MIX_REACT_APP_API_PATH="https://hrms.ttuportal.com/api" >> .env
+          echo APP_PROFILE_PICTURE_PATH="images/profile-pictures/" >> .env
+          echo MIX_REACT_APP_DOCS_PATH="/storage/docs" >> .env
+          echo MIX_REACT_APP_URL="https://hrms.ttuportal.com/" >> .env
+          echo SANCTUM_STATEFUL_DOMAINS="hrms.ttuportal.com" >> .env
+          echo FRONTEND_URL="https://hrms.ttuportal.com" >> .env
+          cat .env
       - run: npm install --legacy-peer-deps
-        env:
-          MIX_REACT_APP_API_PATH: https://hrms.ttuportal.com/api
-          APP_PROFILE_PICTURE_PATH: images/profile-pictures/
-          MIX_REACT_APP_DOCS_PATH: /storage/docs
-          MIX_REACT_APP_URL: https://hrms.ttuportal.com/
-          SANCTUM_STATEFUL_DOMAINS: hrms.ttuportal.com
-          FRONTEND_URL: https://hrms.ttuportal.com
       - run: npm run production
+        env:
+            MIX_REACT_APP_API_PATH: https://hrms.ttuportal.com/api
+            APP_PROFILE_PICTURE_PATH: images/profile-pictures/
+            MIX_REACT_APP_DOCS_PATH: /storage/docs
+            MIX_REACT_APP_URL: https://hrms.ttuportal.com/
+            SANCTUM_STATEFUL_DOMAINS: hrms.ttuportal.com
+            FRONTEND_URL: https://hrms.ttuportal.com
 
 #      - name: Commit built assets
 #        run: |
