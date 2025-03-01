@@ -1,0 +1,57 @@
+name: 🚀 Deploy on push master
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '18.x'
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo MIX_REACT_APP_API_PATH="https://hrms.ttuportal.com/api" >> .env
+          echo APP_PROFILE_PICTURE_PATH="images/profile-pictures/" >> .env
+          echo MIX_REACT_APP_DOCS_PATH="/storage/docs" >> .env
+          echo MIX_REACT_APP_URL="https://hrms.ttuportal.com/" >> .env
+          echo SANCTUM_STATEFUL_DOMAINS="hrms.ttuportal.com" >> .env
+          echo FRONTEND_URL="https://hrms.ttuportal.com" >> .env
+          cat .env
+      - run: npm install --legacy-peer-deps
+      - run: npm run production
+        env:
+            MIX_REACT_APP_API_PATH: https://hrms.ttuportal.com/api
+            APP_PROFILE_PICTURE_PATH: images/profile-pictures/
+            MIX_REACT_APP_DOCS_PATH: /storage/docs
+            MIX_REACT_APP_URL: https://hrms.ttuportal.com/
+            SANCTUM_STATEFUL_DOMAINS: hrms.ttuportal.com
+            FRONTEND_URL: https://hrms.ttuportal.com
+
+      - name: Commit built assets
+        run: |
+          git config --local user.email "israelnkum@gmail.com"
+          git config --local user.name "Amos Appiah Nkum"
+          git checkout -B master
+          git add -f public/
+          git commit -m "Build front-end assets"
+          git push -f origin master
+
+      - name: 📂 Deploy to server via ssh
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: "cd /var/www/html/hrms && sh ./.scripts/deploy.sh"
