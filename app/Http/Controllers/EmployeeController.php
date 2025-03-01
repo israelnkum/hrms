@@ -8,6 +8,7 @@ use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use App\Http\Resources\EmployeeResource;
 use App\Models\ActivityLog;
+use App\Models\ContactDetail;
 use App\Models\Employee;
 use App\Models\PreviousRank;
 use App\Traits\InformationUpdate;
@@ -19,7 +20,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -94,54 +94,6 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param UpdateEmployeeRequest $request
-     * @param $id
-     * @return EmployeeResource|JsonResponse
-     */
-    public function update(UpdateEmployeeRequest $request, $id): EmployeeResource|JsonResponse
-    {
-        DB::beginTransaction();
-        try {
-            $employee = Employee::findOrFail($id);
-            $request['dob'] = $request->dob !== 'null' ? Carbon::parse($request->dob)->format('Y-m-d') : null;
-
-            $this->infoDifference($employee, $request->all());
-            $this->requestUpdate($employee);
-
-            if ($request->has('file') && $request->file !== "null") {
-                $saveFile = new SaveFile($employee, $request->file('file'), $this->docPath, $this->allowedFiles);
-                $saveFile->save();
-            }
-
-            PreviousRank::updateOrCreate([
-                'rank_id' => $employee->rank_id,
-                'employee_id' => $employee->id
-            ], [
-                'rank_id' => $employee->rank_id,
-                'employee_id' => $employee->id,
-                'user_id' => Auth::id()
-            ]);
-
-            $user = Auth::user();
-
-            ActivityLog::add($user->employee->name . 'update the personal details for ' . $employee->name,
-                'updated', [''], 'job-details')
-                ->to($employee)
-                ->as($user);
-
-            DB::commit();
-
-            return new EmployeeResource($employee);
-        } catch (Exception $exception) {
-            return response()->json([
-                'message' => $exception->getMessage()
-            ], 400);
-        }
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param Employee $employee
@@ -197,5 +149,73 @@ class EmployeeController extends Controller
         }
 
         return EmployeeResource::collection($employeesQuery->paginate(10));
+    }
+
+    public function getStaff(Request $request)
+    {
+        $employee = Employee::query()->with('contactDetail')->where('staff_id', $request->staffId)->first();
+
+        if (!$employee) {
+            return response()->json([
+                'message' => 'Employee not found'
+            ], 400);
+        }
+
+        return response()->json($employee);
+    }
+
+    public function updateStaffMail(Request $request)
+    {
+        ContactDetail::find($request->id)->update($request->only(['work_email']));
+
+        return response()->json(["message" => "Email updated successfully"]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param UpdateEmployeeRequest $request
+     * @param $id
+     * @return EmployeeResource|JsonResponse
+     */
+    public function update(UpdateEmployeeRequest $request, $id): EmployeeResource|JsonResponse
+    {
+        DB::beginTransaction();
+        try {
+            $employee = Employee::findOrFail($id);
+            $request['dob'] = $request->dob !== 'null' ? Carbon::parse($request->dob)->format('Y-m-d') : null;
+
+            $this->infoDifference($employee, $request->all());
+            $this->requestUpdate($employee);
+
+            if ($request->has('file') && $request->file !== "null") {
+                $saveFile = new SaveFile($employee, $request->file('file'), $this->docPath, $this->allowedFiles);
+                $saveFile->save();
+            }
+
+            PreviousRank::updateOrCreate([
+                'rank_id' => $employee->rank_id,
+                'employee_id' => $employee->id
+            ], [
+                'rank_id' => $employee->rank_id,
+                'employee_id' => $employee->id,
+                'user_id' => Auth::id()
+            ]);
+
+            $user = Auth::user();
+
+            ActivityLog::add($user->employee->name . 'update the personal details for ' . $employee->name,
+                'updated', [''], 'job-details')
+                ->to($employee)
+                ->as($user);
+
+            DB::commit();
+
+            return new EmployeeResource($employee);
+        } catch (Exception $exception) {
+            return response()->json([
+                'message' => $exception->getMessage()
+            ], 400);
+        }
     }
 }

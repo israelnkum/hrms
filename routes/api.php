@@ -84,6 +84,10 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
 
     Route::get('notifications/navs', [CommonController::class, 'getNotificationNavs']);
     Route::apiResource('information-updates', InformationUpdateController::class);
+
+
+    Route::get('search-staff-id', [EmployeeController::class, 'getStaff']);
+    Route::post('update-mail', [EmployeeController::class, 'updateStaffMail']);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
