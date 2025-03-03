@@ -45,7 +45,7 @@ jobs:
           git checkout -B master
           git add -f public/
           git commit -m "Build front-end assets"
-          git push -f origin master
+#          git push -f origin master
 
       - name: 📂 Deploy to server via ssh
         uses: appleboy/ssh-action@v0.1.7
