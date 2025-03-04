@@ -25,6 +25,11 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('nationality')->nullable();
             $table->string('telephone')->nullable();
+            $table->string('facebook')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('twitter')->nullable();
+            $table->string('linkedin')->nullable();
+            $table->string('instagram')->nullable();
             $table->string('work_telephone')->nullable();
             $table->string('work_email')->nullable();
             $table->string('other_email')->nullable();
