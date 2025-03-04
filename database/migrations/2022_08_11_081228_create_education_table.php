@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Employee::class)->constrained();
             $table->foreignIdFor(EducationLevel::class)->nullable()->constrained();
+            $table->string('cert_number')->nullable();
             $table->string('institution')->nullable();
             $table->string('qualification')->nullable();
             $table->date('date')->nullable();
