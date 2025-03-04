@@ -53,7 +53,7 @@ class GrantAndFundPolicy
      */
     public function update(User $user, GrantAndFund $grantAndFund)
     {
-        //
+        return $user->id === $grantAndFund->user_id || $user->is_admin;
     }
 
     /**
@@ -65,7 +65,7 @@ class GrantAndFundPolicy
      */
     public function delete(User $user, GrantAndFund $grantAndFund)
     {
-        //
+        return $user->id === $grantAndFund->user_id || $user->is_admin;
     }
 
     /**

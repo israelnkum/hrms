@@ -8,15 +8,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes, HasRoles, HasActivityLogs;
-
-    protected $appends = [
-        'name'
-    ];
+    use HasFactory, HasApiTokens, Notifiable, SoftDeletes, HasRoles, HasActivityLogs;
 
     /**
      * The attributes that are mass assignable.
@@ -59,5 +56,10 @@ class User extends Authenticatable
     public function employee(): BelongsTo
     {
         return $this->belongsTo(Employee::class)->withDefault(null);
+    }
+
+    public function grantAndFunds()
+    {
+        return $this->hasMany(GrantAndFund::class);
     }
 }

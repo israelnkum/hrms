@@ -195,4 +195,19 @@ class Employee extends ApplicationModel
             ->where('status', 'pending')
             ->latest();
     }
+
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function publications()
+    {
+        return $this->hasMany(Publication::class);
+    }
+
+    public function grantAndFunds()
+    {
+        return $this->hasMany(GrantAndFund::class);
+    }
 }

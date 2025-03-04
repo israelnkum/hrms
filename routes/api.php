@@ -18,6 +18,10 @@ use App\Http\Controllers\NextOfKinController;
 use App\Http\Controllers\PreviousPositionController;
 use App\Http\Controllers\PreviousRankController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\GrantAndFundController;
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,6 +36,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Public routes
+Route::post('login', [AuthController::class, 'login'])->name('api.login');
 Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::get('commons', [HomeController::class, 'getCommonData']);
     Route::prefix('user')->group(function () {
@@ -88,7 +94,26 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
 
     Route::get('search-staff-id', [EmployeeController::class, 'getStaff']);
     Route::post('update-mail', [EmployeeController::class, 'updateStaffMail']);
+
+    Route::get('/user-projects', [ProjectController::class, 'userProjects']);
+
+    Route::apiResource('projects', ProjectController::class);
+
+    Route::get('employees/{employee}/publications', [PublicationController::class, 'getMyPublications']);
+    Route::apiResource('publications', PublicationController::class);
+
+    Route::apiResource('grants', GrantAndFundController::class);
+
+    // Auth routes
+    Route::post('/logout', [AuthController::class, 'logout'])->name('api.logout');
+    Route::get('/me', [AuthController::class, 'me'])->name('api.me');
+
+    // Token management
+    Route::get('/tokens', [AuthController::class, 'tokens']);
+    Route::delete('/tokens/{tokenId}', [AuthController::class, 'revokeToken']);
+    Route::delete('/tokens', [AuthController::class, 'revokeAllTokens']);
 });
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

@@ -53,7 +53,7 @@ class PublicationPolicy
      */
     public function update(User $user, Publication $publication)
     {
-        //
+        return $user->id === $publication->user_id || $user->is_admin;
     }
 
     /**
@@ -65,7 +65,7 @@ class PublicationPolicy
      */
     public function delete(User $user, Publication $publication)
     {
-        //
+        return $user->id === $publication->user_id || $user->is_admin;
     }
 
     /**

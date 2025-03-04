@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use Illuminate\Http\Request;
 
 class ProjectController extends Controller
 {
@@ -15,7 +16,15 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        return Project::with(['employee', 'user'])
+            ->paginate(10);
+    }
+
+    public function userProjects(Request $request)
+    {
+        return Project::where('user_id', auth()->id())
+            ->with(['employee', 'user'])
+            ->paginate(10);
     }
 
     /**
@@ -32,11 +41,21 @@ class ProjectController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\Http\Requests\StoreProjectRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $project = Project::create([
+            'title' => $request->title,
+            'year' => $request->year,
+            'location' => $request->location,
+            'significance' => $request->significance,
+            'description' => $request->description,
+            'user_id' => auth()->id(),
+            'employee_id' => $request->employee_id,
+        ]);
+
+        return response()->json($project->load(['employee', 'user']), 201);
     }
 
     /**
@@ -47,7 +66,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return $project->load(['employee', 'user']);
     }
 
     /**
@@ -66,21 +85,31 @@ class ProjectController extends Controller
      *
      * @param  \App\Http\Requests\UpdateProjectRequest  $request
      * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $project->update([
+            'title' => $request->title,
+            'year' => $request->year,
+            'location' => $request->location,
+            'significance' => $request->significance,
+            'description' => $request->description,
+            'employee_id' => $request->employee_id,
+        ]);
+
+        return response()->json($project->load(['employee', 'user']));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return response()->json(null, 204);
     }
 }

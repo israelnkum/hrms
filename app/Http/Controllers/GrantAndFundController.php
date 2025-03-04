@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreGrantAndFundRequest;
 use App\Http\Requests\UpdateGrantAndFundRequest;
 use App\Models\GrantAndFund;
+use Illuminate\Http\Response;
 
 class GrantAndFundController extends Controller
 {
@@ -15,7 +16,14 @@ class GrantAndFundController extends Controller
      */
     public function index()
     {
-        //
+        $grants = GrantAndFund::with(['user', 'employee'])
+            ->when(auth()->user()->is_admin !== true, function ($query) {
+                return $query->where('user_id', auth()->id());
+            })
+            ->latest()
+            ->paginate(10);
+
+        return response()->json($grants);
     }
 
     /**
@@ -36,7 +44,12 @@ class GrantAndFundController extends Controller
      */
     public function store(StoreGrantAndFundRequest $request)
     {
-        //
+        $grant = GrantAndFund::create([
+            ...$request->validated(),
+            'user_id' => auth()->id()
+        ]);
+
+        return response()->json($grant, Response::HTTP_CREATED);
     }
 
     /**
@@ -47,7 +60,8 @@ class GrantAndFundController extends Controller
      */
     public function show(GrantAndFund $grantAndFund)
     {
-        //
+        $grantAndFund->load(['user', 'employee']);
+        return response()->json($grantAndFund);
     }
 
     /**
@@ -70,7 +84,11 @@ class GrantAndFundController extends Controller
      */
     public function update(UpdateGrantAndFundRequest $request, GrantAndFund $grantAndFund)
     {
-        //
+        $this->authorize('update', $grantAndFund);
+        
+        $grantAndFund->update($request->validated());
+
+        return response()->json($grantAndFund);
     }
 
     /**
@@ -81,6 +99,10 @@ class GrantAndFundController extends Controller
      */
     public function destroy(GrantAndFund $grantAndFund)
     {
-        //
+        $this->authorize('delete', $grantAndFund);
+        
+        $grantAndFund->delete();
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }
