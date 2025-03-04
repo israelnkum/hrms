@@ -13,7 +13,7 @@ class UpdatePublicationRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class UpdatePublicationRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'sometimes|string|max:255',
+            'authors' => 'sometimes|array',
+            'authors.*' => 'string',
+            'publication_date' => 'nullable|date',
+            'publisher' => 'nullable|string|max:255',
+            'edition' => 'nullable|string|max:255',
+            'volume_and_issue_number' => 'nullable|string|max:255',
+            'isbn_issn' => 'nullable|string|max:255',
+            'doi' => 'nullable|string|max:255',
+            'employee_id' => 'sometimes|exists:employees,id'
         ];
     }
 }

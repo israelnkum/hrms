@@ -4,18 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePublicationRequest;
 use App\Http\Requests\UpdatePublicationRequest;
+use App\Models\Employee;
 use App\Models\Publication;
+use Illuminate\Http\Response;
 
 class PublicationController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        //
+        $publications = Publication::with(['employee'])
+            ->latest()->paginate(10);
+
+        return response()->json($publications);
     }
 
     /**
@@ -25,7 +30,9 @@ class PublicationController extends Controller
      */
     public function create()
     {
-        //
+        return response()->json([
+            'message' => 'Use POST /api/publications to create a new publication'
+        ]);
     }
 
     /**
@@ -36,7 +43,12 @@ class PublicationController extends Controller
      */
     public function store(StorePublicationRequest $request)
     {
-        //
+        $publication = Publication::create([
+            ...$request->validated(),
+            'user_id' => auth()->id()
+        ]);
+
+        return response()->json($publication, Response::HTTP_CREATED);
     }
 
     /**
@@ -47,18 +59,8 @@ class PublicationController extends Controller
      */
     public function show(Publication $publication)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Publication  $publication
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Publication $publication)
-    {
-        //
+        $publication->load(['user', 'employee']);
+        return response()->json($publication);
     }
 
     /**
@@ -70,7 +72,11 @@ class PublicationController extends Controller
      */
     public function update(UpdatePublicationRequest $request, Publication $publication)
     {
-        //
+        $this->authorize('update', $publication);
+
+        $publication->update($request->validated());
+
+        return response()->json($publication);
     }
 
     /**
@@ -81,6 +87,17 @@ class PublicationController extends Controller
      */
     public function destroy(Publication $publication)
     {
-        //
+        $this->authorize('delete', $publication);
+
+        $publication->delete();
+
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function getMyPublications(Employee $employee)
+    {
+        $publications = $employee->publications;
+
+        return response()->json($publications);
     }
 }

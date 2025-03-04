@@ -23,6 +23,7 @@ Route::get('/account-not-found', static function () {
     return view('auth.account-not-found');
 })->name('account-not-found');
 
-Route::middleware(['auth'])->get('/{path?}', function () {
+
+Route::middleware(['auth'])->get('/{path}', function () {
     return view('home');
 })->where('path', '.*')->name('home');

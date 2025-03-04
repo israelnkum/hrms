@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -21,7 +22,8 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->string('significance')->nullable();
             $table->string('description')->nullable();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Employee::class)->nullable()->constrained()->onDelete('set null');
+            $table->foreignIdFor(User::class)->nullable()->constrained()->onDelete('set null');
             $table->softDeletes();
             $table->timestamps();
         });

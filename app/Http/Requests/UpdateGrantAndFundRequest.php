@@ -13,7 +13,7 @@ class UpdateGrantAndFundRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class UpdateGrantAndFundRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'source' => 'sometimes|string|in:Government,Private,Nonprofit,International Funds',
+            'purpose' => 'nullable|string|in:Research,Project,Capital,Operating,Fellowships',
+            'amount' => 'nullable|string',
+            'benefactor' => 'nullable|string',
+            'date' => 'nullable|date',
+            'description' => 'nullable|string',
+            'employee_id' => 'sometimes|exists:employees,id'
         ];
     }
 }

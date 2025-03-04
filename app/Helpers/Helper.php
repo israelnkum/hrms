@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -48,6 +49,17 @@ class Helper
         }
 
         return $request->all();
+    }
+
+    public static function getUserAuthInfo(User $loggedInUser): array
+    {
+        return [
+            'user' => $loggedInUser->only(['id', 'name', 'username']),
+            'roles' => $loggedInUser->getRoleNames(),
+            'permissions' => $loggedInUser->getPermissionsViaRoles()->pluck('name')->merge
+            ($loggedInUser->getDirectPermissions()->pluck('name')),
+            'employee_id' => $loggedInUser->employee ? $loggedInUser->employee->id : null
+        ];
     }
 
 }

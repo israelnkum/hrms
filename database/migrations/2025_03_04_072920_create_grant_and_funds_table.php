@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -22,7 +23,8 @@ return new class extends Migration
             $table->string('benefactor')->nullable();
             $table->date('date')->nullable();
             $table->text('description')->nullable();
-            $table->foreignIdFor(User::class);
+            $table->foreignIdFor(Employee::class)->nullable()->constrained()->onDelete('set null');
+            $table->foreignIdFor(User::class)->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }

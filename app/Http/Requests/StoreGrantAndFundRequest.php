@@ -13,7 +13,7 @@ class StoreGrantAndFundRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class StoreGrantAndFundRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'source' => 'required|string|in:Government,Private,Nonprofit,International Funds',
+            'purpose' => 'nullable|string|in:Research,Project,Capital,Operating,Fellowships',
+            'amount' => 'nullable|string',
+            'benefactor' => 'nullable|string',
+            'date' => 'nullable|date',
+            'description' => 'nullable|string',
+            'employee_id' => 'required|exists:employees,id'
         ];
     }
 }
