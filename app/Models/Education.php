@@ -20,6 +20,7 @@ class Education extends Model
         'qualification',
         'date',
         'type',
+        'cert_number',
         'user_id'
     ];
 
