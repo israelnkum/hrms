@@ -1,0 +1,25 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-p_1rInm_.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.tsx": {
+    "file": "assets/app-Oh59nKH4.js",
+    "name": "app",
+    "src": "resources/js/app.tsx",
+    "isEntry": true,
+    "assets": [
+      "assets/logo-no-text-C9UVPyLo.png",
+      "assets/ttuLogo-2whiYmzc.png"
+    ]
+  },
+  "resources/js/assets/img/logo-no-text.png": {
+    "file": "assets/logo-no-text-C9UVPyLo.png",
+    "src": "resources/js/assets/img/logo-no-text.png"
+  },
+  "resources/js/assets/img/ttuLogo.png": {
+    "file": "assets/ttuLogo-2whiYmzc.png",
+    "src": "resources/js/assets/img/ttuLogo.png"
+  }
+}
