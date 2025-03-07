@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from "prop-types";
 
-function NotificationHeader({title, status, actions}) {
+function NotificationHeader({title = '', status = '', actions = ''}) {
 
     return (
         <div className={'bg-primary-800 max-h-[60px] p-3 flex justify-between items-center'}>
@@ -18,13 +18,6 @@ function NotificationHeader({title, status, actions}) {
             </div>
         </div>
     )
-}
-
-
-NotificationHeader.defaultProps = {
-    title: '',
-    status: '',
-    actions: ''
 }
 
 NotificationHeader.propTypes = {

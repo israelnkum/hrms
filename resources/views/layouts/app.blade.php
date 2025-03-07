@@ -12,16 +12,13 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    @vite(['resources/js/app.tsx', 'resources/css/app.css'])
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app" style="background-image: url({{asset('/images/login.jpg')}});
-     height: 100vh; background-size: cover; background-position: center center">
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+@auth
+    <div id="root"></div>
+    <div id="portal"></div>
+@endauth
 </body>
 </html>

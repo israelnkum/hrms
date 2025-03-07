@@ -1,16 +1,36 @@
-@import "~slick-carousel/slick/slick.css";
-@import "~slick-carousel/slick/slick-theme.css";
-@import "../js/assets/css/tla-modal.css";
+@import "tailwindcss";
+/*@import "~slick-carousel/slick/slick.css";*/
 @import "../js/assets/css/tla-drawer.css";
+/*@import "~slick-carousel/slick/slick-theme.css";*/
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+@import "../js/assets/css/tla-modal.css";
 @import "../js/assets/css/tla-pagination.css";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+@source "../views";
+
+@theme{
+    --color-primary-800: #1a337e;
+    --color-primary-25: #F5FAFF;
+    --color-primary-100: #D1E9FF;
+    --color-primary-50: #EFF8FF;
+    --color-primary-400: #53B1FD;
+    --color-primary-500: #2E90FA;
+    --color-primary-600: #1570EF;
+    --color-primary-700: #175CD3;
+    --color-success-50: #ECFDF3;
+    --color-success-300: #6CE9A6;
+    --color-success-700: #027A48;
+}
 
 @layer components {
     button,
     .btn {
-        @apply !flex !items-center !justify-center text-sm;
+        @apply !flex !items-center !justify-center text-sm w-full h-11 !rounded-md !cursor-pointer;
+    }
+
+    .btn-light {
+        @apply bg-white border border-gray-200;
     }
 
     .ant-btn-primary,
@@ -41,6 +61,10 @@
 
     .nav-item {
         @apply uppercase !text-[10px];
+    }
+
+    .auth-input {
+        @apply border w-full rounded-lg h-11 px-4 border-gray-300;
     }
 }
 

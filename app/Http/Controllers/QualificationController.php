@@ -58,6 +58,10 @@ class QualificationController extends Controller
         return QualificationResource::collection($educations->paginate(10));
     }
 
+    public function show(Education $education)
+    {
+        return new QualificationResource($education);
+    }
     /**
      * Store a newly created resource in storage.
      *

@@ -3,7 +3,7 @@ import { getAllUsers, setUserData } from '../../actions/users/UserAction'
 import User from '../../components/users'
 
 const mapStateToProps = (state) => ({
-  users: state.userReducer.users,
+  users: state.user.users,
 })
 
 const mapDispatchToProps = (dispatch) => ({

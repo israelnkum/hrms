@@ -7,13 +7,12 @@
     <title>{{ config('app.name', 'SMART HR') }}</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('/css/app.css')}}">
+    @vite(['resources/js/app.tsx', 'resources/css/app.css'])
 </head>
 <body class="antialiased">
 @auth
     <div id="root"></div>
     <div id="portal"></div>
-    <script src="{{asset('/js/app.js')}}"></script>
 @endauth
 </body>
 </html>

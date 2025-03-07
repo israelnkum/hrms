@@ -1,12 +1,13 @@
 import PropTypes from "prop-types";
 import React, {useEffect, useState} from 'react'
-import {connect} from 'react-redux'
+import {connect, useSelector} from 'react-redux'
 import {Outlet} from "react-router";
 import {handleGetNotificationNavs} from "../../actions/notifications/Action";
 import MenuHelper from "../../commons/menu-helper";
 
-function NotificationsWrapper({notificationNavs, getNotificationNavs}) {
+function NotificationsWrapper({getNotificationNavs}) {
     const [loading, setLoading] = useState(true)
+    const notificationNavs = useSelector(state => state.notifications.notificationNavs)
 
     useEffect(() => {
         getNotificationNavs().then(() => setLoading(false))
@@ -99,19 +100,13 @@ function NotificationsWrapper({notificationNavs, getNotificationNavs}) {
     )
 }
 
-
-NotificationsWrapper.defaultProps = {}
-
 NotificationsWrapper.propTypes = {
     getNotificationNavs: PropTypes.func.isRequired,
     notificationNavs: PropTypes.any
 }
 
-const mapStateToProps = (state) => ({
-    notificationNavs: state.notificationsReducer.notificationNavs
-})
 const mapDispatchToProps = (dispatch) => ({
     getNotificationNavs: () => dispatch(handleGetNotificationNavs())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotificationsWrapper)
+export default connect(null, mapDispatchToProps)(NotificationsWrapper)

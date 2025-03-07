@@ -3,7 +3,7 @@ import Index from '../../components/dashboard'
 import { getActiveRoles } from '../../actions/users/UserAction'
 
 const mapStateToProps = (state) => ({
-  activeRoles: state.userReducer.activeRoles
+  activeRoles: state.user.activeRoles
 })
 
 const mapDispatchToProps = (dispatch) => ({

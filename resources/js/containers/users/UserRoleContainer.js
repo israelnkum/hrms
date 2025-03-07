@@ -3,7 +3,7 @@ import { addUserRoles, getUserRoles } from '../../actions/users/UserAction'
 import Roles from '../../components/roles'
 
 const mapStateToProps = (state) => ({
-  userRoles: state.userReducer.userRoles
+  userRoles: state.user.userRoles
 })
 
 const mapDispatchToProps = (dispatch) => ({

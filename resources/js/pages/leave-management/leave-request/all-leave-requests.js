@@ -1,7 +1,7 @@
 import { Button, Form, Input, Popconfirm, Space, Table } from 'antd'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import { connect } from "react-redux";
+import {connect, useSelector} from "react-redux";
 import { useLocation, useOutletContext } from "react-router";
 import { Link } from "react-router-dom";
 import { handleGetAllLeaveRequest } from "../../../actions/leave-management/leave-requests/Actions";
@@ -15,7 +15,8 @@ const {Column} = Table
 
 function AllLeaveRequests(props) {
     const {setPageInfo, setExtra} = useOutletContext();
-    const {getLeaveRequests, leaveRequests, permissions, filter} = props
+    const { permissions } = useSelector(state => state.user)
+    const {getLeaveRequests, leaveRequests, filter} = props
     const {data, meta} = leaveRequests
     const [loading, setLoading] = useState(true)
     const {pathname} = useLocation()
@@ -160,9 +161,8 @@ AllLeaveRequests.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    leaveRequests: state.leaveManagementReducer.leaveRequests,
-    filter: state.leaveManagementReducer.filter,
-    permissions: state.userReducer.permissions
+    leaveRequests: state.leaveManagement.leaveRequests,
+    filter: state.leaveManagement.filter
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -62,8 +62,7 @@ Leave.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    leaveRequests: state.leaveManagementReducer.leaveRequests,
-    permissions: state.userReducer.permissions
+    leaveRequests: state.leaveManagement.leaveRequests,
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -77,8 +77,8 @@ FilterLeaveRequests.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    filter: state.leaveManagementReducer.filter,
-    filterParams: state.leaveManagementReducer.filterParams,
+    filter: state.leaveManagement.filter,
+    filterParams: state.leaveManagement.filterParams,
     leaveTypes: state.timeOffReducer.leaveTypes
 })
 

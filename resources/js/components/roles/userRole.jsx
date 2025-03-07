@@ -73,7 +73,7 @@ export default function UserRole (props) {
                       </List.Item>
                   )}/>
             {
-                state.userReducer.otherRoles.length > 0 &&
+                state.user.otherRoles.length > 0 &&
                 <Form form={form} onFinish={submit} onFinishFailed={{}} layout="vertical" name="addUserRoleForm"
                       initialValues={{
                         userId: props.userId
@@ -99,7 +99,7 @@ export default function UserRole (props) {
                             maxTagCount={'responsive'}
                             placeholder="Select role" allowClear>
                             {
-                                state.userReducer.otherRoles.map((role) => {
+                                state.user.otherRoles.map((role) => {
                                   return (
                                         <Option key={role.id} value={role.id}>{role.name}</Option>
                                   )

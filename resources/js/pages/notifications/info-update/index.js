@@ -58,7 +58,6 @@ InfoUpdate.propTypes = {
 
 const mapStateToProps = (state) => ({
     informationUpdates: state.informationUpdateReducer.informationUpdates,
-    permissions: state.userReducer.permissions
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,30 +1,43 @@
+/* Pagination Container */
 .pagination {
-    gap: 5px;
+    display: flex;
+    justify-content: end;
     align-items: center;
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
 }
 
-.pagination-wrapper .ant-card-body{
-    padding: 5px !important;
+.pagination li {
+    margin: 0 2px;
 }
 
-.page-item.active .page-link {
-    color: var(--Blue-400);
-    background-color: var(--White);
-    border: solid 1px var(--Blue-400);
+.pagination a {
+    display: ruby;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #E65C4FFF;
     border-radius: 10px;
-    outline: none !important;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.page-link {
-    color: var(--Gray-900);
-    background-color: transparent;
-    border-radius: 10px;
-    border: none;
-    outline: none !important;
+/* Hover and Active States */
+.pagination a:hover {
+    background-color: #E65C4FFF;
+    color: white;
 }
 
-.page-item:first-child .page-link,
-.page-item:last-child .page-link {
-    border-radius: 10px;
-    padding: 10px;
+.pagination .selected a {
+    background-color: #E65C4FFF;
+    color: white;
+    border-color: #E65C4FFF;
+    pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .pagination a {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
 }

@@ -3,7 +3,7 @@ import { getPortfolios, addPortfolios } from '../employee/EmployeeAction'
 import Roles from '../../components/roles'
 
 const mapStateToProps = (state) => ({
-  userRoles: state.userReducer.userRoles
+  userRoles: state.user.userRoles
 })
 
 const mapDispatchToProps = (dispatch) => ({

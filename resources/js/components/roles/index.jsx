@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { Store } from '../../utils/Store'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
-import { Drawer, Button, Spin, notification } from 'antd'
-import { useDispatch } from 'react-redux'
-import { LoadingOutlined } from '@ant-design/icons'
+import {Button, Drawer, notification, Spin} from 'antd'
+import {useDispatch} from 'react-redux'
+import {LoadingOutlined} from '@ant-design/icons'
 import UserRole from './userRole'
-import { getUserRoles } from '../../actions/users/UserAction'
+import {getUserRoles} from '../../actions/users/UserAction'
 
 export default function Roles (props) {
   const [loading, setLoading] = useState(false)
@@ -14,7 +13,7 @@ export default function Roles (props) {
   const dispatch = useDispatch()
   const showDrawer = () => {
     setLoading(true)
-    dispatch(getUserRoles(props.userId)).then((res) => {
+    dispatch(getUserRoles(props.userId)).then(() => {
       setLoading(false)
       setVisible(true)
     }).catch(() => {
@@ -43,13 +42,10 @@ export default function Roles (props) {
         </>
   )
 }
+
 Roles.propTypes = {
   btnText: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   userId: PropTypes.string.isRequired,
   userRoles: PropTypes.array.isRequired,
-}
-
-Roles.defaultProps = {
-  userRoles: []
 }

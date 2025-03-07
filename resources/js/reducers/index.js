@@ -1,72 +1,74 @@
-import { combineReducers } from 'redux'
+import { combineReducers } from '@reduxjs/toolkit'
 import { persistReducer } from 'redux-persist'
 import sessionStorage from 'redux-persist/lib/storage/session'
-import communityServiceReducer from "./community-service-reducer";
-import directReportReducer from "./direct-report-reducer";
-import employeeReducer from './employee-reducer'
-import leaveManagementReducer from "./leave-management-reducer";
-import leaveTypesReducer from "./leave-types-reducer";
-import nextOfKinsReducer from "./next-of-kin-reducer";
-import notificationsReducer from "./notifications-reducer";
-import peopleReducer from "./people-reducer";
-import previousPositionReducer from "./previous-position-reducer";
-import previousRankReducer from "./previous-rank-reducer";
-import timeOffReducer from "./time-off-reducer";
-import userReducer from './UserReducer'
-import commonReducer from "./common-reducer";
-import qualificationReducer from "./qualification-reducer";
-import contactDetailsReducer from "./contact-details-reducer";
-import emergencyContactReducer from "./emergency-contact-reducer";
-import dependantReducer from "./dependants-reducer";
-import jobDetailsReducer from "./job-details-reducer";
-import informationUpdateReducer from "./information-update-reducer";
+
+// Import slices instead of reducers
+import communityServiceSlice from "../slices/community-service-slice";
+import directReportSlice from "../slices/direct-report-slice";
+import employeeSlice from '../slices/employee-slice'
+import leaveManagementSlice from "../slices/leave-management-slice";
+import leaveTypesSlice from "../slices/leave-types-slice";
+import nextOfKinsSlice from "../slices/next-of-kin-slice";
+import notificationsSlice from "../slices/notifications-slice";
+import peopleSlice from "../slices/people-slice";
+import previousPositionSlice from "../slices/previous-position-slice";
+import previousRankSlice from "../slices/previous-rank-slice";
+import timeOffSlice from "../slices/time-off-slice";
+import userSlice from '../slices/user-slice'
+import commonSlice from "../slices/common-slice";
+import qualificationSlice from "../slices/qualification-slice";
+import contactDetailsSlice from "../slices/contact-details-slice";
+import emergencyContactSlice from "../slices/emergency-contact-slice";
+import dependantSlice from "../slices/dependants-slice";
+import jobDetailsSlice from "../slices/job-details-slice";
+import informationUpdateSlice from "../slices/information-update-slice";
 
 const persistConfig = {
     key: 'root',
     storage: sessionStorage,
     whitelist: [
-        'employeeReducer',
-        'peopleReducer',
-        'leaveTypesReducer',
-        'leaveManagementReducer',
-        'userReducer',
-        'commonReducer',
-        'qualificationReducer',
-        'contactDetailsReducer',
-        'emergencyContactReducer',
-        'dependantReducer',
-        'jobDetailsReducer',
-        'timeOffReducer',
-        'directReportReducer',
-        'communityServiceReducer',
-        'previousPositionReducer',
-        'previousRankReducer',
-        'nextOfKinsReducer',
-        'notificationsReducer',
-        'informationUpdateReducer'
+        'employee',
+        'people',
+        'leaveTypes',
+        'leaveManagement',
+        'user',
+        'common',
+        'qualification',
+        'contactDetails',
+        'emergencyContact',
+        'dependant',
+        'jobDetails',
+        'timeOff',
+        'directReport',
+        'communityService',
+        'previousPosition',
+        'previousRank',
+        'nextOfKins',
+        'notifications',
+        'informationUpdate'
     ]
 }
 
 const rootReducer = combineReducers({
-    employeeReducer,
-    peopleReducer,
-    leaveTypesReducer,
-    leaveManagementReducer,
-    userReducer,
-    commonReducer,
-    qualificationReducer,
-    contactDetailsReducer,
-    jobDetailsReducer,
-    emergencyContactReducer,
-    dependantReducer,
-    timeOffReducer,
-    directReportReducer,
-    communityServiceReducer,
-    previousPositionReducer,
-    previousRankReducer,
-    nextOfKinsReducer,
-    notificationsReducer,
-    informationUpdateReducer
+    employee: employeeSlice,
+    people: peopleSlice,
+    leaveTypes: leaveTypesSlice,
+    leaveManagement: leaveManagementSlice,
+    user: userSlice,
+    common: commonSlice,
+    qualification: qualificationSlice,
+    contactDetails: contactDetailsSlice,
+    jobDetails: jobDetailsSlice,
+    emergencyContact: emergencyContactSlice,
+    dependant: dependantSlice,
+    timeOff: timeOffSlice,
+    directReport: directReportSlice,
+    communityService: communityServiceSlice,
+    previousPosition: previousPositionSlice,
+    previousRank: previousRankSlice,
+    nextOfKins: nextOfKinsSlice,
+    notifications: notificationsSlice,
+    informationUpdate: informationUpdateSlice
 })
 
 export default persistReducer(persistConfig, rootReducer)
