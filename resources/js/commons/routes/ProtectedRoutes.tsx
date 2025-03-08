@@ -18,10 +18,24 @@ import Qualifications from "../../components/employees/detail/qualifications";
 import CommunityServices from "../../components/employees/detail/community-services";
 import {ModalRoutes} from "./ModalRoutes";
 import {Outlet, useLocation} from "react-router";
+import {useEffect, useState} from "react";
+import {useAppDispatch} from "../../hooks";
+import {handleGetCommonData} from "../../services/common.service";
+import {unwrapResult} from "@reduxjs/toolkit";
+import People from "../../pages/people";
+import Loading from "../../components/loading";
 
 const ProtectedRoutes = () => {
     const location = useLocation()
     const background = location.state && location.state.background
+    const [loading, setLoading] = useState(true)
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(handleGetCommonData()).then(unwrapResult).then(() => setLoading(false)).catch(() => setLoading(false))
+    }, []);
+
+    if (loading) return <Loading/>
 
     return (
         <>
@@ -50,6 +64,7 @@ const ProtectedRoutes = () => {
                         <Route path='qualifications' element={<Qualifications/>}/>
                         <Route path='community-services' element={<CommunityServices/>}/>
                     </Route>
+                    <Route path={'people'} element={<People/>}/>
                 </Route>
             </Routes>
             {background && (<><ModalRoutes/> <Outlet/></>)}

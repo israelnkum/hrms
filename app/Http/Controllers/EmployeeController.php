@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -38,36 +39,39 @@ class EmployeeController extends Controller
     public function index(Request $request)
     {
         $employeesQuery = Employee::query();
-        $employeesQuery->when($request->has('department_id') &&
-            $request->department_id !== 'all', function ($q) use ($request) {
-            return $q->where('department_id', $request->department_id);
-        });
 
-        $employeesQuery->when($request->has('rank_id') &&
-            $request->rank_id !== 'all', function ($q) use ($request) {
-            return $q->where('rank_id', $request->rank_id);
-        });
+        $employeesQuery->when($request->input('department_id') && $request->department_id !== 'all',
+            fn($q) => $q->where('department_id', $request->department_id));
 
-        $employeesQuery->when($request->has('job_category_id') &&
-            $request->job_category_id !== 'all', function ($q) use ($request) {
-            return $q->whereRelation('jobDetail', static function ($jQuery) use ($request) {
-                return $jQuery->where('job_category_id', $request->job_category_id);
+        $employeesQuery->when($request->input('rank_id') && $request->rank_id !== 'all',
+            fn($q) => $q->where('rank_id', $request->rank_id));
+
+        $employeesQuery->when($request->input('job_category_id') && $request->job_category_id !== 'all',
+            fn($q) => $q->whereRelation('jobDetail', 'job_category_id', $request->job_category_id));
+
+        // Search condition: Matches first_name, last_name, or staff_id
+        $employeesQuery->when($request->filled('search'), function ($q) use ($request) {
+            $searchTerm = $request->input('search');
+            $q->where(function ($query) use ($searchTerm) {
+                $query->where('first_name', 'LIKE', "%{$searchTerm}%")
+                    ->orWhere('last_name', 'LIKE', "%{$searchTerm}%")
+                    ->orWhere('staff_id', 'LIKE', "%{$searchTerm}%");
             });
         });
 
+        $employees = EmployeeResource::collection($employeesQuery->get());
 
-        if ($request->has('export') && $request->export === 'true') {
-            return Excel::download(new EmployeeExport(EmployeeResource::collection($employeesQuery->get())),
-                'Expenses.xlsx');
+        if ($request->boolean('export')) {
+            return Excel::download(new EmployeeExport($employees), 'Employees.xlsx');
         }
 
-        if ($request->has('print') && $request->print === 'true') {
-            return $this->pdf('print.employee.all', EmployeeResource::collection($employeesQuery->get()), 'Expenses',
-                'landscape');
+        if ($request->boolean('print')) {
+            return $this->pdf('print.employee.all', $employees, 'Employees', 'landscape');
         }
 
         return EmployeeResource::collection($employeesQuery->paginate(10));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -204,7 +208,7 @@ class EmployeeController extends Controller
 
             $user = Auth::user();
 
-            ActivityLog::add($user->employee->name . 'update the personal details for ' . $employee->name,
+            ActivityLog::add($user?->employee?->name ?? $user->username . 'update the personal details for ' . $employee->name,
                 'updated', [''], 'job-details')
                 ->to($employee)
                 ->as($user);
@@ -213,6 +217,7 @@ class EmployeeController extends Controller
 
             return new EmployeeResource($employee);
         } catch (Exception $exception) {
+            Log::error('update employee', [$exception->getLine(), $exception->getMessage()]);
             return response()->json([
                 'message' => $exception->getMessage()
             ], 400);

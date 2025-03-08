@@ -1,13 +1,11 @@
-import { Col, Form, Input, Row } from "antd";
-import PropTypes from "prop-types";
-import React from "react";
-import { connect } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { handleUpdateNextOfKin } from "../../../../actions/employee/next-of-kin/Action";
+import {Col, Form, Input, Row} from "antd";
+import {useLocation} from "react-router-dom";
 import TlaFormWrapper from "../../../../commons/tla-form-wrapper";
+import {useAppSelector} from "../../../../hooks";
+import {updateNextOfKin} from "../../../../services/next-of-kin.service";
 
-function NextOfKinForm(props) {
-    const {updateNextOfKin, employeeId} = props;
+function NextOfKinForm() {
+    const employeeId = useAppSelector((state) => state.employee.employee.id)
 
     const {state} = useLocation();
 
@@ -95,18 +93,4 @@ function NextOfKinForm(props) {
     );
 }
 
-NextOfKinForm.propTypes = {
-    updateNextOfKin: PropTypes.func.isRequired,
-    employeeId: PropTypes.number.isRequired,
-
-};
-
-const mapStateToProps = (state) => ({
-    employeeId: state.employeeReducer.employee.id
-})
-
-const mapDispatchToProps = (dispatch) => ({
-    updateNextOfKin: (payload) => dispatch(handleUpdateNextOfKin(payload)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NextOfKinForm);
+export default NextOfKinForm;

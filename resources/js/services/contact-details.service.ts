@@ -88,7 +88,7 @@ export const handleUpdateContactDetail = createAsyncThunk(
  */
 export const handleDeleteContactDetail = createAsyncThunk(
     "contactDetails/deleteContactDetail",
-    async (id, {rejectWithValue}) => {
+    async (id: number, {rejectWithValue}) => {
         try {
             await api().delete(`/contact-details/${id}`);
             return id; // Return the id to be used in reducers

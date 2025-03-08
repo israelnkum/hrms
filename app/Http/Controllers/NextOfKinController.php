@@ -53,7 +53,7 @@ class NextOfKinController extends Controller
 
             $employee = Employee::findOrFail($request->employee_id);
 
-            ActivityLog::add($user->employee->name . 'update the next of kin details for ' . $employee->name,
+            ActivityLog::add($user?->employee?->name ?? $user->username . 'update the next of kin details for ' . $employee->name,
                 'updated', [''], 'next of kin')
                 ->to($nextOfKin)
                 ->as($user);

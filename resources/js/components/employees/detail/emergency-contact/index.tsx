@@ -33,12 +33,11 @@ function EmergencyContacts() {
 
     return (
         <Spin spinning={loading}>
+            <TlaAddNew link={'form'}>
+                <Button>Add Contact</Button>
+            </TlaAddNew>
             {/*<FilterQualification/>*/}
-            <TlaTableWrapper meta={meta} extra={
-                <TlaAddNew link={'form'}>
-                    <Button>Add Contact</Button>
-                </TlaAddNew>
-            } callbackFunction={handleGetAllEmergencyContacts} data={data}>
+            <TlaTableWrapper meta={meta} callbackFunction={handleGetAllEmergencyContacts} data={data}>
                 {
                     ['name', 'relationship', 'email', 'phone_number', 'alt_phone_number']
                         .map((item, index) => (
@@ -50,9 +49,9 @@ function EmergencyContacts() {
                 }
                 <Column title="Action" render={(value) => (
                     <Space size={0}>
-                        <TlaEdit icon data={value} link={'form'} type={'text'}/>
+                        <TlaEdit data={value} link={'form'}/>
                         <TlaConfirm title={'Contact'} callBack={() => {
-                            handleDeleteEmergencyContact(value.id).then(unwrapResult).then(() => TlaSuccess('Record Deleted'))
+                            dispatch(handleDeleteEmergencyContact(value.id)).then(unwrapResult).then(() => TlaSuccess('Record Deleted'))
                         }}/>
                     </Space>
                 )}/>

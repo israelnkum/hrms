@@ -21,7 +21,7 @@ export const fetchNextOfKin = createAsyncThunk(
  */
 export const updateNextOfKin = createAsyncThunk(
     "nextOfKin/updateNextOfKin",
-    async (data, { rejectWithValue }) => {
+    async (data: any, { rejectWithValue }) => {
         try {
             const response = await api().post(`/next-of-kin/0`, data);
             return response.data;

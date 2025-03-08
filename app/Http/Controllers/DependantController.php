@@ -46,7 +46,7 @@ class DependantController extends Controller
         try {
             $employee = Employee::findOrFail($request->employee_id);
 
-            $request['dob'] = $request->dob != null ? Carbon::parse($request->dob)->format('Y-m-d') : null;
+            $request['dob'] = $request->dob != "null" ? Carbon::parse($request->dob)->format('Y-m-d') : null;
 
             $dependant = $employee->departments()->create([
                 'user_id' => Auth::id()

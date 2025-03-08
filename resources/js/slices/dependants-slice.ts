@@ -1,13 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { handleAddDependant, handleGetAllDependants, handleGetSingleDependant, handleUpdateDependant, handleDeleteDependant } from '../services/dependant.service';
+import {DependantState} from "../types/dependant";
 
-const initialState = {
+const initialState: DependantState = {
     dependants: {
         data: [],
-        meta: {},
+        meta: {
+            pageCount: 0,
+            currentPage: 0,
+            total: 0,
+            from: 0,
+            links: {
+                first: "",
+                last: "",
+                next: null,
+                prev: null
+            }
+        }
     },
-    filter: {},
-    dependant: {},
+    dependant: {
+        id: 0,
+        name: ""
+    },
 };
 
 const dependantsSlice = createSlice({

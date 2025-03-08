@@ -30,7 +30,8 @@
         "include": [
             "resources",
             "resources/**/*.ts",
-            "resources/**/*.tsx"
+            "resources/**/*.tsx",
+            "images.d.ts"
         ]
     }
 }

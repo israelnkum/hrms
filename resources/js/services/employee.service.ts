@@ -14,6 +14,19 @@ export const fetchEmployees = createAsyncThunk(
     }
 )
 
+// Async thunk actions
+export const getAllPeople = createAsyncThunk(
+    'employee/getAllPeople',
+    async (filters: URLSearchParams, { rejectWithValue }) => {
+        try {
+            const response = await api().get(`/people`, { params: filters })
+            return response.data
+        } catch (err: any) {
+            return rejectWithValue(err.response?.data || err.message)
+        }
+    }
+)
+
 export const fetchEmployee = createAsyncThunk(
     'employee/fetchEmployee',
     async (id: number, { rejectWithValue }) => {
@@ -42,7 +55,7 @@ export const updateEmployee = createAsyncThunk(
     'employee/updateEmployee',
     async (values: any, { rejectWithValue }) => {
         try {
-            const response = await api().put(`/employees/${values.id}`, values)
+            const response = await api().put(`/employees/${values.get('id')}`, values)
             return response.data
         } catch (err: any) {
             return rejectWithValue(err.response?.data || err.message)

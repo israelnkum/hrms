@@ -23,7 +23,7 @@ export const handleAddEmergencyContact = createAsyncThunk(
  */
 export const handleGetAllEmergencyContacts = createAsyncThunk(
     'emergencyContact/getEmergencyContacts',
-    async (params, { rejectWithValue }) => {
+    async (params: any, { rejectWithValue }) => {
         try {
             const response = await api().get(`/emergency-contacts?${params}`);
             return response.data; // return the data on success
@@ -53,7 +53,7 @@ export const handleGetSingleEmergencyContact = createAsyncThunk(
  */
 export const handleUpdateEmergencyContact = createAsyncThunk(
     'emergencyContact/updateEmergencyContact',
-    async (data, { rejectWithValue }) => {
+    async (data: any, { rejectWithValue }) => {
         try {
             const response = await api().post(`/emergency-contacts/${data.get('id')}`, data);
             return response.data; // return the updated data on success

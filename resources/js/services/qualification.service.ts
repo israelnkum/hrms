@@ -11,12 +11,12 @@ import {completeExport} from "../utils";
  */
 export const handleAddQualification = createAsyncThunk(
     "qualification/addQualification",
-    async (data, { rejectWithValue }) => {
+    async (data: any, { rejectWithValue }) => {
         try {
             const response = await api().post("/qualifications", data);
             return response.data; // return the data on successful response
         } catch (error: any) {
-            return rejectWithValue(error.response?.data || error.message); // return error if any
+            throw rejectWithValue(error.response?.data || error.message); // return error if any
         }
     }
 );
@@ -26,7 +26,7 @@ export const handleAddQualification = createAsyncThunk(
  */
 export const handleGetAllQualifications = createAsyncThunk(
     "qualification/getQualifications",
-    async (params, { rejectWithValue }) => {
+    async (params: any, { rejectWithValue }) => {
         try {
             const response = await api().get(`/qualifications?${params}`);
             return response.data; // return the data on successful response
@@ -73,7 +73,7 @@ export const handleGetSingleQualification = createAsyncThunk(
  */
 export const handleUpdateQualification = createAsyncThunk(
     "qualification/updateQualification",
-    async (data, { rejectWithValue }) => {
+    async (data: any, { rejectWithValue }) => {
         try {
             const response = await api().post(`/qualifications/${data.get("id")}`, data, {
                 headers: { "Content-type": "multipart/form-data" },
@@ -90,7 +90,7 @@ export const handleUpdateQualification = createAsyncThunk(
  */
 export const handleDeleteQualification = createAsyncThunk(
     "qualification/deleteQualification",
-    async (id, { rejectWithValue }) => {
+    async (id: number, { rejectWithValue }) => {
         try {
             await api().delete(`/qualifications/${id}`);
             return id; // Return the id that was deleted

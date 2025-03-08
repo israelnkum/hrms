@@ -1,17 +1,21 @@
-import React from "react";
 import PopUps from "./index";
-import PropTypes from "prop-types";
 import {useNavigate} from "react-router-dom";
 
-export default function TlaDrawer({children, extra}) {
+interface Props {
+    children: any,
+    extra?: any,
+    className?: string,
+}
+
+export default function TlaDrawer({children, extra, className = 'w-[640px]'}: Props) {
     const navigate = useNavigate()
     return (
         <PopUps>
-            <div className="ant-drawer ant-drawer-right css-1e3x2xa ant-drawer-open" tabIndex="-1">
+            <div className={`ant-drawer ant-drawer-right css-1e3x2xa ant-drawer-open`} tabIndex={-1}>
                 <div className="ant-drawer-mask"></div>
-                <div tabIndex="0" aria-hidden="true" data-sentinel="start"
+                <div tabIndex={0} aria-hidden="true" data-sentinel="start"
                      style={{ width: '0px', height: '0px', overflow: 'hidden', outline: 'none', position: 'absolute' }}></div>
-                <div className="ant-drawer-content-wrapper" style={{width: '680px'}}>
+                <div className={`ant-drawer-content-wrapper ${className}`} >
                     <div className="ant-drawer-content" aria-modal="true" role="dialog">
                         <div className="ant-drawer-wrapper-body">
                             <div className="ant-drawer-header">
@@ -32,16 +36,11 @@ export default function TlaDrawer({children, extra}) {
                         </div>
                     </div>
                 </div>
-                <div tabIndex="0" aria-hidden="true" data-sentinel="end"
+                <div tabIndex={0} aria-hidden="true" data-sentinel="end"
                      style={{
                          width: '0px', height: '0px', overflow: 'hidden', outline: 'none', position: 'absolute'
                      }}></div>
             </div>
         </PopUps>
     )
-}
-
-TlaDrawer.propTypes = {
-    children: PropTypes.any,
-    extra: PropTypes.any,
 }

@@ -1,19 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import {Col, DatePicker, Form, Input, Row} from 'antd'
-import {connect} from 'react-redux'
 import {useLocation} from "react-router-dom";
-import {
-    handleAddDependant,
-    handleUpdateDependant
-} from "../../../../actions/employee/dependants/DependantsAction";
 import TlaFormWrapper from "../../../../commons/tla-form-wrapper";
 import TlaSelect from "../../../../commons/tla/TlaSelect";
 import {relationships} from "../../../../utils/nationalities";
 import dayjs from "dayjs";
+import {useAppSelector} from "../../../../hooks";
+import {handleAddDependant, handleUpdateDependant} from "../../../../services/dependant.service";
 
-function DependantsForm(props) {
-    const {addDependant, updateDependant, employeeId} = props
+function DependantsForm() {
+    const employeeId = useAppSelector(state => state.employee.employee.id)
     const {state} = useLocation()
 
     const newInfo = state?.data?.info_update?.new_info;
@@ -30,7 +25,7 @@ function DependantsForm(props) {
     return (
         <TlaFormWrapper
             initialValues={formValues}
-            onSubmit={formValues.id === 0 ? addDependant : updateDependant}
+            onSubmit={formValues.id === 0 ? handleAddDependant : handleUpdateDependant}
             formTitle={(formValues.id === 0 ? 'New' : 'Edit') + ' Dependant'}>
             <Row gutter={10}>
                 <Col span={24} sm={24} md={12}>
@@ -94,19 +89,4 @@ function DependantsForm(props) {
     )
 }
 
-DependantsForm.propTypes = {
-    addDependant: PropTypes.func.isRequired,
-    updateDependant: PropTypes.func.isRequired,
-    employeeId: PropTypes.number.isRequired,
-}
-
-const mapStateToProps = (state) => ({
-    employeeId: state.employeeReducer.employee.id,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-    addDependant: (payload) => dispatch(handleAddDependant(payload)),
-    updateDependant: (payload) => dispatch(handleUpdateDependant(payload))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(DependantsForm)
+export default DependantsForm

@@ -1,17 +1,13 @@
-import { Col, DatePicker, Form, Input, Row } from 'antd'
+import {Col, DatePicker, Form, Input, Row} from 'antd'
 import dayjs from "dayjs";
-import PropTypes from 'prop-types'
-import React from 'react'
-import { connect } from 'react-redux'
-import { useLocation } from "react-router-dom";
-import {
-    handleAddCommunityService,
-    handleUpdateCommunityService
-} from "../../../../actions/employee/community-services/CommunityServicesAction";
+import {useLocation} from "react-router-dom";
 import TlaFormWrapper from "../../../../commons/tla-form-wrapper";
+import {useAppSelector} from "../../../../hooks";
+import {handleAddCommunityService, handleUpdateCommunityService} from "../../../../services/community-service.service";
 
-function CommunityServicesForm(props) {
-    const {addCommunityService, updateCommunityService, employeeId} = props
+function CommunityServicesForm() {
+    const employeeId = useAppSelector((state) => state.employee.employee.id)
+
     const {state} = useLocation()
     const formValues = {
         id: 0,
@@ -26,7 +22,7 @@ function CommunityServicesForm(props) {
     return (
         <TlaFormWrapper
             initialValues={ formValues }
-            onSubmit={ formValues.id === 0 ? addCommunityService : updateCommunityService }
+            onSubmit={ formValues.id === 0 ? handleAddCommunityService : handleUpdateCommunityService }
             formTitle={ (formValues.id === 0 ? 'New' : 'Edit') + ' Community Service' }>
             <Row gutter={ 10 }>
                 <Col span={ 24 }>
@@ -67,19 +63,4 @@ function CommunityServicesForm(props) {
     )
 }
 
-CommunityServicesForm.propTypes = {
-    addCommunityService: PropTypes.func.isRequired,
-    updateCommunityService: PropTypes.func.isRequired,
-    employeeId: PropTypes.number.isRequired,
-}
-
-const mapStateToProps = (state) => ({
-    employeeId: state.employeeReducer.employee.id,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-    addCommunityService: (payload) => dispatch(handleAddCommunityService(payload)),
-    updateCommunityService: (payload) => dispatch(handleUpdateCommunityService(payload))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(CommunityServicesForm)
+export default CommunityServicesForm

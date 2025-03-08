@@ -1,16 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
 import {Card, Col, DatePicker, Form, Input, Row, Select} from "antd";
-import {connect} from "react-redux";
 import {useLocation} from "react-router-dom";
 import TlaSelect from "../../../../commons/tla/TlaSelect";
 import TlaFormWrapper from "../../../../commons/tla-form-wrapper";
-import {handleUpdateJobDetail} from "../../../../actions/employee/job-details/JobDetailsAction";
 import dayjs from "dayjs";
+import {useAppDispatch, useAppSelector} from "../../../../hooks";
+import {handleUpdateJobDetail} from "../../../../services/job-details.service";
 
-function JobDetailsForm(props) {
-    // const [selectedFile, setSelectedFile] = useState(null)
-    const {updateJobDetail, jobCategories, subUnits, employeeId, positions} = props;
+function JobDetailsForm() {
+    const dispatch = useAppDispatch()
+    const jobCategories = useAppSelector(state => state.common.commons.jobCategories)
+    const positions = useAppSelector(state => state.common.commons.positions)
+    const subUnits = useAppSelector(state => state.common.commons.subUnits)
+    const employeeId = useAppSelector(state => state.employee.employee.id)
 
     const {state} = useLocation();
 
@@ -23,7 +24,9 @@ function JobDetailsForm(props) {
         contract_start_date: newInfo?.contract_start_date ? dayjs(newInfo?.contract_start_date) : (state?.data ? dayjs(state?.data.contract_start_date) : null),
         contract_end_date: newInfo?.contract_end_date ? dayjs(newInfo?.contract_end_date) : (state?.data ? dayjs(state?.data.contract_end_date) : null),
     }
-
+    const onFinish = async (values: any) => {
+        await dispatch(handleUpdateJobDetail(values))
+    }
 
     const formValues = {
         id: 0,
@@ -37,7 +40,7 @@ function JobDetailsForm(props) {
             width={900}
             file={null}
             initialValues={formValues}
-            onSubmit={updateJobDetail}
+            onSubmit={onFinish}
             formTitle={`Edit Job Details`}>
             <div className={'flex sm:flex-wrap flex-nowrap'}>
                 <Row gutter={10}>
@@ -135,24 +138,4 @@ function JobDetailsForm(props) {
     );
 }
 
-JobDetailsForm.propTypes = {
-    updateJobDetail: PropTypes.func.isRequired,
-    jobCategories: PropTypes.array.isRequired,
-    positions: PropTypes.array.isRequired,
-    subUnits: PropTypes.array.isRequired,
-    employeeId: PropTypes.number.isRequired,
-
-};
-
-const mapStateToProps = (state) => ({
-    jobCategories: state.commonReducer.commons.jobCategories,
-    positions: state.commonReducer.commons.positions,
-    subUnits: state.commonReducer.commons.subUnits,
-    employeeId: state.employeeReducer.employee.id,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-    updateJobDetail: (payload) => dispatch(handleUpdateJobDetail(payload)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(JobDetailsForm);
+export default JobDetailsForm

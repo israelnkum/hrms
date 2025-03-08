@@ -1,4 +1,3 @@
-import React from 'react'
 import {FiCalendar, FiHome, FiInfo, FiSettings, FiUser} from "react-icons/fi";
 import {IoPeopleOutline} from "react-icons/io5";
 import Logo from '../../assets/img/ttuLogo.png'
@@ -9,7 +8,7 @@ import SideProfile from "./side-profile";
 import PropTypes from "prop-types";
 
 function AppMenus(props) {
-    const {name = 'User', collapsed = false, showProfile = true} = props
+    const {collapsed = false, showProfile = true} = props
     return (
         <>
             <div className={'flex justify-center items-center'}>
@@ -22,7 +21,7 @@ function AppMenus(props) {
             {
                 showProfile &&
                 <div>
-                    <SideProfile collapsed={collapsed} size={collapsed ? 30 : 50} name={name}/>
+                    <SideProfile collapsed={collapsed} size={collapsed ? 30 : 50}/>
                 </div>
             }
 

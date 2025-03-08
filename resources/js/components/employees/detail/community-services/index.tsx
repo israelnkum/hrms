@@ -32,12 +32,10 @@ function CommunityService() {
 
     return (
         <Spin spinning={ loading }>
-            {/*<FilterQualification/>*/ }
-            <TlaTableWrapper meta={ meta } extra={
-                <TlaAddNew link={ 'form' }>
-                    <Button>Add Service</Button>
-                </TlaAddNew>
-            } callbackFunction={ handleGetAllCommunityServices } data={ data }>
+            <TlaAddNew link={ 'form' }>
+                <Button>Add Service</Button>
+            </TlaAddNew>
+            <TlaTableWrapper meta={ meta } callbackFunction={ handleGetAllCommunityServices } data={ data }>
                 <Column title="Start Date" dataIndex={ 'start_date' }/>
                 <Column title="End Date" dataIndex={ 'end_date' }/>
 
@@ -46,7 +44,7 @@ function CommunityService() {
                 ) }/>
                 <Column title="Action" render={ (value) => (
                     <Space size={ 0 }>
-                        <TlaEdit icon data={ value } link={ 'form' } type={ 'text' }/>
+                        <TlaEdit data={ value } link={ 'form' }/>
                         <TlaConfirm title={ 'CommunityService' } callBack={ () => {
                             dispatch(handleDeleteCommunityService(value.id)).then(unwrapResult).then(() => TlaSuccess('Record Deleted'))
                         } }/>

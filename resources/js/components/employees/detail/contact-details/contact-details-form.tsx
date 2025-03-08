@@ -1,17 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
 import {Col, Form, Input, Row, Select} from "antd";
-import {connect} from "react-redux";
 import {useLocation} from "react-router-dom";
 import TlaSelect from "../../../../commons/tla/TlaSelect";
 import {useParams} from "react-router";
 import TlaFormWrapper from "../../../../commons/tla-form-wrapper";
 import {nationalities, regions} from "../../../../utils/nationalities";
-import {handleUpdateContactDetail} from "../../../../actions/employee/contact-details/ContactDetailsAction";
+import {handleUpdateContactDetail} from "../../../../services/contact-details.service";
 
-function ContactDetailsForm(props) {
+function ContactDetailsForm() {
     const {id} = useParams()
-    const { updateContactDetail } = props;
 
     const { state } = useLocation();
 
@@ -34,7 +30,7 @@ function ContactDetailsForm(props) {
     return (
         <TlaFormWrapper
             initialValues={formValues}
-            onSubmit={updateContactDetail}
+            onSubmit={handleUpdateContactDetail}
             formTitle={`Edit Contact Details`}>
             <Row gutter={10}>
                 <Col span={24}>
@@ -158,12 +154,4 @@ function ContactDetailsForm(props) {
     );
 }
 
-ContactDetailsForm.propTypes = {
-    updateContactDetail: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-    updateContactDetail: (payload) => dispatch(handleUpdateContactDetail(payload)),
-});
-
-export default connect(null, mapDispatchToProps)(ContactDetailsForm);
+export default ContactDetailsForm;

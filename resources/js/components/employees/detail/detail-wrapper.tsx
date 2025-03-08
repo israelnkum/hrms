@@ -1,4 +1,4 @@
-import {Col, List, Row} from "antd";
+import {Button, Col, List, Row} from "antd";
 import PropTypes from 'prop-types'
 import React from 'react'
 import UpdateBadge from "./update-bage.tsx";
@@ -12,7 +12,13 @@ function DetailWrapper({newData, oldData, fields, editLink = 'form'}) {
         <UpdateBadge display={newData !== null}>
             <Row gutter={10} justify={'space-between'}>
                 <Col span={24} className={'flex justify-end border-b pb-1'}>
-                    {/*<TlaEdit data={oldData} icon link={editLink} text={'Edit'}/>*/}
+                    <div className={'w-fit ml-auto py-2'}>
+                        <TlaEdit data={oldData} icon link={editLink}>
+                            <Button>
+                                Edit
+                            </Button>
+                        </TlaEdit>
+                    </div>
                 </Col>
                 <Col span={24}>
                     <List size="small"

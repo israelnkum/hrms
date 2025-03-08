@@ -1,4 +1,3 @@
-import React from 'react'
 import MenuHelper from "../../../../commons/menu-helper";
 import {Outlet} from "react-router";
 

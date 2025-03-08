@@ -1,29 +1,28 @@
-import { Button, Space, Spin, Table } from 'antd'
-
-import PropTypes from "prop-types";
-import React, { useEffect, useState } from 'react'
-import { connect } from "react-redux";
-import {
-    handleDeletePreviousPosition,
-    handleGetAllPreviousPositions
-} from "../../../../actions/employee/previous-positions/Action";
+import {Button, Space, Spin, Table} from 'antd'
+import {useEffect, useState} from 'react'
 import TlaTableWrapper from "../../../../commons/table/tla-table-wrapper";
 import TlaAddNew from "../../../../commons/tla-add-new";
 import TlaEdit from "../../../../commons/tla-edit";
 import TlaConfirm from "../../../../commons/TlaConfirm";
-import { TlaSuccess } from "../../../../utils/messages";
+import {TlaSuccess} from "../../../../utils/messages";
+import {useAppDispatch, useAppSelector} from "../../../../hooks";
+import {fetchPreviousPositions, removePreviousPosition} from "../../../../services/previous-position.service";
+import {unwrapResult} from "@reduxjs/toolkit";
 
 const { Column } = Table
 
-function PreviousPositions (props) {
-    const { getPreviousPositions, deletePreviousPositions, previousPositions, employeeId } = props
+function PreviousPositions () {
+    const {previousPositions} = useAppSelector(state => state.previousPosition);
+    const employeeId = useAppSelector(state => state.employee.employee.id);
+    const dispatch = useAppDispatch()
+
 
     const { data, meta } = previousPositions
 
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        getPreviousPositions(`employeeId=${employeeId}`).then(() => {
+        dispatch(fetchPreviousPositions(`employeeId=${employeeId}`)).then(() => {
             setLoading(false)
         })
     }, [])
@@ -34,16 +33,16 @@ function PreviousPositions (props) {
                 <TlaAddNew link={'form'}>
                     <Button>Add Previous Position</Button>
                 </TlaAddNew>
-            } callbackFunction={getPreviousPositions} data={data}>
+            } callbackFunction={fetchPreviousPositions} data={data}>
                 <Column title="Position" dataIndex={'name'}/>
                 <Column title="start" dataIndex={'relationship'}/>
                 <Column title="end" dataIndex={'email'}/>
 
                 <Column  title="Action" render={(value) => (
                     <Space size={0}>
-                        <TlaEdit icon data={value} link={'form'} type={'text'}/>
+                        <TlaEdit data={value} link={'form'}/>
                         <TlaConfirm title={'Position'} callBack={()=>{
-                            deletePreviousPositions(value.id).then(() => TlaSuccess('Position Deleted'))
+                            dispatch(removePreviousPosition(value.id)).then(unwrapResult).then(() => TlaSuccess('Position Deleted'))
                         }}/>
                     </Space>
                 )}/>
@@ -52,20 +51,5 @@ function PreviousPositions (props) {
     )
 }
 
-PreviousPositions.propTypes = {
-    getPreviousPositions: PropTypes.func.isRequired,
-    deletePreviousPositions: PropTypes.func.isRequired,
-    employeeId: PropTypes.number.isRequired,
-    previousPositions: PropTypes.object
-}
-const mapStateToProps = (state) => ({
-    previousPositions: state.previousPositionReducer.previousPositions,
-    employeeId: state.employeeReducer.employee.id
-})
 
-const mapDispatchToProps = (dispatch) => ({
-    getPreviousPositions: (params) => dispatch(handleGetAllPreviousPositions(params)),
-    deletePreviousPositions: (id) => dispatch(handleDeletePreviousPosition(id)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(PreviousPositions)
+export default PreviousPositions

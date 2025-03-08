@@ -206,7 +206,7 @@ class LeaveRequestController extends Controller
                 // notify supervisor
 //                $user->notify(new LeaveStatusNotification([
 //                    'leaveStatus' => $request->status,
-//                    'supervisor' => $user->employee->name,
+//                    'supervisor' => $user?->employee?->name ?? $user->username,
 //                    'employee' => $employeeUserAccount->employee->name,
 //                    'date' => $date
 //                ], true, $request->status === 'approved'));
@@ -282,7 +282,7 @@ class LeaveRequestController extends Controller
                     'hr_id' => $user?->employee->id
                 ]);
 
-                ActivityLog::add($user->employee->name . ' ' . $request->hr_status_update . ' leave request',
+                ActivityLog::add($user?->employee?->name ?? $user->username . ' ' . $request->hr_status_update . ' leave request',
                     $request->hr_status_update, [''], 'leave-request')
                     ->to($leaveRequest)
                     ->as($user);
@@ -321,7 +321,7 @@ class LeaveRequestController extends Controller
         ]);
 
         $user = Auth::user();
-        ActivityLog::add($user->employee->name . ' Moved leave request',
+        ActivityLog::add($user?->employee?->name ?? $user->username . ' Moved leave request',
             'Moved', [''], 'leave-request')
             ->to($leaveRequest)
             ->as($user);

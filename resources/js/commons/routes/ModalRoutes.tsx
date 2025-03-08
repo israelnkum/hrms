@@ -10,11 +10,13 @@ import PreviousRankForm from "../../components/employees/detail/previous-ranks/p
 import QualificationsForm from "../../components/employees/detail/qualifications/qualifications-form";
 import EmployeeForm from "../../components/employees/employee-form";
 import TimeOffForm from "../../components/time-off/time-off-form";
+import FilterEmployees from "../../components/employees/filter-employees";
 
 export const ModalRoutes = () => {
     return (
         <Routes>
             <Route path="employees">
+                <Route path="filter" element={<FilterEmployees/>}/>
                 <Route path="form" element={<EmployeeForm/>}/>
                 <Route path=":id/:name">
                     <Route path="edit" element={<EmployeeForm/>}/>

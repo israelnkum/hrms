@@ -5,7 +5,6 @@ import DetailWrapper from "../detail-wrapper";
 import {useAppDispatch, useAppSelector} from "../../../../hooks";
 import {fetchEmployee} from "../../../../services/employee.service";
 import {unwrapResult} from "@reduxjs/toolkit";
-import TlaEdit from "../../../../commons/tla-edit";
 
 function PersonalDetails() {
     const employee = useAppSelector(state => state.employee.employee)
@@ -13,13 +12,15 @@ function PersonalDetails() {
     const {id} = useParams()
     const {info_update} = employee
     const [loading, setLoading] = useState(true)
+
     useEffect(() => {
         dispatch(fetchEmployee(Number(id))).then(unwrapResult).then(() => setLoading(false))
     }, [])
+
     return (
         <ViewAllWrapper loading={loading} noData={false}>
-            <TlaEdit data={employee} link={`/employees/${id}/${employee.name}/edit`}/>
             <DetailWrapper
+                editLink={`/employees/${id}/${employee.name}/edit`}
                 oldData={employee}
                 newData={info_update}
                 fields={[

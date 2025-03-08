@@ -5,14 +5,29 @@ import {
     handleUpdateEmergencyContact
 } from "../services/emergency-contact.service";
 import {createSlice} from "@reduxjs/toolkit";
+import {EmergencyContactState} from "../types/emergency-contact";
 
-const initialState = {
+const initialState: EmergencyContactState = {
     emergencyContacts: {
         data: [],
-        meta: {},
+        meta: {
+            pageCount: 0,
+            currentPage: 0,
+            total: 0,
+            from: 0,
+            links: {
+                first: "",
+                last: "",
+                next: null,
+                prev: null
+            }
+        }
     },
     filter: {},
-    emergencyContact: {},
+    emergencyContact: {
+        id: 0,
+        name: ""
+    },
 };
 
 const emergencyContactSlice = createSlice({

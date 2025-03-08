@@ -1,7 +1,9 @@
 import {PaginatedData} from "./common";
 
 export type Employee = {
-    id: number
+    id: number,
+    name: string,
+    info_update?: any
 }
 
 

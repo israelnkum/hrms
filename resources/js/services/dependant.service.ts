@@ -23,7 +23,7 @@ export const handleAddDependant = createAsyncThunk(
  */
 export const handleGetAllDependants = createAsyncThunk(
     'dependants/getDependants',
-    async (params, { rejectWithValue }) => {
+    async (params: any, { rejectWithValue }) => {
         try {
             const response = await api().get(`/dependants?${params}`);
             return response.data; // return the data on success
@@ -53,7 +53,7 @@ export const handleGetSingleDependant = createAsyncThunk(
  */
 export const handleUpdateDependant = createAsyncThunk(
     'dependants/updateDependant',
-    async (data, { rejectWithValue }) => {
+    async (data: any, { rejectWithValue }) => {
         try {
             const response = await api().post(`/dependants/${data.get('id')}`, data);
             return response.data; // return the updated data on success

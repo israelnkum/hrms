@@ -24,7 +24,7 @@ export const handleAddCommunityService = createAsyncThunk(
  */
 export const handleGetAllCommunityServices = createAsyncThunk(
     'communityServices/getCommunityServices',
-    async (params, { rejectWithValue }) => {
+    async (params: any, { rejectWithValue }) => {
         try {
             const response = await api().get(`/community-services?${params}`);
             return response.data; // return the data on success
@@ -70,7 +70,7 @@ export const handleGetSingleCommunityService = createAsyncThunk(
  */
 export const handleUpdateCommunityService = createAsyncThunk(
     'communityServices/updateCommunityService',
-    async (data, { rejectWithValue }) => {
+    async (data: any, { rejectWithValue }) => {
         try {
             const response = await api().post(`/community-services/${data.get('id')}`, data, {
                 headers: { 'Content-type': 'multipart/form-data' }

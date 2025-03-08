@@ -1,46 +1,66 @@
-import { createSlice } from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit';
+import {
+    fetchPreviousPositions,
+    fetchPreviousPosition,
+    addPreviousPosition,
+    updatePreviousPosition,
+    removePreviousPosition
+} from '../services/previous-position.service';
+import {PreviousPositionState} from "../types/previous-positions";
 
-const initialState = {
+const initialState: PreviousPositionState = {
     previousPositions: {
         data: [],
-        meta: {}
+        meta: {
+            pageCount: 0,
+            currentPage: 0,
+            total: 0,
+            from: 0,
+            links: {
+                first: "",
+                last: "",
+                next: null,
+                prev: null
+            }
+        }
     },
-    filter: {},
-    previousPosition: {},
-}
+    previousPosition: {
+        id: 0,
+        info_update: undefined
+    }
+};
 
 const previousPositionSlice = createSlice({
     name: 'previousPosition',
     initialState,
-    reducers: {
-        getPreviousPositions: (state, action) => {
-            state.previousPositions = action.payload
-        },
-        getPreviousPosition: (state, action) => {
-            state.previousPosition = action.payload
-        },
-        addPreviousPosition: (state, action) => {
-            state.previousPositions.data.push(action.payload)
-        },
-        updatePreviousPosition: (state, action) => {
-            state.previousPositions.data = state.previousPositions.data.map((previousPosition) =>
-                previousPosition.id === action.payload.id ? action.payload : previousPosition
-            )
-        },
-        removePreviousPosition: (state, action) => {
-            state.previousPositions.data = state.previousPositions.data.filter(
-                (previousPosition) => previousPosition.id !== action.payload
-            )
-        },
-    },
-})
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchPreviousPositions.fulfilled, (state, action) => {
+                state.previousPositions = action.payload;
+            })
+            .addCase(fetchPreviousPosition.fulfilled, (state, action) => {
+                state.previousPosition = action.payload;
+            })
+            // Add Previous Position
+            .addCase(addPreviousPosition.fulfilled, (state, action) => {
+                state.previousPositions.data.push(action.payload);
+            })
 
-export const {
-    getPreviousPositions,
-    getPreviousPosition,
-    addPreviousPosition,
-    updatePreviousPosition,
-    removePreviousPosition,
-} = previousPositionSlice.actions
+            // Update Previous Position
+            .addCase(updatePreviousPosition.fulfilled, (state, action) => {
+                state.previousPositions.data = state.previousPositions.data.map((previousPosition) =>
+                    previousPosition.id === action.payload.id ? action.payload : previousPosition
+                );
+            })
 
-export default previousPositionSlice.reducer
+            // Remove Previous Position
+            .addCase(removePreviousPosition.fulfilled, (state, action) => {
+                state.previousPositions.data = state.previousPositions.data.filter(
+                    (previousPosition) => previousPosition.id !== action.payload
+                );
+            });
+    }
+});
+
+export default previousPositionSlice.reducer;

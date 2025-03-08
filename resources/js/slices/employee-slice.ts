@@ -47,7 +47,8 @@ const initialState: EmployeeState = {
         }
     },
     employee: {
-        id: 0
+        id: 0,
+        name: ''
     }
 }
 

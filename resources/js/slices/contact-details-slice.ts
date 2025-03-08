@@ -6,18 +6,30 @@ import {
     handleGetSingleContactDetail,
     handleUpdateContactDetail
 } from "../services/contact-details.service";
+import {ContactDetailState} from "../types/contact-detail";
 
 /**
  * Initial State
  */
-const initialState = {
+const initialState: ContactDetailState = {
     contactDetails: {
         data: [],
-        meta: {},
+        meta: {
+            pageCount: 0,
+            currentPage: 0,
+            total: 0,
+            from: 0,
+            links: {
+                first: "",
+                last: "",
+                next: null,
+                prev: null
+            }
+        },
     },
-    filter: {},
-    contactDetail: {},
-    error: null,
+    contactDetail: {
+        id: 0
+    }
 };
 
 /**

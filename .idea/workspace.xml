@@ -4,212 +4,81 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ec4b1c9b-8657-40fe-884b-b0524e51a8b1" name="Changes" comment="add qualification">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLinters/eslint.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/phpunit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/commons/routes/ProtectedRoutes-old.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/context/app-context.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/hooks/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/services/common.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/services/community-service.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/services/contact-details.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/services/dependant.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/services/emergency-contact.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/services/employee.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/services/job-details.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/services/next-of-kin.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/services/qualification.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/services/time-off.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/services/user.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/common-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/community-service-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/contact-details-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/dependants-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/direct-report-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/emergency-contact-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/employee-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/information-update-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/job-details-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/leave-management-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/leave-types-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/next-of-kin-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/notifications-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/people-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/previous-position-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/previous-rank-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/qualification-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/time-off-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/slices/user-slice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/types/common.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/types/employee.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vite.config.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/QualificationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/QualificationController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap/cache/packages.php" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap/cache/packages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap/cache/services.php" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap/cache/services.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/sanctum.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/phpunit.xml" beforeDir="false" afterPath="$PROJECT_DIR$/phpunit.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/postcss.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/postcss.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/51103eacf3bef7f35f0812db4ea611f7.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/51103eacf3bef7f35f0812db4ea611f7.js.LICENSE.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/fontawesome.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/ff2b3b2479e7a9fbaea2244ed1875dfa.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/FontAwesome.otf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/fontawesome-webfont.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/fontawesome-webfont.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/fontawesome-webfont.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/fontawesome-webfont.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/fontawesome-webfont.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/slick-carousel/slick/slick.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/slick-carousel/slick/slick.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/slick-carousel/slick/slick.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/fonts/vendor/slick-carousel/slick/slick.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/node_modules_pspdfkit_dist_pspdfkit_js.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/time-off/TimeOffAction.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/time-off/TimeOffAction.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/actions/users/UserRolesContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/actions/users/UserRolesContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/assets/css/tla-pagination.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/assets/css/tla-pagination.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/TlaConfirm.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/TlaConfirm.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/TlaWidget.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/app-layout/app-header.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/app-layout/app-menus.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/app-layout/app-sidebar.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/app-layout/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/app-layout/mobile-menu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/app-layout/side-profile.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/close-modal.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/filter/filter-wrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/filter/filter-wrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/menu-helper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/page-inner.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/page-wrapper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/pop-ups/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/pop-ups/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/pop-ups/tla-drawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/pop-ups/tla-drawer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/pop-ups/tla-modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/pop-ups/tla-modal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/preview-file.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/print/print-candidates-old.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/print/print-candidates.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/print/print-header.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/print/print-results.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/print/print-wrapper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/routes/ModalRoutes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/routes/ProtectedRoutes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/routes/notifications-route.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/search/tla-search.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/search/tla-search.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/table/TlaPagination.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/table/TlaPagination.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/table/tla-list-wrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/table/tla-list-wrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/table/tla-table-wrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/table/tla-table-wrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/tla-add-new.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/tla-delete.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/tla-edit.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/tla-form-wrapper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/tla-image.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/tla-page-header.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/tla-upload.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/tla/TlaSelect.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/tla/TlaSelect.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/validate-component.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/commons/view-all-wrapper.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/admin/page-crumbs.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/admin/page-crumbs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/admin/page-wrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/admin/page-wrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/commons/change-picture.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/commons/change-picture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/commons/form/employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/commons/form/employees.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/commons/form/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/commons/form/search.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/config/permissions.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/config/permissions.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/admin/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/announcements/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/celebrations/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/employee-chart.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/employee-dashboard/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/male-and-female.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/my-team/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/my-team/team-member.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/numbers/number-item.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/numbers/numbers-one.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/numbers/numbers.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/pending-actions/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/pending-actions/pending-item.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/ranks-chart.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/time-off/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/dashboard/who-is-out/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/all-employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/all-employees.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/TableContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/TableContent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/community-services/community-services-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/community-services/community-services-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/community-services/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/community-services/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/contact-details/contact-details-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/contact-details/contact-details-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/contact-details/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/contact-details/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/dependants/dependants-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/dependants/dependants-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/dependants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/dependants/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/detail-wrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/detail-wrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/display-item.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/display-item.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/emergency-contact/emergency-contact-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/emergency-contact/emergency-contact-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/emergency-contact/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/emergency-contact/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/employee-detail.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/employee-detail.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/job-detail/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/job-detail/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/job-detail/job-detail-wrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/job-detail/job-detail-wrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/job-detail/job-details-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/job-detail/job-details-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/navs.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/navs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/next-of-kin/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/next-of-kin/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/next-of-kin/next-of-kin-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/next-of-kin/next-of-kin-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/personal-details/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/personal-details/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/previous-positions/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/previous-positions/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/previous-positions/previous-position-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/previous-positions/previous-position-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/previous-ranks/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/previous-ranks/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/previous-ranks/previous-rank-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/previous-ranks/previous-rank-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/qualifications/filter-qualification.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/qualifications/filter-qualification.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/qualifications/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/qualifications/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/qualifications/qualifications-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/qualifications/qualifications-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/reports-to/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/reports-to/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/reports-to/subordinates.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/reports-to/subordinates.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/reports-to/supervisors.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/reports-to/supervisors.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/salary/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/salary/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/update-bage.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/update-bage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/employee-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/employee-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/filter-employees.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/filter-employees.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/update-notification.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/update-notification.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/roles/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/roles/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/roles/userRole.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/roles/userRole.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/time-off/all-time-offs.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/time-off/all-time-offs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/time-off/filter-time-offs.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/time-off/filter-time-offs.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/time-off/leave-status.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/time-off/leave-status.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/time-off/time-off-form.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/time-off/time-off-form.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/containers/home/HomeContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/containers/home/HomeContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/containers/users/AllUsersContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/containers/users/AllUsersContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/containers/users/UserContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/containers/users/UserContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/containers/users/UserRoleContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/containers/users/UserRoleContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/leave-management/leave-request/all-leave-requests.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/leave-management/leave-request/all-leave-requests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/leave-management/leave-request/filter-leave-requests.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/leave-management/leave-request/filter-leave-requests.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/notifications/info-update/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/notifications/info-update/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/notifications/leave/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/notifications/leave/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/notifications/notification-header.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/notifications/notification-header.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/pages/notifications/notifications-wrapper.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/notifications/notifications-wrapper.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/reducers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/utils/Store.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/utils/api.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/utils/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/utils/messages.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/utils/nationalities.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/utils/side-bar-menu.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app-voting.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/login.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.mix.js" beforeDir="false" />
+    <list default="true" id="ec4b1c9b-8657-40fe-884b-b0524e51a8b1" name="Changes" comment="commit">
+      <change afterPath="$PROJECT_DIR$/images.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/components/loading.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/pages/people/grid.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/pages/people/list.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/services/people.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/services/previous-position.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/services/previous-rank.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/types/community-services.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/types/contact-detail.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/types/dependant.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/types/emergency-contact.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/types/people.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/types/previous-positions.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/types/previous-ranks.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/js/types/qualification.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DependantController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DependantController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/EmployeeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/EmployeeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/JobDetailController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/JobDetailController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/LeaveRequestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/LeaveRequestController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/NextOfKinController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/NextOfKinController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/commons/app-layout/app-menus.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/app-layout/app-menus.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/commons/app-layout/app-sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/app-layout/app-sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/commons/filter/filter-wrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/filter/filter-wrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/commons/pop-ups/tla-drawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/pop-ups/tla-drawer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/commons/routes/ModalRoutes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/routes/ModalRoutes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/commons/routes/ProtectedRoutes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/routes/ProtectedRoutes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/commons/table/tla-table-wrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/table/tla-table-wrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/commons/tla-add-new.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/tla-add-new.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/commons/tla-form-wrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/commons/tla-form-wrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/all-employees.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/all-employees.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/community-services/community-services-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/community-services/community-services-form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/community-services/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/community-services/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/contact-details/contact-details-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/contact-details/contact-details-form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/dependants/dependants-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/dependants/dependants-form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/dependants/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/dependants/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/detail-wrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/detail-wrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/emergency-contact/emergency-contact-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/emergency-contact/emergency-contact-form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/emergency-contact/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/emergency-contact/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/job-detail/job-detail-wrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/job-detail/job-detail-wrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/job-detail/job-details-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/job-detail/job-details-form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/next-of-kin/next-of-kin-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/next-of-kin/next-of-kin-form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/personal-details/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/personal-details/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/previous-positions/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/previous-positions/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/previous-ranks/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/previous-ranks/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/qualifications/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/qualifications/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/detail/qualifications/qualifications-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/detail/qualifications/qualifications-form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/employee-form.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/employee-form.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/employees/filter-employees.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/employees/filter-employees.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/pages/people/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/pages/people/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/services/community-service.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/services/community-service.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/services/contact-details.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/services/contact-details.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/services/dependant.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/services/dependant.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/services/emergency-contact.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/services/emergency-contact.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/services/employee.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/services/employee.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/services/job-details.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/services/job-details.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/services/next-of-kin.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/services/next-of-kin.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/services/qualification.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/services/qualification.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/slices/common-slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/slices/common-slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/slices/community-service-slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/slices/community-service-slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/slices/contact-details-slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/slices/contact-details-slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/slices/dependants-slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/slices/dependants-slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/slices/emergency-contact-slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/slices/emergency-contact-slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/slices/employee-slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/slices/employee-slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/slices/people-slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/slices/people-slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/slices/previous-position-slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/slices/previous-position-slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/slices/previous-rank-slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/slices/previous-rank-slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/slices/qualification-slice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/slices/qualification-slice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/types/common.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/types/common.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/types/employee.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/types/employee.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/utils/messages.ts" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/utils/messages.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/logs/laravel.log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -429,7 +298,7 @@
     "git-widget-placeholder": "feat/upgrade",
     "javascript.nodejs.core.library.configured.version": "22.14.0",
     "javascript.nodejs.core.library.typings.version": "22.13.9",
-    "last_opened_file_path": "/Applications/XAMPP/xamppfiles/htdocs/hrms/resources/js/services",
+    "last_opened_file_path": "/Applications/XAMPP/xamppfiles/htdocs/hrms/resources/js/components",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
@@ -450,11 +319,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/js/components" />
+      <recent name="$PROJECT_DIR$/resources/js/pages/people" />
+      <recent name="$PROJECT_DIR$/resources/js/types" />
       <recent name="$PROJECT_DIR$/resources/js/services" />
       <recent name="$PROJECT_DIR$/resources/js" />
-      <recent name="$PROJECT_DIR$/resources/js/hooks" />
-      <recent name="$PROJECT_DIR$/resources/js/commons/routes" />
-      <recent name="$PROJECT_DIR$/resources/js/components/commons" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -479,7 +348,7 @@
       <workItem from="1741147942838" duration="15000" />
       <workItem from="1741147966807" duration="26875000" />
       <workItem from="1741285075351" duration="9876000" />
-      <workItem from="1741327986564" duration="13357000" />
+      <workItem from="1741327986564" duration="33777000" />
     </task>
     <task id="LOCAL-00001" summary="add new models for directory">
       <option name="closed" value="true" />
@@ -505,7 +374,23 @@
       <option name="project" value="LOCAL" />
       <updated>1741107289105</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="commit">
+      <option name="closed" value="true" />
+      <created>1741361181222</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1741361181222</updated>
+    </task>
+    <task id="LOCAL-00005" summary="commit">
+      <option name="closed" value="true" />
+      <created>1741361315064</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1741361315064</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -515,7 +400,8 @@
     <MESSAGE value="add new models for directory" />
     <MESSAGE value="add auth api" />
     <MESSAGE value="add qualification" />
-    <option name="LAST_COMMIT_MESSAGE" value="add qualification" />
+    <MESSAGE value="commit" />
+    <option name="LAST_COMMIT_MESSAGE" value="commit" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

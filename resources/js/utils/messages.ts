@@ -1,6 +1,6 @@
 import { notification } from 'antd'
 
-export const TlaSuccess = (msg = null) => (
+export const TlaSuccess = (msg: string | null = null) => (
     notification.success({
         message: 'Success',
         description: msg,

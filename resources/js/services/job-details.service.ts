@@ -69,7 +69,7 @@ export const handleGetSingleJobDetail = createAsyncThunk(
  */
 export const handleUpdateJobDetail = createAsyncThunk(
     "jobDetails/updateJobDetail",
-    async (data, { rejectWithValue }) => {
+    async (data: any, { rejectWithValue }) => {
         try {
             const response = await api().post(
                 `/job-details/${data.get("id")}`,

@@ -32,13 +32,11 @@ function Qualifications() {
 
     return (
         <Spin spinning={loading}>
+            <TlaAddNew link={'form'}>
+                <Button>Add Qualification</Button>
+            </TlaAddNew>
             {/*<FilterQualification/>*/}
-            <TlaTableWrapper meta={meta} extra={
-                <TlaAddNew link={'form'}>
-                    <Button>Add Qualification</Button>
-                </TlaAddNew>
-            } callbackFunction={() => {
-            }} data={data}>
+            <TlaTableWrapper meta={meta} callbackFunction={handleGetAllQualifications} data={data}>
                 {
                     ['institution', 'qualification', 'date']
                         .map((item, index) => (
@@ -73,7 +71,7 @@ function Qualifications() {
                 )}/>
                 <Column title="Action" render={(value) => (
                     <Space size={0}>
-                        <TlaEdit icon data={value} link={'form'} type={'text'}/>
+                        <TlaEdit data={value} link={'form'}/>
                         <TlaConfirm title={'Qualification'} callBack={() => {
                             dispatch(handleDeleteQualification(value.id)).then(unwrapResult).then(() => TlaSuccess('Record Deleted'))
                         }}/>

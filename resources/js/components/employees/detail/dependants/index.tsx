@@ -29,12 +29,11 @@ function Dependant() {
 
     return (
         <Spin spinning={ loading }>
+            <TlaAddNew link={ 'form' }>
+                <Button>Add Dependant</Button>
+            </TlaAddNew>
             {/*<FilterQualification/>*/ }
-            <TlaTableWrapper meta={ meta } extra={
-                <TlaAddNew link={ 'form' }>
-                    <Button>Add Dependant</Button>
-                </TlaAddNew>
-            } callbackFunction={ handleGetAllDependants } data={ data }>
+            <TlaTableWrapper meta={ meta } callbackFunction={ handleGetAllDependants } data={ data }>
                 {
                     ['name', 'relationship', 'dob', 'phone_number', 'alt_phone_number']
                         .map((item, index) => (
@@ -46,7 +45,7 @@ function Dependant() {
                 }
                 <Column title="Action" render={ (value) => (
                     <Space size={ 0 }>
-                        <TlaEdit icon data={ value } link={ 'form' } type={ 'text' }/>
+                        <TlaEdit data={ value } link={ 'form' }/>
                         <TlaConfirm title={ 'Dependant' } callBack={ () => {
                             dispatch(handleDeleteDependant(value.id)).then(unwrapResult).then(() => TlaSuccess('Record Deleted'))
                         } }/>

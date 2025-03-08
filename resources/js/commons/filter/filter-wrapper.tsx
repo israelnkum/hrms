@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Card, Form, Input } from "antd";
 import { FiFilter, FiPrinter } from "react-icons/fi";

@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
-import React from 'react'
-import {useSelector} from "react-redux";
 import AppMenus from "./app-menus";
+import {useAppSelector} from "../../hooks";
 
-function AppSidebar(props) {
-    const {loggedInUser } = useSelector((state) => state.user)
-    const {collapsed = false} = props
+interface Props {
+    collapsed?: boolean
+}
+function AppSidebar({ collapsed = false }: Props) {
+    const {loggedInUser } = useAppSelector((state) => state.user)
 
     return (
         <div className={'shadow-lg h-screen'}>
@@ -15,7 +16,6 @@ function AppSidebar(props) {
 }
 
 AppSidebar.propTypes = {
-    name: PropTypes.string,
     collapsed: PropTypes.bool,
 }
 

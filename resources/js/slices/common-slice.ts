@@ -12,7 +12,11 @@ import {CommonState} from "../types/common";
 const initialState: CommonState = {
     commons: {
         ranks: [],
-        departments: []
+        departments: [],
+        jobCategories: [],
+        educationalLevels: [],
+        positions: [],
+        subUnits: [],
     },
     pendingActions: {},
     teamMembers: [],

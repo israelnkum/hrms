@@ -1,20 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 import {
     handleAddCommunityService,
+    handleDeleteCommunityService,
     handleGetAllCommunityServices,
-    handleExportCommunityServices,
     handleGetSingleCommunityService,
-    handleUpdateCommunityService,
-    handleDeleteCommunityService
+    handleUpdateCommunityService
 } from '../services/community-service.service';
+import {CommunityServiceState} from "../types/community-services";
 
-const initialState = {
+const initialState: CommunityServiceState = {
     communityServices: {
         data: [],
-        meta: {},
+        meta: {
+            pageCount: 0,
+            currentPage: 0,
+            total: 0,
+            from: 0,
+            links: {
+                first: "",
+                last: "",
+                next: null,
+                prev: null
+            }
+        }
     },
-    filter: {},
-    communityService: {},
+    communityService: {
+        id: 0,
+        info_update: undefined
+    }
 };
 
 const communityServiceSlice = createSlice({
@@ -30,11 +43,6 @@ const communityServiceSlice = createSlice({
         // Handle fulfilled case for getting all community services
         builder.addCase(handleGetAllCommunityServices.fulfilled, (state, action) => {
             state.communityServices = action.payload; // Replace the current list with the fetched list
-        });
-
-        // Handle fulfilled case for exporting community services
-        builder.addCase(handleExportCommunityServices.fulfilled, (state, action) => {
-            // No state update required for export, as it's just a file download
         });
 
         // Handle fulfilled case for getting a single community service

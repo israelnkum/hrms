@@ -1,28 +1,41 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchPeople } from "../services/people.service";
+import {PeopleState} from "../types/people";
 
-const initialState = {
+const initialState: PeopleState = {
     people: {
         data: [],
-        meta: {}
+        meta: {
+            pageCount: 0,
+            currentPage: 0,
+            total: 0,
+            from: 0,
+            links: {
+                first: "",
+                last: "",
+                next: null,
+                prev: null
+            }
+        }
     },
-    filter: {
-        department_id: 'all',
-        rank_id: 'all',
-        educational_level_id: 'all',
-        job_category_id: 'all'
-    }
-}
+    person: {
+        id: 0,
+        name: "",
+    },
+    filter: undefined
+};
 
 const peopleSlice = createSlice({
-    name: 'people',
+    name: "people",
     initialState,
-    reducers: {
-        getPeople: (state, action) => {
-            state.people = action.payload
-        },
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchPeople.fulfilled, (state, action) => {
+                state.people = action.payload.people;
+                state.filter = action.payload.filters;
+            });
     },
-})
+});
 
-export const { getPeople } = peopleSlice.actions
-
-export default peopleSlice.reducer
+export default peopleSlice.reducer;

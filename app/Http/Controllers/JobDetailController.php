@@ -84,7 +84,7 @@ class JobDetailController extends Controller
 
             $user = Auth::user();
 
-            ActivityLog::add($user->employee->name . 'update the job details for ' . $jobDetail->employee->name,
+            ActivityLog::add($user?->employee?->name ?? $user->username . 'update the job details for ' . $jobDetail->employee->name,
                 'updated', [''], 'job-details')
                 ->to($jobDetail)
                 ->as($user);

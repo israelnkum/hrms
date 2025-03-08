@@ -27,6 +27,10 @@ export interface CommonState {
     commons: {
         ranks: CommonType[]
         departments: CommonType[],
+        jobCategories: CommonType[],
+        positions: CommonType[],
+        educationalLevels: CommonType[],
+        subUnits: CommonType[],
     },
     pendingActions: any,
     teamMembers: any,

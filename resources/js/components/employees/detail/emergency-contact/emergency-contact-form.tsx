@@ -1,18 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import {Col, Form, Input, Row} from 'antd'
-import {connect} from 'react-redux'
 import {useLocation} from "react-router-dom";
-import {
-    handleAddEmergencyContact,
-    handleUpdateEmergencyContact
-} from "../../../../actions/employee/emergency-contacts/EmergencyContactAction";
 import TlaFormWrapper from "../../../../commons/tla-form-wrapper";
 import TlaSelect from "../../../../commons/tla/TlaSelect";
 import {relationships} from "../../../../utils/nationalities";
+import {useAppSelector} from "../../../../hooks";
+import {
+    handleAddEmergencyContact,
+    handleUpdateEmergencyContact
+} from "../../../../services/emergency-contact.service";
 
-function EmergencyContactForm (props) {
-    const { addEmergencyContact, updateEmergencyContact, employeeId } = props
+function EmergencyContactForm () {
+    const employeeId = useAppSelector(state => state.employee.employee.id)
+
     const { state } = useLocation()
     const formValues = {
         id: 0,
@@ -24,7 +23,7 @@ function EmergencyContactForm (props) {
     return (
         <TlaFormWrapper
             initialValues={formValues}
-            onSubmit={formValues.id === 0 ? addEmergencyContact : updateEmergencyContact}
+            onSubmit={formValues.id === 0 ? handleAddEmergencyContact : handleUpdateEmergencyContact}
             formTitle={(formValues.id === 0 ? 'New' : 'Edit') + ' Emergency Contact'}>
             <Row gutter={10}>
                 <Col span={12}>
@@ -61,11 +60,11 @@ function EmergencyContactForm (props) {
                     <Form.Item name="email" label="Email"
                                rules={[
                                    {
-                                       required: true,
-                                       message: 'Email is Required'
+                                       type: "email",
+                                       message: 'Not a valid email'
                                    }
                                ]}>
-                        <Input htmlType={'email'} size={'large'}/>
+                        <Input size={'large'}/>
                     </Form.Item>
                 </Col>
                 <Col>
@@ -93,19 +92,4 @@ function EmergencyContactForm (props) {
     )
 }
 
-EmergencyContactForm.propTypes = {
-    addEmergencyContact: PropTypes.func.isRequired,
-    updateEmergencyContact: PropTypes.func.isRequired,
-    employeeId: PropTypes.number.isRequired,
-}
-
-const mapStateToProps = (state) => ({
-    employeeId: state.employeeReducer.employee.id,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-    addEmergencyContact: (payload) => dispatch(handleAddEmergencyContact(payload)),
-    updateEmergencyContact: (payload) => dispatch(handleUpdateEmergencyContact(payload))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(EmergencyContactForm)
+export default EmergencyContactForm

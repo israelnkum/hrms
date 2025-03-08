@@ -4,7 +4,7 @@ import {useLocation} from "react-router-dom";
 import TlaFormWrapper from "../../commons/tla-form-wrapper";
 import TlaSelect from "../../commons/tla/TlaSelect";
 import {useAppSelector} from "../../hooks";
-import {handleAddEmployee, handleUpdateEmployee} from "../../actions/employee/EmployeeAction";
+import {addEmployee, updateEmployee} from "../../services/employee.service";
 
 
 function EmployeeForm() {
@@ -34,7 +34,7 @@ function EmployeeForm() {
             width={formValues.id === 0 ? 520 : 700}
             file={null}
             initialValues={formValues}
-            onSubmit={formValues.id === 0 ? handleAddEmployee : handleUpdateEmployee}
+            onSubmit={formValues.id === 0 ? addEmployee : updateEmployee}
             formTitle={`${(formValues.id === 0 ? "New" : "Edit")} Employee`}>
             <Row gutter={10}>
                 <Render editing={false}>

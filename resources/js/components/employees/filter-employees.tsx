@@ -1,64 +1,33 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from "react-redux";
-import {Col, Row} from "antd";
-import FilterWrapper from "../../commons/filter/filter-wrapper";
-import {handleExportEmployees, handleGetAllEmployees} from "../../actions/employee/EmployeeAction";
+import {Form} from "antd";
 import TlaSelect from "../../commons/tla/TlaSelect";
+import {useAppSelector} from "../../hooks";
+import TlaDrawer from "../../commons/pop-ups/tla-drawer";
 
-function FilterEmployees (props) {
-    const { submitFilter, filter, exportFilter, departments, ranks, jobCategories } = props
+function FilterEmployees() {
+    const {departments, ranks, jobCategories} = useAppSelector(state => state.common.commons)
+    const filter = useAppSelector(state => state.employee.filter)
+
+    // const { submitFilter, filter, exportFilter, departments, ranks, jobCategories } = props
     const initials = {
         ...filter,
         export: false
     }
 
     return (
-       <FilterWrapper initialValue={initials} submitFilter={submitFilter} exportFilter={exportFilter}>
-           {/*<div>
-               <Form.Item name="date" label="Date">
-                   <DatePicker.RangePicker />
-               </Form.Item>
-           </div>*/}
-           <Row gutter={10}>
-               <Col span={6} xs={24} sm={24} md={6} lg={6} xl={6}>
-                   <TlaSelect hasAll name={'department_id'} optionKey={'name'} options={departments} label={'departments'}/>
-               </Col>
-               <Col span={6} xs={24} sm={24} md={6} lg={6} xl={6}>
-                   <TlaSelect hasAll name={'rank_id'} optionKey={'name'} options={ranks} label={'ranks'}/>
-               </Col>
-               {/*<Col span={6}>
-                   <TlaSelect hasAll name={'educational_level_id'} optionKey={'name'} options={educationalLevels} label={'educational Levels'}/>
-               </Col>*/}
-               <Col span={6} xs={24} sm={24} md={6} lg={6} xl={6}>
-                   <TlaSelect hasAll name={'job_category_id'} optionKey={'name'} options={jobCategories} label={'job Categories'}/>
-               </Col>
-           </Row>
-       </FilterWrapper>
+        <TlaDrawer className={'w-92'}>
+            <div className={'p-5'}>
+                <Form layout={'vertical'} className={'capitalize'} size={'large'}>
+                    <div className={'grid grid-cols-1'}>
+                        <TlaSelect hasAll name={'department_id'} optionKey={'name'} options={departments}
+                                   label={'departments'}/>
+                        <TlaSelect hasAll name={'rank_id'} optionKey={'name'} options={ranks} label={'ranks'}/>
+                        <TlaSelect hasAll name={'job_category_id'} optionKey={'name'} options={jobCategories}
+                                   label={'job Categories'}/>
+                    </div>
+                </Form>
+            </div>
+        </TlaDrawer>
     )
 }
 
-FilterEmployees.propTypes = {
-    submitFilter: PropTypes.func,
-    exportFilter: PropTypes.func,
-    filter: PropTypes.object,
-    departments: PropTypes.array,
-    ranks: PropTypes.array,
-    educationalLevels: PropTypes.array,
-    jobCategories: PropTypes.array,
-}
-
-const mapStateToProps = (state) => ({
-    filter: state.employeeReducer.filter,
-    departments: state.commonReducer.commons.departments,
-    ranks: state.commonReducer.commons.ranks,
-    educationalLevels: state.commonReducer.commons.educationalLevels,
-    jobCategories: state.commonReducer.commons.jobCategories
-})
-
-const mapDispatchToProps = (dispatch) => ({
-    submitFilter: (params) => dispatch(handleGetAllEmployees(params)),
-    exportFilter: (params) => dispatch(handleExportEmployees(params)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(FilterEmployees)
+export default FilterEmployees

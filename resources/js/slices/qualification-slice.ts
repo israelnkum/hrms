@@ -4,17 +4,28 @@ import {
     handleGetAllQualifications,
     handleGetSingleQualification, handleUpdateQualification
 } from "../services/qualification.service";
+import {QualificationState} from "../types/qualification";
 
 /**
  * Initial state
  */
-const initialState = {
+const initialState: QualificationState = {
     qualifications: {
         data: [],
-        meta: {},
+        meta: {
+            pageCount: 0,
+            currentPage: 0,
+            total: 0,
+            from: 0,
+            links: {
+                first: "",
+                last: "",
+                next: null,
+                prev: null
+            }
+        },
     },
-    filter: {},
-    qualification: {},
+    qualification: { id: 0 },
 };
 
 /**
